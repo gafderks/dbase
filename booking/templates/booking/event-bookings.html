@@ -1,0 +1,80 @@
+{% extends "booking/base.html" %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+    <h1>Zomerspelen 2020 <small class="text-muted">Groep 5-6</small></h1>
+
+    <p class="lead">{% trans "Material bookings" %}</p>
+
+    <div class="card">
+      <div class="card-header">
+        <ul class="nav nav-pills card-header-pills">
+          <li class="nav-item">
+            <a class="nav-link active" href="#">Maandag</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Dinsdag</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Woensdag</a>
+          </li>
+            <li class="nav-item">
+            <a class="nav-link" href="#">Donderdag</a>
+          </li>
+            <li class="nav-item">
+            <a class="nav-link" href="#">Vrijdag</a>
+          </li>
+            <li class="nav-item">
+            <a class="nav-link" href="#">Zaterdag</a>
+          </li>
+            <li class="nav-item">
+            <a class="nav-link" href="#">Zondag</a>
+          </li>
+        </ul>
+      </div>
+      <div class="card-body">
+        <div class="card game">
+          <div class="card-header">
+            Mollen vangen
+          </div>
+          <div class="card-body">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">{% trans "Material" %}</th>
+                  <th scope="col">{% trans "Amount" %}</th>
+                  <th scope="col">{% trans "Comment" %}</th>
+                  <th scope="col">{% trans "Workweek" %}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">1</th>
+                  <td>Mark</td>
+                  <td>Otto</td>
+                  <td>@mdo</td>
+                </tr>
+                <tr>
+                  <th scope="row">2</th>
+                  <td>Jacob</td>
+                  <td>Thornton</td>
+                  <td>@fat</td>
+                </tr>
+                <tr>
+                  <th scope="row">3</th>
+                  <td>Larry</td>
+                  <td>the Bird</td>
+                  <td>@twitter</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+
+{% endblock %}

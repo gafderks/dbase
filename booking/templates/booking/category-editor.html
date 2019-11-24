@@ -1,0 +1,49 @@
+{% extends "booking/base.html" %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+    <h1>{% trans "Add new category" %}</h1>
+    {% crispy form %}
+
+    <table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>{% trans "Category" %}</th>
+      <th>{% trans "Description" %}</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for category in categories %}
+      <tr>
+        <td>{{ category.name }}</td>
+        <td>{{ category.description }}</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% if categories.has_other_pages %}
+  <ul class="pagination">
+    {% if categories.has_previous %}
+      <li><a href="?page={{ categories.previous_page_number }}">&laquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&laquo;</span></li>
+    {% endif %}
+    {% for i in categories.paginator.page_range %}
+      {% if categories.number == i %}
+        <li class="active"><span>{{ i }} <span class="sr-only">{% trans "(current)" %}</span></span></li>
+      {% else %}
+        <li><a href="?page={{ i }}">{{ i }}</a></li>
+      {% endif %}
+    {% endfor %}
+    {% if categories.has_next %}
+      <li><a href="?page={{ categories.next_page_number }}">&raquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&raquo;</span></li>
+    {% endif %}
+  </ul>
+{% endif %}
+
+{% endblock %}

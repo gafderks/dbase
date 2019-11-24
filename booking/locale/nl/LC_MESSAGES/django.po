@@ -1,0 +1,59 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-11-14 20:40+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: .\forms.py:15
+msgid "Name"
+msgstr "Naam"
+
+#: .\forms.py:16
+msgid "Description"
+msgstr "Omschrijving"
+
+#: .\forms.py:17
+msgid "Category"
+msgstr "Categorie"
+
+#: .\forms.py:18
+msgid "GM"
+msgstr "GM"
+
+#: .\forms.py:19
+msgid "Image"
+msgstr "Afbeelding"
+
+#: .\forms.py:22
+msgid "Needs GM?"
+msgstr "GM nodig?"
+
+#: .\forms.py:33
+msgid "Submit"
+msgstr "Verzenden"
+
+#: .\models.py:29
+msgid "material"
+msgstr "materiaal"
+
+#: .\models.py:30
+msgid "materials"
+msgstr "materialen"
+
+#: .\templates\booking\material.html:7
+msgid "Add new material"
+msgstr "Nieuw materiaal toevoegen"
