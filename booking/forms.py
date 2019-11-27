@@ -12,7 +12,7 @@ class MaterialForm(forms.ModelForm):
         model = Material
         fields = '__all__'
         help_texts = {
-            'gm': _('Needs GM?')
+
         }
         error_messages = {
 
