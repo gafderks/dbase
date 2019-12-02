@@ -9,6 +9,7 @@ class CategoryAdmin(admin.ModelAdmin):
 
 class MaterialImageInline(admin.StackedInline):
     model = MaterialImage
+    readonly_fields = ['image_tag']
 
 
 class MaterialAliasInline(admin.StackedInline):
@@ -17,7 +18,7 @@ class MaterialAliasInline(admin.StackedInline):
 
 class MaterialAdmin(admin.ModelAdmin):
     list_display = ('name', 'description')
-    list_filter = ['category']
+    list_filter = ['categories']
     search_fields = ['name']
     inlines = [
         MaterialImageInline,

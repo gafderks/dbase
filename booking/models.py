@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
 
 
@@ -39,9 +40,9 @@ class Location(models.Model):
 
 
 class Material(models.Model):
-    name = models.CharField(verbose_name=_('name'), max_length=150)
+    name = models.CharField(verbose_name=_('name'), max_length=150, unique=True)
     description = models.CharField(verbose_name=_('description'), max_length=250, blank=True)
-    category = models.ManyToManyField(Category)
+    categories = models.ManyToManyField(Category)
     gm = models.BooleanField(verbose_name=_('GM'), help_text=_('Is GM needed for this material?'))
     lendable = models.BooleanField(verbose_name=_('lendable'), default=True,
                                    help_text=_('Should this material be shown for lending?'))
@@ -61,8 +62,13 @@ class Material(models.Model):
 
 
 class MaterialImage(models.Model):
-    image = models.ImageField(verbose_name=_('image'))
+    image = models.ImageField(upload_to='materials', verbose_name=_('image'))
     material = models.ForeignKey(Material, related_name='images', on_delete=models.DO_NOTHING)
+
+    def image_tag(self):
+        return mark_safe('<img src="{}" width="150" height="150" />'.format(self.image.url))
+
+    image_tag.short_description = 'Preview'
 
     class Meta:
         verbose_name = _('material image')
@@ -70,7 +76,7 @@ class MaterialImage(models.Model):
 
 
 class MaterialAlias(models.Model):
-    name = models.CharField(verbose_name=_('name'), max_length=150,
+    name = models.CharField(verbose_name=_('name'), max_length=150, unique=True,
                             help_text=_('Alias for the material, e.g. aliases for "stormbaan" are "Kelly" and '
                                         '"Rambler".'))
     material = models.ForeignKey(Material, on_delete=models.DO_NOTHING)
@@ -116,7 +122,7 @@ class Game(models.Model):
 
 
 class Group(models.Model):
-    name = models.CharField(max_length=250)
+    name = models.CharField(max_length=250, unique=True)
 
     class Meta:
         verbose_name = _('group')

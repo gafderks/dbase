@@ -14,7 +14,7 @@ def load_initial_data(apps, schema_editor):
         # This is where your migration logic will go.
         # For my use case i needed to get unique businesses and
         # transform data from the csv file into the schema i wanted
-        with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'materiaal.csv')) as csv_file:
+        with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), '../migrations/materiaal.csv')) as csv_file:
             reader = csv.reader(csv_file, delimiter=',', quotechar='"')
             header = next(reader)
 
