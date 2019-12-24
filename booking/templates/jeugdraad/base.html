@@ -1,0 +1,20 @@
+{% extends "jeugdraad/blank.html" %}
+
+{% block body_class %}clouds{% endblock %}
+
+{% block layout %}
+
+<header>
+{% include "jeugdraad/navigation.html" %}
+</header>
+
+<main class="container bg-light p-5 shadow">
+{% block content %}
+
+{% endblock %}
+</main>
+
+{% include "jeugdraad/footer.html" %}
+
+{% endblock %}
+
