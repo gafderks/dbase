@@ -1,44 +1,40 @@
 {% extends "jeugdraad/blank.html" %}
 {% load static %}
 {% load i18n %}
+{% load crispy_forms_tags %}
 
 {% block body_class %}clouds{% endblock %}
 
 {% block styles %}
-  {{ block.super }}
+    {{ block.super }}
   <link href="{% static "booking/floating-labels.css" %}" rel="stylesheet">
+
+  <style type="text/css">
+    .frosted {
+      background-color: rgba(255, 255, 255, .35);
+      backdrop-filter: blur(5px);
+    }
+
+    .signin-container {
+      width: 100%;
+      max-width: 420px;
+      padding: 15px;
+      margin: auto;
+    }
+  </style>
 {% endblock %}
 
 {% block layout %}
-
-  <main class="bg-light p-5 shadow m-sm-auto d-flex align-items-center col-md-6 col-sm-8 col-xl-4">
-   <form class="form-signin">
-     {% csrf_token %}
-  <div class="text-center mb-4">
-    <img class="mb-4" src="{% static "booking/logo_small.png" %}" alt="" width="66" height="60">
-    <h1 class="h3 mb-3 font-weight-normal">DBase</h1>
-    <p>{% trans "Login to enter the DBase." %}</p>
-  </div>
-
-  <div class="form-label-group">
-    <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
-    <label for="inputEmail">Email address</label>
-  </div>
-
-  <div class="form-label-group">
-    <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
-    <label for="inputPassword">Password</label>
-  </div>
-
-  <div class="checkbox mb-3">
-    <label>
-      <input type="checkbox" value="remember-me"> Remember me
-    </label>
-  </div>
-  <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-  <p class="mt-5 mb-3 text-muted text-center">&copy; 2019-{% now "Y" %}</p>
-</form>
+  <main class="frosted p-5 shadow m-sm-auto d-flex align-items-center col-md-6 col-sm-8 col-xl-4">
+    <div class="signin-container">
+      <div class="text-center mb-4">
+        <img class="mb-4" src="{% static "booking/logo_121x110.png" %}" alt="" width="121" height="110">
+        <h1 class="h3 mb-3 font-weight-normal">DBase</h1>
+        <p>{% trans "Login to enter the DBase." %}</p>
+      </div>
+        {% crispy form %}
+      <p class="mt-5 mb-0 text-muted text-center">&copy; 2019-{% now "Y" %}</p>
+    </div>
   </main>
-
-  {% include "jeugdraad/footer.html" %}
+    {% include "jeugdraad/footer.html" %}
 {% endblock %}

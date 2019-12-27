@@ -5,7 +5,14 @@
 {% block footer %}
   <footer class="footer mt-auto pb-3">
     <div class="container">
-      <span class="text-muted">{% trans "&copy; Stichting Dongense Jeudgraad" %}</span>
+      <p class="float-md-right">
+        <a href="https://github.com/gafderks/dbase/issues/new" class="text-muted">
+          <i class="fas fa-bug"></i> {% trans "Submit an issue" %}
+        </a>
+      </p>
+      <p class="float-md-left">
+        <a href="https://www.dongensejeugdraad.nl/" class="text-muted">{% trans "&copy; Stichting Dongense Jeudgraad" %}</a>
+      </p>
     </div>
   </footer>
 {% endblock %}
