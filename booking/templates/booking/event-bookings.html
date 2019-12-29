@@ -1,41 +1,58 @@
 {% extends "jeugdraad/base.html" %}
 {% load i18n %}
 {% load crispy_forms_tags %}
+{% load compress %}
+
+{% block body_attrs %}{{ block.super }} data-spy="scroll" data-target="#scroll_pills" data-offset="100"{% endblock %}
 
 {% block content %}
 
-    <h1>Zomerspelen 2020 <small class="text-muted">Groep 5-6</small></h1>
+    <div class="clearfix">
+    <h1 class="float-left">{{ current_event.name }}</h1>
 
+      <div class="dropdown float-right">
+      <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Groep 5-6
+      </button>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="z-index: 3000;">
+        <a class="dropdown-item" href="#">Groep 1-2N</a>
+        <a class="dropdown-item" href="#">Groep 1-2H</a>
+        <a class="dropdown-item" href="#">Groep 3-4</a>
+        <a class="dropdown-item" href="#">Groep 5-6</a>
+        <a class="dropdown-item" href="#">Groep 7-8</a>
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item" href="#">Feestzaal</a>
+        <a class="dropdown-item" href="#">COS</a>
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item" href="#">All</a>
+      </div>
+    </div>
+  </div>
+
+    <p class="text-muted font-italic"><i class="far fa-calendar-alt"></i> {{ current_event.event_start }} - {{ current_event.event_end }}</p>
+    <p class="text-muted font-italic"><i class="fas fa-lock-open"></i> {{ current_event.booking_start }} - {{ current_event.booking_end }}</p>
     <p class="lead">{% trans "Material bookings" %}</p>
 
-    <div class="card">
-      <div class="card-header">
-        <ul class="nav nav-pills card-header-pills">
-          <li class="nav-item">
-            <a class="nav-link active" href="#">Maandag</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Dinsdag</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Woensdag</a>
-          </li>
+
+  <div class="card position-relative booking-card">
+      <nav class="card-header sticky-top frosted" id="scroll_pills">
+
+          <ul class="nav nav-pills card-header-pills">
+            {% for day in current_event.days %}
             <li class="nav-item">
-            <a class="nav-link" href="#">Donderdag</a>
-          </li>
-            <li class="nav-item">
-            <a class="nav-link" href="#">Vrijdag</a>
-          </li>
-            <li class="nav-item">
-            <a class="nav-link" href="#">Zaterdag</a>
-          </li>
-            <li class="nav-item">
-            <a class="nav-link" href="#">Zondag</a>
-          </li>
-        </ul>
-      </div>
+              <a class="nav-link {% if forloop.counter == 1 %}active{% endif %}" href="#day{{ forloop.counter }}">{{ day|date:"l" }}</a>
+            </li>
+            {% endfor %}
+          </ul>
+
+      </nav>
       <div class="card-body">
-        <div class="card game">
+
+        {% for day in current_event.days %}
+          <div class="day">
+
+          <h4 id="day{{ forloop.counter }}">{{ day|date:"l"|capfirst }} {{ day }}</h4>
+  <div class="card game">
           <div class="card-header">
             Mollen vangen
           </div>
@@ -72,9 +89,55 @@
             </table>
           </div>
         </div>
+          </div>
+            {% endfor %}
+
+
+
+
+
 
 
       </div>
     </div>
 
+  {% compress css %}
+    <style type="text/css">
+      html {
+        scroll-behavior: smooth;
+      }
+
+    .frosted {
+      background-color: rgba(255, 255, 255, .6);
+      backdrop-filter: blur(8px);
+    }
+
+    .booking-card h4:target:before {
+      content: "";
+      display: block;
+      height: 80px;
+      margin: -80px 0 0;
+    }
+
+    .day {
+      padding: 2rem 0;
+    }
+
+    .day:first-child {
+      padding-top: 0;
+      padding-bottom: 2rem;
+    }
+
+    .day h4 {
+      border-top: 3px #eee solid;
+      padding: 1rem 0;
+    }
+
+
+
+
+    </style>
+  {% endcompress %}
+
 {% endblock %}
+

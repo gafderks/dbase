@@ -37,7 +37,7 @@ def load_initial_data(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('booking', '0001_initial'),
+        ('booking', '0002_auto_20191229_1922'),
     ]
 
     operations = [

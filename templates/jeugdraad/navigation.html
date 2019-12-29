@@ -1,0 +1,86 @@
+{% load static %}
+{% load i18n %}
+{% load compress %}
+{% block navigation %}
+  <nav class="navbar navbar-expand-sm navbar-light bg-light mb-4">
+    <div class="container">
+      <a class="navbar-brand" href="{% url 'index' %}" title="{% trans "Open homepage" %}">
+        <img src="{% static "booking/logo_66x60.png" %}" width="33" height="30" class="d-inline-block align-top" alt="{% trans "Open homepage" %}">
+          {% trans "DBase" %}
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainNavigation"
+              aria-controls="mainNavigation" aria-expanded="false" aria-label="{% trans 'Toggle navigation' %}">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="mainNavigation">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <i class="far fa-calendar-alt"></i>
+              <span>{{ current_event.name }}</span>
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              {% for event in events %}
+              <a class="dropdown-item {% if current_event == event %}active{% endif %}" href="{% url 'booking:event_bookings' event.id %}">
+                <i class="far fa-calendar-alt"></i>
+                <span>{{ event.name }}</span>
+              </a>
+              {% endfor %}
+            </div>
+          </li>
+        </ul>
+        <ul class="navbar-nav">
+            {% if user.is_authenticated %}
+              <li class="nav-item">
+                <a class="nav-link" href="#">
+                  <i class="fas fa-user-circle"></i>
+                  <span class="d-inline d-sm-none d-lg-inline">{{ user.username }}</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'users:logout' %}">
+                  <i class="fas fa-sign-out-alt"></i>
+                  <span class="d-inline d-sm-none d-lg-inline">{% trans "Logout" %}</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'admin:index' %}">
+                  <i class="fas fa-cog"></i>
+                  <span class="d-inline d-sm-none d-lg-inline">{% trans "Admin" %}</span>
+                </a>
+              </li>
+            {% else %}
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'users:login' %}">
+                  <i class="fas fa-sign-in-alt"></i>
+                  <span class="d-inline d-sm-none d-lg-inline">{% trans "Login" %}</span>
+                </a>
+              </li>
+            {% endif %}
+          <li class="nav-item d-none d-sm-block d-md-none">
+            <a class="nav-link" href="#">
+              <i class="fas fa-search"></i>
+              <span class="d-none"> {% trans "Search" %}</span>
+            </a>
+          </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0 d-block d-sm-none d-md-block">
+          <input class="form-control mr-sm-2" type="text" placeholder="{% trans "Search" %}" aria-label="{% trans "Search" %}">
+        </form>
+      </div>
+    </div>
+  </nav>
+{% endblock %}
+
+{% compress css %}
+  <style type="text/css">
+    nav.navbar li > a svg ~ span {
+      margin-left: 0.2em;
+    }
+
+    nav.navbar li.active {
+      background: #ddd;
+    }
+  </style>
+{% endcompress %}

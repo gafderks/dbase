@@ -1,6 +1,8 @@
 from django.db import models
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
+from datetime import timedelta
+from users.models import Group
 
 
 class Category(models.Model):
@@ -121,17 +123,6 @@ class Game(models.Model):
         return self.name
 
 
-class Group(models.Model):
-    name = models.CharField(max_length=250, unique=True)
-
-    class Meta:
-        verbose_name = _('group')
-        verbose_name_plural = _('groups')
-
-    def __str__(self):
-        return self.name
-
-
 class Event(models.Model):
     name = models.CharField(max_length=150)
     active = models.BooleanField(default=False, help_text=_('Should the event be published?'))
@@ -150,6 +141,12 @@ class Event(models.Model):
 
     def __str__(self):
         return self.name
+
+    def duration(self):
+        return (self.event_end - self.event_start).days
+
+    def days(self):
+        return [self.event_start + timedelta(days=day) for day in range(self.duration() + 1)]
 
 
 class Booking(models.Model):

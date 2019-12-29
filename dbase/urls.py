@@ -17,14 +17,13 @@ from django.contrib import admin
 from django.urls import include, path
 from django.conf import settings
 from django.conf.urls.static import static
-from django.contrib.auth import views as auth_views
 
-from booking.forms import UserLoginForm
+from booking.views import home
 
 urlpatterns = [
+    path('', home, name='index'),
     path('booking/', include('booking.urls')),
-    path('login/', auth_views.LoginView.as_view(authentication_form=UserLoginForm)),
-    path('logout/', auth_views.LogoutView.as_view()),
+    path('users/', include('users.urls')),
     path('admin/', admin.site.urls),
 ]
 # The following patterns only work if DEBUG = TRUE. Django should not be used for serving static files or uploaded files

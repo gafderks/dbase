@@ -3,6 +3,7 @@ from django.contrib import admin
 from .models import Category, Material, Event, MaterialImage, MaterialAlias
 
 
+@admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ('name', 'description')
 
@@ -16,6 +17,7 @@ class MaterialAliasInline(admin.StackedInline):
     model = MaterialAlias
 
 
+@admin.register(Material)
 class MaterialAdmin(admin.ModelAdmin):
     list_display = ('name', 'description')
     list_filter = ['categories']
@@ -26,11 +28,7 @@ class MaterialAdmin(admin.ModelAdmin):
     ]
 
 
+@admin.register(Event)
 class EventAdmin(admin.ModelAdmin):
     list_filter = ['active', 'archived']
     search_fields = ['name']
-
-
-admin.site.register(Category, CategoryAdmin)
-admin.site.register(Material, MaterialAdmin)
-admin.site.register(Event, EventAdmin)

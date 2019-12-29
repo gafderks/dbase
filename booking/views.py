@@ -1,13 +1,19 @@
 import csv
 from collections import OrderedDict
 
+from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 
 from booking.forms import MaterialForm, CategoryForm
-from booking.models import Material, Category
+from booking.models import Material, Category, Event
+
+
+base_context = {
+    'events': Event.objects.all()
+}
 
 
 def export_materials(request):
@@ -42,6 +48,7 @@ def export_materials(request):
     return response
 
 
+@login_required
 def edit_material(request, id=None):
     """
     View for adding a new material to the database.
@@ -63,9 +70,10 @@ def edit_material(request, id=None):
             form = MaterialForm(material)
         else:
             form = MaterialForm()
-    return render(request, 'booking/material-editor.html', {'form': form})
+    return render(request, 'booking/material-editor.html', {**base_context, 'form': form})
 
 
+@login_required
 def edit_category(request, category_id=None):
     """
     View for adding a new material to the database.
@@ -95,10 +103,21 @@ def edit_category(request, category_id=None):
         return redirect('booking:new_category')
 
     return render(request, 'booking/category-editor.html', {
+        **base_context,
         'form': form,
-        'categories': categories
+        'categories': categories,
     })
 
-def event_bookings(request, event_id):
 
-    return render(request, 'booking/event-bookings.html', {})
+@login_required
+def event_bookings(request, event_id):
+    current_event = get_object_or_404(Event, pk=event_id)
+    return render(request, 'booking/event-bookings.html', {
+        **base_context,
+        'current_event': current_event,
+    })
+
+
+@login_required
+def home(request):
+    return redirect('booking:event_bookings', event_id=1)
