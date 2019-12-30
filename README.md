@@ -1,11 +1,15 @@
+<img src="https://github.com/gafderks/dbase/raw/master/booking/static/booking/logo_121x110.png" alt="drawing" width="121px" style="display: block; margin-left: auto; margin-right: auto"/>
+
 DBASE
 =====
-
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/a1fbb314106646d8bcb8eb52563c7725)](https://www.codacy.com/manual/gafderks/dbase?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=gafderks/dbase&amp;utm_campaign=Badge_Grade)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
-__Manager for material booking.__ 
+__Manager for material booking.__
 
-How to deploy
+
+
+Installation
 -------------
 1. Install Python 3.6:
    ```bash
