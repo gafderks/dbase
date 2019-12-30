@@ -30,5 +30,5 @@ class MaterialAdmin(admin.ModelAdmin):
 
 @admin.register(Event)
 class EventAdmin(admin.ModelAdmin):
-    list_filter = ['active', 'archived']
+    list_filter = ['visible']
     search_fields = ['name']

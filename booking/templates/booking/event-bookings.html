@@ -30,8 +30,10 @@
   </div>
 
     <p class="text-muted font-italic"><i class="far fa-calendar-alt"></i> {{ current_event.event_start }} - {{ current_event.event_end }}</p>
-    <p class="text-muted font-italic"><i class="fas fa-lock-open"></i> {{ current_event.booking_start }} - {{ current_event.booking_end }}</p>
-    <p class="lead">{% trans "Material bookings" %}</p>
+    <p class="text-muted font-italic" title="{% trans "Booking period" %}"><i class="fas fa-lock-open"></i> {{ current_event.booking_start }} - {{ current_event.booking_end }}</p>
+    <p class="text-muted font-italic" title="{% trans "Privileged booking period" %}"><i class="fas fa-user-lock"></i> {{ current_event.booking_end }} - {{ current_event.privileged_booking_end }}</p>
+
+  <p class="lead">{% trans "Material bookings" %}</p>
 
 
   <div class="card position-relative booking-card">

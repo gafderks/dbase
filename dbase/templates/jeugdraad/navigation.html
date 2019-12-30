@@ -1,6 +1,7 @@
 {% load static %}
 {% load i18n %}
 {% load compress %}
+{% load roles %}
 {% block navigation %}
   <nav class="navbar navbar-expand-sm navbar-light bg-light mb-4">
     <div class="container">
@@ -15,7 +16,7 @@
 
       <div class="collapse navbar-collapse" id="mainNavigation">
         <ul class="navbar-nav mr-auto">
-          <li class="nav-item dropdown">
+          <li class="nav-item dropdown" title="{% trans "Event" %}">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <i class="far fa-calendar-alt"></i>
               <span>{{ current_event.name }}</span>
@@ -32,33 +33,38 @@
         </ul>
         <ul class="navbar-nav">
             {% if user.is_authenticated %}
-              <li class="nav-item">
+              <li class="nav-item" title="{{ user.first_name }}">
                 <a class="nav-link" href="#">
                   <i class="fas fa-user-circle"></i>
-                  <span class="d-inline d-sm-none d-lg-inline">{{ user.username }}</span>
+                  <span class="d-inline d-sm-none d-lg-inline">{{ user.first_name }}</span>
+                  {% if user|has_role:'MB' %}
+                    <span class="badge badge-mb" title="{% trans "Materiaalboer" %}">MB</span>
+                  {% endif %}
                 </a>
               </li>
-              <li class="nav-item">
+              <li class="nav-item" title="{% trans "Logout" %}">
                 <a class="nav-link" href="{% url 'users:logout' %}">
                   <i class="fas fa-sign-out-alt"></i>
                   <span class="d-inline d-sm-none d-lg-inline">{% trans "Logout" %}</span>
                 </a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'admin:index' %}">
-                  <i class="fas fa-cog"></i>
-                  <span class="d-inline d-sm-none d-lg-inline">{% trans "Admin" %}</span>
-                </a>
-              </li>
+              {% if user.is_staff %}
+                <li class="nav-item" title="{% trans "Admin" %}">
+                  <a class="nav-link" href="{% url 'admin:index' %}">
+                    <i class="fas fa-cog"></i>
+                    <span class="d-inline d-sm-none d-lg-inline">{% trans "Admin" %}</span>
+                  </a>
+                </li>
+              {% endif %}
             {% else %}
-              <li class="nav-item">
+              <li class="nav-item" title="{% trans "Login" %}">
                 <a class="nav-link" href="{% url 'users:login' %}">
                   <i class="fas fa-sign-in-alt"></i>
                   <span class="d-inline d-sm-none d-lg-inline">{% trans "Login" %}</span>
                 </a>
               </li>
             {% endif %}
-          <li class="nav-item d-none d-sm-block d-md-none">
+          <li class="nav-item d-none d-sm-block d-md-none" title="{% trans "Search" %}">
             <a class="nav-link" href="#">
               <i class="fas fa-search"></i>
               <span class="d-none"> {% trans "Search" %}</span>
@@ -81,6 +87,11 @@
 
     nav.navbar li.active {
       background: #ddd;
+    }
+
+    .badge-mb {
+      color: #ffc107;
+      background-color: #212529;
     }
   </style>
 {% endcompress %}

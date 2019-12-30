@@ -58,7 +58,7 @@ ROOT_URLCONF = 'dbase.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'DIRS': [os.path.join(BASE_DIR, 'dbase/templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -146,3 +146,7 @@ LOGIN_REDIRECT_URL = LOGOUT_REDIRECT_URL = 'index'
 LOGIN_URL = 'users:login'
 
 AUTH_USER_MODEL = 'users.User'
+
+LOCALE_PATHS = [
+    os.path.join(BASE_DIR, 'dbase', 'locale')
+]

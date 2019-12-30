@@ -1,4 +1,4 @@
-from django.contrib.auth.models import AbstractUser, BaseUserManager
+from django.contrib.auth.models import AbstractUser, BaseUserManager, Group as DjangoGroup, PermissionsMixin
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
@@ -37,8 +37,30 @@ class UserManager(BaseUserManager):
         return self._create_user(email, password, **extra_fields)
 
 
+class Role(DjangoGroup):
+    """Rename Django Groups to Roles for distinguishing from custom Group definition"""
+    class Meta:
+        proxy = True
+        app_label = 'auth'
+        verbose_name = _('role')
+        verbose_name_plural = _('roles')
+
+
 class Group(models.Model):
     name = models.CharField(max_length=250, unique=True)
+    GROUP = 'GR'
+    COMMISSION = 'CO'
+    GROUP_TYPE_CHOICES = [
+        (GROUP, _('Group')),
+        (COMMISSION, _('Commission')),
+    ]
+    type = models.CharField(
+        max_length=2,
+        choices=GROUP_TYPE_CHOICES,
+        default=COMMISSION,
+        verbose_name=_('type'),
+        help_text=_('What type is the group?')
+    )
 
     class Meta:
         verbose_name = _('group')
@@ -51,8 +73,22 @@ class Group(models.Model):
 class User(AbstractUser):
     username = None
     email = models.EmailField(_('email address'), unique=True)
+    # The custom group
     group = models.ForeignKey(Group, on_delete=models.DO_NOTHING, blank=True, null=True,
-                              help_text=_('What group should this user be associated with?'))
+                              help_text=_('What group should this user be associated with?'),
+                              verbose_name=_('group'))
+    # The authorization groups (renamed to roles)
+    groups = models.ManyToManyField(
+        DjangoGroup,
+        verbose_name=_('roles'),
+        blank=True,
+        help_text=_(
+            'The roles this user has. A user will get all permissions '
+            'granted to each of their roles.'
+        ),
+        related_name="user_set",
+        related_query_name="user",
+    )
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
