@@ -5,12 +5,12 @@ from .models import Category, Material, Event, MaterialImage, MaterialAlias
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = ('name', 'description')
+    list_display = ("name", "description")
 
 
 class MaterialImageInline(admin.StackedInline):
     model = MaterialImage
-    readonly_fields = ['image_tag']
+    readonly_fields = ["image_tag"]
 
 
 class MaterialAliasInline(admin.StackedInline):
@@ -19,9 +19,9 @@ class MaterialAliasInline(admin.StackedInline):
 
 @admin.register(Material)
 class MaterialAdmin(admin.ModelAdmin):
-    list_display = ('name', 'description')
-    list_filter = ['categories']
-    search_fields = ['name']
+    list_display = ("name", "description")
+    list_filter = ["categories"]
+    search_fields = ["name"]
     inlines = [
         MaterialImageInline,
         MaterialAliasInline,
@@ -30,5 +30,5 @@ class MaterialAdmin(admin.ModelAdmin):
 
 @admin.register(Event)
 class EventAdmin(admin.ModelAdmin):
-    list_filter = ['visible']
-    search_fields = ['name']
+    list_filter = ["visible"]
+    search_fields = ["name"]

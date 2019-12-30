@@ -20,11 +20,12 @@ from django.conf.urls.static import static
 
 from booking.views import home
 
+
 urlpatterns = [
-    path('', home, name='index'),
-    path('booking/', include('booking.urls')),
-    path('users/', include('users.urls')),
-    path('admin/', admin.site.urls),
+    path("", home, name="index"),
+    path("booking/", include("booking.urls")),
+    path("users/", include("users.urls")),
+    path("admin/", admin.site.urls),
 ]
 # The following patterns only work if DEBUG = TRUE. Django should not be used for serving static files or uploaded files
 #  in production environments.

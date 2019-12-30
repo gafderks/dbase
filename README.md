@@ -1,6 +1,10 @@
 DBASE
 =====
 
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+
+__Manager for material booking.__ 
+
 How to deploy
 -------------
 1. Install Python 3.6:

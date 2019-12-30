@@ -9,36 +9,26 @@ from booking.models import Material, Category
 class MaterialForm(forms.ModelForm):
     class Meta:
         model = Material
-        fields = '__all__'
-        help_texts = {
-
-        }
-        error_messages = {
-
-        }
+        fields = "__all__"
+        help_texts = {}
+        error_messages = {}
 
     def __init__(self, *args, **kwargs):
         super(MaterialForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
-        self.helper.form_method = 'post'
-        self.helper.add_input(Submit('submit', _('Submit')))
+        self.helper.form_method = "post"
+        self.helper.add_input(Submit("submit", _("Submit")))
 
 
 class CategoryForm(forms.ModelForm):
     class Meta:
         model = Category
-        fields = '__all__'
-        help_texts = {
-
-        }
-        error_messages = {
-
-        }
+        fields = "__all__"
+        help_texts = {}
+        error_messages = {}
 
     def __init__(self, *args, **kwargs):
         super(CategoryForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
-        self.helper.form_method = 'post'
-        self.helper.add_input(Submit('submit', _('Submit')))
-
-
+        self.helper.form_method = "post"
+        self.helper.add_input(Submit("submit", _("Submit")))
