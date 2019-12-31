@@ -1,5 +1,6 @@
 from django.contrib import admin
 
+from booking.forms import EventForm
 from .models import Category, Material, Event, MaterialImage, MaterialAlias
 
 
@@ -32,3 +33,4 @@ class MaterialAdmin(admin.ModelAdmin):
 class EventAdmin(admin.ModelAdmin):
     list_filter = ["visible"]
     search_fields = ["name"]
+    form = EventForm
