@@ -2,6 +2,7 @@
 {% load i18n %}
 {% load compress %}
 {% load roles %}
+{% load event %}
 {% block navigation %}
   <nav class="navbar navbar-expand-sm navbar-light bg-light mb-4">
     <div class="container">
@@ -20,12 +21,26 @@
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <i class="far fa-calendar-alt"></i>
               <span>{{ current_event.name }}</span>
+              {% if current_event.is_privileged or current_event.is_locked %}
+                {% if not current_event|may_edit:user %}
+                  <i class="fas fa-lock ml-2 text-danger"></i>
+                {% else %}
+                  <i class="fas fa-lock ml-2 text-muted"></i>
+                {% endif %}
+              {% endif %}
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
               {% for event in events %}
               <a class="dropdown-item {% if current_event == event %}active{% endif %}" href="{% url 'booking:event_bookings' event.id %}">
                 <i class="far fa-calendar-alt"></i>
                 <span>{{ event.name }}</span>
+                {% if event.is_privileged or event.is_locked %}
+                  {% if not event|may_edit:user %}
+                    <i class="fas fa-lock ml-2 text-danger"></i>
+                  {% else %}
+                    <i class="fas fa-lock ml-2 text-muted"></i>
+                  {% endif %}
+                {% endif %}
               </a>
               {% endfor %}
             </div>

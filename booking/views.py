@@ -5,13 +5,19 @@ from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
-from django.urls import reverse
+from django.utils.translation import gettext_lazy as _
 
 from booking.forms import MaterialForm, CategoryForm
 from booking.models import Material, Category, Event
+from users.models import Group
 
 
-base_context = {"events": Event.objects.all()}
+def get_base_context(request):
+    return {
+        "events": Event.objects.for_user(request.user),
+        "groups": Group.objects.filter(type=Group.GROUP),
+        "commissions": Group.objects.filter(type=Group.COMMISSION),
+    }
 
 
 def export_materials(request):
@@ -79,7 +85,9 @@ def edit_material(request, id=None):
         else:
             form = MaterialForm()
     return render(
-        request, "booking/material-editor.html", {**base_context, "form": form}
+        request,
+        "booking/material-editor.html",
+        {**get_base_context(request), "form": form},
     )
 
 
@@ -115,20 +123,38 @@ def edit_category(request, category_id=None):
     return render(
         request,
         "booking/category-editor.html",
-        {**base_context, "form": form, "categories": categories,},
+        {**get_base_context(request), "form": form, "categories": categories},
     )
 
 
 @login_required
 def event_bookings(request, event_id):
     current_event = get_object_or_404(Event, pk=event_id)
+    current_group = request.user.group
+    if request.user.has_perm("booking.can_view_others_groups_bookings"):
+        current_group = get_object_or_404(
+            Group, pk=request.GET.get("group", current_group.id)
+        )
+
     return render(
         request,
         "booking/event-bookings.html",
-        {**base_context, "current_event": current_event,},
+        {
+            **get_base_context(request),
+            "current_event": current_event,
+            "current_group": current_group,
+        },
     )
 
 
 @login_required
 def home(request):
-    return redirect("booking:event_bookings", event_id=1)
+    context = get_base_context(request)
+    events = context["events"]
+    if not events:
+        return render(
+            request,
+            "booking/empty.html",
+            {**context, "message": _("There are no open events.")},
+        )
+    return redirect("booking:event_bookings", event_id=events.latest().id)

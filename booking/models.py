@@ -2,12 +2,12 @@ from django.contrib.auth import get_user_model
 from django.db import models
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
-from datetime import timedelta
+from datetime import timedelta, datetime, timezone
 from users.models import Group
 
 
 class Category(models.Model):
-    name = models.CharField(verbose_name=_("name"), max_length=150)
+    name = models.CharField(verbose_name=_("name"), max_length=150, unique=True)
     description = models.CharField(
         verbose_name=_("description"), max_length=250, blank=True
     )
@@ -175,6 +175,14 @@ class Game(models.Model):
         return self.name
 
 
+class EventManager(models.Manager):
+    def for_user(self, user):
+        query = Event.objects.all()
+        if not user.has_perm("booking.can_view_hidden_events"):
+            query = query.filter(visible=True)
+        return query
+
+
 class Event(models.Model):
     name = models.CharField(verbose_name=_("name"), max_length=150)
     locked = models.BooleanField(
@@ -210,10 +218,18 @@ class Event(models.Model):
         help_text=_("What is the last day of the event?"),
     )
 
+    objects = EventManager()
+
     class Meta:
         verbose_name = _("event")
         verbose_name_plural = _("events")
-        get_latest_by = "event_start"
+        get_latest_by = "event_end"
+        ordering = ["-event_end"]
+        permissions = [
+            ("can_view_hidden_events", "Can view hidden events"),
+            ("can_change_privileged_events", "Can change privileged events"),
+            ("can_change_locked_events", "Can change locked events"),
+        ]
 
     def __str__(self):
         return self.name
@@ -225,6 +241,28 @@ class Event(models.Model):
         return [
             self.event_start + timedelta(days=day) for day in range(self.duration() + 1)
         ]
+
+    @property
+    def is_privileged(self):
+        return (
+            self.booking_end < datetime.now(timezone.utc) < self.privileged_booking_end
+            and not self.locked
+        )
+
+    @property
+    def is_locked(self):
+        return datetime.now(timezone.utc) > self.privileged_booking_end or self.locked
+
+    def user_may_edit(self, user):
+        if not self.visible and not user.has_perm("booking.can_view_hidden_events"):
+            return False
+        if self.is_locked and not user.has_perm("booking.can_change_locked_events"):
+            return False
+        if self.is_privileged and not user.has_perm(
+            "booking.can_change_privileged_events"
+        ):
+            return False
+        return True
 
 
 class Booking(models.Model):
@@ -274,6 +312,10 @@ class Booking(models.Model):
     class Meta:
         verbose_name = _("booking")
         verbose_name_plural = _("bookings")
+        permissions = [
+            ("can_change_other_groups_bookings", "Can change bookings of other groups"),
+            ("can_view_others_groups_bookings", "Can view bookings of other groups"),
+        ]
 
     def __str__(self):
         return self.material.name

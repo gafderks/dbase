@@ -52,6 +52,8 @@ Installation
 6. Collect static files using `(.venv) $ django-admin collectstatic`
 7. Load the database configuration with `(.venv) $ python manage.py migrate`
 8. Create a superuser account using `(.venv) $ django-admin createsuperuser`
-9. Set up the apache web server by copying the file `deploy/apache.conf` to 
+9. Import materials, categories, roles and groups using 
+   `(.venv) $ python manage.py creategroups && python manage.py importmaterial`
+10. Set up the apache web server by copying the file `deploy/apache.conf` to 
    `/etc/apache2/sites-available/example.com.conf` and completing the variables at the top. Preferably setup SSL with 
    e.g. LetsEncrypt.
