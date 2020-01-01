@@ -57,3 +57,7 @@ Installation
 10. Set up the apache web server by copying the file `deploy/apache.conf` to 
    `/etc/apache2/sites-available/example.com.conf` and completing the variables at the top. Preferably setup SSL with 
    e.g. LetsEncrypt.
+
+Roadmap
+-------
+- Suggested material bookings. If you book 'Rambler' it suggests electricity cords.

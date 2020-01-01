@@ -1,14 +1,10 @@
-import csv
-from collections import OrderedDict
-
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
-from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils.translation import gettext_lazy as _
 
-from booking.forms import MaterialForm, CategoryForm
-from booking.models import Material, Category, Event
+from booking.forms import CategoryForm
+from booking.models import Category, Event
 from users.models import Group
 
 
@@ -18,48 +14,6 @@ def get_base_context(request):
         "groups": Group.objects.filter(type=Group.GROUP),
         "commissions": Group.objects.filter(type=Group.COMMISSION),
     }
-
-
-def export_materials(request):
-
-    response = HttpResponse(content_type="text/csv")
-    response["Content-Disposition"] = 'attachment; filename="materials.csv"'
-
-    def line_format(mat):
-        """
-
-        :param Material mat:
-        :return:
-        """
-        return OrderedDict(
-            {
-                "ID": mat.id,
-                "Type": "simple",
-                "Name": mat.name,
-                "Published": 1 if mat.lendable else 0,
-                "Visibility in catalog": 1 if mat.lendable else 0,
-                "Description": mat.description,
-                "Regular price": mat.rate_class.rate
-                if mat.rate_class is not None
-                else "",
-                "Categories": [c.name for c in mat.categories.all()]
-                if mat.categories.exists()
-                else "",
-                "Images": [
-                    request.build_absolute_uri(i.image.url) for i in mat.images.all()
-                ]
-                if mat.images.exists()
-                else "",
-            }
-        )
-
-    materials = Material.objects.all()
-    writer = csv.DictWriter(response, fieldnames=line_format(materials.first()).keys())
-    writer.writeheader()
-    for material in materials:
-        writer.writerow(line_format(material))
-
-    return response
 
 
 @login_required

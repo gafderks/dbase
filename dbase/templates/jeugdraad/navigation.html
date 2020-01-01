@@ -6,7 +6,7 @@
 {% block navigation %}
   <nav class="navbar navbar-expand-sm navbar-light bg-light mb-4">
     <div class="container">
-      <a class="navbar-brand" href="{% url 'index' %}" title="{% trans "Open homepage" %}">
+      <a class="navbar-brand" href="{% url 'index' %}" data-toggle="tooltip" data-placement="bottom" title="{% trans "Open homepage" %}">
         <img src="{% static "booking/logo_66x60.png" %}" width="33" height="30" class="d-inline-block align-top" alt="{% trans "Open homepage" %}">
           {% trans "DBase" %}
       </a>
@@ -17,7 +17,7 @@
 
       <div class="collapse navbar-collapse" id="mainNavigation">
         <ul class="navbar-nav mr-auto">
-          <li class="nav-item dropdown" title="{% trans "Event" %}">
+          <li class="nav-item dropdown" data-toggle="tooltip" data-placement="bottom" title="{% trans "Event" %}">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <i class="far fa-calendar-alt"></i>
               <span>{{ current_event.name }}</span>
@@ -48,23 +48,23 @@
         </ul>
         <ul class="navbar-nav">
             {% if user.is_authenticated %}
-              <li class="nav-item" title="{{ user.first_name }}">
+              <li class="nav-item" data-toggle="tooltip" data-placement="left" title="{{ user.first_name }}">
                 <a class="nav-link" href="#">
                   <i class="fas fa-user-circle"></i>
                   <span class="d-inline d-sm-none d-lg-inline">{{ user.first_name }}</span>
                   {% if user|has_role:'MB' %}
-                    <span class="badge badge-mb" title="{% trans "Materiaalboer" %}">MB</span>
+                    <span class="badge badge-mb" data-toggle="tooltip" data-placement="bottom" title="{% trans "Materiaalboer" %}">MB</span>
                   {% endif %}
                 </a>
               </li>
-              <li class="nav-item" title="{% trans "Logout" %}">
+              <li class="nav-item" data-toggle="tooltip" data-placement="bottom" title="{% trans "Logout" %}">
                 <a class="nav-link" href="{% url 'users:logout' %}">
                   <i class="fas fa-sign-out-alt"></i>
                   <span class="d-inline d-sm-none d-lg-inline">{% trans "Logout" %}</span>
                 </a>
               </li>
               {% if user.is_staff %}
-                <li class="nav-item" title="{% trans "Admin" %}">
+                <li class="nav-item" data-toggle="tooltip" data-placement="bottom" title="{% trans "Admin" %}">
                   <a class="nav-link" href="{% url 'admin:index' %}">
                     <i class="fas fa-cog"></i>
                     <span class="d-inline d-sm-none d-lg-inline">{% trans "Admin" %}</span>
@@ -72,23 +72,38 @@
                 </li>
               {% endif %}
             {% else %}
-              <li class="nav-item" title="{% trans "Login" %}">
+              <li class="nav-item" data-toggle="tooltip" data-placement="bottom" title="{% trans "Login" %}">
                 <a class="nav-link" href="{% url 'users:login' %}">
                   <i class="fas fa-sign-in-alt"></i>
                   <span class="d-inline d-sm-none d-lg-inline">{% trans "Login" %}</span>
                 </a>
               </li>
             {% endif %}
-          <li class="nav-item d-none d-sm-block d-md-none" title="{% trans "Search" %}">
-            <a class="nav-link" href="#">
+          <li class="nav-item dropdown d-none d-sm-block d-lg-none" data-toggle="tooltip" data-placement="left" title="{% trans "Search" %}">
+            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
               <i class="fas fa-search"></i>
-              <span class="d-none"> {% trans "Search" %}</span>
+              <span class="sr-only"> {% trans "Search" %}</span>
             </a>
+            <div class="dropdown-menu dropdown-menu-right" style="width: 25rem;">
+              <div class="input-group mx-2 w-auto">
+                <input class="form-control typeahead-materials" type="text" placeholder="{% trans "Search" %}" aria-label="{% trans "Search" %}" aria-describedby="nav-search-addon2">
+                <div class="input-group-append">
+                  <button type="button" class="btn btn-outline-secondary" id="nav-search-addon2">
+                    <i class="fas fa-search"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
           </li>
         </ul>
-        <form class="form-inline my-2 my-lg-0 d-block d-sm-none d-md-block">
-          <input class="form-control mr-sm-2" type="text" placeholder="{% trans "Search" %}" aria-label="{% trans "Search" %}">
-        </form>
+        <div class="input-group my-2 my-lg-0 d-flex d-sm-none d-lg-flex w-auto">
+          <input class="form-control mr-sm-2 typeahead-materials" type="text" placeholder="{% trans "Search" %}" aria-label="{% trans "Search" %}" aria-describedby="nav-search-addon">
+          <div class="input-group-append">
+            <button type="button" class="btn btn-outline-secondary" id="nav-search-addon">
+              <i class="fas fa-search"></i>
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   </nav>
@@ -102,6 +117,19 @@
 
     nav.navbar li.active {
       background: #ddd;
+    }
+
+    .input-group .tt-input {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+
+    .input-group span.twitter-typeahead {
+      position: relative;
+      -ms-flex: 1 1 auto;
+      flex: 1 1 auto;
+      width: 1%;
+      margin-bottom: 0;
     }
 
     .badge-mb {
