@@ -4,7 +4,7 @@ from django.contrib.auth.admin import (
     GroupAdmin as DjangoGroupAdmin,
 )
 from django.contrib.auth.models import Group as DjangoGroup
-from django.utils.translation import gettext, gettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from .forms import CustomUserCreationForm, CustomUserChangeForm
 from .models import User, Group, Role

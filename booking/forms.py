@@ -3,21 +3,43 @@ from django.utils.translation import gettext_lazy as _
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit
 
-from booking.models import Material, Category, Event
+from booking.models import Material, Category, Event, MaterialAlias
 
 
 class MaterialForm(forms.ModelForm):
     class Meta:
         model = Material
         fields = "__all__"
-        help_texts = {}
-        error_messages = {}
 
-    def __init__(self, *args, **kwargs):
-        super(MaterialForm, self).__init__(*args, **kwargs)
-        self.helper = FormHelper()
-        self.helper.form_method = "post"
-        self.helper.add_input(Submit("submit", _("Submit")))
+    def clean(self):
+        cleaned_data = super().clean()
+
+        name = cleaned_data.get("name")
+
+        alias = MaterialAlias.objects.filter(name__iexact=name)
+        if alias:
+            raise forms.ValidationError(
+                _("There exists already a material alias with the given name.")
+            )
+        return cleaned_data
+
+
+class MaterialAliasForm(forms.ModelForm):
+    class Meta:
+        model = MaterialAlias
+        fields = "__all__"
+
+    def clean(self):
+        cleaned_data = super().clean()
+
+        name = cleaned_data.get("name")
+
+        material = Material.objects.filter(name__iexact=name)
+        if material:
+            raise forms.ValidationError(
+                _("There exists already a material with the given name.")
+            )
+        return cleaned_data
 
 
 class CategoryForm(forms.ModelForm):
@@ -41,7 +63,7 @@ class EventForm(forms.ModelForm):
 
     def clean(self):
         cleaned_data = super().clean()
-        print(cleaned_data)
+
         booking_start = cleaned_data.get("booking_start")
         booking_end = cleaned_data.get("booking_end")
         privileged_booking_end = cleaned_data.get("privileged_booking_end")

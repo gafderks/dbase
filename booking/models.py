@@ -3,6 +3,9 @@ from django.db import models
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
 from datetime import timedelta, datetime, timezone
+from djmoney.models.fields import MoneyField
+from djmoney.models.validators import MinMoneyValidator
+
 from users.models import Group
 
 
@@ -21,11 +24,17 @@ class Category(models.Model):
 
 
 class RateClass(models.Model):
-    name = models.CharField(verbose_name=_("name"), max_length=150)
+    name = models.CharField(verbose_name=_("name"), max_length=150, unique=True)
     description = models.CharField(
         verbose_name=_("description"), max_length=250, blank=True
     )
-    rate = models.DecimalField(verbose_name=_("rate"), decimal_places=2, max_digits=5)
+    rate = MoneyField(
+        verbose_name=_("rate"),
+        decimal_places=2,
+        max_digits=6,
+        default_currency="EUR",
+        validators=[MinMoneyValidator(0)],
+    )
 
     class Meta:
         verbose_name = _("rate class")
@@ -36,7 +45,7 @@ class RateClass(models.Model):
 
 
 class Location(models.Model):
-    name = models.CharField(verbose_name=_("name"), max_length=150)
+    name = models.CharField(verbose_name=_("name"), max_length=150, unique=True)
 
     class Meta:
         verbose_name = _("location")
@@ -51,7 +60,7 @@ class Material(models.Model):
     description = models.CharField(
         verbose_name=_("description"), max_length=250, blank=True
     )
-    categories = models.ManyToManyField(Category)
+    categories = models.ManyToManyField(Category, related_name="materials")
     gm = models.BooleanField(
         verbose_name=_("GM"), help_text=_("Is GM needed for this material?")
     )
@@ -67,6 +76,7 @@ class Material(models.Model):
         null=True,
         verbose_name=_("location"),
         help_text=_("Where can this material be found?"),
+        related_name="materials",
     )
     rate_class = models.ForeignKey(
         RateClass,
@@ -242,6 +252,34 @@ class Event(models.Model):
             self.event_start + timedelta(days=day) for day in range(self.duration() + 1)
         ]
 
+    HIDDEN = "HI"
+    NOT_STARTED = "NS"
+    OPENED = "OP"
+    PRIVILEGED = "PR"
+    LOCKED = "LO"
+    BOOKING_STATUS = {
+        HIDDEN: _("Hidden"),
+        NOT_STARTED: _("Not started"),
+        OPENED: _("Opened"),
+        PRIVILEGED: _("Privileged"),
+        LOCKED: _("Locked"),
+    }
+
+    @property
+    def booking_status(self):
+        now = datetime.now(timezone.utc)
+        if not self.visible:
+            return self.HIDDEN
+        if self.locked:
+            return self.LOCKED
+        if now < self.booking_start:
+            return self.NOT_STARTED
+        if now < self.booking_end:
+            return self.OPENED
+        if now < self.privileged_booking_end:
+            return self.PRIVILEGED
+        return self.LOCKED
+
     @property
     def is_privileged(self):
         return (
@@ -251,7 +289,7 @@ class Event(models.Model):
 
     @property
     def is_locked(self):
-        return datetime.now(timezone.utc) > self.privileged_booking_end or self.locked
+        return self.locked or datetime.now(timezone.utc) > self.privileged_booking_end
 
     def user_may_edit(self, user):
         if not self.visible and not user.has_perm("booking.can_view_hidden_events"):

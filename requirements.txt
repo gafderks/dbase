@@ -6,3 +6,4 @@ django-crispy-forms==1.8.1
 #git+git://github.com/gafderks/django-libsass@master#egg=django-libsass
 # Django compressor does not support Django 3.0 yet
 -e git://github.com/django-compressor/django-compressor.git@a5bfd775450428e1a261b88e1e5424bfb4dde081#egg=django_compressor
+django-money==1.0

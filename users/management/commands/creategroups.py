@@ -1,13 +1,11 @@
-from django.core.management.base import BaseCommand, CommandError
+from django.core.management.base import BaseCommand
 from django.db import transaction
 from users.models import Group, DjangoGroup
 from django.contrib.auth.models import Permission
 
 
 class Command(BaseCommand):
-    help = (
-        "Imports the categories and the materials from the legacy dbase as initial data"
-    )
+    help = "Imports a set of predefined roles and groups"
 
     GROUPS = [
         {"name": "Groep 1-2N", "type": Group.GROUP},

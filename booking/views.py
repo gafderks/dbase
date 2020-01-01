@@ -63,35 +63,6 @@ def export_materials(request):
 
 
 @login_required
-def edit_material(request, id=None):
-    """
-    View for adding a new material to the database.
-
-    :param request:
-    :return:
-    """
-    material = None
-    if id is not None:
-        material = Material.objects.get(pk=id)
-
-    if request.method == "POST":
-        form = MaterialForm(request.POST)
-        if form.is_valid():
-            # Save the model
-            return HttpResponseRedirect("/thanks/")
-    else:
-        if material is not None:
-            form = MaterialForm(material)
-        else:
-            form = MaterialForm()
-    return render(
-        request,
-        "booking/material-editor.html",
-        {**get_base_context(request), "form": form},
-    )
-
-
-@login_required
 def edit_category(request, category_id=None):
     """
     View for adding a new material to the database.
