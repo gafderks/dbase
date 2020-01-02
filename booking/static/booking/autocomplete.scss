@@ -1,0 +1,227 @@
+$color_1: #373a3c;
+$color_2: #2b2d2f;
+$color_3: #fff;
+$color_4: #818a91;
+$color_5: white;
+$color_6: #6c757d;
+$color_7: #ffc107;
+$bg_dropdown: #fff;
+$background_color_2: #f5f5f5;
+$bg_active_item: #0275d8;
+$background_color_4: transparent;
+$background_color_5: #212529;
+
+span.twitter-typeahead {
+	.tt-menu {
+		cursor: pointer;
+		position: absolute;
+		top: 100%;
+		left: 0;
+		z-index: 1000;
+		display: none;
+		float: left;
+		padding: 5px 0;
+		margin: 2px 0 0;
+		font-size: 1rem;
+		color: $color_1;
+		text-align: left;
+		list-style: none;
+		background-color: $bg_dropdown;
+		background-clip: padding-box;
+		border: 1px solid rgba(0, 0, 0, 0.15);
+		border-radius: 0.25rem;
+		min-width: 100%;
+		right: auto;
+	}
+	.tt-suggestion {
+		display: block;
+		width: 100%;
+		padding: 3px 20px;
+		clear: both;
+		font-weight: normal;
+		line-height: 1.5;
+		color: $color_1;
+		text-align: inherit;
+		white-space: nowrap;
+		background: none;
+		border: 0;
+		border-bottom: 1px #eee solid;
+		&:last-of-type {
+			border-bottom: 0;
+		}
+		&:focus {
+			color: $color_2;
+			text-decoration: none;
+			background-color: $background_color_2;
+		}
+		&:hover {
+			color: $color_2;
+			text-decoration: none;
+			background-color: $background_color_2;
+		}
+	}
+	.tt-dataset {
+		border-bottom: 1px #eee solid;
+		&:last-of-type {
+			border-bottom: 0;
+		}
+	}
+	.active.tt-suggestion {
+		color: $color_3;
+		text-decoration: none;
+		background-color: $bg_active_item;
+		outline: 0;
+		&:focus {
+			color: $color_3;
+			text-decoration: none;
+			background-color: $bg_active_item;
+			outline: 0;
+		}
+		&:hover {
+			color: $color_3;
+			text-decoration: none;
+			background-color: $bg_active_item;
+			outline: 0;
+		}
+	}
+	.tt-suggestion.tt-cursor {
+		color: $color_3;
+		text-decoration: none;
+		background-color: $bg_active_item;
+		outline: 0;
+		&:focus {
+			color: $color_3;
+			text-decoration: none;
+			background-color: $bg_active_item;
+			outline: 0;
+		}
+		&:hover {
+			color: $color_3;
+			text-decoration: none;
+			background-color: $bg_active_item;
+			outline: 0;
+		}
+	}
+	.disabled.tt-suggestion {
+		color: $color_4;
+		&:focus {
+			color: $color_4;
+			text-decoration: none;
+			cursor: not-allowed;
+			background-color: $background_color_4;
+			background-image: none;
+			filter: "progid:DXImageTransform.Microsoft.gradient(enabled = false)";
+		}
+		&:hover {
+			color: $color_4;
+			text-decoration: none;
+			cursor: not-allowed;
+			background-color: $background_color_4;
+			background-image: none;
+			filter: "progid:DXImageTransform.Microsoft.gradient(enabled = false)";
+		}
+	}
+	width: 100%;
+	.tt-highlight {
+		font-weight: normal;
+		text-decoration: underline;
+	}
+	.tt-cursor {
+		.tt-suggestion-category {
+			color: $color_5;
+		}
+	}
+	.tt-dataset-materialaliases {
+		.tt-cursor {
+			.tt-suggestion-name {
+				color: $color_5;
+			}
+		}
+		.tt-suggestion-image {
+			img {
+				margin: 0.9rem 0.3rem;
+			}
+		}
+		.tt-suggestion-name {
+			color: $color_6;
+			font-weight: 300;
+			font-size: 0.8rem;
+		}
+	}
+	.tt-suggestion-category {
+		color: $color_6;
+		font-weight: 300;
+		font-size: 0.8rem;
+		float: left;
+		.tt-highlight {
+			text-decoration: none;
+			font-weight: 300;
+		}
+	}
+	.tt-suggestion-gm {
+		display: inline-block;
+		padding: .25em .4em;
+		font-size: 75%;
+		font-weight: 700;
+		line-height: 1;
+		text-align: center;
+		white-space: nowrap;
+		vertical-align: baseline;
+		border-radius: .25rem;
+		color: $color_7;
+		background-color: $background_color_5;
+		float: right;
+	}
+	.tt-suggestion-image {
+		img {
+			height: 2rem;
+			width: 2rem;
+			margin: 0.3rem;
+		}
+	}
+	.tt-suggestion-text {
+		padding-right: 3rem;
+	}
+	.tt-suggestion-no-image {
+		&+.tt-suggestion-text {
+			padding-right: 0;
+		}
+	}
+}
+.dropdown-menu {
+	position: absolute;
+	top: 100%;
+	left: 0;
+	z-index: 1000;
+	display: none;
+	float: left;
+	min-width: 160px;
+	padding: 5px 0;
+	margin: 2px 0 0;
+	font-size: 1rem;
+	color: $color_1;
+	text-align: left;
+	list-style: none;
+	background-color: $bg_dropdown;
+	background-clip: padding-box;
+	border: 1px solid rgba(0, 0, 0, 0.15);
+	border-radius: 0.25rem;
+}
+.dropdown-menu-right {
+	left: auto;
+}
+.dropdown-item {
+	&:hover {
+		color: $color_2;
+		text-decoration: none;
+		background-color: $background_color_2;
+	}
+}
+.input-group {
+	span.twitter-typeahead {
+		display: block !important;
+		.tt-menu {
+			top: 2.375rem !important;
+		}
+	}
+}

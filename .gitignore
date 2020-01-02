@@ -164,3 +164,8 @@ db.sqlite3
 venv-37
 venv*
 venv
+
+.sass-cache/
+*.css.map
+*.sass.map
+*.scss.map

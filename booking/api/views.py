@@ -1,18 +1,28 @@
 from django.http import HttpResponseBadRequest
 
-from booking.api.material import format_woocommerce, format_json
-from booking.models import Material
+from booking.api import material, materialalias
+from booking.models import Material, MaterialAlias
 
 
-def export_materials(request):
+def export_material(request):
     materials = Material.objects.all()
 
     format = request.GET.get("format", "json")
-    # include_aliases = request.GET.get("include_aliases", False)
 
     if format == "woocommerce":
-        return format_woocommerce(request, materials)
+        return material.format_woocommerce(request, materials)
     elif format == "json":
-        return format_json(request, materials)
+        return material.format_json(request, materials)
+    else:
+        return HttpResponseBadRequest("Unknown format")
+
+
+def export_materialalias(request):
+    material_aliases = MaterialAlias.objects.all()
+
+    format = request.GET.get("format", "json")
+
+    if format == "json":
+        return materialalias.format_json(request, material_aliases)
     else:
         return HttpResponseBadRequest("Unknown format")

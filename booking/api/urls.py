@@ -4,5 +4,6 @@ from . import views
 
 app_name = "api"
 urlpatterns = [
-    path("materials", views.export_materials, name="materials"),
+    path("material", views.export_material, name="material"),
+    path("materialalias", views.export_materialalias, name="materialalias"),
 ]
