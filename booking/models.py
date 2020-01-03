@@ -266,7 +266,7 @@ class Event(models.Model):
     }
 
     @property
-    def booking_status(self):
+    def booking_status_code(self):
         now = datetime.now(timezone.utc)
         if not self.visible:
             return self.HIDDEN
@@ -279,6 +279,10 @@ class Event(models.Model):
         if now < self.privileged_booking_end:
             return self.PRIVILEGED
         return self.LOCKED
+
+    @property
+    def booking_status(self):
+        return self.BOOKING_STATUS[self.booking_status_code]
 
     @property
     def is_privileged(self):

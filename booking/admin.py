@@ -50,16 +50,15 @@ class MaterialAdmin(admin.ModelAdmin):
 
 @admin.register(Event)
 class EventAdmin(admin.ModelAdmin):
-    def booking_status_text(self, obj):
-        return Event.BOOKING_STATUS[obj.booking_status]
+    def booking_status(self, obj):
+        return obj.booking_status
 
-    booking_status_text.short_description = _("Booking status")
-
+    booking_status.short_description = _("Booking status")
     list_display = (
         "name",
         "event_start",
         "event_end",
-        "booking_status_text",
+        "booking_status",
     )
     list_filter = ["visible"]
     search_fields = ["name"]

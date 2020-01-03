@@ -17,7 +17,7 @@ span.twitter-typeahead {
 		position: absolute;
 		top: 100%;
 		left: 0;
-		z-index: 1000;
+		z-index: 3000 !important;
 		display: none;
 		float: left;
 		padding: 5px 0;

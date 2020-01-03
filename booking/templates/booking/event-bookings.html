@@ -9,72 +9,123 @@
 
 {% block content %}
 
-    <div class="clearfix">
-      <div class="float-md-left">
-        <h1>{{ current_event.name }}</h1>
-        <div class="event-badges">
-          {% if current_event.is_privileged %}
-            {% if not current_event|may_edit:user %}
-              <span class="badge badge-danger"><i class="fas fa-user-lock mr-2"></i>{% trans "Privileged" %}</span>
-            {% else %}
-              <span class="badge badge-warning"><i class="fas fa-user-lock mr-2"></i>{% trans "Privileged" %}</span>
-              <span class="badge badge-secondary badge-supplement">{% trans "but you may edit" %}</span>
-            {% endif %}
-          {% elif current_event.is_locked %}
-            {% if not current_event|may_edit:user %}
-              <span class="badge badge-danger"><i class="fas fa-lock mr-2"></i>{% trans "Locked" %}</span>
-            {% else %}
-              <span class="badge badge-warning"><i class="fas fa-lock mr-2"></i>{% trans "Locked" %}</span>
-              <span class="badge badge-secondary badge-supplement">{% trans "but you may edit" %}</span>
-            {% endif %}
-          {% endif %}
-          {% compress css %}
-            <style type="text/css">
-            .event-badges {
-              margin-top: -0.5rem;
-              margin-bottom: 1rem;
-            }
+  {% compress css %}
+    <style type="text/css">
+      .details {
+        margin-left: 1.5em;
+      }
 
-            .badge-supplement {
-              margin-left: -0.3rem;
-              padding-left: 0.3rem;
-              border-bottom-left-radius: 0;
-              border-top-left-radius: 0;
-            }
-            </style>
-          {% endcompress %}
+      span[data-toggle=tooltip][data-placement=right] {
+        padding-right: 1em;
+      }
+    </style>
+  {% endcompress %}
+
+  <div class="row">
+    <div class="col-md-8">
+      <h1>{{ current_event.name }}</h1>
+    </div>
+    <div class="col-md-4 text-center text-md-right my-2 my-md-0">
+      <div class="h2">
+        <div data-toggle="tooltip" data-placement="top" title="{% trans "Booking status" %}" class="badge badge-secondary booking-status status-{{ current_event.booking_status_code }}">
+          {{ current_event.booking_status }}<br/>
+            {% if current_event|may_edit:user %}
+              <small class="font-weight-light">{% trans "You may edit" %}</small>
+            {% else %}
+              <small class="font-weight-light">{% trans "You cannot edit" %}</small>
+            {% endif %}
         </div>
       </div>
 
-
-
-      <div class="dropdown float-md-right">
-      <button class="btn btn-outline-secondary {% if perms.booking.can_view_others_groups_bookings %}dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false{% endif %}">
-        {{ current_group.name }}
-      </button>
-      {% if perms.booking.can_view_others_groups_bookings %}
-      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="z-index: 3000;">
-        {% for group in groups %}
-          <a class="dropdown-item" href="?group={{ group.id }}">{{ group.name }}</a>
-        {% endfor %}
-        <div class="dropdown-divider"></div>
-        {% for commission in commissions %}
-          <a class="dropdown-item" href="?group={{ commission.id }}">{{ commission.name }}</a>
-        {% endfor %}
-        <div class="dropdown-divider"></div>
-        <a class="dropdown-item" href="?group=-1">{% trans "All" %}</a>
-      </div>
-      {% endif %}
     </div>
+    <div class="col-md-9">
+      <ul class="fa-ul list-unstyled small text-muted details">
+        <li>
+          <span class="fa-li"><i class="far fa-calendar-alt"></i></span>
+          <span data-toggle="tooltip" data-placement="right" title="{% trans "Event period" %}">
+             {{ current_event.event_start }} - {{ current_event.event_end }}
+          </span>
+        </li>
+        <li>
+          <span class="fa-li"><i class="fas fa-lock"></i></span>
+          <span data-toggle="tooltip" data-placement="right" title="{% trans "Booking period" %}">
+            {{ current_event.booking_start }} - {{ current_event.booking_end }}
+          </span>
+        </li>
+        <li>
+          <span class="fa-li"><i class="fas fa-user-lock"></i></span>
+          <span data-toggle="tooltip" data-placement="right" title="{% trans "Privileged booking period" %}">
+            {{ current_event.booking_end }} - {{ current_event.privileged_booking_end }}
+          </span>
+        </li>
+      </ul>
+    </div>
+
   </div>
 
+  {% compress css %}
+    <style type="text/css">
+      .booking-status.status-LO {
+        background-color: #DC3545;
+        border-color: #DC3545;
+      }
+      body.editable .booking-status.status-LO {
+        color: #DC3545 !important;
+      }
+      .booking-status.status-PR {
+        background-color: #ffc107;
+        border-color: #ffc107;
+      }
+      body.editable .booking-status.status-PR {
+        color: #ffc107 !important;
+      }
+      .booking-status.status-OP {
+        background-color: #28a745;
+        border-color: #28a745;
+      }
+      body.editable .booking-status.status-OP {
+        color: #28a745 !important;
+      }
+      .booking-status {
+        border-color: #6c757d;
+      }
+      body.editable .booking-status {
+        background-color: transparent !important;
+        border-width: 1px;
+        border-style: solid;
+        color: #6c757d !important;
+      }
+      .booking-status small {
+        font-size: .7em;
+      }
+    </style>
+  {% endcompress %}
 
-    <p class="text-muted font-italic"><i class="far fa-calendar-alt"></i> {{ current_event.event_start }} - {{ current_event.event_end }}</p>
-    <p class="text-muted font-italic" title="{% trans "Booking period" %}"><i class="fas fa-lock"></i> {{ current_event.booking_start }} - {{ current_event.booking_end }}</p>
-    <p class="text-muted font-italic" title="{% trans "Privileged booking period" %}"><i class="fas fa-user-lock"></i> {{ current_event.booking_end }} - {{ current_event.privileged_booking_end }}</p>
-
-  <p class="lead">{% trans "Material bookings" %}</p>
-
+  <div class="row">
+    <div class="col-sm-8">
+      <p class="lead">{% trans "Material bookings" %}</p>
+    </div>
+    <div class="col-sm-4">
+      <div class="dropdown text-sm-right mb-2 mb-sm-0">
+        <button class="btn btn-outline-secondary {% if perms.booking.can_view_others_groups_bookings %}dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false{% endif %}">
+          {{ current_group.name }}
+        </button>
+        {% if perms.booking.can_view_others_groups_bookings %}
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="z-index: 3000;">
+          {% for group in groups %}
+            <a class="dropdown-item" href="?group={{ group.id }}">{{ group.name }}</a>
+          {% endfor %}
+          <div class="dropdown-divider"></div>
+          {% for commission in commissions %}
+            <a class="dropdown-item" href="?group={{ commission.id }}">{{ commission.name }}</a>
+          {% endfor %}
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="?group=-1">{% trans "All" %}</a>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
 
   <div class="card position-relative booking-card">
       <nav class="card-header sticky-top frosted" id="scroll_pills">

@@ -19,7 +19,7 @@
         <ul class="navbar-nav mr-auto">
           <li class="nav-item dropdown" data-toggle="tooltip" data-placement="bottom" title="{% trans "Event" %}">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <i class="far fa-calendar-alt"></i>
+              <i class="far fa-calendar-alt fa-fw"></i>
               <span>{{ current_event.name }}</span>
               {% if current_event.is_privileged or current_event.is_locked %}
                 {% if not current_event|may_edit:user %}
@@ -32,7 +32,7 @@
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
               {% for event in events %}
               <a class="dropdown-item {% if current_event == event %}active{% endif %}" href="{% url 'booking:event_bookings' event.id %}">
-                <i class="far fa-calendar-alt"></i>
+                <i class="far fa-calendar-alt fa-fw"></i>
                 <span>{{ event.name }}</span>
                 {% if event.is_privileged or event.is_locked %}
                   {% if not event|may_edit:user %}
@@ -48,9 +48,9 @@
         </ul>
         <ul class="navbar-nav">
             {% if user.is_authenticated %}
-              <li class="nav-item" data-toggle="tooltip" data-placement="left" title="{{ user.first_name }}">
+              <li class="nav-item" data-toggle="tooltip" data-placement="left" title="{% trans "Logged in user" %}">
                 <a class="nav-link" href="#">
-                  <i class="fas fa-user-circle"></i>
+                  <i class="fas fa-user-circle fa-fw"></i>
                   <span class="d-inline d-sm-none d-lg-inline">{{ user.first_name }}</span>
                   {% if user|has_role:'MB' %}
                     <span class="badge badge-mb" data-toggle="tooltip" data-placement="bottom" title="{% trans "Materiaalboer" %}">MB</span>
@@ -59,14 +59,14 @@
               </li>
               <li class="nav-item" data-toggle="tooltip" data-placement="bottom" title="{% trans "Logout" %}">
                 <a class="nav-link" href="{% url 'users:logout' %}">
-                  <i class="fas fa-sign-out-alt"></i>
+                  <i class="fas fa-sign-out-alt fa-fw"></i>
                   <span class="d-inline d-sm-none d-lg-inline">{% trans "Logout" %}</span>
                 </a>
               </li>
               {% if user.is_staff %}
                 <li class="nav-item" data-toggle="tooltip" data-placement="bottom" title="{% trans "Admin" %}">
                   <a class="nav-link" href="{% url 'admin:index' %}">
-                    <i class="fas fa-cog"></i>
+                    <i class="fas fa-cog fa-fw"></i>
                     <span class="d-inline d-sm-none d-lg-inline">{% trans "Admin" %}</span>
                   </a>
                 </li>
@@ -74,14 +74,14 @@
             {% else %}
               <li class="nav-item" data-toggle="tooltip" data-placement="bottom" title="{% trans "Login" %}">
                 <a class="nav-link" href="{% url 'users:login' %}">
-                  <i class="fas fa-sign-in-alt"></i>
+                  <i class="fas fa-sign-in-alt fa-fw"></i>
                   <span class="d-inline d-sm-none d-lg-inline">{% trans "Login" %}</span>
                 </a>
               </li>
             {% endif %}
           <li class="nav-item dropdown d-none d-sm-block d-lg-none" data-toggle="tooltip" data-placement="left" title="{% trans "Search" %}">
             <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-              <i class="fas fa-search"></i>
+              <i class="fas fa-search fa-fw"></i>
               <span class="sr-only"> {% trans "Search" %}</span>
             </a>
             <div class="dropdown-menu dropdown-menu-right" style="width: 25rem;">
