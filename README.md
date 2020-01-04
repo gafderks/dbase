@@ -63,3 +63,5 @@ Installation
 Roadmap
 -------
 - Suggested material bookings. If you book 'Rambler' it suggests electricity cords.
+- Details for parts of days, e.g. location, times.
+- Mobile check-off list that stores the check-off status in local storage.

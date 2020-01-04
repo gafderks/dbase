@@ -84,6 +84,7 @@ class Material(models.Model):
         blank=True,
         null=True,
         verbose_name=_("rate class"),
+        related_name="materials",
         help_text=_("What rate class should this material be associated with?"),
     )
     stock = models.CharField(
@@ -133,7 +134,10 @@ class MaterialAlias(models.Model):
         ),
     )
     material = models.ForeignKey(
-        Material, on_delete=models.DO_NOTHING, verbose_name=_("material")
+        Material,
+        on_delete=models.DO_NOTHING,
+        verbose_name=_("material"),
+        related_name="aliases",
     )
 
     class Meta:
@@ -146,7 +150,10 @@ class MaterialAlias(models.Model):
 
 class Game(models.Model):
     creator = models.ForeignKey(
-        get_user_model(), on_delete=models.DO_NOTHING, verbose_name=_("creator")
+        get_user_model(),
+        on_delete=models.DO_NOTHING,
+        verbose_name=_("creator"),
+        related_name="games",
     )
     name = models.CharField(verbose_name=_("name"), max_length=250)
     order = models.PositiveIntegerField(
@@ -176,6 +183,16 @@ class Game(models.Model):
         default=MORNING,
         help_text=_("At what part of the day are the materials needed?"),
     )
+    location = models.CharField(
+        verbose_name=_("location"),
+        max_length=250,
+        null=True,
+        blank=True,
+        help_text=_(
+            "Where do you need the materials for this game to be delivered? This "
+            "defaults to the location of the part of day."
+        ),
+    )
 
     class Meta:
         verbose_name = _("game")
@@ -199,7 +216,8 @@ class Event(models.Model):
         verbose_name=_("locked"),
         default=False,
         help_text=_(
-            "Manually lock the booking such that users cannot change bookings (except admin)."
+            "Manually lock the booking such that users cannot change bookings (except "
+            "admin)."
         ),
     )
     visible = models.BooleanField(
@@ -244,12 +262,14 @@ class Event(models.Model):
     def __str__(self):
         return self.name
 
+    @property
     def duration(self):
         return (self.event_end - self.event_start).days
 
+    @property
     def days(self):
         return [
-            self.event_start + timedelta(days=day) for day in range(self.duration() + 1)
+            self.event_start + timedelta(days=day) for day in range(self.duration + 1)
         ]
 
     HIDDEN = "HI"
@@ -309,10 +329,16 @@ class Event(models.Model):
 
 class Booking(models.Model):
     requester = models.ForeignKey(
-        get_user_model(), on_delete=models.DO_NOTHING, verbose_name=_("requester")
+        get_user_model(),
+        on_delete=models.DO_NOTHING,
+        verbose_name=_("requester"),
+        related_name="bookings",
     )
     group = models.ForeignKey(
-        Group, on_delete=models.DO_NOTHING, verbose_name=_("group")
+        Group,
+        on_delete=models.DO_NOTHING,
+        verbose_name=_("group"),
+        related_name="bookings",
     )
     day = models.DateField(
         verbose_name=_("day"), help_text=_("On what day are the materials needed?")
@@ -329,7 +355,7 @@ class Booking(models.Model):
         (NIGHT, _("Night")),
         (DAY, _("Day")),
     ]
-    part_of_day = models.CharField(
+    part_of_day_code = models.CharField(
         verbose_name=_("part of day"),
         max_length=2,
         choices=PART_OF_DAY_CHOICES,
@@ -337,19 +363,40 @@ class Booking(models.Model):
         help_text=_("At what part of the day are the materials needed?"),
     )
     game = models.ForeignKey(
-        Game, on_delete=models.DO_NOTHING, null=True, verbose_name=_("game")
+        Game,
+        on_delete=models.DO_NOTHING,
+        null=True,
+        verbose_name=_("game"),
+        related_name="bookings",
     )
     material = models.ForeignKey(
-        Material, on_delete=models.DO_NOTHING, verbose_name=_("material")
+        Material,
+        on_delete=models.DO_NOTHING,
+        verbose_name=_("material"),
+        related_name="bookings",
     )
     workweek = models.CharField(
         max_length=150, blank=True, null=True, verbose_name=_("workweek")
     )
     comment = models.CharField(
-        max_length=250, blank=True, null=True, verbose_name=_("comment")
+        max_length=250,
+        blank=True,
+        null=True,
+        verbose_name=_("comment"),
+        help_text=_("E.g. for food: when and where do you need it?"),
     )
     amount = models.CharField(max_length=150, verbose_name=_("amount"))
-    event = models.ForeignKey(Event, on_delete=models.CASCADE, verbose_name=_("event"))
+    event = models.ForeignKey(
+        Event,
+        on_delete=models.CASCADE,
+        verbose_name=_("event"),
+        related_name="bookings",
+    )
+
+    @property
+    def part_of_day(self):
+        part_of_day_dict = {code: trans for code, trans in self.PART_OF_DAY_CHOICES}
+        return part_of_day_dict[self.part_of_day_code]
 
     class Meta:
         verbose_name = _("booking")
@@ -361,3 +408,39 @@ class Booking(models.Model):
 
     def __str__(self):
         return self.material.name
+
+
+class PartOfDay(models.Model):
+    day = models.DateField(
+        verbose_name=_("day"), help_text=_("On what day are the materials needed?")
+    )
+    group = models.ForeignKey(
+        Group, on_delete=models.DO_NOTHING, verbose_name=_("group")
+    )
+    event = models.ForeignKey(Event, on_delete=models.CASCADE, verbose_name=_("event"))
+    part_of_day_code = models.CharField(
+        verbose_name=_("part of day"),
+        max_length=2,
+        choices=Booking.PART_OF_DAY_CHOICES,
+        default=Booking.MORNING,
+        help_text=_("At what part of the day are the materials needed?"),
+    )
+    start_time = models.TimeField(verbose_name=_("start time"), null=True)
+    end_time = models.TimeField(verbose_name=_("end time"), null=True)
+    location = models.CharField(
+        verbose_name=_("location"),
+        max_length=250,
+        null=True,
+        blank=True,
+        help_text=_(
+            "Where do you need the materials for this part of day to be delivered?"
+        ),
+    )
+
+    @property
+    def part_of_day(self):
+        part_of_day_dict = {code: trans for code, trans in Booking.PART_OF_DAY_CHOICES}
+        return part_of_day_dict[self.part_of_day_code]
+
+    def __str__(self):
+        return "{} {}".format(self.day, self.part_of_day)
