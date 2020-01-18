@@ -1,11 +1,19 @@
 $color_1: #495057;
-$color_2: transparent;
+$color_transparent: transparent;
 $color_3: #777;
+
+.row > .form-label-group > label {
+    /* Fix the floating label if it is in a column */
+    margin-left: 15px;
+    margin-right: 15px;
+    padding-left: inherit;
+    padding-right: inherit;
+}
 
 .form-label-group {
 	position: relative;
 	margin-bottom: 1rem;
-	>input {
+	>input, >select {
 		height: 3.125rem;
 		padding: .75rem;
 	}
@@ -26,24 +34,24 @@ $color_3: #777;
 		border-radius: .25rem;
 		transition: all .1s ease-in-out;
 	}
-	input {
+	input, select {
 		&::-webkit-input-placeholder {
-			color: $color_2;
+			color: $color_transparent;
 		}
 		&:-ms-input-placeholder {
-			color: $color_2;
+			color: $color_transparent;
 		}
 		&::-ms-input-placeholder {
-			color: $color_2;
+			color: $color_transparent;
 		}
 		&::-moz-placeholder {
-			color: $color_2;
+			color: $color_transparent;
 		}
 		&::placeholder {
-			color: $color_2;
+			color: $color_transparent;
 		}
 		&:not(:placeholder-shown) {
-			padding-top: 1.25rem;
+            padding-top: 1.25rem;
 			padding-bottom: .25rem;
 			&~label {
 				padding-top: .25rem;
@@ -51,6 +59,11 @@ $color_3: #777;
 				font-size: 12px;
 				color: $color_3;
 			}
+
+            &[type=button], &[type=submit], &[type=reset] {
+                padding-top: 0.75rem;
+			    padding-bottom: 0.75rem;
+            }
 		}
 	}
 }

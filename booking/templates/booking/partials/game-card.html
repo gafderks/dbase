@@ -1,0 +1,38 @@
+{% load i18n %}
+{% load crispy_forms_tags %}
+<div class="card game mb-3" data-id="{{ game.pk }}" data-order="{{ game.order }}">
+  <div class="card-header">
+    {% if form %}
+      {% crispy form %}
+    {% else %}
+      <form></form>
+    {% endif %}
+    <div class="game-header row">
+      <div class="game-name col-auto py-2">{{ game.name }}</div>
+      <div class="game-location col py-2 text-right text-secondary">
+        {% if game.location %}
+          <div title="{% trans "Location" %}" data-toggle="tooltip" data-placement="bottom">
+            <i class='fas fa-map-marker-alt'></i> {{ game.location }}
+          </div>
+        {% endif %}
+      </div>
+      <div class="game-controls editor col-auto text-right">
+        <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+          <div class="btn-group mr-2 d-print-none" role="group" aria-label="{% trans "Sort game" %}">
+            <a href="javascript:void(0);" data-action="{% url 'booking:api:move_game' game.id 'up' %}" data-method="post" data-toggle="tooltip" data-placement="bottom" class="btn btn-outline-secondary move-game move-game-up" title="{% trans "Move up" %}"><i class="fas fa-long-arrow-alt-up"></i></a>
+            <a href="javascript:void(0);" data-action="{% url 'booking:api:move_game' game.id 'down' %}" data-method="post" data-toggle="tooltip" data-placement="bottom" class="btn btn-outline-secondary move-game move-game-down" title="{% trans "Move down" %}"><i class="fas fa-long-arrow-alt-down"></i></a>
+          </div>
+          <div class="btn-group mr-2 d-print-none" role="group" aria-label="{% trans "Game options" %}">
+            <span data-toggle="modal" data-target="#deleteGameModal" data-action="{% url 'booking:api:delete_game' game.id %}" class="delete-game" data-method="post">
+              <a href="javascript:void(0);" data-toggle="tooltip" data-placement="bottom" class="btn btn-outline-danger" title="{% trans "Delete" %}"><i class="far fa-trash-alt"></i></a>
+            </span>
+            <a href="javascript:void(0);" data-toggle="tooltip" data-placement="bottom" class="btn btn-outline-secondary edit-game" title="{% trans "Edit" %}"><i class="fas fa-edit"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    {# bookings #}
+  </div>
+</div>

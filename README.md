@@ -65,3 +65,5 @@ Roadmap
 - [ ] Suggested material bookings. If you book 'Rambler' it suggests electricity cords.
 - [ ] Details for parts of days, e.g. location, times.
 - [ ] Mobile check-off list that stores the check-off status in local storage.
+- [ ] Make games orderable
+- [ ] Enable simultaneous editing of bookings and games

@@ -1,0 +1,56 @@
+html {
+  scroll-behavior: smooth;
+}
+
+.frosted {
+  background-color: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(8px);
+}
+
+.booking-card h4:target:before {
+  content: "";
+  display: block;
+  height: 80px;
+  margin: -80px 0 0;
+}
+
+.day {
+  padding: 2rem 0;
+}
+.day:first-child {
+  padding-top: 0;
+  padding-bottom: 2rem;
+}
+.day h4 {
+  border-top: 3px #eee solid;
+  padding: 1rem 0;
+}
+.day .part-of-day > :only-child {
+  display: none;
+}
+.day .card.game .card-header form {
+  display: none;
+}
+.day .card.game .card-header.display-form .game-header {
+  display: none;
+}
+.day .card.game .card-header.display-form form {
+  display: block;
+}
+.day .card.game .card-header .game-header .game-name, .day .card.game .card-header .game-header .game-location > div {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.day .card.game .card-header .game-header .game-controls {
+  display: none;
+}
+.day .card.game .card-header:active .game-header .game-controls, .day .card.game .card-header:focus .game-header .game-controls, .day .card.game .card-header:hover .game-header .game-controls {
+  display: inline-block;
+}
+
+body:not(.editable) .editor {
+  display: none !important;
+}
+
+/*# sourceMappingURL=booking.css.map */

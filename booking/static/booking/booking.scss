@@ -1,0 +1,91 @@
+$background_color_1: rgba(255, 255, 255, .6);
+
+html {
+    scroll-behavior: smooth;
+}
+
+.frosted {
+    background-color: $background_color_1;
+    backdrop-filter: blur(8px);
+}
+
+.booking-card {
+    h4 {
+        &:target {
+            &:before {
+                content: "";
+                display: block;
+                height: 80px;
+                margin: -80px 0 0;
+            }
+        }
+    }
+}
+
+.day {
+    padding: 2rem 0;
+
+    &:first-child {
+        padding-top: 0;
+        padding-bottom: 2rem;
+    }
+
+    h4 {
+        border-top: 3px #eee solid;
+        padding: 1rem 0;
+    }
+
+    .part-of-day {
+        > :only-child {
+            display: none;
+        }
+    }
+
+    .card.game {
+
+        .card-header {
+            form {
+                display: none;
+            }
+
+            &.display-form {
+                .game-header {
+                    display: none;
+                }
+
+                form {
+                    display: block;
+                }
+            }
+
+            .game-header {
+                .game-name, .game-location > div {
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+
+                .game-controls {
+                    display: none;
+                }
+            }
+
+            &:active, &:focus, &:hover {
+                .game-header .game-controls {
+                    display: inline-block;
+                }
+            }
+
+
+        }
+
+
+    }
+}
+
+body:not(.editable) {
+    .editor {
+        display: none !important;
+    }
+}
+
