@@ -64,6 +64,10 @@ $days.on('submit', '.game-form', function(e) {
     updateGame(e.currentTarget);
 });
 
+$days.on('reset', '.game-form', function(e) {
+    $(e.currentTarget).closest('.card-header').removeClass('display-form');
+});
+
 $days.on('click', '.btn.edit-game', function(e) {
    $(e.currentTarget).closest('.card-header').addClass('display-form');
 });

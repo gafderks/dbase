@@ -5,7 +5,7 @@ from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from django.utils.translation import gettext as __
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Submit, Layout, Field, Div
+from crispy_forms.layout import Submit, Layout, Field, Div, Reset
 
 from booking.models import Material, Category, Event, MaterialAlias, Game
 
@@ -146,6 +146,12 @@ class GameForm(forms.ModelForm):
                     ),
                     css_class="col-auto px-1 mb-lg-0 form-label-group",
                 ),
+                Div(
+                    Reset("reset", _("Cancel"), css_id=self.auto_id % "reset",),
+                    css_class="col-auto px-1 mb-lg-0 form-label-group",
+                )
+                if self.instance.id
+                else None,
                 "event",
                 "day",
                 "group",
