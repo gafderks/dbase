@@ -70,7 +70,7 @@ class Command(BaseCommand):
 
     def import_locations(self):
         for location in self.LOCATIONS:
-            location_object, _ = Location.objects.get_or_create(location)
+            location_object, _ = Location.objects.get_or_create(name=location)
             location_object.save()
         return len(self.LOCATIONS)
 
