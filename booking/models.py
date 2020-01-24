@@ -6,7 +6,6 @@ from django.utils.translation import gettext_lazy as _
 from datetime import timedelta, datetime, timezone
 from djmoney.models.fields import MoneyField
 from djmoney.models.validators import MinMoneyValidator
-from ordered_model.models import OrderedModel
 
 from users.models import Group
 
