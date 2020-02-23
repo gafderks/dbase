@@ -3,6 +3,9 @@
 DBASE
 =====
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/a1fbb314106646d8bcb8eb52563c7725)](https://www.codacy.com/manual/gafderks/dbase?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=gafderks/dbase&amp;utm_campaign=Badge_Grade)
+[![Total alerts](https://img.shields.io/lgtm/alerts/g/gafderks/dbase.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/gafderks/dbase/alerts/)
+[![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/gafderks/dbase.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/gafderks/dbase/context:javascript)
+[![Language grade: Python](https://img.shields.io/lgtm/grade/python/g/gafderks/dbase.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/gafderks/dbase/context:python)
 [![time tracker](https://wakatime.com/badge/github/gafderks/dbase.svg)](https://wakatime.com/badge/github/gafderks/dbase)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![GitHub License](https://img.shields.io/github/license/gafderks/dbase)](https://github.com/gafderks/dbase/blob/master/LICENSE)
@@ -65,7 +68,12 @@ Roadmap
 - [ ] Suggested material bookings. If you book 'Rambler' it suggests electricity cords.
 - [ ] Details for parts of days, e.g. location, times.
 - [ ] Mobile check-off list that stores the check-off status in local storage.
+    - [ ] Hold checkbox for indeterminate state
+    - [ ] Check-all / uncheck all button
 - [X] Make games orderable
 - [ ] Enable simultaneous editing of bookings and games
 - [ ] Button material is not listed, put in comments. Material field nullable.
+    - [ ] MB can convert unlisted material into material
 - [ ] User role for 'Bestuur' that can change users but not roles.
+- [ ] Admin functionality for converting a Material into a MaterialAlias
+- [ ] Camera app for quickly adding photos of materials

@@ -1,13 +1,11 @@
-from crispy_forms.bootstrap import InlineField
 from django import forms
-from django.shortcuts import get_object_or_404
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from django.utils.translation import gettext as __
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit, Layout, Field, Div, Reset
 
-from booking.models import Material, Category, Event, MaterialAlias, Game
+from booking.models import Material, Category, Event, MaterialAlias, Game, Booking
 
 
 class MaterialForm(forms.ModelForm):
@@ -140,7 +138,7 @@ class GameForm(forms.ModelForm):
                 ),
                 Div(
                     Submit(
-                        "submit",
+                        "update" if self.instance.id else "add",
                         _("Update") if self.instance.id else _("Add"),
                         css_id=self.auto_id % "submit",
                     ),
@@ -180,3 +178,88 @@ class GameForm(forms.ModelForm):
             )
 
         return cleaned_data
+
+
+class BookingForm(forms.ModelForm):
+    class Meta:
+        model = Booking
+        fields = "__all__"
+        widgets = {"game": forms.HiddenInput(), "material": forms.TextInput()}
+        labels = {
+            "material": "",
+            "amount": __("Amount"),
+            "workweek": __("Workweek"),
+            "comment": "<i class='far fa-comment'></i> " + __("Comment"),
+        }
+        help_texts = {
+            "material": None,
+            "amount": None,
+            "workweek": None,
+            "comment": None,
+        }
+
+    def __init__(self, *args, **kwargs):
+        super(BookingForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        if self.instance.id:
+            self.helper.form_action = reverse(
+                "booking:api:edit_booking", args=[self.instance.id]
+            )
+        else:
+            self.helper.form_action = reverse("booking:api:new_booking")
+        self.helper.form_method = "POST"
+        css_class = "booking-form-update" if self.instance.id else "booking-form-create"
+        self.helper.form_class = "booking-form w-100 " + css_class
+        self.helper.layout = Layout(
+            Div(
+                Field(
+                    "material",
+                    wrapper_class="col-8 col-lg-3 px-1 mb-lg-0",
+                    css_class="typeahead-materials floating-label-size",
+                    placeholder=__("Material") + "*",
+                    autocomplete="off",
+                    data_materialid=self.instance.material.id
+                    if self.instance.id and self.instance.material is not None
+                    else "",
+                    data_materialname=self.instance.material.name
+                    if self.instance.id and self.instance.material is not None
+                    else "",
+                    data_invalidmessage=__("Choose a material"),
+                ),
+                Field(
+                    "amount",
+                    template="crispy/floating-labels.html",
+                    wrapper_class="col-4 col-lg-2 px-1 mb-lg-0",
+                    autocomplete="off",
+                ),
+                Field(
+                    "workweek",
+                    wrapper_class="col-auto px-1 mb-lg-0",
+                    template="crispy/floating-labels.html",
+                    data_toggle="toggle",
+                    data_on=__("Workweek"),
+                    data_off=__("No"),
+                ),
+                Field(
+                    "comment",
+                    template="crispy/floating-labels.html",
+                    wrapper_class="col px-1 mb-lg-0",
+                ),
+                Div(
+                    Submit(
+                        "submit",
+                        _("Update") if self.instance.id else _("Add"),
+                        css_id=self.auto_id % "submit",
+                    ),
+                    css_class="col-auto px-1 mb-lg-0 form-label-group",
+                ),
+                Div(
+                    Reset("reset", _("Cancel"), css_id=self.auto_id % "reset",),
+                    css_class="col-auto px-1 mb-lg-0 form-label-group",
+                )
+                if self.instance.id
+                else None,
+                "game",
+                css_class="row mx-0",
+            ),
+        )

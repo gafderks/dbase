@@ -5,7 +5,7 @@ from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils.translation import gettext_lazy as _
 
-from booking.forms import CategoryForm, GameForm
+from booking.forms import CategoryForm, GameForm, BookingForm
 from booking.models import Category, Event, Game, PartOfDay
 from users.models import Group
 
@@ -66,15 +66,12 @@ def event_bookings(request, event_id):
 
     games = {
         day: {
-            part_of_day: [
-                (game, GameForm(instance=game, auto_id="id_%s_" + uuid.uuid4().hex))
-                for game in Game.objects.filter(
-                    event=current_event,
-                    group=current_group,
-                    day=day,
-                    part_of_day=part_of_day,
-                )
-            ]
+            part_of_day: Game.objects.filter(
+                event=current_event,
+                group=current_group,
+                day=day,
+                part_of_day=part_of_day,
+            )
             for part_of_day, _ in PartOfDay.PART_OF_DAY_CHOICES
         }
         for day in current_event.days
@@ -87,7 +84,9 @@ def event_bookings(request, event_id):
             **get_base_context(request),
             "current_event": current_event,
             "current_group": current_group,
-            "game_form": GameForm(),
+            "empty_game_form": GameForm(
+                initial={"event": current_event, "group": current_group}
+            ),
             "games": games,
         },
     )

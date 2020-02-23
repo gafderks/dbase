@@ -1,3 +1,5 @@
+import uuid
+
 from crispy_forms.utils import render_crispy_form
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
@@ -5,8 +7,38 @@ from django.http import HttpResponseBadRequest, JsonResponse
 from django.shortcuts import get_object_or_404
 from django.template.loader import render_to_string
 
-from booking.forms import GameForm
+from booking.forms import GameForm, BookingForm
 from booking.models import Game
+
+
+def _get_game_order(game):
+    return [
+        [the_game.pk, the_game.order]
+        for the_game in Game.objects.filter(
+            event=game.event, group=game.group, day=game.day
+        )
+    ]
+
+
+def _get_game_response(game):
+    form_html = render_crispy_form(
+        GameForm(instance=game, auto_id="id_%s_" + uuid.uuid4().hex)
+    )
+    game_html = render_to_string(
+        "booking/partials/game-card.html",
+        {
+            "game": game,
+            "gameform": GameForm(instance=game, auto_id="id_%s_" + uuid.uuid4().hex),
+            "bookingform": BookingForm(
+                initial={"game": game}, auto_id="id_%s_" + uuid.uuid4().hex
+            ),
+        },
+    )
+    return {
+        "form_html": form_html,
+        "game_html": game_html,
+        "order": _get_game_order(game),
+    }
 
 
 @login_required
@@ -24,26 +56,7 @@ def move_game(request, game_id, direction):
     elif direction == "down":
         game.down()
 
-    form_html = render_crispy_form(GameForm(instance=game))
-    game_html = render_to_string(
-        "booking/partials/game-card.html",
-        {"game": game, "form": GameForm(instance=game)},
-    )
-    order = [
-        [the_game.pk, the_game.order]
-        for the_game in Game.objects.filter(
-            event=game.event, group=game.group, day=game.day
-        )
-    ]
-
-    return JsonResponse(
-        {
-            "success": True,
-            "form_html": form_html,
-            "game_html": game_html,
-            "order": order,
-        }
-    )
+    return JsonResponse({"success": True, **_get_game_response(game)})
 
 
 @login_required
@@ -55,14 +68,7 @@ def delete_game(request, game_id):
 
     game.delete()
 
-    order = [
-        [the_game.pk, the_game.order]
-        for the_game in Game.objects.filter(
-            event=game.event, group=game.group, day=game.day
-        )
-    ]
-
-    return JsonResponse({"success": True, "order": order,})
+    return JsonResponse({"success": True, "order": _get_game_order(game),})
 
 
 @login_required
@@ -86,28 +92,7 @@ def edit_game(request, game_id=None):
             raise PermissionDenied("User may not edit game")
 
         game = form.save()
-
-        form_html = render_crispy_form(GameForm(instance=game))
-        game_html = render_to_string(
-            "booking/partials/game-card.html",
-            {"game": game, "form": GameForm(instance=game)},
-        )
-
-        order = [
-            [the_game.pk, the_game.order]
-            for the_game in Game.objects.filter(
-                event=game.event, day=game.day, group=game.group
-            )
-        ]
-
-        return JsonResponse(
-            {
-                "success": True,
-                "form_html": form_html,
-                "game_html": game_html,
-                "order": order,
-            }
-        )
+        return JsonResponse({"success": True, **_get_game_response(game)})
 
     form_html = render_crispy_form(form)
     return JsonResponse({"success": False, "form_html": form_html})

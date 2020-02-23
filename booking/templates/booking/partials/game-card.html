@@ -1,9 +1,9 @@
 {% load i18n %}
 {% load crispy_forms_tags %}
-<div class="card game mb-3" data-id="{{ game.pk }}" data-order="{{ game.order }}">
+<div class="card game mb-3" data-id="{{ game.pk }}" data-order="{{ game.order }}" data-part-of-day-code="{{ game.part_of_day }}">
   <div class="card-header">
-    {% if form %}
-      {% crispy form %}
+    {% if game %}
+      {% crispy game.form %}
     {% else %}
       <form></form>
     {% endif %}
@@ -24,7 +24,7 @@
           </div>
           <div class="btn-group mr-2 d-print-none" role="group" aria-label="{% trans "Game options" %}">
             <span data-toggle="modal" data-target="#deleteGameModal" data-action="{% url 'booking:api:delete_game' game.id %}" class="delete-game" data-method="post">
-              <a href="javascript:void(0);" data-toggle="tooltip" data-placement="bottom" class="btn btn-outline-danger" title="{% trans "Delete" %}"><i class="far fa-trash-alt"></i></a>
+              <a href="javascript:void(0);" data-toggle="tooltip" data-placement="bottom" class="btn btn-outline-danger rounded-left" style="border-radius: 0;" title="{% trans "Delete" %}"><i class="far fa-trash-alt"></i></a>
             </span>
             <a href="javascript:void(0);" data-toggle="tooltip" data-placement="bottom" class="btn btn-outline-secondary edit-game" title="{% trans "Edit" %}"><i class="fas fa-edit"></i></a>
           </div>
@@ -32,7 +32,35 @@
       </div>
     </div>
   </div>
-  <div class="card-body">
-    {# bookings #}
+  <div class="card-body p-0">
+    <div class="table-responsive-md">
+      <table class="bookings-table table table-sm table-hover mb-0">
+        <thead>
+          <tr class="d-flex">
+            <th scope="col" class="booking-check text-center col-auto pl-md-3 pl-sm-2">
+              <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" id="check-{{ game.pk }}">
+                <label class="custom-control-label" for="check-{{ game.pk }}"></label>
+              </div>
+            </th>
+            <th scope="col" class="booking-material col col-md-3">{% trans "Material" %}</th>
+            <th scope="col" class="booking-amount col-2 col-md-2 text-truncate" data-toggle="tooltip" title="{% trans "Amount" %}">{% trans "Amount" %}</th>
+            <th scope="col" class="booking-workweek text-center col-2 col-md-2 text-truncate" data-toggle="tooltip" title="{% trans "Workweek" %}">{% trans "Workweek" %}</th>
+            <th scope="col" class="booking-comment d-none d-md-table-cell col">{% trans "Comment" %}</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for booking in game.bookings.all %}
+          {% include "booking/partials/booking-item.html" with booking=booking %}
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <div class="editor bg-light px-2 pb-2">
+      <h6 class="px-2 pt-2 text-secondary">
+        {% trans "Add material booking" %}
+      </h6>
+      {% crispy game.booking_form %}
+    </div>
   </div>
 </div>

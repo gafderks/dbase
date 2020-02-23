@@ -26,13 +26,15 @@
     {% endcompress %}
 
   <template id="game-form">
-  {% crispy game_form %}
+  {% crispy empty_game_form %}
   </template>
+
 {#  <template id="game-card">#}
 {#  {% include "booking/partials/game-card.html" with form=None %}#}
 {#  </template>#}
 
   {% include "booking/partials/delete-game-modal.html" %}
+  {% include "booking/partials/delete-booking-modal.html" %}
 
   <div class="row">
     <div class="col-md-8">
@@ -187,21 +189,19 @@
             <div class="part-of-day" data-date="{{ day.isoformat }}" data-part-of-day="{{ code }}">
             <h5>{{ trans }}</h5>
             {# Todo display part of day form #}
-            {% for game, form in games|get_item:day|get_item:code %}
-              {% include "booking/partials/game-card.html" with game=game form=form %}
+            {% for game in games|get_item:day|get_item:code %}
+              {% include "booking/partials/game-card.html" with game=game %}
             {% endfor %}
 
             </div>{% endfor %}
           </div>
         {% endfor %}
-
-
     </div>
   </div>
 
     {% compress css %}
-      <link href="{% static "booking/floating-labels.css" %}" rel="stylesheet">
-      <link href="{% static "booking/booking.css" %}" rel="stylesheet">
+      <link href="{% static "booking/css/floating-labels.css" %}" rel="stylesheet">
+      <link href="{% static "booking/css/booking.css" %}" rel="stylesheet">
     {% endcompress %}
 
 {% endblock %}
@@ -209,5 +209,10 @@
 {% block scripts %}
 {{ block.super }}
 
-<script src="{% static "booking/app.js" %}" type="text/javascript"></script>
+<script src="{% static "booking/js/ajax_csrf.js" %}" type="text/javascript"></script>
+<script src="{% static "booking/js/app.js" %}" type="text/javascript"></script>
+<script src="{% static "booking/js/booking.js" %}" type="text/javascript"></script>
+<script src="{% static "booking/js/game.js" %}" type="text/javascript"></script>
+<script src="{% static "booking/js/partofday.js" %}" type="text/javascript"></script>
+<script src="{% static "booking/js/day.js" %}" type="text/javascript"></script>
 {% endblock %}

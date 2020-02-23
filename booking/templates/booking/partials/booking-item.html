@@ -1,0 +1,57 @@
+{% load i18n %}
+{% load crispy_forms_tags %}
+<tr class="booking d-flex flex-wrap" data-id="{{ booking.pk }}">
+  <td class="booking-form col-12">
+    {% if booking %}
+      {% crispy booking.form %}
+    {% else %}
+      <form></form>
+    {% endif %}
+  </td>
+  <td class="booking-check booking-info d-flex align-items-center justify-content-center col-auto pl-md-3 pl-sm-2">
+    <div class="custom-control custom-checkbox">
+      <input type="checkbox" class="custom-control-input" id="check-{{ booking.pk }}">
+      <label class="custom-control-label" for="check-{{ booking.pk }}"></label>
+    </div>
+  </td>
+  <td class="booking-material booking-info col col-md-3">
+    <label for="check-{{ booking.pk }}" class="d-block">{{ booking.material.name }}</label>
+    <div class="booking-material-category small text-muted text-truncate">{{ booking.material.categories.all.0 }}</div>
+  </td>
+  <td class="booking-amount booking-info d-flex align-items-center col-2 col-md-2">
+    {{ booking.amount }}
+  </td>
+  <td class="booking-workweek booking-info d-flex align-items-center justify-content-center col-2 col-md-2">
+    {% if booking.workweek %}
+      <i class="fas fa-check"></i>
+    {% endif %}
+    <div class="booking-controls editor text-right position-absolute align-items-center show-xs">
+      <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+        <div class="btn-group mr-2 d-print-none" role="group" aria-label="{% trans "Booking options" %}">
+          <span data-toggle="modal" data-target="#deleteBookingModal" data-action="{% url 'booking:api:delete_booking' booking.id %}" class="delete-booking" data-method="post">
+            <a href="javascript:void(0);" data-toggle="tooltip" data-placement="bottom" class="btn btn-outline-danger rounded-left" style="border-radius: 0;" title="{% trans "Delete" %}"><i class="far fa-trash-alt"></i></a>
+          </span>
+          <a href="javascript:void(0);" data-toggle="tooltip" data-placement="bottom" class="btn btn-outline-secondary edit-booking" title="{% trans "Edit" %}"><i class="fas fa-edit"></i></a>
+        </div>
+      </div>
+    </div>
+  </td>
+  {% spaceless %}
+  <td class="booking-comment booking-info text-truncate d-flex align-items-center col-md col-12 mt-n2 mt-md-0 small text-muted text-wrap">
+    {% if booking.comment %}
+      <i class="far fa-comment text-secondary mr-2 d-md-none"></i>
+      {{ booking.comment }}
+    {% endif %}
+    <div class="booking-controls editor text-right position-absolute align-items-center show-md">
+      <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+        <div class="btn-group mr-2 d-print-none" role="group" aria-label="{% trans "Booking options" %}">
+          <span data-toggle="modal" data-target="#deleteBookingModal" data-action="{% url 'booking:api:delete_booking' booking.id %}" class="delete-booking" data-method="post">
+            <a href="javascript:void(0);" data-toggle="tooltip" data-placement="bottom" class="btn btn-outline-danger rounded-left" style="border-radius: 0;" title="{% trans "Delete" %}"><i class="far fa-trash-alt"></i></a>
+          </span>
+          <a href="javascript:void(0);" data-toggle="tooltip" data-placement="bottom" class="btn btn-outline-secondary edit-booking" title="{% trans "Edit" %}"><i class="fas fa-edit"></i></a>
+        </div>
+      </div>
+    </div>
+  </td>
+  {% endspaceless %}
+</tr>

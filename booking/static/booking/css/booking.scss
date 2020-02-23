@@ -1,0 +1,187 @@
+$background_color_1: rgba(255, 255, 255, .6);
+
+html {
+    scroll-behavior: smooth;
+}
+
+.frosted {
+    background-color: $background_color_1;
+    backdrop-filter: blur(8px);
+}
+
+.typeahead-materials.tt-hint[readonly] {
+    background: none 0% 0% / auto repeat scroll padding-box padding-box rgb(255, 255, 255);
+}
+
+.booking-card {
+    h4 {
+        &:target {
+            &:before {
+                content: "";
+                display: block;
+                height: 80px;
+                margin: -80px 0 0;
+            }
+        }
+    }
+}
+
+.day {
+    padding: 2rem 0;
+
+    &:first-child {
+        padding-top: 0;
+        padding-bottom: 2rem;
+    }
+
+    h4 {
+        border-top: 3px #eee solid;
+        padding: 1rem 0;
+    }
+
+    .part-of-day {
+        > :only-child {
+            display: none;
+        }
+    }
+
+    .booking {
+
+        td.booking-form {
+            display: none;
+        }
+
+        &.display-form {
+            td.booking-info {
+                display: none !important;
+            }
+
+            td.booking-form {
+                display: flex;
+            }
+        }
+
+        .booking-controls {
+            display: none;
+            right: 0;
+            background: linear-gradient(90deg, rgba(236,236,236,0) 0%, rgba(236,236,236,1) 30%, rgba(236,236,236,1));
+            padding-left: 3rem;
+            height: 100%;
+        }
+
+        &:active, &:focus, &:hover {
+            .booking-controls {
+
+                &.show-xs {
+                    display: flex !important;
+                }
+
+                @media (min-width: 768px) {
+                    &.show-md {
+                        display: flex !important;
+                    }
+                    &.show-xs {
+                        display: none !important;
+                    }
+                }
+            }
+
+
+
+
+        }
+    }
+
+    table.bookings-table {
+        th {
+            font-weight: normal;
+            text-transform: uppercase;
+            font-size: 0.8em;
+            letter-spacing: .5pt;
+            color: rgba(0, 0, 0, .35);
+            border: 0;
+        }
+
+        tbody {
+            td {
+                border: none;
+            }
+
+            tr {
+                border-top: 1px solid #dee2e6;
+
+                &:last-of-type {
+                    border-bottom: 1px solid #dee2e6;
+                }
+            }
+        }
+
+        label {
+            margin-bottom: 0;
+        }
+
+        .booking-comment {
+
+            &:empty {
+                display: none !important;
+            }
+        }
+    }
+
+    .card.game {
+
+        h6 {
+            font-weight: normal;
+            text-transform: uppercase;
+            font-size: 0.8em;
+            letter-spacing: .5pt;
+            color: rgba(0, 0, 0, .35);
+            border: 0;
+        }
+
+        .card-header {
+            form {
+                display: none;
+            }
+
+            &.display-form {
+                .game-header {
+                    display: none;
+                }
+
+                form {
+                    display: block;
+                }
+            }
+
+            .game-header {
+                .game-name, .game-location > div {
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+
+                .game-controls {
+                    display: none;
+                }
+            }
+
+            &:active, &:focus, &:hover {
+                .game-header .game-controls {
+                    display: inline-block;
+                }
+            }
+
+
+        }
+
+
+    }
+}
+
+body:not(.editable) {
+    .editor {
+        display: none !important;
+    }
+}
+

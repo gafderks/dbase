@@ -2,6 +2,7 @@ from django.urls import path
 
 from . import views
 from . import game
+from . import booking
 
 app_name = "api"
 urlpatterns = [
@@ -14,5 +15,10 @@ urlpatterns = [
         "game/edit/<int:game_id>/move/<str:direction>",
         game.move_game,
         name="move_game",
+    ),
+    path("booking/new", booking.edit_booking, name="new_booking"),
+    path("booking/edit/<int:booking_id>", booking.edit_booking, name="edit_booking"),
+    path(
+        "booking/delete/<int:booking_id>", booking.delete_booking, name="delete_booking"
     ),
 ]

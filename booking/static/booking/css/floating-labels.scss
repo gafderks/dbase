@@ -10,6 +10,11 @@ $color_3: #777;
     padding-right: inherit;
 }
 
+.floating-label-size {
+    height: 3.125rem;
+    padding: 0.75rem;
+}
+
 .form-label-group {
 	position: relative;
 	margin-bottom: 1rem;
@@ -17,6 +22,9 @@ $color_3: #777;
 		height: 3.125rem;
 		padding: .75rem;
 	}
+    >.toggle {
+        margin-top: 0.5rem;
+    }
 	>label {
 		height: 3.125rem;
 		padding: .75rem;
@@ -34,7 +42,15 @@ $color_3: #777;
 		border-radius: .25rem;
 		transition: all .1s ease-in-out;
 	}
-	input, select {
+    .toggle {
+        margin-top: 0.72rem;
+
+        &~label {
+            margin-top: -0.7rem;
+            margin-left: 0;
+        }
+    }
+	input, select, .toggle {
 		&::-webkit-input-placeholder {
 			color: $color_transparent;
 		}

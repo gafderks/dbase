@@ -433,6 +433,20 @@ class Game(models.Model):
                 return False
         return True
 
+    @property
+    def form(self):
+        from booking.forms import GameForm
+
+        return GameForm(instance=self, auto_id="id_game_%s_" + str(self.id))
+
+    @property
+    def booking_form(self):
+        from booking.forms import BookingForm
+
+        return BookingForm(
+            initial={"game": self}, auto_id="id_game_booking_%s_" + str(self.id)
+        )
+
 
 class Booking(models.Model):
     requester = models.ForeignKey(
@@ -440,15 +454,7 @@ class Booking(models.Model):
         on_delete=models.DO_NOTHING,
         verbose_name=_("requester"),
         related_name="bookings",
-    )
-    group = models.ForeignKey(
-        Group,
-        on_delete=models.DO_NOTHING,
-        verbose_name=_("group"),
-        related_name="bookings",
-    )
-    day = models.DateField(
-        verbose_name=_("day"), help_text=_("On what day are the materials needed?")
+        editable=False,
     )
     game = models.ForeignKey(
         Game, on_delete=models.CASCADE, verbose_name=_("game"), related_name="bookings",
@@ -458,10 +464,10 @@ class Booking(models.Model):
         on_delete=models.DO_NOTHING,
         verbose_name=_("material"),
         related_name="bookings",
+        null=True,
+        blank=True,
     )
-    workweek = models.CharField(
-        max_length=150, blank=True, null=True, verbose_name=_("workweek")
-    )
+    workweek = models.BooleanField(verbose_name=_("workweek"))
     comment = models.CharField(
         max_length=250,
         blank=True,
@@ -470,12 +476,6 @@ class Booking(models.Model):
         help_text=_("E.g. for food: when and where do you need it?"),
     )
     amount = models.CharField(max_length=150, verbose_name=_("amount"))
-    event = models.ForeignKey(
-        Event,
-        on_delete=models.CASCADE,
-        verbose_name=_("event"),
-        related_name="bookings",
-    )
 
     class Meta:
         verbose_name = _("booking")
@@ -487,3 +487,14 @@ class Booking(models.Model):
 
     def __str__(self):
         return self.material.name
+
+    def user_may_edit(self, user):
+        if not self.game.user_may_edit(user):
+            return False
+        return True
+
+    @property
+    def form(self):
+        from booking.forms import BookingForm
+
+        return BookingForm(instance=self, auto_id="id_booking_%s_" + str(self.id))
