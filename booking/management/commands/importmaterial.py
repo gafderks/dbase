@@ -1,6 +1,6 @@
 import csv, os
 
-from django.core.management.base import BaseCommand, CommandError
+from django.core.management.base import BaseCommand
 from django.db import transaction
 from booking.models import Category, Material, Location
 
@@ -32,7 +32,7 @@ class Command(BaseCommand):
             os.path.join(os.path.dirname(os.path.abspath(__file__)), "categorie.csv")
         ) as csv_file:
             reader = csv.reader(csv_file, delimiter=",", quotechar='"')
-            header = next(reader)
+            _ = next(reader)  # Skip the header
 
             categories = []
             category_dict = dict()
