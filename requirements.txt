@@ -1,5 +1,5 @@
 Django==3.0.3
-Pillow==6.2.1
+Pillow==7.0.0
 mysqlclient==1.4.6
 django-crispy-forms==1.8.1
 # Django libsass does not support Django 3.0 yet
