@@ -4,6 +4,7 @@ DBASE
 =====
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/a1fbb314106646d8bcb8eb52563c7725)](https://www.codacy.com/manual/gafderks/dbase?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=gafderks/dbase&amp;utm_campaign=Badge_Grade)
 [![Total alerts](https://img.shields.io/lgtm/alerts/g/gafderks/dbase.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/gafderks/dbase/alerts/)
+[![Updates](https://pyup.io/repos/github/gafderks/dbase/shield.svg)](https://pyup.io/repos/github/gafderks/dbase/)
 [![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/gafderks/dbase.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/gafderks/dbase/context:javascript)
 [![Language grade: Python](https://img.shields.io/lgtm/grade/python/g/gafderks/dbase.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/gafderks/dbase/context:python)
 [![time tracker](https://wakatime.com/badge/github/gafderks/dbase.svg)](https://wakatime.com/badge/github/gafderks/dbase)
