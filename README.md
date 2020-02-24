@@ -4,6 +4,7 @@ DBASE
 =====
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/a1fbb314106646d8bcb8eb52563c7725)](https://www.codacy.com/manual/gafderks/dbase?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=gafderks/dbase&amp;utm_campaign=Badge_Grade)
 [![Total alerts](https://img.shields.io/lgtm/alerts/g/gafderks/dbase.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/gafderks/dbase/alerts/)
+[![Updates](https://pyup.io/repos/github/gafderks/dbase/shield.svg)](https://pyup.io/repos/github/gafderks/dbase/)
 [![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/gafderks/dbase.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/gafderks/dbase/context:javascript)
 [![Language grade: Python](https://img.shields.io/lgtm/grade/python/g/gafderks/dbase.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/gafderks/dbase/context:python)
 [![Maintainability](https://api.codeclimate.com/v1/badges/a4c0c4d358f1e3bdb5e2/maintainability)](https://codeclimate.com/github/gafderks/dbase/maintainability)
@@ -78,3 +79,4 @@ Roadmap
 - [ ] User role for 'Bestuur' that can change users but not roles.
 - [ ] Admin functionality for converting a Material into a MaterialAlias
 - [ ] Camera app for quickly adding photos of materials
+- [ ] Info button next to bookings for opening material info modal. 
