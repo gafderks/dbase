@@ -26,12 +26,11 @@
     {% endcompress %}
 
   <template id="game-form">
+  <h6 class="text-secondary">
+    {% trans "Add game" %}
+  </h6>
   {% crispy empty_game_form %}
   </template>
-
-{#  <template id="game-card">#}
-{#  {% include "booking/partials/game-card.html" with form=None %}#}
-{#  </template>#}
 
   {% include "booking/partials/delete-game-modal.html" %}
   {% include "booking/partials/delete-booking-modal.html" %}

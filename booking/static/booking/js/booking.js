@@ -55,6 +55,8 @@ class Booking {
         this.update(e.currentTarget);
       });
     });
+    // Tooltip
+    this._$elem.find('[data-toggle="tooltip"]').tooltip();
   }
 
   toggleForm() {

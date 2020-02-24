@@ -177,6 +177,15 @@ html {
 
 
     }
+
+    .new-game {
+        h6 {
+            font-size: 1rem;
+            font-weight: lighter;
+            text-transform: uppercase;
+            line-height: 1.5;
+        }
+    }
 }
 
 body:not(.editable) {

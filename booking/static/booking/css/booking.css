@@ -110,6 +110,12 @@ html {
 .day .card.game .card-header:active .game-header .game-controls, .day .card.game .card-header:focus .game-header .game-controls, .day .card.game .card-header:hover .game-header .game-controls {
   display: inline-block;
 }
+.day .new-game h6 {
+  font-size: 1rem;
+  font-weight: lighter;
+  text-transform: uppercase;
+  line-height: 1.5;
+}
 
 body:not(.editable) .editor {
   display: none !important;
