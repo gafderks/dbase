@@ -1,0 +1,21 @@
+version: "2"
+plugins:
+  pep8:
+    enabled: true
+  csslint:
+    enabled: true
+  eslint:
+    enabled: true
+    channel: "eslint-6"
+    config:
+      config: .eslintrc
+  scss-lint:
+    enabled: true
+  git-legal:
+    enabled: true
+  markdownlint:
+    enabled: true
+  fixme:
+    enabled: true
+exclude_patterns:
+- "**/migrations/*"
