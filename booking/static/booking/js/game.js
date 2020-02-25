@@ -14,6 +14,18 @@ class Game {
     this._attachEvents();
   }
 
+  collapse() {
+    this._$elem.find('.card-body').collapse('hide');
+  }
+
+  show() {
+    this._$elem.find('.card-body').collapse('show');
+  }
+
+  toggleCollapse() {
+    this._$elem.find('.card-body').collapse('toggle');
+  }
+
   _constructBookings() {
     let bookings = [];
     this._$elem.find('.booking').each((i, elem) => {
@@ -93,12 +105,12 @@ class Game {
       const gameName = this._$elem.find('.game-name').text();
       const confirmationTemplate = $modal.find('.modal-body').data('template');
       $modal.find('.modal-body').html(confirmationTemplate.replace('${name}', gameName));
-      $modal.find('.confirm-delete').off().click(_ => {
-        this.update(e.currentTarget);
-      });
+      $modal.find('.confirm-delete').off().click(_ => this.update(e.currentTarget));
     });
     // Tooltip
     this._$elem.find('[data-toggle="tooltip"]').tooltip();
+    // Toggle collapse
+    this._$elem.find('.game-name').click(_ => this.toggleCollapse());
   }
 
   toggleForm() {
