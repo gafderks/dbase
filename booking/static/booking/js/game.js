@@ -1,6 +1,6 @@
-/* global bootstrapToggle */
+import Booking from './booking.js';
 
-class Game {
+export default class Game {
 
   constructor($elem, partOfDay, id, order) {
     this._$elem = $elem;
@@ -31,7 +31,7 @@ class Game {
     this._$elem.find('.booking').each((i, elem) => {
       const booking = new Booking($(elem), this);
       $(elem).data('booking', booking);
-      bookings.push(booking)
+      bookings.push(booking);
     });
     return bookings;
   }
@@ -142,7 +142,7 @@ class Game {
           const newGame = new Game($(data['game_html']));
           newGame._partOfDay = day.getPartOfDay(newGame._partOfDayCode).addGame(newGame);
           // Reset the form
-          $trigger.find('[name=name], [name=location]').val("");
+          $trigger.find('[name=name], [name=location]').val('');
         }
         day.sortGames(data['order']);
       },
@@ -209,6 +209,6 @@ class Game {
 
   removeBooking(booking) {
     booking.elem.detach();
-    this._bookings = this._bookings.filter(bookingit => bookingit.id !== booking.id)
+    this._bookings = this._bookings.filter(bk => bk.id !== booking.id);
   }
 }

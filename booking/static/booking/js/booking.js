@@ -1,4 +1,6 @@
-class Booking {
+import Autocomplete from './autocomplete.js';
+
+export default class Booking {
 
   constructor($elem, game, id) {
     this._$elem = $elem;
@@ -115,7 +117,7 @@ class Booking {
           const newBooking = new Booking($(data['booking_html']), game);
           game.addBooking(newBooking);
           // Reset the form
-          $trigger.find('[name=amount], [name=workweek], [name=comment]').val("");
+          $trigger.find('[name=amount], [name=workweek], [name=comment]').val('');
           autocomplete.reset();
         }
       },

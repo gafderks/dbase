@@ -1,4 +1,6 @@
-class PartOfDay {
+import Game from './game.js';
+
+export default class PartOfDay {
 
   constructor($elem, day, part_of_day) {
     this._$elem = $elem;
@@ -15,7 +17,7 @@ class PartOfDay {
     this._$elem.find('.game').each((i, elem) => {
       const game = new Game($(elem), this);
       $(elem).data('game', game);
-      games.push(game)
+      games.push(game);
     });
     return games;
   }

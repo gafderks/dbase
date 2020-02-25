@@ -1,17 +1,17 @@
-/*global Bloodhound */
-const materialEngine = new Bloodhound({
-    datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
-    queryTokenizer: Bloodhound.tokenizers.whitespace,
-    prefetch: materialsUrl,
+/*global Bloodhound, materialsUrl, materialAliasesUrl */
+export const materialEngine = new Bloodhound({
+  datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
+  queryTokenizer: Bloodhound.tokenizers.whitespace,
+  prefetch: materialsUrl,
 });
 
-const materialaliasEngine = new Bloodhound({
-    datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
-    queryTokenizer: Bloodhound.tokenizers.whitespace,
-    prefetch: materialAliasesUrl,
+export const materialaliasEngine = new Bloodhound({
+  datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
+  queryTokenizer: Bloodhound.tokenizers.whitespace,
+  prefetch: materialAliasesUrl,
 });
 
-class Autocomplete {
+export default class Autocomplete {
 
   constructor($elem) {
 
@@ -76,14 +76,14 @@ class Autocomplete {
             if (e.images.length > 0) {
               imgHtml = `<div class="tt-suggestion-image float-right"><img src="${e.images[0]}"></div>`;
             } else {
-              imgHtml = `<div class="tt-suggestion-image tt-suggestion-no-image"></div>`;
+              imgHtml = '<div class="tt-suggestion-image tt-suggestion-no-image"></div>';
             }
             return `<div class="clearfix">
                         ${imgHtml}
                         <div class="tt-suggestion-text">
                             <div class="tt-suggestion-name" data-id="${e.id}">${e.name}</div>
                             <div class="clearfix">
-                                <div class="tt-suggestion-category">${(e.categories.length > 0 ? e.categories[0] : "")}</div>
+                                <div class="tt-suggestion-category">${(e.categories.length > 0 ? e.categories[0] : '')}</div>
                                 ${(e.gm === true ? '<div class="tt-suggestion-gm">GM</div>' : '')}
                             </div>
                         </div>
@@ -100,7 +100,7 @@ class Autocomplete {
             if (e.material.images.length > 0) {
               imgHtml = `<div class="tt-suggestion-image float-right"><img src="${e.material.images[0]}"></div>`;
             } else {
-              imgHtml = `<div class="tt-suggestion-image tt-suggestion-no-image"></div>`;
+              imgHtml = '<div class="tt-suggestion-image tt-suggestion-no-image"></div>';
             }
             return `<div class="clearfix">
                         ${imgHtml}
@@ -108,7 +108,7 @@ class Autocomplete {
                             <div class="tt-suggestion-name" data-id="${e.material.id}">${e.name}</div>
                             <div class="tt-suggestion-alias">${e.material.name}</div>
                             <div class="clearfix">
-                                <div class="tt-suggestion-category">${(e.material.categories.length > 0 ? e.material.categories[0] : "")}</div>
+                                <div class="tt-suggestion-category">${(e.material.categories.length > 0 ? e.material.categories[0] : '')}</div>
                                 ${(e.material.gm === true ? '<div class="tt-suggestion-gm">GM</div>' : '')}
                             </div>
                         </div>
