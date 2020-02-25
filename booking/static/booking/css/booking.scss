@@ -73,15 +73,15 @@ html {
             .booking-controls {
 
                 &.show-xs {
-                    display: flex !important;
+                    display: flex;
                 }
 
                 @media (min-width: 768px) {
                     &.show-md {
-                        display: flex !important;
+                        display: flex;
                     }
                     &.show-xs {
-                        display: none !important;
+                        display: none;
                     }
                 }
             }

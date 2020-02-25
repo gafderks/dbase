@@ -49,14 +49,14 @@ html {
   height: 100%;
 }
 .day .booking:active .booking-controls.show-xs, .day .booking:focus .booking-controls.show-xs, .day .booking:hover .booking-controls.show-xs {
-  display: flex !important;
+  display: flex;
 }
 @media (min-width: 768px) {
   .day .booking:active .booking-controls.show-md, .day .booking:focus .booking-controls.show-md, .day .booking:hover .booking-controls.show-md {
-    display: flex !important;
+    display: flex;
   }
   .day .booking:active .booking-controls.show-xs, .day .booking:focus .booking-controls.show-xs, .day .booking:hover .booking-controls.show-xs {
-    display: none !important;
+    display: none;
   }
 }
 .day table.bookings-table th {
