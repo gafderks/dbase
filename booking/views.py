@@ -1,11 +1,9 @@
-import uuid
-
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils.translation import gettext_lazy as _
 
-from booking.forms import CategoryForm, GameForm, BookingForm
+from booking.forms import CategoryForm, GameForm
 from booking.models import Category, Event, Game, PartOfDay
 from users.models import Group
 

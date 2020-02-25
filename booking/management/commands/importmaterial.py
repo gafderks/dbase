@@ -53,7 +53,7 @@ class Command(BaseCommand):
             os.path.join(os.path.dirname(os.path.abspath(__file__)), "materiaal.csv",)
         ) as csv_file:
             reader = csv.reader(csv_file, delimiter=",", quotechar='"')
-            header = next(reader)
+            _ = next(reader)  # Skip the header
 
             materials = []
 
