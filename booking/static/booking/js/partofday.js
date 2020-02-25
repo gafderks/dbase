@@ -36,7 +36,7 @@ class PartOfDay {
 
   removeGame(game) {
     game.elem.detach();
-    this._games = this._games.filter(gameit => gameit.id !== game.id);
+    this._games = this._games.filter(g => g.id !== game.id);
   }
 
   sortGames(order=undefined) {

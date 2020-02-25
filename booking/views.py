@@ -77,6 +77,14 @@ def event_bookings(request, event_id):
         for day in current_event.days
     }
 
+    game_forms = {
+        day: GameForm(
+            initial={"event": current_event, "group": current_group, "day": day},
+            auto_id="id_game_%s_" + str(day.isoformat()),
+        )
+        for day in current_event.days
+    }
+
     return render(
         request,
         "booking/event-bookings.html",
@@ -84,9 +92,7 @@ def event_bookings(request, event_id):
             **get_base_context(request),
             "current_event": current_event,
             "current_group": current_group,
-            "empty_game_form": GameForm(
-                initial={"event": current_event, "group": current_group}
-            ),
+            "game_forms": game_forms,
             "games": games,
         },
     )

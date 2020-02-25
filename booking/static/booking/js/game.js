@@ -10,7 +10,7 @@ class Game {
     this._order = order || $elem.data('order');
 
     this._bookings = this._constructBookings();
-    this._createBookingForm = Booking.getCreateBookingForm(this);
+    Booking.initCreateBookingForm(this);
     this._attachEvents();
   }
 
@@ -105,25 +105,13 @@ class Game {
     this._$elem.find('.card-header').toggleClass('display-form');
   }
 
-  static getCreateGameForm(day) {
-    // Add game form
-    let gameFormNode = document.importNode($('#game-form')[0], true).content;
-    // Assign random ids to avoid clashes with other forms
-    const $gameForm = $(assignRandomIds(gameFormNode));
-    // Set the hidden values
-    $gameForm.find('[name=event]').attr('value', day._evnt);
-    $gameForm.find('[name=day]').attr('value', day._date);
-    $gameForm.find('[name=group]').attr('value', day._group);
-    // Submission
-    $gameForm.find('form').submit(e => {
+  static initCreateGameForm(day) {
+    const $form = day.elem.find('.game-form-create');
+    $form.submit(e => {
       e.preventDefault();
-      Game.create(e.currentTarget, day)
+      Game.create(e.currentTarget, day);
     });
-    // Remove the CSRF token
-    $gameForm.find('[name=csrfmiddlewaretoken]').remove();
-    const $card = $('<div class="card editor new-game d-print-none"><div class="card-header"></div></div>');
-    $card.find('.card-header').append($gameForm);
-    return $card;
+    return $form;
   }
 
   static create(trigger, day) {

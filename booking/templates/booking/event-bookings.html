@@ -25,13 +25,6 @@
       </style>
     {% endcompress %}
 
-  <template id="game-form">
-  <h6 class="text-secondary">
-    {% trans "Add game" %}
-  </h6>
-  {% crispy empty_game_form %}
-  </template>
-
   {% include "booking/partials/delete-game-modal.html" %}
   {% include "booking/partials/delete-booking-modal.html" %}
 
@@ -173,7 +166,7 @@
           {% for day in current_event.days %}
             <li class="nav-item">
               <a class="nav-link {% if forloop.counter == 1 %}active{% endif %}"
-                 href="#day{{ forloop.counter }}">{{ day|date:"l" }}</a>
+                 href="#day{{ day.isoformat }}">{{ day|date:"l" }}</a>
             </li>
           {% endfor %}
       </ul>
@@ -193,6 +186,14 @@
             {% endfor %}
 
             </div>{% endfor %}
+              <div id="{{ day.isoformat }}new" class="card editor new-game d-print-none">
+                <div class="card-header">
+                  <h6 class="text-secondary">{% trans "Add new game" %}</h6>
+                  {% with new_game_form=game_forms|get_item:day %}
+                  {% crispy new_game_form %}
+                  {% endwith %}
+                </div>
+              </div>
           </div>
         {% endfor %}
     </div>

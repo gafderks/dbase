@@ -126,9 +126,9 @@ class Booking {
     });
   }
 
-  static getCreateBookingForm(game) {
+  static initCreateBookingForm(game) {
     const $form = game.elem.find('.booking-form-create');
-    const autocomplete = Autocomplete.getAutocomplete($form.find('.typeahead-materials'));
+    Autocomplete.getAutocomplete($form.find('.typeahead-materials'));
     $form.submit(e => {
       e.preventDefault();
       Booking.create(e.currentTarget, game);

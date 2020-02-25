@@ -10,12 +10,12 @@ class Day {
         this._group = group || $booking.data('group');
 
         this._partOfDays = this._constructPartOfDays();
-        this._$elem.append(Game.getCreateGameForm(this));
-    }
+    Game.initCreateGameForm(this);
+  }
 
-    getPartOfDay(code) {
-      return this._partOfDays.find(partOfDay => partOfDay.partOfDayCode === code);
-    }
+  get elem() {
+    return this._$elem;
+  }
 
     sortGames(order) {
       for (const partOfDay of this._partOfDays) {
