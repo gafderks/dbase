@@ -6,6 +6,8 @@ from django.contrib.auth.models import (
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
+from users.models import Group
+
 
 class UserManager(BaseUserManager):
     """Define a model manager for User model with no username field."""
@@ -35,41 +37,6 @@ class UserManager(BaseUserManager):
             raise ValueError("Superuser must have is_superuser=True.")
 
         return self._create_user(email, password, **extra_fields)
-
-
-class Role(DjangoGroup):
-    """Rename Django Groups to Roles for distinguishing from custom Group definition"""
-
-    class Meta:
-        proxy = True
-        app_label = "auth"
-        verbose_name = _("role")
-        verbose_name_plural = _("roles")
-
-
-class Group(models.Model):
-    name = models.CharField(max_length=250, unique=True)
-    GROUP = "GR"
-    COMMISSION = "CO"
-    GROUP_TYPE_CHOICES = [
-        (GROUP, _("Group")),
-        (COMMISSION, _("Commission")),
-    ]
-    type = models.CharField(
-        max_length=2,
-        choices=GROUP_TYPE_CHOICES,
-        default=COMMISSION,
-        verbose_name=_("type"),
-        help_text=_("What type is the group?"),
-    )
-
-    class Meta:
-        verbose_name = _("group")
-        verbose_name_plural = _("groups")
-        ordering = ["name"]
-
-    def __str__(self):
-        return self.name
 
 
 class User(AbstractUser):
