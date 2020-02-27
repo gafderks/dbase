@@ -19,17 +19,16 @@ def format_woocommerce(request, materials):
             {
                 "ID": mat.id,
                 "Type": "simple",
-                "Name": mat.name,
-                "Published": 1 if mat.lendable else 0,
-                "Visibility in catalog": 1 if mat.lendable else 0,
-                "Description": mat.description,
-                "Regular price": mat.rate_class.rate
+                "post_title": mat.name,
+                "post_status": "publish" if mat.lendable else "private",
+                "post_content": mat.description,
+                "regular_price": mat.rate_class.rate
                 if mat.rate_class is not None
                 else "",
-                "Categories": [c.name for c in mat.categories.all()]
+                "taxonomies": [c.name for c in mat.categories.all()]
                 if mat.categories.exists()
                 else "",
-                "Images": [
+                "images": [
                     request.build_absolute_uri(i.image.url) for i in mat.images.all()
                 ]
                 if mat.images.exists()
