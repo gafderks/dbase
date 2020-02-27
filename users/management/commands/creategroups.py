@@ -1,6 +1,7 @@
 from django.core.management.base import BaseCommand
 from django.db import transaction
-from users.models import Group, DjangoGroup
+from users.models import Group
+from django.contrib.auth.models import Group as DjangoGroup
 from django.contrib.auth.models import Permission
 
 
