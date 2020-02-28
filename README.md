@@ -2,12 +2,13 @@
 
 DBASE
 =====
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/a1fbb314106646d8bcb8eb52563c7725)](https://www.codacy.com/manual/gafderks/dbase?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=gafderks/dbase&amp;utm_campaign=Badge_Grade)
+[![Codacy branch grade](https://img.shields.io/codacy/grade/a1fbb314106646d8bcb8eb52563c7725/master?logo=codacy)](https://www.codacy.com/manual/gafderks/dbase)
 [![Total alerts](https://img.shields.io/lgtm/alerts/g/gafderks/dbase.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/gafderks/dbase/alerts/)
-[![Updates](https://pyup.io/repos/github/gafderks/dbase/shield.svg)](https://pyup.io/repos/github/gafderks/dbase/)
 [![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/gafderks/dbase.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/gafderks/dbase/context:javascript)
 [![Language grade: Python](https://img.shields.io/lgtm/grade/python/g/gafderks/dbase.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/gafderks/dbase/context:python)
-[![Maintainability](https://api.codeclimate.com/v1/badges/a4c0c4d358f1e3bdb5e2/maintainability)](https://codeclimate.com/github/gafderks/dbase/maintainability)
+[![Code Climate maintainability](https://img.shields.io/codeclimate/maintainability/gafderks/dbase?logo=code%20climate)](https://codeclimate.com/github/gafderks/dbase/maintainability)
+[![Updates](https://pyup.io/repos/github/gafderks/dbase/shield.svg)](https://pyup.io/repos/github/gafderks/dbase/)
+[![Snyk Vulnerabilities for GitHub Repo](https://img.shields.io/snyk/vulnerabilities/github/gafderks/dbase?logo=snyk)](https://snyk.io/test/github/gafderks/dbase)
 [![time tracker](https://wakatime.com/badge/github/gafderks/dbase.svg)](https://wakatime.com/badge/github/gafderks/dbase)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![GitHub License](https://img.shields.io/github/license/gafderks/dbase)](https://github.com/gafderks/dbase/blob/master/LICENSE)
