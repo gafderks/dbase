@@ -17,20 +17,23 @@ def format_woocommerce(request, materials):
         """
         return OrderedDict(
             {
-                "ID": mat.id,
-                "Type": "simple",
+                "ID": mat.id + 2000,
+                "tax:product_type": "simple",
                 "post_title": mat.name,
+                "post_name": mat.name,
                 "post_status": "publish" if mat.lendable else "private",
+                "tax:product_visibility": "visible"
+                if mat.lendable
+                else "exclude-from-catalog|exclude-from-search",
+                "stock": mat.stock,  # Stock
                 "post_content": mat.description,
                 "regular_price": mat.rate_class.rate
                 if mat.rate_class is not None
                 else "",
-                "taxonomies": [c.name for c in mat.categories.all()]
+                "tax:product_cat": mat.categories.first()
                 if mat.categories.exists()
                 else "",
-                "images": [
-                    request.build_absolute_uri(i.image.url) for i in mat.images.all()
-                ]
+                "images": request.build_absolute_uri(mat.images.first().image.url)
                 if mat.images.exists()
                 else "",
             }
