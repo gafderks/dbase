@@ -17,7 +17,7 @@ def format_woocommerce(request, materials):
         """
         return OrderedDict(
             {
-                "ID": mat.id + 2000,
+                "sku": mat.id + 2000,
                 "tax:product_type": "simple",
                 "post_title": mat.name,
                 "post_name": mat.name,
