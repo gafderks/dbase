@@ -81,3 +81,5 @@ Roadmap
 - [ ] Admin functionality for converting a Material into a MaterialAlias
 - [ ] Camera app for quickly adding photos of materials
 - [ ] Info button next to bookings for opening material info modal. 
+- [ ] Import games from other events
+- [ ] Contributors file
