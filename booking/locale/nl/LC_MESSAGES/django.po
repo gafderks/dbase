@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-03-05 23:09+0100\n"
-"PO-Revision-Date: 2020-03-05 23:12+0100\n"
+"PO-Revision-Date: 2020-03-05 23:19+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: nl\n"
@@ -156,7 +156,7 @@ msgstr "aantal"
 
 #: .\booking\models\booking.py:39
 msgid "bookings"
-msgstr "reserveringen"
+msgstr "aanvragen"
 
 #: .\booking\models\category.py:6 .\booking\models\event.py:16
 #: .\booking\models\location.py:6 .\booking\models\material.py:8
@@ -467,7 +467,7 @@ msgstr "Reserveringsperiode voor bevoorrechte gebruikers"
 
 #: .\booking\templates\booking\event-bookings.html:122
 msgid "Material bookings"
-msgstr "Materiaalreserveringen"
+msgstr "Materiaalaanvragen"
 
 #: .\booking\templates\booking\event-bookings.html:126
 msgid "Export options"
@@ -536,12 +536,11 @@ msgstr "Weet je het zeker?"
 #, python-brace-format
 msgid "Do you really want to delete the booking <strong>${name}</strong>?"
 msgstr ""
-"Weet je zeker dat je de reservering <strong>${name}</strong> wilt "
-"verwijderen?"
+"Weet je zeker dat je de aanvraag <strong>${name}</strong> wilt verwijderen?"
 
 #: .\booking\templates\booking\partials\delete-booking-modal.html:14
 msgid "Remove booking"
-msgstr "Reservering verwijderen"
+msgstr "Aanvraag verwijderen"
 
 #: .\booking\templates\booking\partials\delete-game-modal.html:11
 #, python-brace-format
@@ -549,7 +548,7 @@ msgid ""
 "Do you really want to delete the game <strong>${name}</strong> along with "
 "all its bookings?"
 msgstr ""
-"Weet je zeker dat je het spel <strong>${name}</strong> en al zijn boekingen "
+"Weet je zeker dat je het spel <strong>${name}</strong> en al zijn aanvragen "
 "wilt verwijderen?"
 
 #: .\booking\templates\booking\partials\delete-game-modal.html:14
@@ -574,7 +573,7 @@ msgstr "Spelopties"
 
 #: .\booking\templates\booking\partials\game-card.html:61
 msgid "Add material booking"
-msgstr "Materiaalreservering toevoegen"
+msgstr "Materiaalaanvraag toevoegen"
 
 #: .\booking\views.py:107
 msgid "There are no open events."
