@@ -6,6 +6,7 @@ export default class Day {
   constructor($elem, date, evnt, group) {
     this._$elem = $elem;
     this._date = date || $elem.data('date');
+    this._$nav = $elem.find('.day-nav');
     const $booking = $('#booking');
     this._evnt = evnt || $booking.data('event');
     this._group = group || $booking.data('group');
@@ -26,6 +27,14 @@ export default class Day {
     for (const partOfDay of this._partOfDays) {
       partOfDay.sortGames(order);
     }
+    $('body').scrollspy('refresh');
+  }
+
+  updateNavigation(nav) {
+    const $nav = $(nav);
+    this._$nav.replaceWith($nav);
+    this._$nav = $nav;
+    $('body').scrollspy('refresh');
   }
 
   _constructPartOfDays() {

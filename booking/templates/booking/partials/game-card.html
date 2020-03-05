@@ -1,6 +1,6 @@
 {% load i18n %}
 {% load crispy_forms_tags %}
-<div class="card game mb-3" data-id="{{ game.pk }}" data-order="{{ game.order }}" data-part-of-day-code="{{ game.part_of_day }}">
+<div class="card game mb-3 fix-anchor" id="game{{ game.pk }}" data-id="{{ game.pk }}" data-order="{{ game.order }}" data-part-of-day-code="{{ game.part_of_day }}" data-day="{{ game.day.isoformat }}">
   <div class="card-header">
     {% if game %}
       {% crispy game.form %}
@@ -39,8 +39,8 @@
           <tr class="d-flex">
             <th scope="col" class="booking-check text-center col-auto pl-md-3 pl-sm-2">
               <div class="custom-control custom-checkbox">
-                <input type="checkbox" class="custom-control-input" id="check-{{ game.pk }}">
-                <label class="custom-control-label" for="check-{{ game.pk }}"></label>
+                <input type="checkbox" class="custom-control-input" id="check-all-{{ game.pk }}">
+                <label class="custom-control-label" for="check-all-{{ game.pk }}"></label>
               </div>
             </th>
             <th scope="col" class="booking-material col col-md-3">{% trans "Material" %}</th>

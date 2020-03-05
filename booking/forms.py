@@ -105,6 +105,7 @@ class GameForm(forms.ModelForm):
             "location": "<i class='fas fa-map-marker-alt'></i> " + __("Location"),
             "part_of_day": "<i class='fas fa-clock'></i> " + __("Part of day"),
         }
+        _("Game name"), _("Location"), _("Part of day")  # For detection by makemessages
         help_texts = {"name": None, "location": None, "part_of_day": None}
 
     def __init__(self, *args, **kwargs):
@@ -141,6 +142,7 @@ class GameForm(forms.ModelForm):
                         "update" if self.instance.id else "add",
                         _("Update") if self.instance.id else _("Add"),
                         css_id=self.auto_id % "submit",
+                        css_class="btn-outline-primary crispy-outline",
                     ),
                     css_class="col-auto px-1 mb-lg-0 form-label-group",
                 ),
@@ -191,6 +193,7 @@ class BookingForm(forms.ModelForm):
             "workweek": __("Workweek"),
             "comment": "<i class='far fa-comment'></i> " + __("Comment"),
         }
+        _("Amount"), _("Workweek"), _("Comment")  # For detection by makemessages
         help_texts = {
             "material": None,
             "amount": None,
@@ -250,6 +253,7 @@ class BookingForm(forms.ModelForm):
                         "submit",
                         _("Update") if self.instance.id else _("Add"),
                         css_id=self.auto_id % "submit",
+                        css_class="btn-outline-primary crispy-outline",
                     ),
                     css_class="col-auto px-1 mb-lg-0 form-label-group",
                 ),
@@ -263,3 +267,4 @@ class BookingForm(forms.ModelForm):
                 css_class="row mx-0",
             ),
         )
+        _("Material"), _("Choose a material"), _("Workweek"), _("No")

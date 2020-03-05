@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-02-23 21:57+0100\n"
+"POT-Creation-Date: 2020-03-05 23:09+0100\n"
 "PO-Revision-Date: 2019-12-30 15:05+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -18,7 +18,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 2.2.4\n"
 
-#: .\users\admin.py:20 .\users\models.py:48 .\users\models.py:91
+#: .\users\admin.py:20 .\users\models\role.py:12 .\users\models\user.py:57
 msgid "roles"
 msgstr "rollen"
 
@@ -38,43 +38,43 @@ msgstr "gebruikers"
 msgid "Login"
 msgstr "Inloggen"
 
-#: .\users\models.py:47
-msgid "role"
-msgstr "rollen"
-
-#: .\users\models.py:56
+#: .\users\models\group.py:10
 msgid "Group"
 msgstr "Groep"
 
-#: .\users\models.py:57
+#: .\users\models\group.py:11
 msgid "Commission"
 msgstr "Commissie"
 
-#: .\users\models.py:63
+#: .\users\models\group.py:17
 msgid "type"
 msgstr "type"
 
-#: .\users\models.py:64
+#: .\users\models\group.py:18
 msgid "What type is the group?"
 msgstr "Welk type heeft de groep?"
 
-#: .\users\models.py:68 .\users\models.py:86
+#: .\users\models\group.py:22 .\users\models\user.py:52
 msgid "group"
 msgstr "groep"
 
-#: .\users\models.py:69
+#: .\users\models\group.py:23
 msgid "groups"
 msgstr "groepen"
 
-#: .\users\models.py:78
+#: .\users\models\role.py:11
+msgid "role"
+msgstr "rollen"
+
+#: .\users\models\user.py:44
 msgid "email address"
 msgstr "e-mailadres"
 
-#: .\users\models.py:85
+#: .\users\models\user.py:51
 msgid "What group should this user be associated with?"
 msgstr "Met welke groep moet deze gebruiker worden geassocieerd?"
 
-#: .\users\models.py:94
+#: .\users\models\user.py:60
 msgid ""
 "The roles this user has. A user will get all permissions granted to each of "
 "their roles."

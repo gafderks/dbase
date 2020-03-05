@@ -8,7 +8,7 @@ from django.shortcuts import get_object_or_404
 from django.template.loader import render_to_string
 
 from booking.forms import GameForm, BookingForm
-from booking.models import Game
+from booking.models import Game, PartOfDay
 
 
 def _get_game_order(game):
@@ -18,6 +18,25 @@ def _get_game_order(game):
             event=game.event, group=game.group, day=game.day
         )
     ]
+
+
+def _get_nav_html(game):
+    return render_to_string(
+        "booking/partials/day-nav.html",
+        {
+            "games": {
+                part_of_day: Game.objects.filter(
+                    event=game.event,
+                    group=game.group,
+                    day=game.day,
+                    part_of_day=part_of_day,
+                )
+                for part_of_day, _ in PartOfDay.PART_OF_DAY_CHOICES
+            },
+            "day": game.day,
+            "parts_of_day": PartOfDay.PART_OF_DAY_CHOICES,
+        },
+    )
 
 
 def _get_game_response(game):
@@ -37,6 +56,7 @@ def _get_game_response(game):
     return {
         "form_html": form_html,
         "game_html": game_html,
+        "nav_html": _get_nav_html(game),
         "order": _get_game_order(game),
     }
 
@@ -68,7 +88,13 @@ def delete_game(request, game_id):
 
     game.delete()
 
-    return JsonResponse({"success": True, "order": _get_game_order(game),})
+    return JsonResponse(
+        {
+            "success": True,
+            "order": _get_game_order(game),
+            "nav_html": _get_nav_html(game),
+        }
+    )
 
 
 @login_required

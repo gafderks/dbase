@@ -1,7 +1,16 @@
 $background_color_1: rgba(255, 255, 255, .6);
 
+.crispy-outline {
+    background-color: transparent;
+}
+
 html {
     scroll-behavior: smooth;
+}
+
+.active-secondary.active {
+    background-color: #ccc!important;
+    color: #007bff!important;
 }
 
 .frosted {
@@ -13,23 +22,14 @@ html {
     background: none 0% 0% / auto repeat scroll padding-box padding-box rgb(255, 255, 255);
 }
 
-.booking-card {
-    h4 {
-        &:target {
-            &:before {
-                content: "";
-                display: block;
-                height: 80px;
-                margin: -80px 0 0;
-            }
-        }
-    }
+.fix-anchor {
+    scroll-margin-top: 75px;
 }
 
 .day {
     padding: 2rem 0;
 
-    &:first-child {
+     &:first-child {
         padding-top: 0;
         padding-bottom: 2rem;
     }
@@ -129,6 +129,8 @@ html {
     }
 
     .card.game {
+
+
 
         h6 {
             font-weight: normal;

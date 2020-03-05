@@ -6,7 +6,7 @@
 {% load dictionary %}
 {% load static %}
 
-{% block body_attrs %}{{ block.super }} data-spy="scroll" data-target="#scroll_pills" data-offset="100"{% endblock %}
+{% block body_attrs %}{{ block.super }} data-spy="scroll" data-target="" data-offset="100"{% endblock %}
 {% block body_class %}{{ block.super }} {% if current_event|may_edit:user %}editable{% endif %}{% endblock %}
 
 {% block content %}
@@ -161,7 +161,6 @@
 
   <div id="booking" class="card position-relative booking-card" data-group="{{ current_group.id }}" data-user="{{ user.id }}" data-event="{{ current_event.id }}">
     <nav class="card-header sticky-top frosted d-print-none" id="scroll_pills">
-
       <ul class="nav nav-pills card-header-pills flex-nowrap overflow-auto">
           {% for day in current_event.days %}
             <li class="nav-item">
@@ -170,23 +169,23 @@
             </li>
           {% endfor %}
       </ul>
-
     </nav>
     <div class="card-body">
         {% for day in current_event.days %}
-          <div class="day" data-date="{{ day.isoformat }}">
-            <h4 id="day{{ forloop.counter }}">{{ day|date:"l"|capfirst }} {{ day }}</h4>
-
-            {% for code, trans in parts_of_day %}
-            <div class="part-of-day" data-date="{{ day.isoformat }}" data-part-of-day="{{ code }}">
-            <h5>{{ trans }}</h5>
-            {# Todo display part of day form #}
-            {% for game in games|get_item:day|get_item:code %}
-              {% include "booking/partials/game-card.html" with game=game %}
-            {% endfor %}
-
-            </div>{% endfor %}
-              <div id="{{ day.isoformat }}new" class="card editor new-game d-print-none">
+          <div class="day row" data-date="{{ day.isoformat }}">
+            {% include "booking/partials/day-nav.html" with day=day parts_of_day=parts_of_day games=games|get_item:day %}
+            <div class="col">
+              <h4 id="day{{ day.isoformat }}" class="fix-anchor">{{ day|date:"l"|capfirst }} {{ day }}</h4>
+              {% for code, trans in parts_of_day %}
+                <div id="{{ day.isoformat }}{{ code }}" class="part-of-day fix-anchor" data-date="{{ day.isoformat }}" data-part-of-day="{{ code }}">
+                <h5>{{ trans }}</h5>
+                {# Todo display part of day form #}
+                {% for game in games|get_item:day|get_item:code %}
+                  {% include "booking/partials/game-card.html" with game=game %}
+                {% endfor %}
+                </div>
+              {% endfor %}
+              <div id="{{ day.isoformat }}new" class="card editor new-game fix-anchor d-print-none">
                 <div class="card-header">
                   <h6 class="text-secondary">{% trans "Add new game" %}</h6>
                   {% with new_game_form=game_forms|get_item:day %}
@@ -194,6 +193,7 @@
                   {% endwith %}
                 </div>
               </div>
+            </div>
           </div>
         {% endfor %}
     </div>

@@ -33,6 +33,9 @@ export default class Game {
       $(elem).data('booking', booking);
       bookings.push(booking);
     });
+    if (bookings.length === 0) {
+      this._$elem.find('.bookings-table thead').addClass('d-none');
+    }
     return bookings;
   }
 
@@ -145,6 +148,7 @@ export default class Game {
           $trigger.find('[name=name], [name=location]').val('');
         }
         day.sortGames(data['order']);
+        day.updateNavigation(data['nav_html']);
       },
       error: function (jqXHR, textStatus, errorThrown) {
         console.log(textStatus);
@@ -176,6 +180,7 @@ export default class Game {
             this.delete();
           }
         }
+        this._partOfDay.day.updateNavigation(data['nav_html']);
         this._partOfDay.day.sortGames(data['order']);
       },
       error: (jqXHR, textStatus, errorThrown) => {
@@ -205,10 +210,14 @@ export default class Game {
   addBooking(booking) {
     this._bookings.push(booking);
     booking.elem.appendTo(this._$elem.find('.bookings-table').find('tbody'));
+    this._$elem.find('.bookings-table thead').removeClass('d-none');
   }
 
   removeBooking(booking) {
     booking.elem.detach();
     this._bookings = this._bookings.filter(bk => bk.id !== booking.id);
+    if (this._bookings.length === 0) {
+      this._$elem.find('.bookings-table thead').addClass('d-none');
+    }
   }
 }
