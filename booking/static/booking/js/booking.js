@@ -69,7 +69,15 @@ export default class Booking {
     const $trigger = $(trigger);
     const form_data = $trigger.serializeArray();
     if (form_data.length) {
-      form_data.find(input => input.name === 'material').value = this._autocomplete.selectedItem.id;
+      if (this._autocomplete.selectedItem.id === this._autocomplete.selectedItem.name) {
+        // Custom item
+        form_data.find(input => input.name === 'material').value = '';
+        form_data.find(input => input.name === 'custom_material').value = this._autocomplete.selectedItem.name;
+      } else {
+        // Set the material to the selected item
+        form_data.find(input => input.name === 'material').value = this._autocomplete.selectedItem.id;
+        form_data.find(input => input.name === 'custom_material').value = '';
+      }
     }
     $.ajax({
       url: $trigger.attr('action') || $trigger.data('action'),
@@ -102,7 +110,17 @@ export default class Booking {
     const $trigger = $(trigger);
     const form_data = $trigger.serializeArray();
     const autocomplete = Autocomplete.getAutocomplete($trigger.find('.typeahead-materials'));
-    form_data.find(input => input.name === 'material').value = autocomplete.selectedItem.id;
+    if (form_data.length) {
+      if (autocomplete.selectedItem.id === autocomplete.selectedItem.name) {
+        // Custom item
+        form_data.find(input => input.name === 'material').value = '';
+        form_data.find(input => input.name === 'custom_material').value = autocomplete.selectedItem.name;
+      } else {
+        // Set the material to the selected item
+        form_data.find(input => input.name === 'material').value = autocomplete.selectedItem.id;
+        form_data.find(input => input.name === 'custom_material').value = '';
+      }
+    }
     $.ajax({
       url: $trigger.attr('action') || $trigger.data('action'),
       cache: 'false',

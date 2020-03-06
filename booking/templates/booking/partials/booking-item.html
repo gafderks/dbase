@@ -15,8 +15,23 @@
     </div>
   </td>
   <td class="booking-material booking-info col col-md-3">
-    <label for="check-{{ booking.pk }}" class="d-block">{{ booking.material.name }}</label>
-    <div class="booking-material-category small text-muted text-truncate">{{ booking.material.categories.all.0 }}</div>
+    <label for="check-{{ booking.pk }}" class="d-block">
+      {% if booking.material %}
+        {{ booking.material.name }}
+      {% else %}
+        {{ booking.custom_material }}
+      {% endif %}
+    </label>
+    <div class="booking-material-category small text-muted text-truncate">
+      {% if booking.material %}
+        {{ booking.material.categories.all.0 }}
+      {% else %}
+        <span title="{% trans "This booking needs review" %}" data-toggle="tooltip" data-placement="right">
+          <i class="fas fa-exclamation-triangle text-warning"></i>
+          {% trans "Custom material" %}
+        </span>
+      {% endif %}
+    </div>
   </td>
   <td class="booking-amount booking-info d-flex align-items-center col-2 col-md-2">
     {{ booking.amount }}

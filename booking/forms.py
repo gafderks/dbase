@@ -186,7 +186,11 @@ class BookingForm(forms.ModelForm):
     class Meta:
         model = Booking
         fields = "__all__"
-        widgets = {"game": forms.HiddenInput(), "material": forms.TextInput()}
+        widgets = {
+            "game": forms.HiddenInput(),
+            "material": forms.TextInput(),
+            "custom_material": forms.HiddenInput(),
+        }
         labels = {
             "material": "",
             "amount": __("Amount"),
@@ -213,6 +217,14 @@ class BookingForm(forms.ModelForm):
         self.helper.form_method = "POST"
         css_class = "booking-form-update" if self.instance.id else "booking-form-create"
         self.helper.form_class = "booking-form w-100 " + css_class
+        material_id = ""
+        material_name = ""
+        if self.instance.material:
+            material_id = self.instance.material.id
+            material_name = self.instance.material.name
+        if self.instance.custom_material:
+            material_id = self.instance.custom_material
+            material_name = self.instance.custom_material
         self.helper.layout = Layout(
             Div(
                 Field(
@@ -221,13 +233,12 @@ class BookingForm(forms.ModelForm):
                     css_class="typeahead-materials floating-label-size",
                     placeholder=__("Material") + "*",
                     autocomplete="off",
-                    data_materialid=self.instance.material.id
-                    if self.instance.id and self.instance.material is not None
-                    else "",
-                    data_materialname=self.instance.material.name
-                    if self.instance.id and self.instance.material is not None
-                    else "",
+                    data_materialid=material_id,
+                    data_materialname=material_name,
                     data_invalidmessage=__("Choose a material"),
+                    data_allowcustom="true",
+                    data_notfoundtext=__("Material not found..."),
+                    data_addcustomtext=__('Click to request "<em>{}</em>" anyway.'),
                 ),
                 Field(
                     "amount",
@@ -264,7 +275,10 @@ class BookingForm(forms.ModelForm):
                 if self.instance.id
                 else None,
                 "game",
+                "custom_material",
                 css_class="row mx-0",
             ),
         )
-        _("Material"), _("Choose a material"), _("Workweek"), _("No")
+        _("Material"), _("Choose a material"), _("Workweek"), _("No"), _(
+            "Choose a material"
+        ), _("Material not found..."), _('Click to request "<em>{}</em>" anyway.'),

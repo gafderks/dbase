@@ -24,6 +24,9 @@ class Booking(models.Model):
         null=True,
         blank=True,
     )
+    custom_material = models.CharField(
+        max_length=150, verbose_name=_("custom material"), null=True, blank=True
+    )
     workweek = models.BooleanField(verbose_name=_("workweek"))
     comment = models.CharField(
         max_length=250,

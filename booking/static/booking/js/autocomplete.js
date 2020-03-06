@@ -16,6 +16,7 @@ export default class Autocomplete {
   constructor($elem) {
 
     this._$elem = $elem;
+    this._allowCustomMaterial = $elem.data('allowcustom');
     this._selected = {
       id: $elem.data('materialid'),
       name: $elem.data('materialname')
@@ -88,6 +89,31 @@ export default class Autocomplete {
                             </div>
                         </div>
                     </div>`;
+          },
+          empty: e => {
+            if (this._allowCustomMaterial) {
+              const $empty =
+                $(`<div class="clearfix tt-suggestion tt-selectable">
+                      <div class="tt-suggestion-name">${this._$elem.data('notfoundtext')}</div>
+                      <div class="clearfix">
+                          <div class="tt-suggestion-category">${this._$elem.data('addcustomtext').replace('{}', e.query)}</div>
+                      </div>
+                    </div>`);
+              $empty.click(_ => {
+                this.selectedItem = {
+                  id: e.query,
+                  name: e.query
+                };
+                this.validate();
+                this._$elem.typeahead('close');
+              });
+
+              return $empty;
+            } else {
+              return `<div class="clearfix tt-suggestion">
+                        <div class="tt-suggestion-name">${this._$elem.data('notfoundtext')}</div>
+                      </div>`;
+            }
           }
         }
       }, {

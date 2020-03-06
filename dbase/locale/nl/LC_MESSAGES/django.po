@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-05 23:09+0100\n"
+"POT-Creation-Date: 2020-03-07 00:44+0100\n"
 "PO-Revision-Date: 2020-01-04 17:07+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -85,6 +85,11 @@ msgstr "Inloggen"
 #: .\dbase\templates\jeugdraad\navigation.html:100
 msgid "Search"
 msgstr "Zoeken"
+
+#: .\dbase\templates\jeugdraad\navigation.html:89
+#: .\dbase\templates\jeugdraad\navigation.html:100
+msgid "Material not found..."
+msgstr ""
 
 #: .\venv-37\Lib\site-packages\crispy_forms\tests\test_form_helper.py:129
 #: .\venv-37\Lib\site-packages\crispy_forms\tests\test_form_helper.py:139

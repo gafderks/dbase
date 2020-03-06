@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-05 23:09+0100\n"
-"PO-Revision-Date: 2020-03-05 23:19+0100\n"
+"POT-Creation-Date: 2020-03-07 00:44+0100\n"
+"PO-Revision-Date: 2020-03-07 00:45+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: nl\n"
@@ -26,7 +26,7 @@ msgstr "Aantal materialen"
 msgid "Booking status"
 msgstr "Reserveringsstatus"
 
-#: .\booking\apps.py:7 .\booking\models\booking.py:38
+#: .\booking\apps.py:7 .\booking\models\booking.py:41
 msgid "booking"
 msgstr "reservering"
 
@@ -71,15 +71,15 @@ msgstr "Locatie"
 msgid "Part of day"
 msgstr "Dagdeel"
 
-#: .\booking\forms.py:143 .\booking\forms.py:254
+#: .\booking\forms.py:143 .\booking\forms.py:265
 msgid "Update"
 msgstr "Bijwerken"
 
-#: .\booking\forms.py:143 .\booking\forms.py:254
+#: .\booking\forms.py:143 .\booking\forms.py:265
 msgid "Add"
 msgstr "Toevoegen"
 
-#: .\booking\forms.py:150 .\booking\forms.py:261
+#: .\booking\forms.py:150 .\booking\forms.py:272
 #: .\booking\templates\booking\partials\delete-booking-modal.html:15
 #: .\booking\templates\booking\partials\delete-game-modal.html:15
 msgid "Cancel"
@@ -97,33 +97,41 @@ msgstr ""
 "De einddatum van een spel kan niet eerder zijn dan de begindatum van het "
 "evenement."
 
-#: .\booking\forms.py:196
+#: .\booking\forms.py:200
 #: .\booking\templates\booking\partials\game-card.html:47
 msgid "Amount"
 msgstr "Aantal"
 
-#: .\booking\forms.py:196 .\booking\forms.py:270
+#: .\booking\forms.py:200 .\booking\forms.py:282
 #: .\booking\templates\booking\partials\game-card.html:48
 msgid "Workweek"
 msgstr "Werkweek"
 
-#: .\booking\forms.py:196
+#: .\booking\forms.py:200
 #: .\booking\templates\booking\partials\game-card.html:49
 msgid "Comment"
 msgstr "Opmerking"
 
-#: .\booking\forms.py:270
+#: .\booking\forms.py:282
 #: .\booking\templates\booking\partials\game-card.html:46
 msgid "Material"
 msgstr "Materiaal"
 
-#: .\booking\forms.py:270
+#: .\booking\forms.py:282 .\booking\forms.py:283
 msgid "Choose a material"
 msgstr "Kies een materiaal"
 
-#: .\booking\forms.py:270
+#: .\booking\forms.py:282
 msgid "No"
 msgstr "Nee"
+
+#: .\booking\forms.py:284
+msgid "Material not found..."
+msgstr "Materiaal niet gevonden..."
+
+#: .\booking\forms.py:284
+msgid "Click to request \"<em>{}</em>\" anyway."
+msgstr "Klik om \"<em>{}</em>\" toch aan te vragen."
 
 #: .\booking\models\booking.py:12
 msgid "requester"
@@ -138,23 +146,27 @@ msgstr "spel"
 msgid "material"
 msgstr "materiaal"
 
-#: .\booking\models\booking.py:27
+#: .\booking\models\booking.py:28
+msgid "custom material"
+msgstr "aangepast materiaal"
+
+#: .\booking\models\booking.py:30
 msgid "workweek"
 msgstr "werkweek"
 
-#: .\booking\models\booking.py:32
+#: .\booking\models\booking.py:35
 msgid "comment"
 msgstr "opmerking"
 
-#: .\booking\models\booking.py:33
+#: .\booking\models\booking.py:36
 msgid "E.g. for food: when and where do you need it?"
 msgstr "Bijv. voor voedsel: wanneer en waar heb je het nodig?"
 
-#: .\booking\models\booking.py:35
+#: .\booking\models\booking.py:38
 msgid "amount"
 msgstr "aantal"
 
-#: .\booking\models\booking.py:39
+#: .\booking\models\booking.py:42
 msgid "bookings"
 msgstr "aanvragen"
 
@@ -510,19 +522,27 @@ msgstr "Alle"
 msgid "Add new game"
 msgstr "Nieuw spel toevoegen"
 
-#: .\booking\templates\booking\partials\booking-item.html:30
-#: .\booking\templates\booking\partials\booking-item.html:47
+#: .\booking\templates\booking\partials\booking-item.html:29
+msgid "This booking needs review"
+msgstr "Deze aanvraag moet beoordeeld worden"
+
+#: .\booking\templates\booking\partials\booking-item.html:31
+msgid "Custom material"
+msgstr "Aangepast materiaal"
+
+#: .\booking\templates\booking\partials\booking-item.html:45
+#: .\booking\templates\booking\partials\booking-item.html:62
 msgid "Booking options"
 msgstr "Reserveringsopties"
 
-#: .\booking\templates\booking\partials\booking-item.html:32
-#: .\booking\templates\booking\partials\booking-item.html:49
+#: .\booking\templates\booking\partials\booking-item.html:47
+#: .\booking\templates\booking\partials\booking-item.html:64
 #: .\booking\templates\booking\partials\game-card.html:27
 msgid "Delete"
 msgstr "Verwijderen"
 
-#: .\booking\templates\booking\partials\booking-item.html:34
-#: .\booking\templates\booking\partials\booking-item.html:51
+#: .\booking\templates\booking\partials\booking-item.html:49
+#: .\booking\templates\booking\partials\booking-item.html:66
 #: .\booking\templates\booking\partials\game-card.html:29
 msgid "Edit"
 msgstr "Bewerken"
