@@ -57,6 +57,19 @@ def edit_category(request, category_id=None):
 def event_bookings(request, event_id):
     current_event = get_object_or_404(Event, pk=event_id)
     current_group = request.user.group
+
+    if request.user.group is None:
+        return render(
+            request,
+            "booking/empty.html",
+            {
+                "message": _(
+                    "You are not assigned to a group. Please contact a board member to "
+                    "resolve this issue."
+                )
+            },
+        )
+
     if request.user.has_perm("booking.can_view_others_groups_bookings"):
         current_group = get_object_or_404(
             Group, pk=request.GET.get("group", current_group.id)
