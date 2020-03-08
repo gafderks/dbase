@@ -15,7 +15,7 @@ class Material(models.Model):
     )
     lendable = models.BooleanField(
         verbose_name=_("lendable"),
-        default=True,
+        default=False,
         help_text=_("Should this material be shown for lending?"),
     )
     location = models.ForeignKey(
