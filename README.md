@@ -76,7 +76,7 @@ Roadmap
 - [X] Make games orderable
 - [ ] Enable simultaneous editing of bookings and games
 - [X] Button material is not listed, put in comments. Material field nullable.
-    - [ ] MB can convert unlisted material into material
+    - [X] MB can convert unlisted material into material
 - [ ] User role for 'Bestuur' that can change users but not roles.
 - [ ] Admin functionality for converting a Material into a MaterialAlias
 - [ ] Camera app for quickly adding photos of materials

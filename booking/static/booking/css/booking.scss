@@ -113,6 +113,10 @@ html {
                 &:last-of-type {
                     border-bottom: 1px solid #dee2e6;
                 }
+
+                &:hover td {
+                    background: transparent;
+                }
             }
         }
 
@@ -125,6 +129,25 @@ html {
             &:empty {
                 display: none !important;
             }
+        }
+
+        .booking-admin-controls {
+            background-color: #f8f9fa;
+
+            ul {
+                margin-bottom: 0;
+
+                li {
+                    display: inline-block;
+
+                    + li:before {
+                        content: '|';
+                        color: #6c757d;
+                        margin: 0 .5rem;
+                    }
+                }
+            }
+
         }
     }
 

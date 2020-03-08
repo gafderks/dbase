@@ -1,5 +1,6 @@
 {% load i18n %}
 {% load crispy_forms_tags %}
+{% load roles %}
 <tr class="booking d-flex flex-wrap" data-id="{{ booking.pk }}">
   <td class="booking-form col-12">
     {% if booking %}
@@ -69,4 +70,13 @@
     </div>
   </td>
   {% endspaceless %}
+  {% if booking.custom_material and user|has_role:'MB' %}
+    <td class="booking-admin-controls editor d-flex col-12 small text-muted">
+      <ul>
+        <li><a href="{% url 'admin:booking_material_add' %}?name={{ booking.custom_material }}" class="text-secondary">{% trans "Create new material" %}</a></li>
+        <li><a href="{% url 'admin:booking_materialalias_add' %}?name={{ booking.custom_material }}" class="text-secondary">{% trans "Create material alias" %}</a></li>
+      </ul>
+    </td>
+  {% endif %}
+
 </tr>

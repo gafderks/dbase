@@ -58,7 +58,7 @@ def event_bookings(request, event_id):
     current_event = get_object_or_404(Event, pk=event_id)
     current_group = request.user.group
 
-    if request.user.group is None:
+    if request.user.group is None:  # TODO, show list of all groups
         return render(
             request,
             "booking/empty.html",

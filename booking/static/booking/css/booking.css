@@ -82,11 +82,28 @@ html {
 .day table.bookings-table tbody tr:last-of-type {
   border-bottom: 1px solid #dee2e6;
 }
+.day table.bookings-table tbody tr:hover td {
+  background: transparent;
+}
 .day table.bookings-table label {
   margin-bottom: 0;
 }
 .day table.bookings-table .booking-comment:empty {
   display: none !important;
+}
+.day table.bookings-table .booking-admin-controls {
+  background-color: #f8f9fa;
+}
+.day table.bookings-table .booking-admin-controls ul {
+  margin-bottom: 0;
+}
+.day table.bookings-table .booking-admin-controls ul li {
+  display: inline-block;
+}
+.day table.bookings-table .booking-admin-controls ul li + li:before {
+  content: "|";
+  color: #6c757d;
+  margin: 0 0.5rem;
 }
 .day .card.game h6 {
   font-weight: normal;
