@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-05 23:09+0100\n"
-"PO-Revision-Date: 2019-12-30 15:05+0100\n"
+"POT-Creation-Date: 2020-03-21 22:17+0100\n"
+"PO-Revision-Date: 2020-03-21 22:54+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: nl\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.2.4\n"
+"X-Generator: Poedit 2.3\n"
 
 #: .\users\admin.py:20 .\users\models\role.py:12 .\users\models\user.py:57
 msgid "roles"
@@ -24,7 +24,7 @@ msgstr "rollen"
 
 #: .\users\admin.py:24
 msgid "Personal info"
-msgstr "Persoonsgegevens"
+msgstr "Persoonlijke informatie"
 
 #: .\users\admin.py:26
 msgid "Permissions"
@@ -38,27 +38,31 @@ msgstr "gebruikers"
 msgid "Login"
 msgstr "Inloggen"
 
-#: .\users\models\group.py:10
+#: .\users\models\group.py:7
+msgid "URL short name"
+msgstr "Permalink"
+
+#: .\users\models\group.py:11
 msgid "Group"
 msgstr "Groep"
 
-#: .\users\models\group.py:11
+#: .\users\models\group.py:12
 msgid "Commission"
 msgstr "Commissie"
 
-#: .\users\models\group.py:17
+#: .\users\models\group.py:18
 msgid "type"
 msgstr "type"
 
-#: .\users\models\group.py:18
+#: .\users\models\group.py:19
 msgid "What type is the group?"
 msgstr "Welk type heeft de groep?"
 
-#: .\users\models\group.py:22 .\users\models\user.py:52
+#: .\users\models\group.py:23 .\users\models\user.py:52
 msgid "group"
 msgstr "groep"
 
-#: .\users\models\group.py:23
+#: .\users\models\group.py:24
 msgid "groups"
 msgstr "groepen"
 

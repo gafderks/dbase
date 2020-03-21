@@ -118,39 +118,32 @@
     {% endcompress %}
 
   <div class="row">
-    <div class="col-sm-5">
+    <div class="col-auto">
       <p class="lead">{% trans "Material bookings" %}</p>
     </div>
-    <div class="col-sm-7 text-sm-right mb-2 mb-sm-0">
+    <div class="col text-sm-right mb-2 mb-sm-0">
       <div class="btn-toolbar d-inline-block" role="toolbar" aria-label="Toolbar with button groups">
         <div class="btn-group mr-2 d-print-none" role="group" aria-label="{% trans "Export options" %}">
           <a href="javascript:window.print()" data-toggle="tooltip" data-placement="top" class="btn btn-outline-secondary" title="{% trans "Print" %}"><i class="fas fa-print"></i></a>
           <a href="" data-toggle="tooltip" data-placement="top" class="btn btn-outline-secondary" title="{% trans "Export to Excel" %}"><i class="fas fa-file-excel"></i></a>
         </div>
         <div class="btn-group mr-2" role="group" aria-label="{% trans "Display options" %}">
-          <button type="button" data-toggle="tooltip" data-placement="top" class="btn btn-outline-secondary" title="{% trans "Filter" %}"><i class="fas fa-filter"></i></button>
-          <button type="button" data-toggle="tooltip" data-placement="top" class="btn btn-outline-secondary" title="{% trans "Order" %}"><i class="fas fa-sort"></i></button>
-          <button type="button" data-toggle="tooltip" data-placement="top" class="btn btn-outline-secondary" title="{% trans "Show or collapse all games" %}"><i class="fas fa-stream"></i></button>
+          {% block display_options %}
+          {% endblock %}
         </div>
         <div class="btn-group" role="group" aria-label="{% trans "Group" %}">
           <div class="dropdown">
             <button class="btn btn-outline-secondary {% if perms.booking.can_view_others_groups_bookings %}dropdown-toggle"
                     type="button" id="dropdownMenuButton" data-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="false{% endif %}">
+              {% if current_group %}
                 {{ current_group.name }}
+              {% else %}
+                {% trans "All" %}
+              {% endif %}
             </button>
             {% if perms.booking.can_view_others_groups_bookings %}
-              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="z-index: 3000;">
-                  {% for group in groups %}
-                    <a class="dropdown-item" href="?group={{ group.id }}">{{ group.name }}</a>
-                  {% endfor %}
-                <div class="dropdown-divider"></div>
-                  {% for commission in commissions %}
-                    <a class="dropdown-item" href="?group={{ commission.id }}">{{ commission.name }}</a>
-                  {% endfor %}
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="?group=-1">{% trans "All" %}</a>
-              </div>
+              {% block group_selector %}{% endblock %}
             {% endif %}
           </div>
         </div>
@@ -171,31 +164,8 @@
       </ul>
     </nav>
     <div class="card-body">
-        {% for day in current_event.days %}
-          <div class="day row" data-date="{{ day.isoformat }}">
-            {% include "booking/partials/day-nav.html" with day=day parts_of_day=parts_of_day games=games|get_item:day %}
-            <div class="col">
-              <h4 id="day{{ day.isoformat }}" class="fix-anchor">{{ day|date:"l"|capfirst }} {{ day }}</h4>
-              {% for code, trans in parts_of_day %}
-                <div id="{{ day.isoformat }}{{ code }}" class="part-of-day fix-anchor" data-date="{{ day.isoformat }}" data-part-of-day="{{ code }}">
-                <h5>{{ trans }}</h5>
-                {# Todo display part of day form #}
-                {% for game in games|get_item:day|get_item:code %}
-                  {% include "booking/partials/game-card.html" with game=game %}
-                {% endfor %}
-                </div>
-              {% endfor %}
-              <div id="{{ day.isoformat }}new" class="card editor new-game fix-anchor d-print-none">
-                <div class="card-header">
-                  <h6 class="text-secondary">{% trans "Add new game" %}</h6>
-                  {% with new_game_form=game_forms|get_item:day %}
-                  {% crispy new_game_form %}
-                  {% endwith %}
-                </div>
-              </div>
-            </div>
-          </div>
-        {% endfor %}
+      {% block event_days %}
+      {% endblock %}
     </div>
   </div>
 

@@ -1,15 +1,23 @@
 {% load i18n %}
 {% load crispy_forms_tags %}
 {% load roles %}
-<tr class="booking d-flex flex-wrap" data-id="{{ booking.pk }}">
+<tr class="booking d-flex flex-wrap" data-id="{{ booking.pk }}" data-material-name="{{ booking.material.name }}" data-material-id="{{ booking.material.id }}" data-amount="{{ booking.amount }}">
   <td class="booking-form col-12">
     {% if booking %}
-      {% crispy booking.form %}
+      {% if include_game %}
+        {% if include_group %}
+          {% crispy booking.form_with_group %}
+        {% else %}
+          {% crispy booking.form_with_game %}
+        {% endif %}
+      {% else %}
+        {% crispy booking.form %}
+      {% endif %}
     {% else %}
       <form></form>
     {% endif %}
   </td>
-  <td class="booking-check booking-info d-flex align-items-center justify-content-center col-auto pl-md-3 pl-sm-2">
+  <td class="booking-check booking-info d-flex align-items-center col-auto pl-md-3 pl-sm-2">
     <div class="custom-control custom-checkbox">
       <input type="checkbox" class="custom-control-input" id="check-{{ booking.pk }}">
       <label class="custom-control-label" for="check-{{ booking.pk }}"></label>
@@ -17,11 +25,7 @@
   </td>
   <td class="booking-material booking-info col col-md-3">
     <label for="check-{{ booking.pk }}" class="d-block">
-      {% if booking.material %}
-        {{ booking.material.name }}
-      {% else %}
-        {{ booking.custom_material }}
-      {% endif %}
+      {{ booking }}
     </label>
     <div class="booking-material-category small text-muted text-truncate">
       {% if booking.material %}
@@ -37,10 +41,29 @@
   <td class="booking-amount booking-info d-flex align-items-center col-2 col-md-2">
     {{ booking.amount }}
   </td>
-  <td class="booking-workweek booking-info d-flex align-items-center justify-content-center col-2 col-md-2">
+  {% if include_game %}
+    {% if include_group %}
+      <td class="booking-game-group booking-info col-3 col-md-2">
+        <div class="text-truncate" title="{{ booking.game.group.name }}" data-toggle="tooltip" data-placement="bottom">{{ booking.game.group.name }}</div>
+        <div class="booking-game small text-muted">
+          <a class="text-truncate" title="{{ booking.game.name }}" data-toggle="tooltip" data-placement="bottom" href="{% url "booking:event_games_group" booking.game.event.slug booking.game.group.slug %}#game{{ booking.game.pk }}">
+            {{ booking.game.name }}
+          </a>
+        </div>
+      </td>
+    {% else %}
+      <td class="booking-game booking-info d-flex align-items-center col-3 col-md-2">
+        <a class="text-truncate" title="{{ booking.game.name }}" data-toggle="tooltip" data-placement="bottom" href="{% url "booking:event_games_group" booking.game.event.slug booking.game.group.slug %}#game{{ booking.game.pk }}">
+          {{ booking.game.name }}
+        </a>
+      </td>
+    {% endif %}
+  {% endif %}
+  <td class="booking-workweek booking-info d-flex align-items-center justify-content-center col-1 col-md-1">
     {% if booking.workweek %}
       <i class="fas fa-check"></i>
     {% endif %}
+    {% if booking.game.group == request.user.group or perms.can_change_other_groups_bookings  %}
     <div class="booking-controls editor text-right position-absolute align-items-center show-xs">
       <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
         <div class="btn-group mr-2 d-print-none" role="group" aria-label="{% trans "Booking options" %}">
@@ -51,13 +74,17 @@
         </div>
       </div>
     </div>
+    {% endif %}
   </td>
   {% spaceless %}
   <td class="booking-comment booking-info text-truncate d-flex align-items-center col-md col-12 mt-n2 mt-md-0 small text-muted text-wrap">
     {% if booking.comment %}
-      <i class="far fa-comment text-secondary mr-2 d-md-none"></i>
+      <span data-toggle="tooltip" data-placement="bottom" title="{% trans "Comment" %}">
+        <i class="far fa-fw fa-comment text-secondary mr-2 d-md-none"></i>
+      </span>
       {{ booking.comment }}
     {% endif %}
+    {% if booking.game.group == request.user.group or perms.can_change_other_groups_bookings  %}
     <div class="booking-controls editor text-right position-absolute align-items-center show-md">
       <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
         <div class="btn-group mr-2 d-print-none" role="group" aria-label="{% trans "Booking options" %}">
@@ -68,11 +95,14 @@
         </div>
       </div>
     </div>
+    {% endif %}
   </td>
   {% endspaceless %}
+
+
   {% if booking.custom_material and user|has_role:'MB' %}
     <td class="booking-admin-controls editor d-flex col-12 small text-muted">
-      <ul>
+      <ul class="list-horizontal">
         <li><a href="{% url 'admin:booking_material_add' %}?name={{ booking.custom_material }}" class="text-secondary">{% trans "Create new material" %}</a></li>
         <li><a href="{% url 'admin:booking_materialalias_add' %}?name={{ booking.custom_material }}" class="text-secondary">{% trans "Create material alias" %}</a></li>
       </ul>

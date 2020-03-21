@@ -1,11 +1,24 @@
 from django.urls import path, include
 
-from . import views
+from .views import EventGameView, EventListView, HomeView
 
 app_name = "booking"
 urlpatterns = [
-    path("category/new", views.edit_category, name="new_category"),
-    path("category/edit/<int:category_id>", views.edit_category, name="edit_category"),
-    path("event/<int:event_id>", views.event_bookings, name="event_bookings"),
+    # path("category/new", views.edit_category, name="new_category"),
+    # path("category/edit/<int:category_id>", views.edit_category, name="edit_category"),
+    path("", HomeView.as_view(), name="index"),
+    path("<slug:event_slug>", EventGameView.as_view(), name="event_display"),
+    path("<slug:event_slug>/games", EventGameView.as_view(), name="event_games"),
+    path(
+        "<slug:event_slug>/games/<slug:group_slug>",
+        EventGameView.as_view(),
+        name="event_games_group",
+    ),
+    path("<slug:event_slug>/list", EventListView.as_view(), name="event_list"),
+    path(
+        "<slug:event_slug>/list/<slug:group_slug>",
+        EventListView.as_view(),
+        name="event_list_group",
+    ),
     path("api/", include("booking.api.urls")),
 ]

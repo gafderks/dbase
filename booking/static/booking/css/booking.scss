@@ -26,6 +26,20 @@ html {
     scroll-margin-top: 75px;
 }
 
+ul.list-horizontal {
+    margin-bottom: 0;
+
+    li {
+        display: inline-block;
+
+        + li:before {
+            content: '|';
+            color: #6c757d;
+            margin: 0 .5rem;
+        }
+}
+}
+
 .day {
     padding: 2rem 0;
 
@@ -86,9 +100,34 @@ html {
                 }
             }
 
+        }
 
+        &.booking-duplicate-handler, &.booking-duplicate {
+            border-left: 0.3rem #6c757d solid;
 
+            /* account for border */
+            .booking-check, .booking-form {
+                margin-left: -0.3rem;
+            }
+        }
 
+        &.booking-duplicate {
+            background: lighten(#6c757d, 50%);
+        }
+
+        &.booking-duplicate-handler {
+            .fa-folder-open {
+                display: none;
+            }
+        }
+
+        &.booking-duplicate-handler.open {
+            .fa-folder {
+                display: none;
+            }
+            .fa-folder-open {
+                display: inline-block;
+            }
         }
     }
 
@@ -133,20 +172,6 @@ html {
 
         .booking-admin-controls {
             background-color: #f8f9fa;
-
-            ul {
-                margin-bottom: 0;
-
-                li {
-                    display: inline-block;
-
-                    + li:before {
-                        content: '|';
-                        color: #6c757d;
-                        margin: 0 .5rem;
-                    }
-                }
-            }
 
         }
     }

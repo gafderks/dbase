@@ -8,3 +8,4 @@ from .event import Event
 from .part_of_day import PartOfDay
 from .game import Game
 from .booking import Booking
+from .list_view_filter import ListViewFilter

@@ -31,7 +31,7 @@
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
               {% for event in events %}
-              <a class="dropdown-item {% if current_event == event %}active{% endif %}" href="{% url 'booking:event_bookings' event.id %}">
+              <a class="dropdown-item {% if current_event == event %}active{% endif %}" href="{% url 'booking:event_display' event.slug %}">
                 <i class="far fa-calendar-alt fa-fw"></i>
                 <span>{{ event.name }}</span>
                 {% if event.is_privileged or event.is_locked %}
@@ -48,13 +48,24 @@
         </ul>
         <ul class="navbar-nav">
             {% if user.is_authenticated %}
-              <li class="nav-item" data-toggle="tooltip" data-placement="left" title="{% trans "Logged in user" %}">
-                <a class="nav-link" href="#">
-                  <i class="fas fa-user-circle fa-fw"></i>
-                  <span class="d-inline d-sm-none d-lg-inline">{{ user.first_name }}</span>
-                  {% if user|has_role:'MB' %}
-                    <span class="badge badge-mb" data-toggle="tooltip" data-placement="bottom" title="{% trans "Materiaalboer" %}">MB</span>
-                  {% endif %}
+              <li class="nav-item" data-toggle="tooltip" data-html="true" data-placement="left" title="{% trans "Logged in user" %}:<br/>{% if user.first_name %}{{ user.first_name }}{% else %}{{ user.email }}{% endif %}">
+                <a class="nav-link d-flex d-sm-inline-block d-lg-flex align-items-center" href="#">
+                  <i class="fas fa-user-circle fa-fw mr-2 mr-sm-0 mr-lg-2"></i>
+                  <div class="d-inline-block d-sm-none d-lg-inline-block" style="margin:-0.6rem 0;">
+                    <div>
+                      {% if user.first_name %}
+                        {{ user.first_name }}
+                      {% else %}
+                        {{ user.email }}
+                      {% endif %}
+                      {% if user|has_role:'MB' %}
+                        <span class="badge badge-mb" data-toggle="tooltip" data-placement="bottom" title="{% trans "Materiaalboer" %}">MB</span>
+                      {% endif %}
+                    </div>
+                    {% if user.group %}
+                      <div style="margin-top: -0.1rem" class="small font-italic">{{ user.group.name }}</div>
+                    {% endif %}
+                  </div>
                 </a>
               </li>
               <li class="nav-item" data-toggle="tooltip" data-placement="bottom" title="{% trans "Logout" %}">

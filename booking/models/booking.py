@@ -46,7 +46,7 @@ class Booking(models.Model):
         ]
 
     def __str__(self):
-        return self.material.name
+        return self.material.name if self.material else self.custom_material
 
     def user_may_edit(self, user):
         if not self.game.user_may_edit(user):
@@ -58,3 +58,28 @@ class Booking(models.Model):
         from booking.forms import BookingForm
 
         return BookingForm(instance=self, auto_id="id_booking_%s_" + str(self.id))
+
+    @property
+    def form_with_game(self):
+        from booking.forms import BookingForm
+
+        form = BookingForm(instance=self, auto_id="id_booking_%s_" + str(self.id))
+        form.helper.form_action += "?include_game=True"
+        return form
+
+    @property
+    def form_with_group(self):
+        from booking.forms import BookingForm
+
+        form = BookingForm(instance=self, auto_id="id_booking_%s_" + str(self.id))
+        form.helper.form_action += "?include_game=True&include_group=True"
+        return form
+
+    @property
+    def display_category(self):
+        if self.material is None:
+            return _("Custom material")
+        if self.material.categories.exists():
+            return str(self.material.categories.first())
+        else:
+            return ""

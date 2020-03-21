@@ -1,0 +1,59 @@
+{% extends "booking/event/event.html" %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+{% load event %}
+{% load dictionary %}
+{% load static %}
+
+{% block event_days %}
+  {{ block.super }}
+  {% for day in current_event.days %}
+    <div class="day row" data-date="{{ day.isoformat }}">
+      {% include "booking/partials/day-nav.html" with day=day parts_of_day=parts_of_day games=games|get_item:day %}
+      <div class="col">
+        <h4 id="day{{ day.isoformat }}" class="fix-anchor">{{ day|date:"l"|capfirst }} {{ day }}</h4>
+        {% for code, trans in parts_of_day %}
+          <div id="{{ day.isoformat }}{{ code }}" class="part-of-day fix-anchor" data-date="{{ day.isoformat }}" data-part-of-day="{{ code }}">
+          <h5>{{ trans }}</h5>
+          {# Todo display part of day form #}
+          {% for game in games|get_item:day|get_item:code %}
+            {% include "booking/partials/game-card.html" with game=game %}
+          {% endfor %}
+          </div>
+        {% endfor %}
+        {% if current_group == request.user.group or perms.can_change_other_groups_bookings  %}
+          <div id="{{ day.isoformat }}new" class="card editor new-game fix-anchor d-print-none">
+            <div class="card-header">
+              <h6 class="text-secondary">{% trans "Add new game" %}</h6>
+              {% with new_game_form=game_forms|get_item:day %}
+              {% crispy new_game_form %}
+              {% endwith %}
+            </div>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  {% endfor %}
+{% endblock %}
+
+{% block display_options %}
+  {{ block.super }}
+  <a href="{% url 'booking:event_list_group' current_event.slug current_group.slug %}" data-toggle="tooltip" data-placement="top" class="btn btn-outline-secondary" title="{% trans "Open list view" %}">
+    <i class="fas fa-clipboard-list"></i>
+    <span class="pl-1 d-none d-md-inline">{% trans "List view" %}</span>
+  </a>
+{% endblock %}
+
+{% block group_selector %}
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="z-index: 3000;">
+      {% for group in groups %}
+        <a class="dropdown-item {% if current_group == group %}active{% endif %}" href="{% url "booking:event_games_group" current_event.slug group.slug %}">{{ group.name }}</a>
+      {% endfor %}
+    <div class="dropdown-divider"></div>
+      {% for commission in commissions %}
+        <a class="dropdown-item {% if current_group == commission %}active{% endif %}" href="{% url "booking:event_games_group" current_event.slug commission.slug %}">{{ commission.name }}</a>
+      {% endfor %}
+    <div class="dropdown-divider"></div>
+    <a class="dropdown-item {% if not current_group %}active{% endif %}" href="{% url "booking:event_list_group" current_event.slug "all" %}">{% trans "All" %}</a>
+  </div>
+{% endblock %}

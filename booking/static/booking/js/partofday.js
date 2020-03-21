@@ -1,4 +1,5 @@
 import Game from './game.js';
+import List from './list.js';
 
 export default class PartOfDay {
 
@@ -8,6 +9,7 @@ export default class PartOfDay {
     this._date = day._date || $elem.data('date');
     this._part_of_day_code = part_of_day || $elem.data('part-of-day');
 
+    this._lists = this._constructLists();
     this._games = this._constructGames();
     this.sortGames(); // Sets the correct moving buttons
   }
@@ -20,6 +22,16 @@ export default class PartOfDay {
       games.push(game);
     });
     return games;
+  }
+
+  _constructLists() {
+    let lists = [];
+    this._$elem.find('.list').each((i, elem) => {
+      const list = new List($(elem), this);
+      $(elem).data('list', list);
+      lists.push(list);
+    });
+    return lists;
   }
 
   get partOfDayCode() {

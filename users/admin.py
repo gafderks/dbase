@@ -67,6 +67,7 @@ class UserAdmin(DjangoUserAdmin):
 class GroupAdmin(admin.ModelAdmin):
     list_display = ("name", "type")
     list_filter = ("type",)
+    prepopulated_fields = {"slug": ("name",)}
 
 
 # Rename Django Groups to Roles for distinguishing from custom Group definition

@@ -2,9 +2,9 @@ import Autocomplete from './autocomplete.js';
 
 export default class Booking {
 
-  constructor($elem, game, id) {
+  constructor($elem, parent, id) {
     this._$elem = $elem;
-    this._game = game;
+    this._parent = parent; // Can be Game or List
     this._id = id || $elem.data('id');
     this._autocomplete = undefined;
     this._attachEvents();
@@ -16,6 +16,18 @@ export default class Booking {
 
   get elem() {
     return this._$elem;
+  }
+
+  get material_id() {
+    return this._$elem.data('material-id');
+  }
+
+  get material_name() {
+    return this._$elem.data('material-name');
+  }
+
+  get amount() {
+    return this._$elem.data('amount');
   }
 
   _attachEvents() {
@@ -94,6 +106,7 @@ export default class Booking {
             this._$elem.replaceWith($newBooking);
             this._$elem = $newBooking;
             this._attachEvents();
+            this._parent.onBookingChanged(this);
           } else if ($trigger.hasClass('delete-booking')) {
             this.delete();
           }
@@ -158,7 +171,7 @@ export default class Booking {
 
   delete() {
     this._$elem.remove();
-    this._game.removeBooking(this);
+    this._parent.removeBooking(this);
   }
 
 

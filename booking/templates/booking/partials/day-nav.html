@@ -5,7 +5,7 @@
     <a class="navbar-brand" href="#day{{ day.isoformat }}">{{ day|date:"l"|capfirst }}</a>
     <nav class="nav nav-pills flex-column">
       {% for code, trans in parts_of_day %}
-        {% if games|get_item:code|length %}
+        {% if games and games|get_item:code|length %}
           <a class="nav-link active-secondary" href="#{{ day.isoformat }}{{ code }}">{{ trans }}</a>
           <nav class="nav nav-pills flex-column">
             {% for game in games|get_item:code %}
@@ -13,8 +13,20 @@
             {% endfor %}
           </nav>
         {% endif %}
+        {% if list_views and list_views|get_item:code|length %}
+          <a class="nav-link active-secondary" href="#{{ day.isoformat }}{{ code }}">{{ trans }}</a>
+          <nav class="nav nav-pills flex-column">
+          {% for list_view in list_views|get_item:code %}
+            <a class="nav-link ml-3 my-1" href="#list{{ day.isoformat }}{{ code }}{{ list_view.pk }}">{{ list_view.name }}</a>
+          {% endfor %}
+          </nav>
+        {% endif %}
       {% endfor %}
-      <a class="btn btn-outline-secondary text-left mt-4 editor" href="#{{ day.isoformat }}new"><i class="fas fa-plus-square"></i> {% trans "Add new game" %}</a>
+      {% if games %}
+        {% if current_group == request.user.group or perms.can_change_other_groups_bookings  %}
+          <a class="btn btn-outline-secondary text-left mt-4 editor" href="#{{ day.isoformat }}new"><i class="fas fa-plus-square"></i> {% trans "Add new game" %}</a>
+        {% endif %}
+      {% endif %}
     </nav>
   </div>
 </nav>

@@ -190,6 +190,11 @@ export default class Game {
     });
   }
 
+  // eslint-disable-next-line no-unused-vars
+  onBookingChanged(booking) {
+    // noop
+  }
+
   delete() {
     this._$elem.remove();
     this._partOfDay.removeGame(this);

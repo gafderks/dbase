@@ -113,7 +113,7 @@ class Game(models.Model):
     def user_may_edit(self, user):
         if not self.event.user_may_edit(user):
             return False
-        if self.group not in user.groups.all():
+        if self.group != user.group:
             if not user.has_perm("booking.can_edit_others_groups_bookings"):
                 return False
         return True

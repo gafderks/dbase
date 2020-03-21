@@ -46,7 +46,13 @@ def edit_booking(request, booking_id=None):
         form_html = render_crispy_form(BookingForm(instance=booking))
         booking_html = render_to_string(
             "booking/partials/booking-item.html",
-            {"booking": booking, "form": BookingForm(instance=booking)},
+            {
+                "booking": booking,
+                "form": BookingForm(instance=booking),
+                "include_game": bool(request.GET.get("include_game", False)),
+                "include_group": bool(request.GET.get("include_group", False)),
+            },
+            request=request,
         )
 
         return JsonResponse(

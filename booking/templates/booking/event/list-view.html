@@ -1,0 +1,63 @@
+{% extends "booking/event/event.html" %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+{% load event %}
+{% load dictionary %}
+{% load static %}
+
+{% block event_days %}
+  {{ block.super }}
+  {% for day in current_event.days %}
+    <div class="day row" data-date="{{ day.isoformat }}">
+      {% include "booking/partials/day-nav.html" with day=day parts_of_day=parts_of_day list_views=list_views|get_item:day %}
+      <div class="col">
+        <h4 id="day{{ day.isoformat }}" class="fix-anchor">{{ day|date:"l"|capfirst }} {{ day }}</h4>
+        {% for code, trans in parts_of_day %}
+          <div id="{{ day.isoformat }}{{ code }}" class="part-of-day fix-anchor" data-date="{{ day.isoformat }}" data-part-of-day="{{ code }}">
+            <h5>{{ trans }}</h5>
+            {% for list_view in list_views|get_item:day|get_item:code %}
+              {% if current_group %}
+                {% include "booking/partials/list-view-card.html" with list_view=list_view include_group=False day=day part_of_day=code %}
+              {% else %}
+                {% include "booking/partials/list-view-card.html" with list_view=list_view include_group=True day=day part_of_day=code %}
+              {% endif %}
+            {% endfor %}
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  {% endfor %}
+{% endblock %}
+
+{% block display_options %}
+  {{ block.super }}
+  <button type="button" data-toggle="tooltip" data-placement="top" class="btn btn-outline-secondary" title="{% trans "Filter bookings" %}">
+    <i class="fas fa-filter"></i>
+    <span class="pl-1 d-none d-lg-inline">{% trans "Filter" %}</span>
+  </button>
+  {% if current_group %}
+  <a href="{% url 'booking:event_games_group' current_event.slug current_group.slug %}" data-toggle="tooltip" data-placement="top" class="btn btn-outline-secondary" title="{% trans "Open game view" %}">
+    <i class="fas fa-dice-five"></i>
+    <span class="pl-1 d-none d-md-inline">{% trans "Game view" %}</span>
+  </a>
+  {% else %}
+  <a class="btn btn-outline-secondary disabled" style="pointer-events: auto" data-toggle="tooltip" data-placement="top" title="{% trans "Game view is not available if you select all groups." %}">
+    <i class="fas fa-dice-five"></i>
+    <span class="pl-1 d-none d-md-inline">{% trans "Game view" %}</span>
+  </a>
+  {% endif %}
+{% endblock %}
+
+{% block group_selector %}
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="z-index: 3000;">
+      {% for group in groups %}
+        <a class="dropdown-item {% if current_group == group %}active{% endif %}" href="{% url "booking:event_list_group" current_event.slug group.slug %}">{{ group.name }}</a>
+      {% endfor %}
+    <div class="dropdown-divider"></div>
+      {% for commission in commissions %}
+        <a class="dropdown-item {% if current_group == commission %}active{% endif %}" href="{% url "booking:event_list_group" current_event.slug commission.slug %}">{{ commission.name }}</a>
+      {% endfor %}
+    <div class="dropdown-divider"></div>
+    <a class="dropdown-item {% if not current_group %}active{% endif %}" href="{% url "booking:event_list_group" current_event.slug "all" %}">{% trans "All" %}</a>
+  </div>
+{% endblock %}

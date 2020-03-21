@@ -1,5 +1,7 @@
 from django.core.management.base import BaseCommand
 from django.db import transaction
+from django.utils.text import slugify
+
 from users.models import Group
 from django.contrib.auth.models import Group as DjangoGroup
 from django.contrib.auth.models import Permission
@@ -28,7 +30,7 @@ class Command(BaseCommand):
             "name": "MB",
             "permissions": [
                 "add_booking",
-                "can_change_other_groups_bookings",
+                # "can_change_other_groups_bookings",
                 "can_view_others_groups_bookings",
                 "change_booking",
                 "delete_booking",
@@ -75,7 +77,7 @@ class Command(BaseCommand):
         with transaction.atomic():
             for group in self.GROUPS:
                 group_object, _ = Group.objects.get_or_create(
-                    name=group["name"], type=group["type"]
+                    name=group["name"], type=group["type"], slug=slugify(group["name"])
                 )
                 group_object.save()
             return len(self.GROUPS)

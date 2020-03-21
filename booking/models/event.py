@@ -1,6 +1,7 @@
 from datetime import timedelta, datetime, timezone
 
 from django.db import models
+from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
 
@@ -14,6 +15,7 @@ class EventManager(models.Manager):
 
 class Event(models.Model):
     name = models.CharField(verbose_name=_("name"), max_length=150)
+    slug = models.SlugField(null=False, unique=True, help_text=_("URL short name"))
     locked = models.BooleanField(
         verbose_name=_("locked"),
         default=False,
@@ -63,6 +65,9 @@ class Event(models.Model):
 
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse("booking:event_games", kwargs={"event_slug": self.slug})
 
     @property
     def duration(self):

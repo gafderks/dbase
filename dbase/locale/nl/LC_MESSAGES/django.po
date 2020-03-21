@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-07 00:44+0100\n"
-"PO-Revision-Date: 2020-01-04 17:07+0100\n"
+"POT-Creation-Date: 2020-03-21 22:17+0100\n"
+"PO-Revision-Date: 2020-03-21 22:53+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: nl\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.2.4\n"
+"X-Generator: Poedit 2.3\n"
 
 #: .\dbase\templates\admin\base_site.html:4
 #: .\dbase\templates\admin\base_site.html:7
@@ -60,36 +60,36 @@ msgstr "Evenement"
 msgid "Logged in user"
 msgstr "Ingelogde gebruiker"
 
-#: .\dbase\templates\jeugdraad\navigation.html:56
+#: .\dbase\templates\jeugdraad\navigation.html:62
 msgid "Materiaalboer"
 msgstr "Materiaalboer"
 
-#: .\dbase\templates\jeugdraad\navigation.html:60
-#: .\dbase\templates\jeugdraad\navigation.html:63
+#: .\dbase\templates\jeugdraad\navigation.html:71
+#: .\dbase\templates\jeugdraad\navigation.html:74
 msgid "Logout"
 msgstr "Uitloggen"
 
-#: .\dbase\templates\jeugdraad\navigation.html:67
-#: .\dbase\templates\jeugdraad\navigation.html:70
+#: .\dbase\templates\jeugdraad\navigation.html:78
+#: .\dbase\templates\jeugdraad\navigation.html:81
 msgid "Admin"
 msgstr "Beheer"
 
-#: .\dbase\templates\jeugdraad\navigation.html:75
-#: .\dbase\templates\jeugdraad\navigation.html:78
+#: .\dbase\templates\jeugdraad\navigation.html:86
+#: .\dbase\templates\jeugdraad\navigation.html:89
 msgid "Login"
 msgstr "Inloggen"
 
-#: .\dbase\templates\jeugdraad\navigation.html:82
-#: .\dbase\templates\jeugdraad\navigation.html:85
-#: .\dbase\templates\jeugdraad\navigation.html:89
+#: .\dbase\templates\jeugdraad\navigation.html:93
+#: .\dbase\templates\jeugdraad\navigation.html:96
 #: .\dbase\templates\jeugdraad\navigation.html:100
+#: .\dbase\templates\jeugdraad\navigation.html:111
 msgid "Search"
 msgstr "Zoeken"
 
-#: .\dbase\templates\jeugdraad\navigation.html:89
 #: .\dbase\templates\jeugdraad\navigation.html:100
+#: .\dbase\templates\jeugdraad\navigation.html:111
 msgid "Material not found..."
-msgstr ""
+msgstr "Materiaal niet gevonden..."
 
 #: .\venv-37\Lib\site-packages\crispy_forms\tests\test_form_helper.py:129
 #: .\venv-37\Lib\site-packages\crispy_forms\tests\test_form_helper.py:139

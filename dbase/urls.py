@@ -18,16 +18,15 @@ from django.urls import include, path
 from django.conf import settings
 from django.conf.urls.static import static
 
-from booking.views import home
-
+from booking.views import HomeView
 
 urlpatterns = [
-    path("", home, name="index"),
+    path("", HomeView.as_view(), name="index"),
     path("booking/", include("booking.urls")),
     path("users/", include("users.urls")),
     path("admin/", admin.site.urls),
 ]
-# The following patterns only work if DEBUG = TRUE. Django should not be used for serving static files or uploaded files
-#  in production environments.
+# The following patterns only work if DEBUG = TRUE. Django should not be used for
+#  serving static files or uploaded files in production environments.
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

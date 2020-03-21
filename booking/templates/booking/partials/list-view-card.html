@@ -1,0 +1,41 @@
+{% load i18n %}
+{% load crispy_forms_tags %}
+<div class="card list mb-3 fix-anchor" id="list{{ day.isoformat }}{{ part_of_day }}{{ list_view.pk }}" data-part-of-day-code="{{ part_of_day }}" data-day="{{ day.isoformat }}" data-i18n-bookings="{% trans "bookings" %}">
+  <div class="card-header">
+    <div class="list-header row">
+      <div class="list-name col-auto py-2">{{ list_view.name }}</div>
+    </div>
+  </div>
+  <div class="card-body p-0 collapse show">
+    <div class="table-responsive-md">
+      <table class="bookings-table table table-sm table-hover mb-0">
+        <thead>
+          <tr class="d-flex">
+            <th scope="col" class="booking-check text-center col-auto pl-md-3 pl-sm-2">
+              <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" id="check-all">
+                <label class="custom-control-label" for="check-all"></label>
+              </div>
+            </th>
+            <th scope="col" class="booking-material col col-md-3">{% trans "Material" %}</th>
+            <th scope="col" class="booking-amount col-2 col-md-2 text-truncate" data-toggle="tooltip" title="{% trans "Amount" %}">{% trans "Amount" %}</th>
+            <th scope="col" class="booking-game col-3 col-md-2 text-truncate" data-toggle="tooltip" title="{% trans "Game" %}">{% trans "Game" %}</th>
+            <th scope="col" class="booking-workweek text-center col-1 col-md-1 text-truncate" data-toggle="tooltip" title="{% trans "Workweek" %}">{% trans "Workweek" %}</th>
+            <th scope="col" class="booking-comment d-none d-md-table-cell col">{% trans "Comment" %}</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for booking in list_view.bookings %}
+          {% include "booking/partials/booking-item.html" with booking=booking include_game=True include_group=include_group %}
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+{#    <div class="editor bg-light px-2 pb-2">#}
+{#      <h6 class="px-2 pt-2 text-secondary">#}
+{#        {% trans "Add material booking" %}#}
+{#      </h6>#}
+{#      {% crispy game.booking_form %}#}
+{#    </div>#}
+  </div>
+</div>

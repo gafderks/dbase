@@ -80,6 +80,7 @@ Roadmap
 - [ ] User role for 'Bestuur' that can change users but not roles.
 - [ ] Admin functionality for converting a Material into a MaterialAlias
 - [ ] Camera app for quickly adding photos of materials
-- [ ] Info button next to bookings for opening material info modal. 
+- [ ] Info button next to bookings for opening material info modal.
+    - [ ] For MB: include shortcut for altering material (e.g. category, GM)
 - [ ] Import games from other events
 - [ ] Contributors file

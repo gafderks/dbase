@@ -4,6 +4,7 @@ from django.utils.translation import gettext_lazy as _
 
 class Group(models.Model):
     name = models.CharField(max_length=250, unique=True)
+    slug = models.SlugField(null=False, unique=True, help_text=_("URL short name"))
     GROUP = "GR"
     COMMISSION = "CO"
     GROUP_TYPE_CHOICES = [
