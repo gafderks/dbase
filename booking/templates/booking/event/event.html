@@ -6,6 +6,15 @@
 {% load dictionary %}
 {% load static %}
 
+{% block window_title %}
+  {% if current_group %}
+    {% blocktrans with group=current_group.name %}Bookings for {{ group }}{% endblocktrans %}
+  {% else %}
+    {% trans "All bookings" %}
+  {% endif %}
+  | {% trans current_event.name %} | {{ block.super }}
+{% endblock %}
+
 {% block body_attrs %}{{ block.super }} data-spy="scroll" data-target="" data-offset="100"{% endblock %}
 {% block body_class %}{{ block.super }} {% if current_event|may_edit:user %}editable{% endif %}{% endblock %}
 
