@@ -105,8 +105,8 @@ ul.list-horizontal {
         &.booking-duplicate-handler, &.booking-duplicate {
             border-left: 0.3rem #6c757d solid;
 
-            /* account for border */
             .booking-check, .booking-form {
+                /* account for border */
                 margin-left: -0.3rem;
             }
         }
@@ -116,6 +116,12 @@ ul.list-horizontal {
         }
 
         &.booking-duplicate-handler {
+
+            td.booking-duplicate-dir {
+                padding-left: .7rem !important;
+                padding-right: .6rem;
+            }
+
             .fa-folder-open {
                 display: none;
             }

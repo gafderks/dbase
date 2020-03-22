@@ -133,7 +133,7 @@ export default class List {
       }
       const duplicate_bar = $('<tr>').addClass('booking booking-duplicate-handler d-flex flex-wrap')
         .append(
-          $('<td>').addClass('col-auto pl-md-3 pl-sm-2 d-flex align-items-center')
+          $('<td>').addClass('booking-duplicate-dir col-auto pl-md-3 pl-sm-2 d-flex align-items-center')
             .html('<i class="far fa-folder fa-fw"></i><i class="far fa-folder-open fa-fw"></i>'),
           duplicates_set[0].elem.find('.booking-material').clone(),
           $('<td>').addClass('d-flex align-items-center col-2 col-md-2').text(total_amounts),

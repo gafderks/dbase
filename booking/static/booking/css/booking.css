@@ -79,13 +79,17 @@ ul.list-horizontal li + li:before {
 }
 .day .booking.booking-duplicate-handler, .day .booking.booking-duplicate {
   border-left: 0.3rem #6c757d solid;
-  /* account for border */
 }
 .day .booking.booking-duplicate-handler .booking-check, .day .booking.booking-duplicate-handler .booking-form, .day .booking.booking-duplicate .booking-check, .day .booking.booking-duplicate .booking-form {
+  /* account for border */
   margin-left: -0.3rem;
 }
 .day .booking.booking-duplicate {
   background: #f3f4f5;
+}
+.day .booking.booking-duplicate-handler td.booking-duplicate-dir {
+  padding-left: 0.7rem !important;
+  padding-right: 0.6rem;
 }
 .day .booking.booking-duplicate-handler .fa-folder-open {
   display: none;

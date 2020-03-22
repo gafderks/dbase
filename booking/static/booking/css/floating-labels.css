@@ -29,7 +29,10 @@
   top: 0;
   left: 0;
   display: block;
-  width: 100%;
+  width: calc(100% - 1.2rem);
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
   margin-bottom: 0;
   line-height: 1.5;
   color: #495057;

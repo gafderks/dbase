@@ -229,7 +229,7 @@ class BookingForm(forms.ModelForm):
             Div(
                 Field(
                     "material",
-                    wrapper_class="col-8 col-lg-3 px-1 mb-lg-0",
+                    wrapper_class="col-8 col-xl-3 px-1 mb-xl-0",
                     css_class="typeahead-materials floating-label-size",
                     placeholder=__("Material") + "*",
                     autocomplete="off",
@@ -239,16 +239,18 @@ class BookingForm(forms.ModelForm):
                     data_allowcustom="true",
                     data_notfoundtext=__("Material not found..."),
                     data_addcustomtext=__('Click to request "<em>{}</em>" anyway.'),
+                    title=__("Material"),
                 ),
                 Field(
                     "amount",
                     template="crispy/floating-labels.html",
-                    wrapper_class="col-4 col-lg-2 px-1 mb-lg-0",
+                    wrapper_class="col-4 col-xl-2 px-1 mb-xl-0",
                     autocomplete="off",
+                    title=__("Amount"),
                 ),
                 Field(
                     "workweek",
-                    wrapper_class="col-auto px-1 mb-lg-0",
+                    wrapper_class="col-auto px-1 mb-xl-0",
                     template="crispy/floating-labels.html",
                     data_toggle="toggle",
                     data_on=__("Workweek"),
@@ -257,7 +259,8 @@ class BookingForm(forms.ModelForm):
                 Field(
                     "comment",
                     template="crispy/floating-labels.html",
-                    wrapper_class="col px-1 mb-lg-0",
+                    wrapper_class="col px-1 mb-xl-0",
+                    title=__("Comment"),
                 ),
                 Div(
                     Submit(
@@ -266,11 +269,11 @@ class BookingForm(forms.ModelForm):
                         css_id=self.auto_id % "submit",
                         css_class="btn-outline-primary crispy-outline",
                     ),
-                    css_class="col-auto px-1 mb-lg-0 form-label-group",
+                    css_class="col-auto px-1 mb-xl-0 form-label-group",
                 ),
                 Div(
                     Reset("reset", _("Cancel"), css_id=self.auto_id % "reset",),
-                    css_class="col-auto px-1 mb-lg-0 form-label-group",
+                    css_class="col-auto px-1 mb-xl-0 form-label-group",
                 )
                 if self.instance.id
                 else None,
