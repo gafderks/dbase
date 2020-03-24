@@ -84,4 +84,4 @@ Roadmap
     - [ ] For MB: include shortcut for altering material (e.g. category, GM)
 - [ ] Import games from other events
 - [ ] Contributors file
-- [ ] Prune default permissions that are not checked against: https://docs.djangoproject.com/en/3.0/ref/models/options/#django.db.models.Options.default_permissions
+- [ ] Prune default permissions that are not checked against, also updata management import roles: https://docs.djangoproject.com/en/3.0/ref/models/options/#django.db.models.Options.default_permissions
