@@ -70,9 +70,9 @@ Roadmap
 -------
 - [ ] Suggested material bookings. If you book 'Rambler' it suggests electricity cords.
 - [ ] Details for parts of days, e.g. location, times.
-- [ ] Mobile check-off list that stores the check-off status in local storage.
-    - [ ] Hold checkbox for indeterminate state
-    - [ ] Check-all / uncheck all button
+- [X] Mobile check-off list that stores the check-off status in local storage.
+    - [X] Hold checkbox for indeterminate state
+    - [X] Check-all / uncheck all button
 - [X] Make games orderable
 - [ ] Enable simultaneous editing of bookings and games
 - [X] Button material is not listed, put in comments. Material field nullable.
@@ -84,4 +84,4 @@ Roadmap
     - [ ] For MB: include shortcut for altering material (e.g. category, GM)
 - [ ] Import games from other events
 - [ ] Contributors file
-- [ ] Prune default permissions that are not checked against, also updata management import roles: https://docs.djangoproject.com/en/3.0/ref/models/options/#django.db.models.Options.default_permissions
+- [ ] Prune default permissions that are not checked against, also update management import roles: https://docs.djangoproject.com/en/3.0/ref/models/options/#django.db.models.Options.default_permissions

@@ -2,11 +2,12 @@ import Autocomplete from './autocomplete.js';
 
 export default class Booking {
 
-  constructor($elem, parent, id) {
+  constructor($elem, container, id) {
     this._$elem = $elem;
-    this._parent = parent; // Can be Game or List
+    this._container = container; // BookingContainer
     this._id = id || $elem.data('id');
     this._autocomplete = undefined;
+    this._$checkbox = this._$elem.find('.booking-check input');
     this._attachEvents();
   }
 
@@ -28,6 +29,32 @@ export default class Booking {
 
   get amount() {
     return this._$elem.data('amount');
+  }
+
+  get checkboxStatus() {
+    if (this._$checkbox.prop('indeterminate')) {
+      return 'indeterminate';
+    } else {
+      return this._$checkbox.prop('checked');
+    }
+  }
+
+  set checkboxStatus(status) {
+    if (status === null) {
+      // nothing
+      return;
+    } else if (status === 'true' || status === true) {
+      this._$checkbox.prop('checked', true);
+      this._$checkbox.prop('indeterminate', false);
+    } else if (status === 'false' || status === false) {
+      this._$checkbox.prop('checked', false);
+      this._$checkbox.prop('indeterminate', false);
+    } else if (status === 'indeterminate') {
+      this._$checkbox.prop('indeterminate', true);
+    } else {
+      console.error('Unsupported status');
+    }
+    this._save_checkbox_status(status);
   }
 
   _attachEvents() {
@@ -71,6 +98,19 @@ export default class Booking {
     });
     // Tooltip
     this._$elem.find('[data-toggle="tooltip"]').tooltip();
+    // Checkboxes retrieve status
+    this._retrieve_checkbox_status();
+    // Checkbox indeterminate on double click
+    this._$elem.find('.booking-check label').bind('dblclick', _ => {
+      window.getSelection().removeAllRanges(); // Remove accidental text selection
+      this._$checkbox.prop('indeterminate', true);
+      this._save_checkbox_status('indeterminate');
+      this._container.onBookingCheckboxChanged();
+    });
+    this._$elem.find('.booking-check input').change(_ => {
+      this._save_checkbox_status(this._$checkbox.prop('checked'));
+      this._container.onBookingCheckboxChanged();
+    });
   }
 
   toggleForm() {
@@ -106,7 +146,7 @@ export default class Booking {
             this._$elem.replaceWith($newBooking);
             this._$elem = $newBooking;
             this._attachEvents();
-            this._parent.onBookingChanged(this);
+            this._container.onBookingChanged(this);
           } else if ($trigger.hasClass('delete-booking')) {
             this.delete();
           }
@@ -169,9 +209,17 @@ export default class Booking {
     return $form;
   }
 
+  _retrieve_checkbox_status() {
+    this.checkboxStatus = window.localStorage.getItem(this._$checkbox.attr('id'));
+  }
+
+  _save_checkbox_status(status) {
+    window.localStorage.setItem(this._$checkbox.attr('id'), status);
+  }
+
   delete() {
     this._$elem.remove();
-    this._parent.removeBooking(this);
+    this._container.removeBooking(this);
   }
 
 

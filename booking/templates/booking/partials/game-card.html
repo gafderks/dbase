@@ -8,7 +8,7 @@
       <form></form>
     {% endif %}
     <div class="game-header row">
-      <div class="game-name col-auto py-2">{{ game.name }}</div>
+      <div class="game-name card-name col-auto py-2">{{ game.name }}</div>
       <div class="game-location col py-2 text-right text-secondary">
         {% if game.location %}
           <div title="{% trans "Location" %}" data-toggle="tooltip" data-placement="bottom">
@@ -39,8 +39,8 @@
       <table class="bookings-table table table-sm table-hover mb-0">
         <thead>
           <tr class="d-flex">
-            <th scope="col" class="booking-check text-center col-auto pl-md-3 pl-sm-2">
-              <div class="custom-control custom-checkbox">
+            <th scope="col" class="game-check check-all text-center col-auto pl-md-3 pl-sm-2">
+              <div class="custom-control custom-checkbox" data-toggle="tooltip" data-placement="top" title="{% trans "Set status on all bookings" %}">
                 <input type="checkbox" class="custom-control-input" id="check-all-{{ game.pk }}">
                 <label class="custom-control-label" for="check-all-{{ game.pk }}"></label>
               </div>

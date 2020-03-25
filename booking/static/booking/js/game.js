@@ -1,46 +1,18 @@
 import Booking from './booking.js';
+import BookingContainer from './booking-container.js';
 
-export default class Game {
+export default class Game extends BookingContainer {
 
   constructor($elem, partOfDay, id, order) {
-    this._$elem = $elem;
-    this._partOfDay = partOfDay;
-    this._partOfDayCode = $elem.data('part-of-day-code');
+    super($elem, partOfDay);
     this._id = id || $elem.data('id');
     this._order = order || $elem.data('order');
-
-    this._bookings = this._constructBookings();
     Booking.initCreateBookingForm(this);
     this._attachEvents();
   }
 
-  collapse() {
-    this._$elem.find('.card-body').collapse('hide');
-  }
-
-  show() {
-    this._$elem.find('.card-body').collapse('show');
-  }
-
-  toggleCollapse() {
-    this._$elem.find('.card-body').collapse('toggle');
-  }
-
-  _constructBookings() {
-    let bookings = [];
-    this._$elem.find('.booking').each((i, elem) => {
-      const booking = new Booking($(elem), this);
-      $(elem).data('booking', booking);
-      bookings.push(booking);
-    });
-    if (bookings.length === 0) {
-      this._$elem.find('.bookings-table thead').addClass('d-none');
-    }
-    return bookings;
-  }
-
   _populateFromDOM() {
-    this.partOfDayCode = this._$elem.data('part-of-day-code') || this._partOfDayCode;
+    super._populateFromDOM();
     this.order = this._$elem.data('order') || this._order;
   }
 
@@ -71,11 +43,8 @@ export default class Game {
     }
   }
 
-  get elem() {
-    return this._$elem;
-  }
-
   _attachEvents() {
+    super._attachEvents();
     // Attach move method to move buttons
     this._$elem.find('.btn.move-game').click(e => {
       e.preventDefault();
@@ -110,10 +79,6 @@ export default class Game {
       $modal.find('.modal-body').html(confirmationTemplate.replace('${name}', gameName));
       $modal.find('.confirm-delete').off().click(_ => this.update(e.currentTarget));
     });
-    // Tooltip
-    this._$elem.find('[data-toggle="tooltip"]').tooltip();
-    // Toggle collapse
-    this._$elem.find('.game-name').click(_ => this.toggleCollapse());
   }
 
   toggleForm() {
@@ -190,11 +155,6 @@ export default class Game {
     });
   }
 
-  // eslint-disable-next-line no-unused-vars
-  onBookingChanged(booking) {
-    // noop
-  }
-
   delete() {
     this._$elem.remove();
     this._partOfDay.removeGame(this);
@@ -210,19 +170,5 @@ export default class Game {
 
   denyMoveDown() {
     this._$elem.find('.btn.move-game-down').addClass('disabled');
-  }
-
-  addBooking(booking) {
-    this._bookings.push(booking);
-    booking.elem.appendTo(this._$elem.find('.bookings-table').find('tbody'));
-    this._$elem.find('.bookings-table thead').removeClass('d-none');
-  }
-
-  removeBooking(booking) {
-    booking.elem.detach();
-    this._bookings = this._bookings.filter(bk => bk.id !== booking.id);
-    if (this._bookings.length === 0) {
-      this._$elem.find('.bookings-table thead').addClass('d-none');
-    }
   }
 }

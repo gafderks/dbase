@@ -1,55 +1,11 @@
-import Booking from './booking.js';
+import BookingContainer from './booking-container.js';
 
-export default class List {
+export default class List extends BookingContainer {
 
   constructor($elem, partOfDay) {
-    this._$elem = $elem;
-    this._partOfDay = partOfDay;
-    this._partOfDayCode = $elem.data('part-of-day-code');
-
-    this._bookings = this._constructBookings();
-    this._attachEvents();
+    super($elem, partOfDay);
     this._groupOverlappingBookings();
-  }
-
-  collapse() {
-    this._$elem.find('.card-body').collapse('hide');
-  }
-
-  show() {
-    this._$elem.find('.card-body').collapse('show');
-  }
-
-  toggleCollapse() {
-    this._$elem.find('.card-body').collapse('toggle');
-  }
-
-  _constructBookings() {
-    let bookings = [];
-    this._$elem.find('.booking').each((i, elem) => {
-      const booking = new Booking($(elem), this);
-      $(elem).data('booking', booking);
-      bookings.push(booking);
-    });
-    if (bookings.length === 0) {
-      this._$elem.find('.bookings-table thead').addClass('d-none');
-    }
-    return bookings;
-  }
-
-  _populateFromDOM() {
-    this.partOfDayCode = this._$elem.data('part-of-day-code') || this._partOfDayCode;
-  }
-
-  get elem() {
-    return this._$elem;
-  }
-
-  _attachEvents() {
-    // Tooltip
-    this._$elem.find('[data-toggle="tooltip"]').tooltip();
-    // Toggle collapse
-    this._$elem.find('.list-name').click(_ => this.toggleCollapse());
+    this._attachEvents();
   }
 
   // eslint-disable-next-line no-unused-vars
@@ -58,18 +14,12 @@ export default class List {
   }
 
   addBooking(booking) {
-    this._bookings.push(booking);
-    booking.elem.appendTo(this._$elem.find('.bookings-table').find('tbody'));
-    this._$elem.find('.bookings-table thead').removeClass('d-none');
+    super.addBooking(booking);
     this._regroupBookings();
   }
 
   removeBooking(booking) {
-    booking.elem.detach();
-    this._bookings = this._bookings.filter(bk => bk.id !== booking.id);
-    if (this._bookings.length === 0) {
-      this._$elem.find('.bookings-table thead').addClass('d-none');
-    }
+    super.removeBooking(booking);
     this._regroupBookings();
   }
 
