@@ -103,11 +103,11 @@ ul.list-horizontal {
         }
 
         &.booking-duplicate-handler, &.booking-duplicate {
-            border-left: 0.3rem #6c757d solid;
+            border-left: 0.2rem #6c757d solid;
 
             .booking-check, .booking-form {
                 /* account for border */
-                margin-left: -0.3rem;
+                margin-left: -0.2rem;
             }
         }
 
@@ -118,8 +118,8 @@ ul.list-horizontal {
         &.booking-duplicate-handler {
 
             td.booking-duplicate-dir {
-                padding-left: .7rem !important;
-                padding-right: .6rem;
+                padding-left: .2rem !important;
+                padding-right: .4rem;
             }
 
             .fa-folder-open {
@@ -133,6 +133,24 @@ ul.list-horizontal {
             }
             .fa-folder-open {
                 display: inline-block;
+            }
+        }
+
+        @media (min-width: 768px) {
+            &.booking-duplicate-handler, &.booking-duplicate {
+                border-left: 0.3rem #6c757d solid;
+
+                .booking-check, .booking-form {
+                    /* account for border */
+                    margin-left: -0.3rem;
+                }
+            }
+
+            &.booking-duplicate-handler {
+                td.booking-duplicate-dir {
+                    padding-left: .7rem !important;
+                    padding-right: .6rem;
+                }
             }
         }
     }
