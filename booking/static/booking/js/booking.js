@@ -27,6 +27,14 @@ export default class Booking {
     return this._$elem.data('material-name');
   }
 
+  get game_id() {
+    return this._$elem.data('game-id');
+  }
+
+  get group_id() {
+    return this._$elem.find('[data-group-id]').data('group-id');
+  }
+
   get amount() {
     return this._$elem.data('amount');
   }

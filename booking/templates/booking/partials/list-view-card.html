@@ -1,6 +1,6 @@
 {% load i18n %}
 {% load crispy_forms_tags %}
-<div class="card list mb-3 fix-anchor" id="list{{ day.isoformat }}{{ part_of_day }}{{ list_view.pk }}" data-part-of-day-code="{{ part_of_day }}" data-day="{{ day.isoformat }}" data-i18n-bookings="{% trans "bookings" %}">
+<div class="card list mb-3 fix-anchor" id="list{{ day.isoformat }}{{ part_of_day }}{{ list_view.pk }}" data-part-of-day-code="{{ part_of_day }}" data-day="{{ day.isoformat }}" data-i18n-bookings="{% trans "bookings" %}" data-i18n-games="{% trans "games" %}" data-i18n-groups="{% trans "groups" %}">
   <div class="card-header">
     <div class="list-header row">
       <div class="list-name card-name col-auto py-2">{{ list_view.name }}</div>

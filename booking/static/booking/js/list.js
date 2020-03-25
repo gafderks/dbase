@@ -72,6 +72,8 @@ export default class List extends BookingContainer {
   _groupOverlappingBookings() {
     const duplicates_sets = this._findOverlappingBookings();
     for (let duplicates_set of duplicates_sets) {
+      // Prepare the texts that should go on the handler
+      // Total number of materials
       const amounts = duplicates_set.map(booking => booking.amount);
       let total_amounts;
       if (amounts.some(isNaN)) {
@@ -81,14 +83,36 @@ export default class List extends BookingContainer {
         // Sum the amounts
         total_amounts = amounts.reduce((a, b) => a + b, 0);
       }
+      // Number of games
+      const num_games = new Set(duplicates_set.map(booking => booking.game_id)).size;
+      // Number of groups
+      const groups = new Set(duplicates_set.map(booking => booking.group_id));
+      // Text for number of groups
+      let groups_text = '';
+      if (groups.size > 0 && !groups.has(undefined)) {
+        // TODO Do not get i18n from data field
+        // TODO Fix for plural/singular
+        groups_text = `${groups.size} ${this._$elem.data('i18n-groups')}, `;
+      }
+      // Text for total number of materials
+      const bookings_text = `${duplicates_set.length} ${this._$elem.data('i18n-bookings')}`;
+      // Text for number of groups plus number of games
+      const games_text = `${groups_text}${num_games} ${this._$elem.data('i18n-games')}`;
       const duplicate_bar = $('<tr>').addClass('booking booking-duplicate-handler d-flex flex-wrap')
         .append(
           $('<td>').addClass('booking-duplicate-dir col-auto pl-md-3 pl-sm-2 d-flex align-items-center')
             .html('<i class="far fa-folder fa-fw"></i><i class="far fa-folder-open fa-fw"></i>'),
           duplicates_set[0].elem.find('.booking-material').clone(),
           $('<td>').addClass('d-flex align-items-center col-2 col-md-2').text(total_amounts),
-          $('<td>').addClass('d-flex align-items-center col')
-            .text(`${duplicates_set.length} ${this._$elem.data('i18n-bookings')}`),
+          $('<td>').addClass('col-4 col-md')
+            .append(
+              $('<div>').addClass('text-truncate').attr({
+                'title': bookings_text, 'data-toggle': 'tooltip', 'data-placement': 'left'
+              }).text(bookings_text),
+              $('<div>').addClass('small text-muted text-truncate').attr({
+                'title': games_text, 'data-toggle': 'tooltip', 'data-placement': 'left'
+              }).text(games_text),
+            )
         ).click(
           ev => {
             $(ev.currentTarget).toggleClass('open');
