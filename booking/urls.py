@@ -4,8 +4,6 @@ from .views import EventGameView, EventListView, HomeView
 
 app_name = "booking"
 urlpatterns = [
-    # path("category/new", views.edit_category, name="new_category"),
-    # path("category/edit/<int:category_id>", views.edit_category, name="edit_category"),
     path("", HomeView.as_view(), name="index"),
     path("<slug:event_slug>", EventGameView.as_view(), name="event_display"),
     path("<slug:event_slug>/games", EventGameView.as_view(), name="event_games"),

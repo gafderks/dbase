@@ -1,0 +1,35 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-03-25 20:31+0100\n"
+"PO-Revision-Date: 2020-03-25 20:35+0100\n"
+"Language: nl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"X-Generator: Poedit 2.3\n"
+
+#: .\booking\static\booking\js\list.js:95
+msgid "group"
+msgid_plural "groups"
+msgstr[0] "groep"
+msgstr[1] "groepen"
+
+#: .\booking\static\booking\js\list.js:98
+msgid "bookings"
+msgstr "aanvragen"
+
+#: .\booking\static\booking\js\list.js:100
+msgid "game"
+msgid_plural "games"
+msgstr[0] "spel"
+msgstr[1] "spellen"

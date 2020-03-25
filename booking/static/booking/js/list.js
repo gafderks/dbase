@@ -1,5 +1,7 @@
 import BookingContainer from './booking-container.js';
 
+/* global gettext, ngettext */
+
 export default class List extends BookingContainer {
 
   constructor($elem, partOfDay) {
@@ -90,14 +92,12 @@ export default class List extends BookingContainer {
       // Text for number of groups
       let groups_text = '';
       if (groups.size > 0 && !groups.has(undefined)) {
-        // TODO Do not get i18n from data field
-        // TODO Fix for plural/singular
-        groups_text = `${groups.size} ${this._$elem.data('i18n-groups')}, `;
+        groups_text = `${groups.size} ${ngettext('group', 'groups', groups.size)}, `;
       }
       // Text for total number of materials
-      const bookings_text = `${duplicates_set.length} ${this._$elem.data('i18n-bookings')}`;
+      const bookings_text = `${duplicates_set.length} ${gettext('bookings')}`;
       // Text for number of groups plus number of games
-      const games_text = `${groups_text}${num_games} ${this._$elem.data('i18n-games')}`;
+      const games_text = `${groups_text}${num_games} ${ngettext('game', 'games', num_games)}`;
       const duplicate_bar = $('<tr>').addClass('booking booking-duplicate-handler d-flex flex-wrap')
         .append(
           $('<td>').addClass('booking-duplicate-dir col-auto pl-md-3 pl-sm-2 d-flex align-items-center')
