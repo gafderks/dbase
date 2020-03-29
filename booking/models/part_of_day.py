@@ -26,11 +26,11 @@ class PartOfDay(models.Model):
         (NIGHT, _("Night")),
     ]
     part_of_day_code = models.CharField(
-        verbose_name=_("part of day"),
+        verbose_name=_("daypart"),
         max_length=2,
         choices=PART_OF_DAY_CHOICES,
         default=MORNING,
-        help_text=_("At what part of the day are the materials needed?"),
+        help_text=_("At what daypart are the materials needed?"),
     )
     start_time = models.TimeField(verbose_name=_("start time"), null=True)
     end_time = models.TimeField(verbose_name=_("end time"), null=True)
@@ -40,9 +40,14 @@ class PartOfDay(models.Model):
         null=True,
         blank=True,
         help_text=_(
-            "Where do you need the materials for this part of day to be delivered?"
+            "Where do you need the materials for this daypart to be delivered?"
         ),
     )
+
+    class Meta:
+        verbose_name = _("daypart")
+        verbose_name_plural = _("dayparts")
+        default_permissions = []  # Removed default permissions as we don't check them
 
     @property
     def part_of_day(self):

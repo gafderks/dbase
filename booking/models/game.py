@@ -24,11 +24,11 @@ class Game(models.Model):
     )
     event = models.ForeignKey(Event, on_delete=models.CASCADE, verbose_name=_("event"))
     part_of_day = models.CharField(
-        verbose_name=_("part of day"),
+        verbose_name=_("daypart"),
         max_length=2,
         choices=PartOfDay.PART_OF_DAY_CHOICES,
         default=PartOfDay.MORNING,
-        help_text=_("At what part of the day are the materials needed?"),
+        help_text=_("At what daypart are the materials needed?"),
     )
     location = models.CharField(
         verbose_name=_("location"),
@@ -42,7 +42,7 @@ class Game(models.Model):
     )
     order = models.PositiveIntegerField(
         verbose_name=_("order"),
-        help_text=_("Defines an ordering for the games within a day/part of day"),
+        help_text=_("Defines an ordering for the games within a day(part)"),
         editable=False,
         default=0,
     )
@@ -51,6 +51,7 @@ class Game(models.Model):
         verbose_name = _("game")
         verbose_name_plural = _("games")
         ordering = ["day", "part_of_day", "order"]
+        default_permissions = []  # Removed default permissions as we don't check them
 
     def __str__(self):
         return self.name

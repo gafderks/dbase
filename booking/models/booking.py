@@ -44,6 +44,7 @@ class Booking(models.Model):
             ("can_change_other_groups_bookings", "Can change bookings of other groups"),
             ("can_view_others_groups_bookings", "Can view bookings of other groups"),
         ]
+        default_permissions = []  # Removed default permissions as we don't check them
 
     def __str__(self):
         return self.material.name if self.material else self.custom_material
