@@ -68,20 +68,33 @@ Installation
 
 Roadmap
 -------
-- [ ] Suggested material bookings. If you book 'Rambler' it suggests electricity cords.
-- [ ] Details for parts of days, e.g. location, times.
+
+##### Must have
+- [X] Make games orderable
+- [ ] Export to Excel
+- [X] Button material is not listed, put in comments. Material field nullable.
+    - [X] MB can convert unlisted material into material
+
+##### Should have 
 - [X] Mobile check-off list that stores the check-off status in local storage.
     - [X] Hold checkbox for indeterminate state
     - [X] Check-all / uncheck all button
-- [X] Make games orderable
-- [ ] Enable simultaneous editing of bookings and games
-- [X] Button material is not listed, put in comments. Material field nullable.
-    - [X] MB can convert unlisted material into material
 - [ ] User role for 'Bestuur' that can change users but not roles.
-- [ ] Admin functionality for converting a Material into a MaterialAlias
-- [ ] Camera app for quickly adding photos of materials
+- [ ] Mijn Dongense Jeugdraad integration
+- [ ] Details for parts of days, e.g. location, times.
+- [ ] Improve printing
+- [ ] Prune default permissions that are not checked against, also update management import roles: https://docs.djangoproject.com/en/3.0/ref/models/options/#django.db.models.Options.default_permissions
+
+##### Could have 
+- [ ] Suggested material bookings. If you book 'Rambler' it suggests electricity cords.
+- [ ] Enable simultaneous editing of bookings and games
 - [ ] Info button next to bookings for opening material info modal.
     - [ ] For MB: include shortcut for altering material (e.g. category, GM)
-- [ ] Import games from other events
 - [ ] Contributors file
-- [ ] Prune default permissions that are not checked against, also update management import roles: https://docs.djangoproject.com/en/3.0/ref/models/options/#django.db.models.Options.default_permissions
+- [ ] Camera app for quickly adding photos of materials
+- [ ] Import games from other events
+- [ ] Admin functionality for converting a Material into a MaterialAlias
+
+##### Won't have  
+
+
