@@ -134,7 +134,7 @@
       <div class="btn-toolbar d-inline-block" role="toolbar" aria-label="Toolbar with button groups">
         <div class="btn-group mr-2 d-print-none" role="group" aria-label="{% trans "Export options" %}">
           <a href="javascript:window.print()" data-toggle="tooltip" data-placement="top" class="btn btn-outline-secondary" title="{% trans "Print" %}"><i class="fas fa-print"></i></a>
-          <a href="" data-toggle="tooltip" data-placement="top" class="btn btn-outline-secondary" title="{% trans "Export to Excel" %}"><i class="fas fa-file-excel"></i></a>
+          <a href="{% if current_group %}{% url 'booking:api:excel_event' current_event.slug current_group.slug %}{% else %}{% url 'booking:api:excel_event' current_event.slug 'all' %}{% endif %}" data-toggle="tooltip" data-placement="top" class="btn btn-outline-secondary" title="{% trans "Export to Excel" %}"><i class="fas fa-file-excel"></i></a>
         </div>
         <div class="btn-group mr-2" role="group" aria-label="{% trans "Display options" %}">
           {% block display_options %}

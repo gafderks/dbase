@@ -3,6 +3,7 @@ from django.urls import path
 from . import views
 from . import game
 from . import booking
+from . import event
 
 app_name = "api"
 urlpatterns = [
@@ -20,5 +21,10 @@ urlpatterns = [
     path("booking/edit/<int:booking_id>", booking.edit_booking, name="edit_booking"),
     path(
         "booking/delete/<int:booking_id>", booking.delete_booking, name="delete_booking"
+    ),
+    path(
+        "event/<slug:event_slug>/<slug:group_slug>/xlsx",
+        event.EventExcelView.as_view(),
+        name="excel_event",
     ),
 ]

@@ -56,3 +56,10 @@ class PartOfDay(models.Model):
 
     def __str__(self):
         return "{} {}".format(self.day, self.part_of_day)
+
+    @staticmethod
+    def name_from_code(requested_code):
+        for code, name in PartOfDay.PART_OF_DAY_CHOICES:
+            if requested_code == code:
+                return name
+        raise ValueError("No daypart with requested code {}".format(requested_code))

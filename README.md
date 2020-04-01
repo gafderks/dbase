@@ -71,7 +71,7 @@ Roadmap
 
 ##### Must have
 - [X] Make games orderable
-- [ ] Export to Excel
+- [X] Export to Excel
 - [X] Button material is not listed, put in comments. Material field nullable.
     - [X] MB can convert unlisted material into material
 

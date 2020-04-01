@@ -7,3 +7,4 @@ django-crispy-forms==1.9.0
 django_compressor==2.4
 django-money==1.0
 django-admin-sortable==2.2.3
+openpyxl==3.0.3
