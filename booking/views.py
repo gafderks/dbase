@@ -133,7 +133,7 @@ class EventGameView(EventView):
 
     def dispatch(self, request, *args, **kwargs):
         # Redirect to the list view if all groups are requested
-        if kwargs.get("group_slug", None) == "all":
+        if kwargs.get("group_slug", None) == "all" or request.user.group is None:
             return redirect("booking:event_list_group", kwargs.get("event_slug"), "all")
         return super().dispatch(request, *args, **kwargs)
 
