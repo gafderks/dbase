@@ -147,3 +147,5 @@ LOGIN_URL = "users:login"
 AUTH_USER_MODEL = "users.User"
 
 LOCALE_PATHS = [os.path.join(BASE_DIR, "dbase", "locale")]
+
+DATA_UPLOAD_MAX_MEMORY_SIZE = 10485760  # 10 MiB required for uploading Full HD images
