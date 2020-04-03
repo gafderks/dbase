@@ -27,7 +27,11 @@
     photo = $('.photo').find('img')[0];
     startbutton = $('.camera-shutter')[0];
 
-    navigator.mediaDevices.getUserMedia({video: true, audio: false})
+    navigator.mediaDevices.getUserMedia({
+      video: {
+        facingMode: 'environment'
+      },
+      audio: false})
       .then(function(stream) {
         video.srcObject = stream;
         video.play();
