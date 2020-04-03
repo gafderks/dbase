@@ -3,8 +3,11 @@
   // width to the value defined here, but the height will be
   // calculated based on the aspect ratio of the input stream.
 
-  let width = 320;    // We will scale the photo width to this
-  let height = 0;     // This will be computed based on the input stream
+  let display_width = 320;    // We will scale the photo width to this
+  let display_height = 0;     // This will be computed based on the input stream
+
+  let stream_width = null;
+  let stream_height = null;
 
   // |streaming| indicates whether or not we're currently streaming
   // video from the camera. Obviously, we start at false.
@@ -42,17 +45,23 @@
 
     video.addEventListener('canplay', () => {
       if (!streaming) {
-        width = $('video').width();
-        height = video.videoHeight / (video.videoWidth/width);
+        display_width = $('video').width();
+        display_height = video.videoHeight / (video.videoWidth/display_width);
+
+        stream_width = video.videoWidth;
+        stream_height = video.videoHeight;
+
+        console.log('display', display_width, display_height);
+        console.log('stream', stream_width, stream_height);
       
         // Firefox currently has a bug where the height can't be read from
         // the video, so we will make assumptions if this happens.
-        if (isNaN(height)) {
-          height = width / (4/3);
+        if (isNaN(display_height)) {
+          display_height = display_width / (4/3);
         }
       
-        canvas.setAttribute('width', width);
-        canvas.setAttribute('height', height);
+        canvas.setAttribute('width', stream_width);
+        canvas.setAttribute('height', stream_height);
         streaming = true;
       }
     }, false);
@@ -130,10 +139,10 @@
 
   function takepicture() {
     const context = canvas.getContext('2d');
-    if (width && height) {
-      canvas.width = width;
-      canvas.height = height;
-      context.drawImage(video, 0, 0, width, height);
+    if (stream_width && stream_height) {
+      canvas.width = stream_width;
+      canvas.height = stream_height;
+      context.drawImage(video, 0, 0, stream_width, stream_height);
     
       const data = canvas.toDataURL('image/png');
       photo.setAttribute('src', data);
