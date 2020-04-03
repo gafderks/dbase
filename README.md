@@ -91,7 +91,7 @@ Roadmap
 - [ ] Info button next to bookings for opening material info modal.
     - [ ] For MB: include shortcut for altering material (e.g. category, GM)
 - [ ] Contributors file
-- [ ] Camera app for quickly adding photos of materials
+- [X] Camera app for quickly adding photos of materials
 - [ ] Import games from other events
 - [ ] Admin functionality for converting a Material into a MaterialAlias
 

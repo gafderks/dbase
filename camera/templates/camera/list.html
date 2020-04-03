@@ -1,0 +1,24 @@
+{% load i18n %}
+<div class="row">
+  {% for material in materials %}
+    <div class="col-md-6 mb-2 row material-item" data-id="{{ material.pk }}" data-name="{{ material.name }}">
+      <div class="col-auto">
+        {% if material.images.first %}
+          <img src="{{ material.images.first.image.url }}">
+        {% else %}
+          <img src="https://via.placeholder.com/100x100.png?text={% trans "No+photo" %}">
+        {% endif %}
+      </div>
+      <div class="col">
+        <a href="#" class="h-100 d-flex">
+          <div class="align-self-center pl-3 text-break">
+            {{ material.name }}
+            {% if material.lendable %}
+              <br><div class="badge badge-secondary">{% trans "lendable" %}</div>
+            {% endif %}
+          </div>
+        </a>
+      </div>
+    </div>
+  {% endfor %}
+</div>

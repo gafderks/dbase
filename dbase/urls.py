@@ -25,6 +25,7 @@ urlpatterns = [
     path("", HomeView.as_view(), name="index"),
     path("booking/", include("booking.urls")),
     path("users/", include("users.urls")),
+    path("camera/", include("camera.urls")),
     path("admin/", admin.site.urls),
     path(
         "jsi18n/",

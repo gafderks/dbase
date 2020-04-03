@@ -82,6 +82,14 @@
                   </a>
                 </li>
               {% endif %}
+              {% if perms.booking.change_material %}
+                <li class="nav-item" data-toggle="tooltip" data-placement="bottom" title="{% trans "Camera" %}">
+                  <a class="nav-link" href="{% url 'camera:index' %}">
+                    <i class="fas fa-camera fa-fw"></i>
+                    <span class="d-inline d-sm-none d-lg-inline">{% trans "Camera" %}</span>
+                  </a>
+                </li>
+              {% endif %}
             {% else %}
               <li class="nav-item" data-toggle="tooltip" data-placement="bottom" title="{% trans "Login" %}">
                 <a class="nav-link" href="{% url 'users:login' %}">

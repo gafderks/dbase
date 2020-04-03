@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "crispy_forms",
     "compressor",
     "djmoney",
+    "camera.apps.CameraConfig",
     "adminsortable",
 ]
 
