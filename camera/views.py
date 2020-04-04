@@ -3,6 +3,7 @@ from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.core.files.base import ContentFile
 from django.db.models import Count
 from django.http import JsonResponse
+from django.utils.text import slugify
 from django.views.generic import TemplateView
 from django.views import View
 
@@ -35,7 +36,9 @@ class UploadImageView(PermissionRequiredMixin, View):
         material = Material.objects.get(pk=int(request.POST["material"]))
 
         _, imgstr = request.POST["image"].split(";base64,")
-        image = ContentFile(base64.b64decode(imgstr), name="camera.png")
+        image = ContentFile(
+            base64.b64decode(imgstr), name="{}.png".format(slugify(material.name))
+        )
 
         material_image = MaterialImage(image=image, material=material).save()
         print(material_image)
