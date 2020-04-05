@@ -36,27 +36,7 @@ Installation
    (.venv) $ pip install setuptools wheel
    (.venv) $ pip install -r requirements.txt 
    ```
-5. Edit `/dbase/settings.py`:
-    - Add the domain at which the application is served to `ALLOWED_HOSTS`.
-    - **Update `SECRET_KEY`** to a long random string.
-    - Configure a database like:
-      ```python 
-      DATABASES = {
-          'default': {
-              'ENGINE': 'django.db.backends.mysql',
-              'NAME': 'zomerspelen_dbase',
-              'USER': 'zomerspelen_dbase',
-              'PASSWORD': '#',
-              'HOST': 'localhost',
-              'PORT': '3306'
-           }
-      } 
-      ```
-    - Set storage roots for media and static:
-      ```python 
-      MEDIA_ROOT = '/var/www/example.com/static/'
-      STATIC_ROOT = '/var/www/example.com/media/'       
-      ```
+5. Copy the file `.env.example` to `.env` and fill in the settings.
 6. Collect static files using `(.venv) $ django-admin collectstatic`
 7. Load the database configuration with `(.venv) $ python manage.py migrate`
 8. Create a superuser account using `(.venv) $ django-admin createsuperuser`
