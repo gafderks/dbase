@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     "djmoney",
     "camera.apps.CameraConfig",
     "adminsortable",
+    "django.contrib.humanize",
 ]
 
 MIDDLEWARE = [

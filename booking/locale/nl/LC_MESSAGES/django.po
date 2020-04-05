@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-01 05:46+0200\n"
-"PO-Revision-Date: 2020-04-01 05:49+0200\n"
+"POT-Creation-Date: 2020-04-04 20:22+0200\n"
+"PO-Revision-Date: 2020-04-04 20:28+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: nl\n"
@@ -22,7 +22,7 @@ msgstr ""
 msgid "Number of materials"
 msgstr "Aantal materialen"
 
-#: .\booking\admin.py:59 .\booking\templates\booking\event\event.html:46
+#: .\booking\admin.py:59 .\booking\templates\booking\event\event.html:47
 msgid "Booking status"
 msgstr "Reserveringsstatus"
 
@@ -34,7 +34,7 @@ msgstr "Inbegrepen categorieën"
 msgid "Excluded categories"
 msgstr "Uitgesloten categorieën"
 
-#: .\booking\api\event.py:24 .\booking\templates\booking\event\event.html:131
+#: .\booking\api\event.py:24 .\booking\templates\booking\event\event.html:138
 msgid "Material bookings"
 msgstr "Materiaalaanvragen"
 
@@ -84,7 +84,7 @@ msgstr "GM"
 msgid "Game"
 msgstr "Spel"
 
-#: .\booking\api\event.py:46 .\booking\templates\booking\event\event.html:143
+#: .\booking\api\event.py:46 .\booking\templates\booking\event\event.html:150
 msgid "Group"
 msgstr "Groep"
 
@@ -555,52 +555,57 @@ msgstr "Omschrijving"
 msgid "(current)"
 msgstr "(huidige)"
 
-#: .\booking\templates\booking\event\event.html:11
+#: .\booking\templates\booking\event\event.html:12
 #, python-format
 msgid "Bookings for %(group)s"
 msgstr "Aanvragen voor %(group)s"
 
-#: .\booking\templates\booking\event\event.html:13
+#: .\booking\templates\booking\event\event.html:14
 msgid "All bookings"
 msgstr "Alle aanvragen"
 
-#: .\booking\templates\booking\event\event.html:50
+#: .\booking\templates\booking\event\event.html:51
 msgid "You may edit"
 msgstr "Je mag bewerken"
 
-#: .\booking\templates\booking\event\event.html:52
+#: .\booking\templates\booking\event\event.html:53
 msgid "You cannot edit"
 msgstr "Je kan niet bewerken"
 
 #: .\booking\templates\booking\event\event.html:62
+#: .\booking\templates\booking\event\event.html:63
 msgid "Event period"
 msgstr "Evenementsperiode"
 
 #: .\booking\templates\booking\event\event.html:68
-msgid "Booking period"
-msgstr "Reserveringsperiode"
+msgid "Start booking period"
+msgstr "Startdatum reserveringsperiode"
 
 #: .\booking\templates\booking\event\event.html:74
-msgid "Privileged booking period"
-msgstr "Reserveringsperiode voor bevoorrechte gebruikers"
+msgid "Booking deadline"
+msgstr "Reserveringsdeadline"
 
-#: .\booking\templates\booking\event\event.html:135
+#: .\booking\templates\booking\event\event.html:80
+msgid "Privileged booking deadline"
+msgstr "MB Reserveringsdeadline"
+
+#: .\booking\templates\booking\event\event.html:142
 msgid "Export options"
 msgstr "Exporteer opties"
 
-#: .\booking\templates\booking\event\event.html:136
+#: .\booking\templates\booking\event\event.html:143
 msgid "Print"
 msgstr "Printen"
 
-#: .\booking\templates\booking\event\event.html:137
+#: .\booking\templates\booking\event\event.html:144
 msgid "Export to Excel"
 msgstr "Exporteren naar Excel"
 
-#: .\booking\templates\booking\event\event.html:139
+#: .\booking\templates\booking\event\event.html:146
 msgid "Display options"
 msgstr "Weergaveopties"
 
-#: .\booking\templates\booking\event\event.html:151
+#: .\booking\templates\booking\event\event.html:158
 #: .\booking\templates\booking\event\game-view.html:57
 #: .\booking\templates\booking\event\list-view.html:61
 msgid "All"

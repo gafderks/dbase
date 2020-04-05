@@ -5,6 +5,7 @@
 {% load event %}
 {% load dictionary %}
 {% load static %}
+{% load humanize %}
 
 {% block window_title %}
   {% if current_group %}
@@ -56,28 +57,35 @@
 
     </div>
     <div class="col-md-9">
-      <ul class="fa-ul list-unstyled small text-muted details">
-        <li>
-          <span class="fa-li"><i class="far fa-calendar-alt"></i></span>
-          <span data-toggle="tooltip" data-placement="right" title="{% trans "Event period" %}">
-             {{ current_event.event_start }} - {{ current_event.event_end }}
+      <table class="table table-sm small text-muted w-auto">
+        <tr>
+          <td><i class="far fa-calendar-alt fa-fw"></i> {% trans "Event period" %}</td>
+          <td><span data-toggle="tooltip" data-placement="bottom" title="{% trans "Event period" %}">
+            {{ current_event.event_start }} - {{ current_event.event_end }}
           </span>
-        </li>
-        <li>
-          <span class="fa-li"><i class="fas fa-lock"></i></span>
-          <span data-toggle="tooltip" data-placement="right" title="{% trans "Booking period" %}">
-            {{ current_event.booking_start }} - {{ current_event.booking_end }}
+          </td>
+        </tr>
+        <tr>
+          <td><i class="fas fa-unlock fa-fw"></i> {% trans "Start booking period" %}</td>
+          <td><span data-toggle="tooltip" data-placement="bottom" title="{{ current_event.booking_start }}">
+            {{ current_event.booking_start|naturaltime }}
           </span>
-        </li>
-        <li>
-          <span class="fa-li"><i class="fas fa-user-lock"></i></span>
-          <span data-toggle="tooltip" data-placement="right" title="{% trans "Privileged booking period" %}">
-            {{ current_event.booking_end }} - {{ current_event.privileged_booking_end }}
-          </span>
-        </li>
-      </ul>
+          </td>
+        </tr>
+        <tr>
+          <td><i class="fas fa-lock fa-fw"></i> {% trans "Booking deadline" %}</td>
+          <td><span data-toggle="tooltip" data-placement="bottom" title="{{ current_event.booking_end }}">
+            {{ current_event.booking_end|naturaltime }}
+          </span></td>
+        </tr>
+        <tr class="border-bottom">
+          <td><i class="fas fa-user-lock fa-fw"></i> {% trans "Privileged booking deadline" %}</td>
+          <td><span data-toggle="tooltip" data-placement="bottom" title="{{ current_event.privileged_booking_end }}">
+            {{ current_event.privileged_booking_end|naturaltime }}
+          </span></td>
+        </tr>
+      </table>
     </div>
-
   </div>
 
     {% compress css %}
