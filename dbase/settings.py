@@ -127,7 +127,8 @@ if DEBUG:
     CACHES = {"default": {"BACKEND": "django.core.cache.backends.dummy.DummyCache",}}
 
 ADMINS = [tuple(x.split(":")) for x in env("ADMINS")]
-
+EMAIL_CONFIG = env.email_url("EMAIL_URL", default="smtp://user@:password@localhost:25")
+vars().update(EMAIL_CONFIG)
 SERVER_EMAIL = "system@{}".format(ALLOWED_HOSTS[0])
 
 # Static files (CSS, JavaScript, Images)
