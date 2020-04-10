@@ -127,7 +127,6 @@ if DEBUG:
     CACHES = {"default": {"BACKEND": "django.core.cache.backends.dummy.DummyCache",}}
 
 ADMINS = [tuple(x.split(":")) for x in env("ADMINS")]
-print(ADMINS)
 
 SERVER_EMAIL = "system@{}".format(ALLOWED_HOSTS[0])
 
