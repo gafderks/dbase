@@ -20,6 +20,7 @@ env = environ.Env(
     ALLOWED_HOSTS=(list, ["127.0.0.1", "localhost"]),
     DATA_UPLOAD_MAX_MEMORY_SIZE=(int, 10485760),  # For uploading HD images
     MEMCACHE_LOCATIONS=(list, ["127.0.0.1:11211"]),
+    ADMINS=(list, []),
 )
 environ.Env.read_env(env_file=str(BASE_DIR / ".env"))
 
@@ -125,6 +126,8 @@ CACHES = {
 if DEBUG:
     CACHES = {"default": {"BACKEND": "django.core.cache.backends.dummy.DummyCache",}}
 
+ADMINS = env("ADMINS")
+SERVER_EMAIL = "system@{}".format(ALLOWED_HOSTS[0])
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/dev/howto/static-files/
