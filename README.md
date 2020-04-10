@@ -19,10 +19,11 @@ __Manager for material booking.__
 
 Installation
 -------------
-1. Install Python 3.6:
+1. Install required packages:
    ```bash
    $ sudo apt-get update
    $ sudo apt-get install software-properties-common python3.6 python3.6-venv python3.6-dev python3-pip apache2 libapache2-mod-wsgi-py3 libmysqlclient-dev
+   $ sudo apt-get install libjpeg62 libjpeg62-dev zlib1g-dev memcached
    ```
 2. Copy the source code to the deployment server. Or clone with `git clone https://github.com/gafderks/dbase.git`
 3. From within the project directory create a virtual environment:

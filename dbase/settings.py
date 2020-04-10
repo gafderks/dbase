@@ -19,6 +19,7 @@ env = environ.Env(
     DEBUG=(bool, False),
     ALLOWED_HOSTS=(list, ["127.0.0.1", "localhost"]),
     DATA_UPLOAD_MAX_MEMORY_SIZE=(int, 10485760),  # For uploading HD images
+    MEMCACHE_LOCATIONS=(list, ["127.0.0.1:11211"]),
 )
 environ.Env.read_env(env_file=str(BASE_DIR / ".env"))
 
@@ -48,6 +49,7 @@ INSTALLED_APPS = [
     "camera.apps.CameraConfig",
     "adminsortable",
     "django.contrib.humanize",
+    "sorl.thumbnail",
 ]
 
 MIDDLEWARE = [
@@ -113,6 +115,15 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.memcached.MemcachedCache",
+        "LOCATION": env("MEMCACHE_LOCATIONS"),
+    }
+}
+if DEBUG:
+    CACHES = {"default": {"BACKEND": "django.core.cache.backends.dummy.DummyCache",}}
 
 
 # Static files (CSS, JavaScript, Images)

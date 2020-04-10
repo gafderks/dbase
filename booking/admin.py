@@ -3,6 +3,7 @@ from django.db.models import Count
 from django.utils.translation import gettext_lazy as _
 
 from adminsortable.admin import SortableAdmin
+from sorl.thumbnail.admin import AdminInlineImageMixin
 
 from booking.forms import EventForm, MaterialForm, MaterialAliasForm
 from booking.models import ListViewFilter
@@ -30,9 +31,8 @@ class CategoryAdmin(admin.ModelAdmin):
     list_display = ("name", "description", "count_materials")
 
 
-class MaterialImageInline(admin.StackedInline):
+class MaterialImageInline(AdminInlineImageMixin, admin.StackedInline):
     model = MaterialImage
-    readonly_fields = ["image_tag"]
 
 
 class MaterialAliasInline(admin.StackedInline):

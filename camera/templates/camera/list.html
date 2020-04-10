@@ -1,12 +1,15 @@
 {% load i18n %}
+{% load thumbnail %}
 <div class="row">
   {% for material in materials %}
     <div class="col-md-6 mb-2 row material-item" data-id="{{ material.pk }}" data-name="{{ material.name }}">
       <div class="col-auto">
         {% if material.images.first %}
-          <img src="{{ material.images.first.image.url }}">
+          {% thumbnail material.images.first.image "100x100" crop="center" as image %}
+            <img src="{{ image.url }}" alt="{{ material.name }}">
+          {% endthumbnail %}
         {% else %}
-          <img src="https://via.placeholder.com/100x100.png?text={% trans "No+photo" %}">
+          <img src="https://via.placeholder.com/100x100.png?text={% trans "No+photo" %}" alt="Placeholder">
         {% endif %}
       </div>
       <div class="col">
