@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-21 22:17+0100\n"
-"PO-Revision-Date: 2020-03-21 22:53+0100\n"
+"POT-Creation-Date: 2020-04-11 19:40+0200\n"
+"PO-Revision-Date: 2020-04-11 20:13+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: nl\n"
@@ -31,11 +31,15 @@ msgstr "Bedoel je:"
 msgid "Material Database"
 msgstr "Materiaal Database"
 
-#: .\dbase\templates\jeugdraad\footer.html:10
+#: .\dbase\templates\jeugdraad\footer.html:11
 msgid "Submit an issue"
 msgstr "Meld een probleem"
 
-#: .\dbase\templates\jeugdraad\footer.html:14
+#: .\dbase\templates\jeugdraad\footer.html:16
+msgid "Read the manual"
+msgstr "Lees de handleiding"
+
+#: .\dbase\templates\jeugdraad\footer.html:21
 msgid "&copy; Stichting Dongense Jeugdraad"
 msgstr "&copy; Stichting Dongense Jeugdraad"
 
@@ -76,18 +80,23 @@ msgstr "Beheer"
 
 #: .\dbase\templates\jeugdraad\navigation.html:86
 #: .\dbase\templates\jeugdraad\navigation.html:89
+msgid "Camera"
+msgstr "Camera"
+
+#: .\dbase\templates\jeugdraad\navigation.html:94
+#: .\dbase\templates\jeugdraad\navigation.html:97
 msgid "Login"
 msgstr "Inloggen"
 
-#: .\dbase\templates\jeugdraad\navigation.html:93
-#: .\dbase\templates\jeugdraad\navigation.html:96
-#: .\dbase\templates\jeugdraad\navigation.html:100
-#: .\dbase\templates\jeugdraad\navigation.html:111
+#: .\dbase\templates\jeugdraad\navigation.html:101
+#: .\dbase\templates\jeugdraad\navigation.html:104
+#: .\dbase\templates\jeugdraad\navigation.html:108
+#: .\dbase\templates\jeugdraad\navigation.html:119
 msgid "Search"
 msgstr "Zoeken"
 
-#: .\dbase\templates\jeugdraad\navigation.html:100
-#: .\dbase\templates\jeugdraad\navigation.html:111
+#: .\dbase\templates\jeugdraad\navigation.html:108
+#: .\dbase\templates\jeugdraad\navigation.html:119
 msgid "Material not found..."
 msgstr "Materiaal niet gevonden..."
 
@@ -579,6 +588,7 @@ msgid "Please either submit a file or check the clear checkbox, not both."
 msgstr ""
 
 #: .\venv-37\Lib\site-packages\django\forms\fields.py:601
+#: .\venv-37\Lib\site-packages\sorl\thumbnail\fields.py:43
 msgid ""
 "Upload a valid image. The file you uploaded was either not an image or a "
 "corrupted image."
