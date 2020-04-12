@@ -1,8 +1,10 @@
 from django.contrib import admin
 from django.db.models import Count
+from django.utils.html import format_html
 from django.utils.translation import gettext_lazy as _
 
 from adminsortable.admin import SortableAdmin
+from sorl.thumbnail import get_thumbnail
 from sorl.thumbnail.admin import AdminInlineImageMixin
 
 from booking.forms import EventForm, MaterialForm, MaterialAliasForm
@@ -16,6 +18,8 @@ from .models import (
     RateClass,
     Location,
 )
+
+ADMIN_THUMBS_SIZE = "60x60"
 
 
 @admin.register(Category)
@@ -41,7 +45,7 @@ class MaterialAliasInline(admin.StackedInline):
 
 @admin.register(Material)
 class MaterialAdmin(admin.ModelAdmin):
-    list_display = ("name", "location", "stock")
+    list_display = ("name", "thumbnail", "location", "stock")
     list_filter = ["categories", "location", "gm", "lendable"]
     search_fields = ["name", "description"]
     fields = (
@@ -59,6 +63,21 @@ class MaterialAdmin(admin.ModelAdmin):
         MaterialImageInline,
         MaterialAliasInline,
     ]
+
+    def thumbnail(self, obj):
+        html = []
+        for img in obj.images.all():
+            thumb = get_thumbnail(img.image, ADMIN_THUMBS_SIZE)
+            full_size = img.image.url
+
+            html.append(
+                '<a href="{}" target="_blank"><img width="{}" src="{}" /></a>'.format(
+                    full_size, thumb.width, thumb.url
+                )
+            )
+        return format_html("&nbsp;".join(html))
+
+    thumbnail.short_description = _("Image")
 
 
 @admin.register(Event)
