@@ -1,5 +1,6 @@
 import csv
 from collections import OrderedDict
+from sorl.thumbnail import get_thumbnail
 
 from django.http import HttpResponse, JsonResponse
 
@@ -25,17 +26,20 @@ def format_woocommerce(request, materials):
                 "tax:product_visibility": "visible"
                 if mat.lendable
                 else "exclude-from-catalog|exclude-from-search",
-                "stock": mat.stock,  # Stock
+                "stock": mat.stock_value,  # Stock
                 "post_content": mat.description,
-                "regular_price": mat.rate_class.rate
+                "regular_price": mat.rate_class.rate.amount
                 if mat.rate_class is not None
                 else "",
                 "tax:product_cat": mat.categories.first()
                 if mat.categories.exists()
                 else "",
-                "images": request.build_absolute_uri(mat.images.first().image.url)
+                "images": request.build_absolute_uri(
+                    get_thumbnail(mat.images.first().image, "1280").url
+                )  # At max return HD image (1280x720)
                 if mat.images.exists()
                 else "",
+                "meta:stock_unit": mat.stock_unit,
             }
         )
 

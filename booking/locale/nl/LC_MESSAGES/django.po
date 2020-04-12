@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-04 20:22+0200\n"
-"PO-Revision-Date: 2020-04-04 20:28+0200\n"
+"POT-Creation-Date: 2020-04-11 22:49+0200\n"
+"PO-Revision-Date: 2020-04-11 22:51+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: nl\n"
@@ -18,23 +18,23 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 2.3\n"
 
-#: .\booking\admin.py:29 .\booking\admin.py:88
+#: .\booking\admin.py:30 .\booking\admin.py:97
 msgid "Number of materials"
 msgstr "Aantal materialen"
 
-#: .\booking\admin.py:59 .\booking\templates\booking\event\event.html:47
+#: .\booking\admin.py:68 .\booking\templates\booking\event\event.html:47
 msgid "Booking status"
 msgstr "Reserveringsstatus"
 
-#: .\booking\admin.py:108
+#: .\booking\admin.py:117
 msgid "Included categories"
 msgstr "Inbegrepen categorieën"
 
-#: .\booking\admin.py:109
+#: .\booking\admin.py:118
 msgid "Excluded categories"
 msgstr "Uitgesloten categorieën"
 
-#: .\booking\api\event.py:24 .\booking\templates\booking\event\event.html:138
+#: .\booking\api\event.py:24 .\booking\templates\booking\event\event.html:139
 msgid "Material bookings"
 msgstr "Materiaalaanvragen"
 
@@ -84,7 +84,7 @@ msgstr "GM"
 msgid "Game"
 msgstr "Spel"
 
-#: .\booking\api\event.py:46 .\booking\templates\booking\event\event.html:150
+#: .\booking\api\event.py:46 .\booking\templates\booking\event\event.html:151
 msgid "Group"
 msgstr "Groep"
 
@@ -204,7 +204,7 @@ msgstr "aanvrager"
 msgid "game"
 msgstr "spel"
 
-#: .\booking\models\booking.py:22 .\booking\models\material.py:47
+#: .\booking\models\booking.py:22 .\booking\models\material.py:53
 #: .\booking\models\material_alias.py:20 .\booking\models\material_image.py:14
 msgid "material"
 msgstr "materiaal"
@@ -460,16 +460,28 @@ msgid "What rate class should this material be associated with?"
 msgstr "Met welke tariefklasse moet dit materiaal geassocieerd worden?"
 
 #: .\booking\models\material.py:40
-msgid "stock"
+msgid "stock value"
 msgstr "voorraad"
 
 #: .\booking\models\material.py:43
 msgid "How many exemplars are there of this material?"
 msgstr "Hoeveel exemplaren zijn er van dit materiaal?"
 
-#: .\booking\models\material.py:48
+#: .\booking\models\material.py:46
+msgid "stock unit"
+msgstr "voorraadeenheid"
+
+#: .\booking\models\material.py:49
+msgid "Specify a unit for the stock. E.g. meters."
+msgstr "Specificeer de eenheid voor de voorraad. Bijv. meter."
+
+#: .\booking\models\material.py:54
 msgid "materials"
 msgstr "materialen"
+
+#: .\booking\models\material.py:65
+msgid "stock"
+msgstr "voorraad"
 
 #: .\booking\models\material_alias.py:13
 msgid ""
@@ -491,11 +503,11 @@ msgstr "materiaal synoniemen"
 msgid "image"
 msgstr "afbeelding"
 
-#: .\booking\models\material_image.py:25
+#: .\booking\models\material_image.py:18
 msgid "material image"
 msgstr "afbeelding van materiaal"
 
-#: .\booking\models\material_image.py:26
+#: .\booking\models\material_image.py:19
 msgid "material images"
 msgstr "afbeeldingen van materiaal"
 
@@ -577,35 +589,35 @@ msgstr "Je kan niet bewerken"
 msgid "Event period"
 msgstr "Evenementsperiode"
 
-#: .\booking\templates\booking\event\event.html:68
+#: .\booking\templates\booking\event\event.html:69
 msgid "Start booking period"
 msgstr "Startdatum reserveringsperiode"
 
-#: .\booking\templates\booking\event\event.html:74
+#: .\booking\templates\booking\event\event.html:76
 msgid "Booking deadline"
 msgstr "Reserveringsdeadline"
 
-#: .\booking\templates\booking\event\event.html:80
+#: .\booking\templates\booking\event\event.html:82
 msgid "Privileged booking deadline"
 msgstr "MB Reserveringsdeadline"
 
-#: .\booking\templates\booking\event\event.html:142
+#: .\booking\templates\booking\event\event.html:143
 msgid "Export options"
 msgstr "Exporteer opties"
 
-#: .\booking\templates\booking\event\event.html:143
+#: .\booking\templates\booking\event\event.html:144
 msgid "Print"
 msgstr "Printen"
 
-#: .\booking\templates\booking\event\event.html:144
+#: .\booking\templates\booking\event\event.html:145
 msgid "Export to Excel"
 msgstr "Exporteren naar Excel"
 
-#: .\booking\templates\booking\event\event.html:146
+#: .\booking\templates\booking\event\event.html:147
 msgid "Display options"
 msgstr "Weergaveopties"
 
-#: .\booking\templates\booking\event\event.html:158
+#: .\booking\templates\booking\event\event.html:159
 #: .\booking\templates\booking\event\game-view.html:57
 #: .\booking\templates\booking\event\list-view.html:61
 msgid "All"

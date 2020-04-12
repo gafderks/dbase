@@ -36,11 +36,17 @@ class Material(models.Model):
         related_name="materials",
         help_text=_("What rate class should this material be associated with?"),
     )
-    stock = models.CharField(
-        verbose_name=_("stock"),
-        max_length=150,
+    stock_value = models.FloatField(
+        verbose_name=_("stock value"),
+        null=True,
         blank=True,
         help_text=_("How many exemplars are there of this material?"),
+    )
+    stock_unit = models.CharField(
+        verbose_name=_("stock unit"),
+        max_length=150,
+        blank=True,
+        help_text=_("Specify a unit for the stock. E.g. meters."),
     )
 
     class Meta:
@@ -49,3 +55,15 @@ class Material(models.Model):
 
     def __str__(self):
         return self.name
+
+    @property
+    def stock(self):
+        return " ".join(
+            [
+                str(val).rstrip(".0")
+                for val in [self.stock_value, self.stock_unit]
+                if val is not None
+            ]
+        )
+
+    stock.fget.short_description = _("stock")

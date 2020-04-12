@@ -44,6 +44,16 @@ class MaterialAdmin(admin.ModelAdmin):
     list_display = ("name", "location", "stock")
     list_filter = ["categories", "location", "gm", "lendable"]
     search_fields = ["name", "description"]
+    fields = (
+        "name",
+        "description",
+        "categories",
+        "gm",
+        "lendable",
+        "location",
+        "rate_class",
+        ("stock_value", "stock_unit"),
+    )
     form = MaterialForm
     inlines = [
         MaterialImageInline,
