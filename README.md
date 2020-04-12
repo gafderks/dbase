@@ -39,11 +39,12 @@ Installation
    ```
 5. Copy the file `.env.example` to `.env` and fill in the settings.
 6. Collect static files using `(.venv) $ django-admin collectstatic`
-7. Load the database configuration with `(.venv) $ python manage.py migrate`
-8. Create a superuser account using `(.venv) $ django-admin createsuperuser`
-9. Import materials, categories, filters, roles and groups using 
+7. Compile the translation files using `(.venv) $ python manage.py compilemessages`
+8. Load the database configuration with `(.venv) $ python manage.py migrate`
+9. Create a superuser account using `(.venv) $ django-admin createsuperuser`
+10. Import materials, categories, filters, roles and groups using 
    `(.venv) $ python manage.py creategroups && python manage.py importfilters && python manage.py importmaterial`
-10. Set up the apache web server by copying the file `deploy/apache.conf` to 
+11. Set up the apache web server by copying the file `deploy/apache.conf` to 
    `/etc/apache2/sites-available/example.com.conf` and completing the variables at the top. Preferably setup SSL with 
    e.g. LetsEncrypt.
 
