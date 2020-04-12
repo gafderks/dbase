@@ -60,8 +60,8 @@ class Material(models.Model):
     def stock(self):
         return " ".join(
             [
-                str(val).rstrip(".0")
-                for val in [self.stock_value, self.stock_unit]
+                str(val)[:-2] if str(val).endswith(".0") else str(val)  # Remove .0
+                for val in [self.stock_value, self.stock_unit]  # Concat value and unit
                 if val is not None
             ]
         )
