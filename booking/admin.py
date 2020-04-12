@@ -67,7 +67,7 @@ class MaterialAdmin(admin.ModelAdmin):
     def thumbnail(self, obj):
         html = []
         for img in obj.images.all():
-            thumb = get_thumbnail(img.image, ADMIN_THUMBS_SIZE)
+            thumb = get_thumbnail(img.image, ADMIN_THUMBS_SIZE, crop="center")
             full_size = img.image.url
 
             html.append(
