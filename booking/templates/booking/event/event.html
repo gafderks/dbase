@@ -1,7 +1,6 @@
 {% extends "jeugdraad/base.html" %}
 {% load i18n %}
 {% load crispy_forms_tags %}
-{% load compress %}
 {% load event %}
 {% load dictionary %}
 {% load static %}
@@ -21,19 +20,17 @@
 
 {% block content %}
 
-    {% compress css %}
-      <style type="text/css">
-        .details {
-          /* Remove the font-awesome list margin on the left */
-          margin-left: 1.5em;
-        }
+  <style type="text/css">
+    .details {
+      /* Remove the font-awesome list margin on the left */
+      margin-left: 1.5em;
+    }
 
-        span[data-toggle=tooltip][data-placement=right] {
-          /* Offset the tooltip for list elements a little bit */
-          padding-right: 1em;
-        }
-      </style>
-    {% endcompress %}
+    span[data-toggle=tooltip][data-placement=right] {
+      /* Offset the tooltip for list elements a little bit */
+      padding-right: 1em;
+    }
+  </style>
 
   {% include "booking/partials/delete-game-modal.html" %}
   {% include "booking/partials/delete-booking-modal.html" %}
@@ -88,52 +85,6 @@
     </div>
   </div>
 
-    {% compress css %}
-      <style type="text/css">
-        .booking-status.status-LO {
-          background-color: #DC3545;
-          border-color: #DC3545;
-        }
-
-        body.editable .booking-status.status-LO {
-          color: #DC3545 !important;
-        }
-
-        .booking-status.status-PR {
-          background-color: #ffc107;
-          border-color: #ffc107;
-        }
-
-        body.editable .booking-status.status-PR {
-          color: #ffc107 !important;
-        }
-
-        .booking-status.status-OP {
-          background-color: #28a745;
-          border-color: #28a745;
-        }
-
-        body.editable .booking-status.status-OP {
-          color: #28a745 !important;
-        }
-
-        .booking-status {
-          border-color: #6c757d;
-        }
-
-        body.editable .booking-status {
-          background-color: transparent !important;
-          border-width: 1px;
-          border-style: solid;
-          color: #6c757d !important;
-        }
-
-        .booking-status small {
-          font-size: .7em;
-        }
-      </style>
-    {% endcompress %}
-
   <div class="row">
     <div class="col-auto">
       <p class="lead">{% trans "Material bookings" %}</p>
@@ -186,17 +137,12 @@
     </div>
   </div>
 
-    {% compress css %}
-      <link href="{% static "booking/css/floating-labels.css" %}" rel="stylesheet">
-      <link href="{% static "booking/css/booking.css" %}" rel="stylesheet">
-    {% endcompress %}
-
 {% endblock %}
 
 {% block scripts %}
-{{ block.super }}
+  <script src="{% static "booking/js/app.min.js" %}" type="text/javascript"></script>
+{% endblock %}
 
-<script src="{% static "booking/js/ajax_csrf.js" %}" type="text/javascript"></script>
-<script src="{% static "booking/js/app.js" %}" type="module"></script>
-
+{% block styles %}
+  <link href="{% static "booking/css/app.min.css" %}" rel="stylesheet">
 {% endblock %}

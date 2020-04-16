@@ -1,13 +1,12 @@
 {% load static %}
 {% load i18n %}
-{% load compress %}
 {% load roles %}
 {% load event %}
 {% block navigation %}
   <nav class="navbar navbar-expand-sm navbar-light bg-light mb-4">
     <div class="container">
       <a class="navbar-brand" href="{% url 'index' %}" data-toggle="tooltip" data-placement="bottom" title="{% trans "Open homepage" %}">
-        <img src="{% static "booking/logo_66x60.png" %}" width="33" height="30" class="d-inline-block align-top" alt="{% trans "Open homepage" %}">
+        <img src="{% static "dbase/img/logo_66x60.png" %}" width="33" height="30" class="d-inline-block align-top" alt="{% trans "Open homepage" %}">
           {% trans "DBase" %}
       </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainNavigation"
@@ -127,33 +126,3 @@
     </div>
   </nav>
 {% endblock %}
-
-{% compress css %}
-  <style type="text/css">
-    nav.navbar li > a svg ~ span {
-      margin-left: 0.2em;
-    }
-
-    nav.navbar li.active {
-      background: #ddd;
-    }
-
-    .input-group .tt-input {
-      border-top-right-radius: 0;
-      border-bottom-right-radius: 0;
-    }
-
-    .input-group span.twitter-typeahead {
-      position: relative;
-      -ms-flex: 1 1 auto;
-      flex: 1 1 auto;
-      width: 1%;
-      margin-bottom: 0;
-    }
-
-    .badge-mb {
-      color: #ffc107;
-      background-color: #212529;
-    }
-  </style>
-{% endcompress %}

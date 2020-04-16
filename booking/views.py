@@ -31,7 +31,7 @@ class HomeView(LoginRequiredMixin, View):
         if not events:
             return render(
                 request,
-                "booking/empty.html",
+                "jeugdraad/alert.html",
                 {**context, "message": _("There are no open events.")},
             )
         return redirect(events.latest().get_absolute_url())
@@ -94,7 +94,7 @@ class EventView(LoginRequiredMixin, TemplateView):
                 # If user has no group and may not view other groups, show error
                 return render(
                     self.request,
-                    "booking/empty.html",
+                    "jeugdraad/empty.html",
                     {
                         "message": _(
                             "You are not assigned to a group. Please contact a board "

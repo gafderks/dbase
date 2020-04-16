@@ -18,25 +18,16 @@
 
 {% include "jeugdraad/footer.html" %}
 
-{% endblock %}
-
-{% block scripts %}
-  {{ block.super }}
+  <style type="text/css">
+    .tt-suggestion-alias::before {
+      content: "{% trans "Do you mean:" %}";
+      margin-right: 0.3rem;
+      font-weight: 300;
+    }
+  </style>
   <script type="text/javascript">
+    // TODO REMOVE!
     const materialsUrl = "{% url 'booking:api:material' %}?format=json";
     const materialAliasesUrl = "{% url 'booking:api:materialalias' %}?format=json";
   </script>
-{% endblock %}
-
-{% block styles %}
-  {{ block.super }}
-
-  <style type="text/css">
-  .tt-suggestion-alias::before {
-    content: "{% trans "Do you mean:" %}";
-    margin-right: 0.3rem;
-    font-weight: 300;
-  }
-  </style>
-
 {% endblock %}

@@ -1,6 +1,5 @@
 {% load static %}
 {% load i18n %}
-{% load compress %}
 
 {% block footer %}
 <footer class="footer mt-auto pb-3">
@@ -27,32 +26,3 @@
 </div>
 </footer>
 {% endblock %}
-
-{% compress css %}
-  <style type="text/css">
-    footer {
-      padding-top: 1rem;
-    }
-
-    @media (min-width: 992px) {
-      footer {
-        background-image: url("{% static "booking/footer.png" %}");
-        background-size: 300px;
-        background-repeat: no-repeat;
-        background-position: bottom center;
-        padding-top: 200px;
-      }
-
-    }
-
-    body {
-      display: flex;
-      height: 100%;
-      flex-direction: column;
-    }
-
-    main {
-      flex-shrink: 0;
-    }
-  </style>
-{% endcompress %}

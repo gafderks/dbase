@@ -171,3 +171,4 @@ venv
 *.scss.map
 
 node_modules/
+build/

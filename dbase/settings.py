@@ -36,6 +36,7 @@ ALLOWED_HOSTS = env("ALLOWED_HOSTS")
 # Application definition
 
 INSTALLED_APPS = [
+    "django_gulp",
     "booking.apps.BookingConfig",
     "users.apps.UsersConfig",
     "django.contrib.admin",
@@ -45,7 +46,6 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "crispy_forms",
-    "compressor",
     "djmoney",
     "camera.apps.CameraConfig",
     "adminsortable",
@@ -139,9 +139,8 @@ STATIC_ROOT = BASE_DIR / "static"
 STATICFILES_FINDERS = (
     "django.contrib.staticfiles.finders.FileSystemFinder",
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
-    "compressor.finders.CompressorFinder",
 )
-COMPRESS_OFFLINE = True
+STATICFILES_DIRS = (BASE_DIR / "build", BASE_DIR / "dbase" / "static")
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"

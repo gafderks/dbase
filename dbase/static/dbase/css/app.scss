@@ -1,0 +1,32 @@
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+// Bootstrap toggle
+@import '~bootstrap4-toggle/css/bootstrap4-toggle.min.css';
+
+@import 'autocomplete';
+@import 'floating-labels';
+
+@import 'navigation';
+@import 'footer';
+
+
+body.clouds {
+    background-image: url("/static/dbase/img/clouds.png");
+    background-repeat: repeat-x;
+    background-position: left top;
+    background-size: cover;
+}
+
+/* Used in login page */
+.frosted {
+  background-color: rgba(255, 255, 255, .65);
+  backdrop-filter: blur(5px);
+}
+
+.signin-container {
+  width: 100%;
+  max-width: 420px;
+  padding: 15px;
+  margin: auto;
+}
+/* End used in login page */

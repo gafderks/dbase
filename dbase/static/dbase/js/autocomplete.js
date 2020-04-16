@@ -1,4 +1,10 @@
-/*global Bloodhound, materialsUrl, materialAliasesUrl */
+import $ from 'jquery';
+
+import Bloodhound from 'corejs-typeahead/dist/bloodhound.js';
+import 'corejs-typeahead/dist/typeahead.jquery.js';
+
+
+/*global materialsUrl, materialAliasesUrl */
 export const materialEngine = new Bloodhound({
   datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
   queryTokenizer: Bloodhound.tokenizers.whitespace,

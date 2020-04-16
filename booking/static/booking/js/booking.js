@@ -1,4 +1,8 @@
-import Autocomplete from './autocomplete.js';
+import $ from 'jquery';
+import 'popper.js';
+import 'bootstrap';
+import 'bootstrap4-toggle';
+import Autocomplete from 'dbase/autocomplete';
 
 export default class Booking {
 
@@ -75,13 +79,13 @@ export default class Booking {
       this.update(e.currentTarget);
     });
     // Booking edit button
-    this._$elem.find('.btn.edit-booking').click(_ => {
+    this._$elem.find('.btn.edit-booking').click(() => {
       // Reset the value of the typeahead to the initial value
       this._autocomplete.reset();
       this.toggleForm();
     });
     // Form reset button
-    $bookingForm.on('reset', _ => this.toggleForm());
+    $bookingForm.on('reset', () => this.toggleForm());
     // Bootstrap toggles
     this._$elem.find('[data-toggle=toggle][type=checkbox]').each((i, elem) => {
       $(elem).bootstrapToggle({
@@ -100,7 +104,7 @@ export default class Booking {
       const bookingName = this._$elem.find('.booking-material').find('label').text();
       const confirmationTemplate = $modal.find('.modal-body').data('template');
       $modal.find('.modal-body').html(confirmationTemplate.replace('${name}', bookingName));
-      $modal.find('.confirm-delete').off().click(_ => {
+      $modal.find('.confirm-delete').off().click(() => {
         this.update(e.currentTarget);
       });
     });
@@ -109,13 +113,13 @@ export default class Booking {
     // Checkboxes retrieve status
     this._retrieve_checkbox_status();
     // Checkbox indeterminate on double click
-    this._$elem.find('.booking-check label').bind('dblclick', _ => {
+    this._$elem.find('.booking-check label').bind('dblclick', () => {
       window.getSelection().removeAllRanges(); // Remove accidental text selection
       this._$checkbox.prop('indeterminate', true);
       this._save_checkbox_status('indeterminate');
       this._container.onBookingCheckboxChanged();
     });
-    this._$elem.find('.booking-check input').change(_ => {
+    this._$elem.find('.booking-check input').change(() => {
       this._save_checkbox_status(this._$checkbox.prop('checked'));
       this._container.onBookingCheckboxChanged();
     });

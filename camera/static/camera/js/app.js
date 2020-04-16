@@ -1,3 +1,10 @@
+import 'dbase/app';
+
+import $ from 'jquery';
+import 'bootstrap';
+
+import 'dbase/ajax_csrf';
+
 (function() {
   // The width and height of the captured photo. We will set the
   // width to the value defined here, but the height will be

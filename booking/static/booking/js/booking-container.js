@@ -1,3 +1,6 @@
+import $ from 'jquery';
+import 'popper.js';
+import 'bootstrap';
 import Booking from './booking.js';
 
 export default class BookingContainer {

@@ -5,30 +5,11 @@
 
 {% block body_class %}clouds{% endblock %}
 
-{% block styles %}
-    {{ block.super }}
-  <link href="{% static "booking/floating-labels.css" %}" rel="stylesheet">
-
-  <style type="text/css">
-    .frosted {
-      background-color: rgba(255, 255, 255, .65);
-      backdrop-filter: blur(5px);
-    }
-
-    .signin-container {
-      width: 100%;
-      max-width: 420px;
-      padding: 15px;
-      margin: auto;
-    }
-  </style>
-{% endblock %}
-
 {% block layout %}
   <main class="frosted p-5 shadow m-sm-auto d-flex align-items-center col-md-6 col-sm-8 col-xl-4">
     <div class="signin-container">
       <div class="text-center mb-4">
-        <img class="mb-4" src="{% static "booking/logo_121x110.png" %}" alt="" width="121" height="110">
+        <img class="mb-4" src="{% static "dbase/img/logo_121x110.png" %}" alt="" width="121" height="110">
         <h1 class="h3 mb-3 font-weight-normal">DBase</h1>
         <p>{% trans "Login to enter the DBase." %}</p>
       </div>
