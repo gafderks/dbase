@@ -57,7 +57,7 @@ function scripts(done) {
         .pipe(sourcemaps.init({loadMaps: true}))
         .pipe(gulp.dest(config.scripts.dest)) // save .js
         .pipe(uglify({ output: {comments: 'some'} }))
-        .pipe(rename({extname: '.min.js'}))
+        .pipe(rename({suffix: '.min'}))
         .pipe(sourcemaps.write('.'))
         .pipe(gulp.dest(config.scripts.dest)); // save .min.js
       taskDone();
@@ -89,7 +89,7 @@ function styles(done) {
           includePaths: ['node_modules'], importer: tildeImporter
         }).on('error', sass.logError))
         .pipe(postcss(processors))
-        .pipe(rename({extname: '.min.css'}))
+        .pipe(rename({suffix: '.min'}))
         .pipe(sourcemaps.write('.'))
         .pipe(gulp.dest(config.styles.dest));
       taskDone();
