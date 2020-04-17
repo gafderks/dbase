@@ -1,4 +1,5 @@
 import gulp from 'gulp';
+import {exec} from 'child_process';
 // js
 import rollupStream from '@rollup/stream';
 import babel from 'rollup-plugin-babel';
@@ -23,6 +24,7 @@ import pixrem from 'pixrem';
 // other
 import imagemin from 'gulp-imagemin';
 import del from 'del';
+import browserSync from 'browser-sync';
 
 import booking from './booking/static/booking/config.gulp';
 import dbase from './dbase/static/dbase/config.gulp';
@@ -31,6 +33,21 @@ import camera from './camera/static/camera/config.gulp';
 const configs = [booking, dbase, camera];
 
 const aliases = configs.filter(config => config.alias).map(config => config.alias);
+
+const server = browserSync.create();
+
+function serve(done) {
+  server.init({
+    server: {
+      notify: false,
+      port: 9000,
+      proxy: 'localhost:9000'
+    }
+  });
+  done();
+}
+
+const watch = () => gulp.watch(paths.scripts.src, gulp.series(scripts, reload));
 
 function scripts() {
   const tasks = configs.filter(config => config.scripts).map(config => config.scripts).map(config => {
@@ -63,7 +80,8 @@ function scripts() {
       .pipe(uglify({ output: {comments: 'some'} }))
       .pipe(rename({suffix: '.min'}))
       .pipe(sourcemaps.write('.'))
-      .pipe(gulp.dest(config.dest)); // save .min.js
+      .pipe(gulp.dest(config.dest)) // save .min.js
+      .pipe(browserSync.stream());
   });
 
   return merge(tasks);
@@ -87,7 +105,8 @@ function styles() {
       .pipe(postcss(processors))
       .pipe(rename({suffix: '.min'}))
       .pipe(sourcemaps.write('.'))
-      .pipe(gulp.dest(config.dest));
+      .pipe(gulp.dest(config.dest))
+      .pipe(browserSync.stream());
   });
 
   return merge(tasks);
@@ -97,14 +116,20 @@ function images() {
   const tasks = configs.filter(config => config.images).map(config => config.images).map(config => {
     return gulp.src(config.src)
       .pipe(imagemin())
-      .pipe(gulp.dest(config.dest));
+      .pipe(gulp.dest(config.dest))
+      .pipe(server.stream());
   });
 
   return merge(tasks);
 }
 
+const runserver = () => exec('python manage.py runserver 9000');
+
 const clean = () => del(['build']);
+
 const build = gulp.parallel(scripts, styles, images);
 
-export {scripts, styles, images, clean, build};
+const dev = gulp.series(clean, build, runserver, serve, watch);
+
+export {scripts, styles, images, clean, serve, dev, build};
 export default build;
