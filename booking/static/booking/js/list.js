@@ -56,6 +56,11 @@ export default class List extends BookingContainer {
       prev = booking;
     }
 
+    // For last booking check if duplicates are more than one, add to the result
+    if (duplicates.length > 1) {
+      result.push(duplicates);
+    }
+
     return result;
   }
 
