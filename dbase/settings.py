@@ -145,6 +145,8 @@ STATICFILES_STORAGE = "django.contrib.staticfiles.storage.ManifestStaticFilesSto
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
+# Keep GIF and PNG images that are uploaded as the same format when thumbnailed
+THUMBNAIL_PRESERVE_FORMAT = True
 
 CRISPY_TEMPLATE_PACK = "bootstrap4"
 
