@@ -10,7 +10,7 @@
   {% for day in current_event.days %}
     <div class="day row" data-date="{{ day.isoformat }}">
       {% include "booking/partials/day-nav.html" with day=day parts_of_day=parts_of_day list_views=list_views|get_item:day %}
-      <div class="col">
+      <div class="col-lg-9">
         <h4 id="day{{ day.isoformat }}" class="fix-anchor">{{ day|date:"l"|capfirst }} {{ day }}</h4>
         {% for code, trans in parts_of_day %}
           <div id="{{ day.isoformat }}{{ code }}" class="part-of-day fix-anchor" data-date="{{ day.isoformat }}" data-part-of-day="{{ code }}">
