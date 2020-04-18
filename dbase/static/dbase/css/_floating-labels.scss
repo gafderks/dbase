@@ -92,8 +92,16 @@ $color_3: #777;
 -------------------------------------------------- */
 @supports (-ms-ime-align: auto) {
   .form-label-group > label {
-    display: none;
+      display: none;
   }
+  .form-label-group .toggle {
+        &~label {
+            display: block;
+            font-size: 12px;
+            margin-top: -1.2rem;
+            color: #777777;
+        }
+    }
   .form-label-group input::-ms-input-placeholder {
     color: #777;
   }
