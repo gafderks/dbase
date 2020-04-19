@@ -1,5 +1,3 @@
-$background_color_1: rgba(255, 255, 255, .6);
-
 .crispy-outline {
     background-color: transparent;
 }
@@ -14,8 +12,11 @@ html {
 }
 
 .frosted {
-    background-color: $background_color_1;
-    backdrop-filter: blur(8px);
+    background-color: rgba(255, 255, 255, .95);
+    @supports ((-webkit-backdrop-filter: blur(2em)) or (backdrop-filter: blur(2em))) {
+        background-color: rgba(255, 255, 255, .6);
+        backdrop-filter: blur(8px);
+    }
 }
 
 .typeahead-materials.tt-hint[readonly] {
