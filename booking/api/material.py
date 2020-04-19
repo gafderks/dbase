@@ -59,7 +59,7 @@ def format_json(request, materials):
                 "name": material.name,
                 "categories": [category.name for category in material.categories.all()],
                 "images": [
-                    request.build_absolute_uri(i.image.url)
+                    request.build_absolute_uri(get_thumbnail(i.image, "32x32").url)
                     for i in material.images.all()
                 ],
                 "gm": material.gm,
