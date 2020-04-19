@@ -31,10 +31,10 @@
 
 {% block display_options %}
   {{ block.super }}
-  <button type="button" data-toggle="tooltip" data-placement="top" class="btn btn-outline-secondary" title="{% trans "Filter bookings" %}">
-    <i class="fas fa-filter"></i>
-    <span class="pl-1 d-none d-lg-inline">{% trans "Filter" %}</span>
-  </button>
+{#  <button type="button" data-toggle="tooltip" data-placement="top" class="btn btn-outline-secondary" title="{% trans "Filter bookings" %}">#}
+{#    <i class="fas fa-filter"></i>#}
+{#    <span class="pl-1 d-none d-lg-inline">{% trans "Filter" %}</span>#}
+{#  </button>#}
   {% if current_group %}
   <a href="{% url 'booking:event_games_group' current_event.slug current_group.slug %}" data-toggle="tooltip" data-placement="top" class="btn btn-outline-secondary" title="{% trans "Open game view" %}">
     <i class="fas fa-dice-five"></i>
