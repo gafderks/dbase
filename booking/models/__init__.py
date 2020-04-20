@@ -3,6 +3,7 @@ from .rate_class import RateClass
 from .location import Location
 from .material import Material
 from .material_image import MaterialImage
+from .material_attachment import MaterialAttachment
 from .material_alias import MaterialAlias
 from .event import Event
 from .part_of_day import PartOfDay

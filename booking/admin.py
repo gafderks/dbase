@@ -18,6 +18,7 @@ from .models import (
     Material,
     Event,
     MaterialImage,
+    MaterialAttachment,
     MaterialAlias,
     RateClass,
     Location,
@@ -43,6 +44,10 @@ class MaterialImageInline(AdminInlineImageMixin, SortableStackedInline):
     model = MaterialImage
 
 
+class MaterialAttachmentInline(SortableStackedInline):
+    model = MaterialAttachment
+
+
 class MaterialAliasInline(admin.StackedInline):
     model = MaterialAlias
 
@@ -63,10 +68,7 @@ class MaterialAdmin(NonSortableParentAdmin):
         ("stock_value", "stock_unit"),
     )
     form = MaterialForm
-    inlines = [
-        MaterialImageInline,
-        MaterialAliasInline,
-    ]
+    inlines = [MaterialImageInline, MaterialAliasInline, MaterialAttachmentInline]
 
     def thumbnail(self, obj):
         html = []
