@@ -47,7 +47,12 @@ class Booking(models.Model):
         default_permissions = []  # Removed default permissions as we don't check them
 
     def __str__(self):
-        return self.material.name if self.material else self.custom_material
+        if self.material:
+            return self.material.name
+        if self.custom_material:
+            return self.custom_material
+        else:
+            return str(_("Unspecified material"))  # Should actually never be the shown
 
     def user_may_edit(self, user):
         if not self.game.user_may_edit(user):

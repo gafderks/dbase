@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-20 10:28+0200\n"
-"PO-Revision-Date: 2020-04-20 10:29+0200\n"
+"POT-Creation-Date: 2020-04-20 22:45+0200\n"
+"PO-Revision-Date: 2020-04-20 22:47+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: nl\n"
@@ -79,7 +79,7 @@ msgid "Material category"
 msgstr "Categorie van materiaal"
 
 #: .\booking\api\event.py:44 .\booking\models\list_view_filter.py:24
-#: .\booking\models\material.py:14
+#: .\booking\models\material.py:13
 msgid "GM"
 msgstr "GM"
 
@@ -200,6 +200,10 @@ msgstr "Materiaal niet gevonden..."
 msgid "Click to request \"<em>{}</em>\" anyway."
 msgstr "Klik om \"<em>{}</em>\" toch aan te vragen."
 
+#: .\booking\forms.py:301
+msgid "You must either choose a material or fill in a custom material."
+msgstr "Je moet een materiaal kiezen of een aangepast materiaal kiezen."
+
 #: .\booking\models\booking.py:12
 msgid "requester"
 msgstr "aanvrager"
@@ -208,7 +212,7 @@ msgstr "aanvrager"
 msgid "game"
 msgstr "spel"
 
-#: .\booking\models\booking.py:22 .\booking\models\material.py:53
+#: .\booking\models\booking.py:22 .\booking\models\material.py:52
 #: .\booking\models\material_alias.py:20
 #: .\booking\models\material_attachment.py:16
 #: .\booking\models\material_image.py:15
@@ -239,14 +243,18 @@ msgstr "aantal"
 msgid "bookings"
 msgstr "aanvragen"
 
-#: .\booking\models\booking.py:82
+#: .\booking\models\booking.py:55
+msgid "Unspecified material"
+msgstr "Ongespecificeerd materiaal"
+
+#: .\booking\models\booking.py:87
 #: .\booking\templates\booking\partials\booking-item.html:36
 msgid "Custom material"
 msgstr "Aangepast materiaal"
 
 #: .\booking\models\category.py:6 .\booking\models\event.py:17
 #: .\booking\models\list_view_filter.py:9 .\booking\models\location.py:6
-#: .\booking\models\material.py:8 .\booking\models\material_alias.py:9
+#: .\booking\models\material.py:9 .\booking\models\material_alias.py:9
 #: .\booking\models\rate_class.py:9
 msgid "name"
 msgstr "naam"
@@ -385,7 +393,7 @@ msgid "At what daypart are the materials needed?"
 msgstr "Op welk dagdeel zijn de materialen nodig?"
 
 #: .\booking\models\game.py:34 .\booking\models\location.py:9
-#: .\booking\models\material.py:26 .\booking\models\part_of_day.py:38
+#: .\booking\models\material.py:25 .\booking\models\part_of_day.py:38
 msgid "location"
 msgstr "locatie"
 
@@ -441,51 +449,51 @@ msgstr "Algemene materialen"
 msgid "locations"
 msgstr "locaties"
 
-#: .\booking\models\material.py:14
+#: .\booking\models\material.py:13
 msgid "Is GM needed for this material?"
 msgstr "Is GM nodig voor dit materiaal?"
 
-#: .\booking\models\material.py:17
+#: .\booking\models\material.py:16
 msgid "lendable"
 msgstr "uitleenbaar"
 
-#: .\booking\models\material.py:19
+#: .\booking\models\material.py:18
 msgid "Should this material be shown for lending?"
 msgstr "Moet dit materiaal worden weergegeven voor uitlenen?"
 
-#: .\booking\models\material.py:27
+#: .\booking\models\material.py:26
 msgid "Where can this material be found?"
 msgstr "Waar kan dit materiaal gevonden worden?"
 
-#: .\booking\models\material.py:35 .\booking\models\rate_class.py:22
+#: .\booking\models\material.py:34 .\booking\models\rate_class.py:22
 msgid "rate class"
 msgstr "tariefklasse"
 
-#: .\booking\models\material.py:37
+#: .\booking\models\material.py:36
 msgid "What rate class should this material be associated with?"
 msgstr "Met welke tariefklasse moet dit materiaal geassocieerd worden?"
 
-#: .\booking\models\material.py:40
+#: .\booking\models\material.py:39
 msgid "stock value"
 msgstr "voorraad"
 
-#: .\booking\models\material.py:43
+#: .\booking\models\material.py:42
 msgid "How many exemplars are there of this material?"
 msgstr "Hoeveel exemplaren zijn er van dit materiaal?"
 
-#: .\booking\models\material.py:46
+#: .\booking\models\material.py:45
 msgid "stock unit"
 msgstr "voorraadeenheid"
 
-#: .\booking\models\material.py:49
+#: .\booking\models\material.py:48
 msgid "Specify a unit for the stock. E.g. meters."
 msgstr "Specificeer de eenheid voor de voorraad. Bijv. meter."
 
-#: .\booking\models\material.py:54
+#: .\booking\models\material.py:53
 msgid "materials"
 msgstr "materialen"
 
-#: .\booking\models\material.py:69
+#: .\booking\models\material.py:68
 msgid "stock"
 msgstr "voorraad"
 

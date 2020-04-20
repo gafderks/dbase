@@ -285,3 +285,20 @@ class BookingForm(forms.ModelForm):
         _("Material"), _("Choose a material"), _("Workweek"), _("No"), _(
             "Choose a material"
         ), _("Material not found..."), _('Click to request "<em>{}</em>" anyway.'),
+
+    def clean(self):
+        """
+        Here we check whether a material was chosen or a custom material name was given.
+        :return:
+        """
+        cleaned_data = super().clean()
+
+        material = cleaned_data.get("material")
+        custom_material = cleaned_data.get("custom_material")
+
+        if material is None and custom_material is None:
+            raise forms.ValidationError(
+                _("You must either choose a material or fill in a custom material.")
+            )
+
+        return cleaned_data
