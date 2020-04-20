@@ -3,7 +3,11 @@ from django.db.models import Count
 from django.utils.html import format_html
 from django.utils.translation import gettext_lazy as _
 
-from adminsortable.admin import SortableAdmin
+from adminsortable.admin import (
+    SortableAdmin,
+    NonSortableParentAdmin,
+    SortableStackedInline,
+)
 from sorl.thumbnail import get_thumbnail
 from sorl.thumbnail.admin import AdminInlineImageMixin
 
@@ -35,7 +39,7 @@ class CategoryAdmin(admin.ModelAdmin):
     list_display = ("name", "description", "count_materials")
 
 
-class MaterialImageInline(AdminInlineImageMixin, admin.StackedInline):
+class MaterialImageInline(AdminInlineImageMixin, SortableStackedInline):
     model = MaterialImage
 
 
@@ -44,7 +48,7 @@ class MaterialAliasInline(admin.StackedInline):
 
 
 @admin.register(Material)
-class MaterialAdmin(admin.ModelAdmin):
+class MaterialAdmin(NonSortableParentAdmin):
     list_display = ("name", "thumbnail", "location", "stock")
     list_filter = ["categories", "location", "gm", "lendable"]
     search_fields = ["name", "description"]
