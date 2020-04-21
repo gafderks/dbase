@@ -56,7 +56,7 @@ class MaterialAliasInline(admin.StackedInline):
 class MaterialAdmin(NonSortableParentAdmin):
     list_display = ("name", "thumbnail", "location", "stock")
     list_filter = ["categories", "location", "gm", "lendable"]
-    search_fields = ["name", "description"]
+    search_fields = ["name", "description", "aliases__name"]
     fields = (
         "name",
         "description",
