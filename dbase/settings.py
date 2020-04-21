@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     "adminsortable",
     "django.contrib.humanize",
     "sorl.thumbnail",
+    "ckeditor",
 ]
 
 MIDDLEWARE = [
@@ -158,3 +159,17 @@ AUTH_USER_MODEL = "users.User"
 LOCALE_PATHS = [BASE_DIR / "dbase" / "locale"]
 
 DATA_UPLOAD_MAX_MEMORY_SIZE = env("DATA_UPLOAD_MAX_MEMORY_SIZE")
+
+CKEDITOR_BASEPATH = STATIC_URL + "ckeditor/ckeditor/"
+CKEDITOR_CONFIGS = {
+    "basic_ckeditor": {
+        "toolbar": "basic_ckeditor",
+        "toolbar_basic_ckeditor": [
+            ["Bold", "Italic", "Underline", "-", "RemoveFormat",],
+            ["NumberedList", "BulletedList", "-", "Image", "HorizontalRule"],
+            ["Link", "Unlink"],
+            ["Undo", "Redo"],
+            ["Source"],
+        ],
+    }
+}

@@ -1,13 +1,19 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from ckeditor.fields import RichTextField
 
 from booking.models import Category, Location, RateClass
 
 
 class Material(models.Model):
     name = models.CharField(verbose_name=_("name"), max_length=150, unique=True)
-    description = models.CharField(
-        verbose_name=_("description"), max_length=250, blank=True
+    description = RichTextField(
+        verbose_name=_("description"),
+        blank=True,
+        config_name="basic_ckeditor",
+        help_text=_(
+            "Additional information about the material. Displayed in the shop."
+        ),
     )
     categories = models.ManyToManyField(Category, related_name="materials")
     gm = models.BooleanField(

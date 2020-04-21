@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-11 19:40+0200\n"
-"PO-Revision-Date: 2020-04-11 20:13+0200\n"
+"POT-Creation-Date: 2020-04-21 22:39+0200\n"
+"PO-Revision-Date: 2020-04-21 22:47+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: nl\n"
@@ -23,82 +23,137 @@ msgstr ""
 msgid "Material Database admin"
 msgstr "Materiaal Database Beheer"
 
-#: .\dbase\templates\jeugdraad\base.html:36
+#: .\dbase\templates\jeugdraad\base.html:23
 msgid "Do you mean:"
 msgstr "Bedoel je:"
 
-#: .\dbase\templates\jeugdraad\blank.html:14
+#: .\dbase\templates\jeugdraad\blank.html:13
 msgid "Material Database"
 msgstr "Materiaal Database"
 
-#: .\dbase\templates\jeugdraad\footer.html:11
+#: .\dbase\templates\jeugdraad\footer.html:12
 msgid "Submit an issue"
 msgstr "Meld een probleem"
 
-#: .\dbase\templates\jeugdraad\footer.html:16
+#: .\dbase\templates\jeugdraad\footer.html:17
 msgid "Read the manual"
 msgstr "Lees de handleiding"
 
-#: .\dbase\templates\jeugdraad\footer.html:21
+#: .\dbase\templates\jeugdraad\footer.html:23
 msgid "&copy; Stichting Dongense Jeugdraad"
 msgstr "&copy; Stichting Dongense Jeugdraad"
 
+#: .\dbase\templates\jeugdraad\navigation.html:8
 #: .\dbase\templates\jeugdraad\navigation.html:9
-#: .\dbase\templates\jeugdraad\navigation.html:10
 msgid "Open homepage"
 msgstr "Homepage openen"
 
-#: .\dbase\templates\jeugdraad\navigation.html:11
+#: .\dbase\templates\jeugdraad\navigation.html:10
 msgid "DBase"
 msgstr "DBase"
 
-#: .\dbase\templates\jeugdraad\navigation.html:14
+#: .\dbase\templates\jeugdraad\navigation.html:13
 msgid "Toggle navigation"
 msgstr "Wissel navigatie"
 
-#: .\dbase\templates\jeugdraad\navigation.html:20
+#: .\dbase\templates\jeugdraad\navigation.html:19
 msgid "Event"
 msgstr "Evenement"
 
-#: .\dbase\templates\jeugdraad\navigation.html:51
+#: .\dbase\templates\jeugdraad\navigation.html:50
 msgid "Logged in user"
 msgstr "Ingelogde gebruiker"
 
-#: .\dbase\templates\jeugdraad\navigation.html:62
+#: .\dbase\templates\jeugdraad\navigation.html:61
 msgid "Materiaalboer"
 msgstr "Materiaalboer"
 
-#: .\dbase\templates\jeugdraad\navigation.html:71
-#: .\dbase\templates\jeugdraad\navigation.html:74
+#: .\dbase\templates\jeugdraad\navigation.html:70
+#: .\dbase\templates\jeugdraad\navigation.html:73
 msgid "Logout"
 msgstr "Uitloggen"
 
-#: .\dbase\templates\jeugdraad\navigation.html:78
-#: .\dbase\templates\jeugdraad\navigation.html:81
+#: .\dbase\templates\jeugdraad\navigation.html:77
+#: .\dbase\templates\jeugdraad\navigation.html:80
 msgid "Admin"
 msgstr "Beheer"
 
-#: .\dbase\templates\jeugdraad\navigation.html:86
-#: .\dbase\templates\jeugdraad\navigation.html:89
+#: .\dbase\templates\jeugdraad\navigation.html:85
+#: .\dbase\templates\jeugdraad\navigation.html:88
 msgid "Camera"
 msgstr "Camera"
 
-#: .\dbase\templates\jeugdraad\navigation.html:94
-#: .\dbase\templates\jeugdraad\navigation.html:97
+#: .\dbase\templates\jeugdraad\navigation.html:93
+#: .\dbase\templates\jeugdraad\navigation.html:96
 msgid "Login"
 msgstr "Inloggen"
 
-#: .\dbase\templates\jeugdraad\navigation.html:101
-#: .\dbase\templates\jeugdraad\navigation.html:104
-#: .\dbase\templates\jeugdraad\navigation.html:108
-#: .\dbase\templates\jeugdraad\navigation.html:119
+#: .\dbase\templates\jeugdraad\navigation.html:100
+#: .\dbase\templates\jeugdraad\navigation.html:103
+#: .\dbase\templates\jeugdraad\navigation.html:107
+#: .\dbase\templates\jeugdraad\navigation.html:118
 msgid "Search"
 msgstr "Zoeken"
 
-#: .\dbase\templates\jeugdraad\navigation.html:108
-#: .\dbase\templates\jeugdraad\navigation.html:119
+#: .\dbase\templates\jeugdraad\navigation.html:107
+#: .\dbase\templates\jeugdraad\navigation.html:118
 msgid "Material not found..."
 msgstr "Materiaal niet gevonden..."
+
+#: .\venv-37\Lib\site-packages\ckeditor_uploader\forms.py:8
+msgid "Search files"
+msgstr "Zoek bestanden"
+
+#: .\venv-37\Lib\site-packages\ckeditor_uploader\templates\ckeditor\browse.html:5
+msgid "Select an image to embed"
+msgstr "Kies een afbeelding om in te sluiten"
+
+#: .\venv-37\Lib\site-packages\ckeditor_uploader\templates\ckeditor\browse.html:27
+msgid "Browse for the image you want, then click 'Embed Image' to continue..."
+msgstr ""
+"Blader naar de afbeelding die je wil, klik dan op 'Afbeelding insluiten' om "
+"verder te gaan..."
+
+#: .\venv-37\Lib\site-packages\ckeditor_uploader\templates\ckeditor\browse.html:29
+msgid ""
+"No images found. Upload images using the 'Image Button' dialog's 'Upload' "
+"tab."
+msgstr ""
+"Geen afbeeldingen gevonden. Upload afbeeldingen met de 'Upload' tab van het "
+"'Image Button' dialoogvenster."
+
+#: .\venv-37\Lib\site-packages\ckeditor_uploader\templates\ckeditor\browse.html:50
+msgid "Images in: "
+msgstr "Afbeeldingen in: "
+
+#: .\venv-37\Lib\site-packages\ckeditor_uploader\templates\ckeditor\browse.html:62
+#: .\venv-37\Lib\site-packages\ckeditor_uploader\templates\ckeditor\browse.html:80
+msgid "Embed Image"
+msgstr "Afbeelding insluiten"
+
+#: .\venv-37\Lib\site-packages\ckeditor_uploader\templates\ckeditor\browse.html:146
+msgid "Play Slideshow"
+msgstr "Diavoorstelling afspelen"
+
+#: .\venv-37\Lib\site-packages\ckeditor_uploader\templates\ckeditor\browse.html:147
+msgid "Pause Slideshow"
+msgstr "Diavoorstelling pauzeren"
+
+#: .\venv-37\Lib\site-packages\ckeditor_uploader\templates\ckeditor\browse.html:148
+msgid "&lsaquo; Previous Photo"
+msgstr "&lsaquo; Vorige Foto"
+
+#: .\venv-37\Lib\site-packages\ckeditor_uploader\templates\ckeditor\browse.html:149
+msgid "Next Photo &rsaquo;"
+msgstr "Volgende foto &rsaquo;"
+
+#: .\venv-37\Lib\site-packages\ckeditor_uploader\templates\ckeditor\browse.html:150
+msgid "Next &rsaquo;"
+msgstr "Volgende &rsaquo;"
+
+#: .\venv-37\Lib\site-packages\ckeditor_uploader\templates\ckeditor\browse.html:151
+msgid "&lsaquo; Prev"
+msgstr "&lsaquo; Vorige"
 
 #: .\venv-37\Lib\site-packages\crispy_forms\tests\test_form_helper.py:129
 #: .\venv-37\Lib\site-packages\crispy_forms\tests\test_form_helper.py:139
