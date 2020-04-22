@@ -91,7 +91,10 @@ export default class BookingContainer {
 
   onBookingCheckboxChanged() {
     const bookingStatuses = this._bookings.map(booking => booking.checkboxStatus);
-    if (bookingStatuses.every(status => status === 'indeterminate')) {
+    if (bookingStatuses.length === 0) { // If there are no bookings yet
+      this._$checkAllCheckbox.prop('indeterminate', false);
+      this._$checkAllCheckbox.prop('checked', false);
+    } else if (bookingStatuses.every(status => status === 'indeterminate')) {
       this._$checkAllCheckbox.prop('indeterminate', true);
     } else if (bookingStatuses.every(status => status === true)) {
       this._$checkAllCheckbox.prop('indeterminate', false);
