@@ -103,12 +103,26 @@ export default class List extends BookingContainer {
       const bookings_text = `${duplicates_set.length} ${gettext('bookings')}`;
       // Text for number of groups plus number of games
       const games_text = `${groups_text}${num_games} ${ngettext('game', 'games', num_games)}`;
+      // Text for stock
+      const stock = duplicates_set[0].stock;
+      const stock_placeholder = stock ? `${gettext('Stock')}: ${stock}` : '';
+      const stock_text = stock ? `<i class="fas fa-store-alt"></i> ${stock}` : '';
       const duplicate_bar = $('<tr>').addClass('booking booking-duplicate-handler d-flex flex-wrap')
         .append(
           $('<td>').addClass('booking-duplicate-dir col-auto pl-md-3 pl-sm-2 d-flex align-items-center')
             .html('<i class="far fa-folder fa-fw"></i><i class="far fa-folder-open fa-fw"></i>'),
           duplicates_set[0].elem.find('.booking-material').clone(),
-          $('<td>').addClass('d-flex align-items-center col-2 col-md-2').text(total_amounts),
+          stock ?
+            $('<td>').addClass('col-2')
+              .append(
+                $('<div>').addClass('text-truncate').attr({
+                  'title': total_amounts, 'data-toggle': 'tooltip', 'data-placement': 'left'
+                }).text(total_amounts),
+                $('<div>').addClass('small text-muted text-truncate').attr({
+                  'title': stock_placeholder, 'data-toggle': 'tooltip', 'data-placement': 'left'
+                }).html(stock_text),
+              ) :
+            $('<td>').addClass('d-flex align-items-center col-2').text(total_amounts),
           $('<td>').addClass('col-4 col-md')
             .append(
               $('<div>').addClass('text-truncate').attr({

@@ -43,6 +43,10 @@ export default class Booking {
     return this._$elem.data('amount');
   }
 
+  get stock() {
+    return this._$elem.data('stock');
+  }
+
   get checkboxStatus() {
     if (this._$checkbox.prop('indeterminate')) {
       return 'indeterminate';
