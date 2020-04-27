@@ -6,7 +6,15 @@ from django.utils.translation import gettext_lazy as _
 from django.views.generic import TemplateView, View
 
 from booking.forms import CategoryForm, GameForm
-from booking.models import Category, Event, Game, PartOfDay, Booking, ListViewFilter
+from booking.models import (
+    Category,
+    Event,
+    Game,
+    PartOfDay,
+    Booking,
+    ListViewFilter,
+    Material,
+)
 from users.models import Group
 
 
@@ -16,6 +24,7 @@ def get_base_context(request):
         "groups": Group.objects.filter(type=Group.GROUP),
         "commissions": Group.objects.filter(type=Group.COMMISSION),
         "parts_of_day": PartOfDay.PART_OF_DAY_CHOICES,
+        "typeahead_thumbprint": Material.last_modification().isoformat(),
     }
 
 

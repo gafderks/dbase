@@ -4,17 +4,23 @@ import Bloodhound from 'corejs-typeahead/dist/bloodhound.js';
 import 'corejs-typeahead/dist/typeahead.jquery.js';
 
 
-/*global materialsUrl, materialAliasesUrl */
+/*global materialsUrl, materialAliasesUrl, materialsThumbprint */
 export const materialEngine = new Bloodhound({
   datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
   queryTokenizer: Bloodhound.tokenizers.whitespace,
-  prefetch: materialsUrl,
+  prefetch: {
+    url: materialsUrl,
+    thumbprint: materialsThumbprint,
+  },
 });
 
 export const materialaliasEngine = new Bloodhound({
   datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
   queryTokenizer: Bloodhound.tokenizers.whitespace,
-  prefetch: materialAliasesUrl,
+  prefetch: {
+    url: materialAliasesUrl,
+    thumbprint: materialsThumbprint,
+  },
 });
 
 export default class Autocomplete {

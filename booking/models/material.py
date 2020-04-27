@@ -54,10 +54,12 @@ class Material(models.Model):
         blank=True,
         help_text=_("Specify a unit for the stock. E.g. meters."),
     )
+    last_modified = models.DateTimeField(auto_now=True, editable=False)
 
     class Meta:
         verbose_name = _("material")
         verbose_name_plural = _("materials")
+        get_latest_by = "last_modified"
 
     def __str__(self):
         return self.name
@@ -73,3 +75,7 @@ class Material(models.Model):
         )
 
     stock.fget.short_description = _("stock")
+
+    @staticmethod
+    def last_modification():
+        return Material.objects.latest().last_modified
