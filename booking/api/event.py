@@ -113,6 +113,10 @@ class EventExcelView(EventListView):
 
                             last_cell = cell
 
+        if last_cell.row == 1:
+            # Add empty row for valid table
+            last_cell = worksheet.cell(row=2, column=last_cell.column)
+
         tab = Table(displayName="Table1", ref="A1:{}".format(last_cell.coordinate))
 
         # Add a default style with striped rows and banded columns
