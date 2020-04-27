@@ -36,13 +36,14 @@ class EventExcelView(EventListView):
         worksheet.title = _("Bookings")
 
         columns = [
-            (_("Day"), 10),
+            (_("Day"), 12),
             (_("Daypart"), 10),
             (_("Amount"), 8),
             (_("Material"), 30),
             (_("Material category"), 25),
             (_("GM"), 10),
             (_("Game"), 30),
+            (_("Game location"), 25),
             (_("Group"), 12),
             (_("Workweek"), 10),
             (_("List"), 25),
@@ -87,10 +88,11 @@ class EventExcelView(EventListView):
                                 booking.material.gm if booking.material else False
                             ),  # 6
                             booking.game.name,  # 7
-                            booking.game.group.name,  # 8
-                            int(booking.workweek),  # 9
-                            str(filter.name),  # 10
-                            booking.comment,  # 11
+                            booking.game.location,  # 8
+                            booking.game.group.name,  # 9
+                            int(booking.workweek),  # 10
+                            str(filter.name),  # 11
+                            booking.comment,  # 12
                         ]
 
                         # Assign the data for each cell of the row
@@ -103,7 +105,7 @@ class EventExcelView(EventListView):
                                 cell.alignment = left_alignment
                             if col_num == 3:
                                 cell.alignment = right_alignment
-                            if col_num == 6 or col_num == 9:
+                            if col_num == 6 or col_num == 10:
                                 cell.number_format = '"{}";;"{}";'.format(
                                     _("Yes"), _("No")
                                 )

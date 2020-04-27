@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-21 22:39+0200\n"
-"PO-Revision-Date: 2020-04-21 22:41+0200\n"
+"POT-Creation-Date: 2020-04-27 19:07+0200\n"
+"PO-Revision-Date: 2020-04-27 19:09+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: nl\n"
@@ -88,32 +88,36 @@ msgstr "GM"
 msgid "Game"
 msgstr "Spel"
 
-#: .\booking\api\event.py:46 .\booking\templates\booking\event\event.html:102
+#: .\booking\api\event.py:46
+msgid "Game location"
+msgstr "Spellocatie"
+
+#: .\booking\api\event.py:47 .\booking\templates\booking\event\event.html:102
 msgid "Group"
 msgstr "Groep"
 
-#: .\booking\api\event.py:47 .\booking\forms.py:200 .\booking\forms.py:285
+#: .\booking\api\event.py:48 .\booking\forms.py:200 .\booking\forms.py:285
 #: .\booking\templates\booking\partials\game-card.html:50
 #: .\booking\templates\booking\partials\list-view-card.html:23
 msgid "Workweek"
 msgstr "Werkweek"
 
-#: .\booking\api\event.py:48
+#: .\booking\api\event.py:49
 msgid "List"
 msgstr "Lijst"
 
-#: .\booking\api\event.py:49 .\booking\forms.py:200
+#: .\booking\api\event.py:50 .\booking\forms.py:200
 #: .\booking\templates\booking\partials\booking-item.html:82
 #: .\booking\templates\booking\partials\game-card.html:51
 #: .\booking\templates\booking\partials\list-view-card.html:24
 msgid "Comment"
 msgstr "Opmerking"
 
-#: .\booking\api\event.py:108
+#: .\booking\api\event.py:110
 msgid "Yes"
 msgstr "Ja"
 
-#: .\booking\api\event.py:108 .\booking\forms.py:285
+#: .\booking\api\event.py:110 .\booking\forms.py:285
 msgid "No"
 msgstr "Nee"
 
@@ -212,7 +216,7 @@ msgstr "aanvrager"
 msgid "game"
 msgstr "spel"
 
-#: .\booking\models\booking.py:22 .\booking\models\material.py:59
+#: .\booking\models\booking.py:22 .\booking\models\material.py:60
 #: .\booking\models\material_alias.py:20
 #: .\booking\models\material_attachment.py:16
 #: .\booking\models\material_image.py:15
@@ -494,11 +498,11 @@ msgstr "voorraadeenheid"
 msgid "Specify a unit for the stock. E.g. meters."
 msgstr "Specificeer de eenheid voor de voorraad. Bijv. meter."
 
-#: .\booking\models\material.py:60
+#: .\booking\models\material.py:61
 msgid "materials"
 msgstr "materialen"
 
-#: .\booking\models\material.py:75
+#: .\booking\models\material.py:77
 msgid "stock"
 msgstr "voorraad"
 
@@ -649,21 +653,21 @@ msgid "Display options"
 msgstr "Weergaveopties"
 
 #: .\booking\templates\booking\event\event.html:110
-#: .\booking\templates\booking\event\game-view.html:57
+#: .\booking\templates\booking\event\game-view.html:59
 #: .\booking\templates\booking\event\list-view.html:61
 msgid "All"
 msgstr "Alle"
 
-#: .\booking\templates\booking\event\game-view.html:27
+#: .\booking\templates\booking\event\game-view.html:28
 #: .\booking\templates\booking\partials\day-nav.html:27
 msgid "Add new game"
 msgstr "Nieuw spel toevoegen"
 
-#: .\booking\templates\booking\event\game-view.html:41
+#: .\booking\templates\booking\event\game-view.html:43
 msgid "Open list view"
 msgstr "Open lijstweergave"
 
-#: .\booking\templates\booking\event\game-view.html:43
+#: .\booking\templates\booking\event\game-view.html:45
 msgid "List view"
 msgstr "Lijstweergave"
 
@@ -762,11 +766,11 @@ msgstr "Stel status in voor alle aanvragen"
 msgid "Add material booking"
 msgstr "Materiaalaanvraag toevoegen"
 
-#: .\booking\views.py:35
+#: .\booking\views.py:44
 msgid "There are no open events."
 msgstr "Er zijn geen open evenementen."
 
-#: .\booking\views.py:100
+#: .\booking\views.py:109
 msgid ""
 "You are not assigned to a group. Please contact a board member to resolve "
 "this issue."
