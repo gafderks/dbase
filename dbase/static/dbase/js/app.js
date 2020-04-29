@@ -7,3 +7,5 @@ import '@fortawesome/fontawesome-free/js/fontawesome';
 
 import './ajax_csrf';
 import './autocomplete';
+
+window.$ = $;

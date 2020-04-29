@@ -23,6 +23,7 @@ import pixrem from 'pixrem';
 // other
 import imagemin from 'gulp-imagemin';
 import del from 'del';
+import browserSync from 'browser-sync';
 
 import booking from './booking/static/booking/config.gulp';
 import dbase from './dbase/static/dbase/config.gulp';
@@ -31,6 +32,23 @@ import camera from './camera/static/camera/config.gulp';
 const configs = [booking, dbase, camera];
 
 const aliases = configs.filter(config => config.alias).map(config => config.alias);
+
+const server = browserSync.create();
+
+function serve(done) {
+  server.init({
+    notify: false,
+    proxy: '127.0.0.1:8000',
+    reloadDelay: 300,
+    reloadDebounce: 500,
+  });
+  done();
+}
+
+function reload(done) {
+  server.reload();
+  done();
+}
 
 function scripts() {
   const tasks = configs.filter(config => config.scripts).map(config => config.scripts).map(config => {
@@ -87,7 +105,8 @@ function styles() {
       .pipe(postcss(processors))
       .pipe(rename({suffix: '.min'}))
       .pipe(sourcemaps.write('.'))
-      .pipe(gulp.dest(config.dest));
+      .pipe(gulp.dest(config.dest))
+      .pipe(server.stream());
   });
 
   return merge(tasks);
@@ -103,8 +122,28 @@ function images() {
   return merge(tasks);
 }
 
+function watch() {
+  // Scripts
+  gulp.watch(
+    ['**/static/**/*.js'],
+    gulp.series(scripts, reload)
+  );
+  // Styles
+  gulp.watch(
+    ['**/static/**/*.css', '**/static/**/*.scss'],
+    styles
+  );
+  // Pages
+  gulp.watch(
+    ['**/*.html'],
+    reload
+  );
+}
+
 const clean = () => del(['build']);
 const build = gulp.parallel(scripts, styles, images);
 
-export {scripts, styles, images, clean, build};
+const dev = gulp.series(serve, watch);
+
+export {scripts, styles, images, clean, build, dev};
 export default build;
