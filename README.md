@@ -63,7 +63,7 @@ Roadmap
     - [X] Check-all / uncheck all button
 - [ ] User role for 'Bestuur' that can change users but not roles.
 - [ ] Mijn Dongense Jeugdraad integration
-- [ ] Details for parts of days, e.g. location, times.
+- [ ] Details for parts of days, e.g. ~location~, times.
 - [ ] Improve printing
 - [ ] Prune default permissions that are not checked against, also update management import roles: https://docs.djangoproject.com/en/3.0/ref/models/options/#django.db.models.Options.default_permissions
 
