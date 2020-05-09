@@ -47,7 +47,7 @@
         </ul>
         <ul class="navbar-nav">
             {% if user.is_authenticated %}
-              <li class="nav-item" data-toggle="tooltip" data-html="true" data-placement="left" title="{% trans "Logged in user" %}:<br/>{% if user.first_name %}{{ user.first_name }}{% else %}{{ user.email }}{% endif %}">
+              <li class="nav-item align-items-center d-flex" data-toggle="tooltip" data-html="true" data-placement="left" title="{% trans "Logged in user" %}:<br/>{% if user.first_name %}{{ user.first_name }}{% else %}{{ user.email }}{% endif %}">
                 <a class="nav-link d-flex d-sm-inline-block d-lg-flex align-items-center" href="#">
                   <i class="fas fa-user-circle fa-fw mr-2 mr-sm-0 mr-lg-2"></i>
                   <div class="d-inline-block d-sm-none d-lg-inline-block" style="margin:-0.6rem 0;">
