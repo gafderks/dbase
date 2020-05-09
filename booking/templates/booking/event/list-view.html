@@ -31,10 +31,12 @@
 
 {% block display_options %}
   {{ block.super }}
-{#  <button type="button" data-toggle="tooltip" data-placement="top" class="btn btn-outline-secondary" title="{% trans "Filter bookings" %}">#}
-{#    <i class="fas fa-filter"></i>#}
-{#    <span class="pl-1 d-none d-lg-inline">{% trans "Filter" %}</span>#}
-{#  </button>#}
+  <button type="button" data-toggle="collapse" data-target="#collapseFilters" aria-expanded="false" aria-controls="collapseFilters" class="btn {% if filter.is_active %}btn-primary{% else %}btn-outline-secondary{% endif %}">
+    <span class="py-2 my-n2" data-toggle="tooltip" data-placement="top" title="{% trans "Filter bookings" %}{% if filter.is_active %} ({% trans "active" %}){% endif %}">
+      <i class="fas fa-filter"></i>
+      <span class="pl-1 d-none d-lg-inline">{% trans "Filter" %}</span>
+    </span>
+  </button>
   {% if current_group %}
   <a href="{% url 'booking:event_games_group' current_event.slug current_group.slug %}" data-toggle="tooltip" data-placement="top" class="btn btn-outline-secondary" title="{% trans "Open game view" %}">
     <i class="fas fa-dice-five"></i>
@@ -59,5 +61,21 @@
       {% endfor %}
     <div class="dropdown-divider"></div>
     <a class="dropdown-item {% if not current_group %}active{% endif %}" href="{% url "booking:event_list_group" current_event.slug "all" %}">{% trans "All" %}</a>
+  </div>
+{% endblock %}
+
+{% block extended_controls %}
+  <div class="card collapse mb-2 {% if filter.is_active %}show{% endif %}" id="collapseFilters">
+    <div class="card-header d-flex justify-content-between align-items-center">
+      {% trans "Configure filters" %}
+      <button type="button" class="btn btn-sm btn-light" data-toggle="collapse" data-target="#collapseFilters" aria-expanded="true" aria-controls="collapseFilters">
+        <i class="fas fa-chevron-up"></i>
+      </button>
+    </div>
+    <div class="card-body p-3">
+      <form method="get">
+        {% crispy filter.form filter.helper %}
+      </form>
+    </div>
   </div>
 {% endblock %}

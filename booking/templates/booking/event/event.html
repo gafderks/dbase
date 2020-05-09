@@ -1,6 +1,5 @@
 {% extends "jeugdraad/base.html" %}
 {% load i18n %}
-{% load crispy_forms_tags %}
 {% load event %}
 {% load dictionary %}
 {% load static %}
@@ -119,6 +118,8 @@
 
     </div>
   </div>
+
+  {% block extended_controls %}{% endblock %}
 
   <div id="booking" class="card position-relative booking-card" data-group="{{ current_group.id }}" data-user="{{ user.id }}" data-event="{{ current_event.id }}">
     <nav class="card-header sticky-top frosted d-print-none" id="scroll_pills">

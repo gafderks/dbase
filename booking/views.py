@@ -5,6 +5,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import TemplateView, View
 
+from booking.filters import BookingFilter
 from booking.forms import CategoryForm, GameForm
 from booking.models import (
     Category,
@@ -83,7 +84,6 @@ def edit_category(request, category_id=None):
 
 
 class EventView(LoginRequiredMixin, TemplateView):
-
     template_name = "booking/event/event.html"
 
     def get_requested_group(self, group_slug):
@@ -137,7 +137,6 @@ class EventView(LoginRequiredMixin, TemplateView):
 
 
 class EventGameView(EventView):
-
     template_name = "booking/event/game-view.html"
 
     def dispatch(self, request, *args, **kwargs):
@@ -191,31 +190,34 @@ class EventGameView(EventView):
 
 
 class EventListView(EventView):
-
     template_name = "booking/event/list-view.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
         current_event = context["current_event"]
+        f = BookingFilter(
+            self.request.GET,
+            request=self.request,
+            queryset=Booking.objects.prefetch_related(
+                "material", "material__categories", "game", "game__group"
+            ).filter(
+                game__event=current_event,
+                **self.get_group_filter(context["current_group"], "game__")
+            ),
+        )
 
+        # TODO change order: ListViewFilters once, then filter part_of_day and day.
         list_views = {
             day: {
                 part_of_day: ListViewFilter.get_all_filters(
-                    Booking.objects.filter(
-                        game__event=current_event,
-                        game__day=day,
-                        game__part_of_day=part_of_day,
-                        **self.get_group_filter(context["current_group"], "game__")
-                    )
+                    f.qs.filter(game__day=day, game__part_of_day=part_of_day,)
                 )
                 for part_of_day, _ in PartOfDay.PART_OF_DAY_CHOICES
             }
             for day in current_event.days
         }
 
-        context.update(
-            {"list_views": list_views,}
-        )
+        context.update({"list_views": list_views, "filter": f})
 
         return context

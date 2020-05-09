@@ -10,3 +10,4 @@ sorl-thumbnail==12.6.3
 python-memcached==1.59
 django-gulp==4.1.0
 django-ckeditor==5.9.0
+django-filter==2.2.0

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-27 19:07+0200\n"
-"PO-Revision-Date: 2020-04-27 19:09+0200\n"
+"POT-Creation-Date: 2020-05-09 21:07+0200\n"
+"PO-Revision-Date: 2020-05-09 21:08+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: nl\n"
@@ -26,7 +26,7 @@ msgstr "Aantal materialen"
 msgid "Image"
 msgstr "Afbeelding"
 
-#: .\booking\admin.py:94 .\booking\templates\booking\event\event.html:44
+#: .\booking\admin.py:94 .\booking\templates\booking\event\event.html:43
 msgid "Booking status"
 msgstr "Reserveringsstatus"
 
@@ -38,7 +38,7 @@ msgstr "Inbegrepen categorieën"
 msgid "Excluded categories"
 msgstr "Uitgesloten categorieën"
 
-#: .\booking\api\event.py:24 .\booking\templates\booking\event\event.html:90
+#: .\booking\api\event.py:24 .\booking\templates\booking\event\event.html:89
 msgid "Material bookings"
 msgstr "Materiaalaanvragen"
 
@@ -62,13 +62,13 @@ msgstr "Dag"
 msgid "Daypart"
 msgstr "Dagdeel"
 
-#: .\booking\api\event.py:41 .\booking\forms.py:200
+#: .\booking\api\event.py:41 .\booking\forms.py:201
 #: .\booking\templates\booking\partials\game-card.html:49
 #: .\booking\templates\booking\partials\list-view-card.html:21
 msgid "Amount"
 msgstr "Aantal"
 
-#: .\booking\api\event.py:42 .\booking\forms.py:285
+#: .\booking\api\event.py:42 .\booking\forms.py:288
 #: .\booking\templates\booking\partials\game-card.html:48
 #: .\booking\templates\booking\partials\list-view-card.html:20
 msgid "Material"
@@ -78,8 +78,8 @@ msgstr "Materiaal"
 msgid "Material category"
 msgstr "Categorie van materiaal"
 
-#: .\booking\api\event.py:44 .\booking\models\list_view_filter.py:24
-#: .\booking\models\material.py:20
+#: .\booking\api\event.py:44 .\booking\filters.py:85
+#: .\booking\models\list_view_filter.py:24 .\booking\models\material.py:20
 msgid "GM"
 msgstr "GM"
 
@@ -92,11 +92,12 @@ msgstr "Spel"
 msgid "Game location"
 msgstr "Spellocatie"
 
-#: .\booking\api\event.py:47 .\booking\templates\booking\event\event.html:102
+#: .\booking\api\event.py:47 .\booking\templates\booking\event\event.html:101
 msgid "Group"
 msgstr "Groep"
 
-#: .\booking\api\event.py:48 .\booking\forms.py:200 .\booking\forms.py:285
+#: .\booking\api\event.py:48 .\booking\filters.py:95 .\booking\forms.py:201
+#: .\booking\forms.py:288
 #: .\booking\templates\booking\partials\game-card.html:50
 #: .\booking\templates\booking\partials\list-view-card.html:23
 msgid "Workweek"
@@ -106,24 +107,74 @@ msgstr "Werkweek"
 msgid "List"
 msgstr "Lijst"
 
-#: .\booking\api\event.py:50 .\booking\forms.py:200
+#: .\booking\api\event.py:50 .\booking\forms.py:201
 #: .\booking\templates\booking\partials\booking-item.html:82
 #: .\booking\templates\booking\partials\game-card.html:51
 #: .\booking\templates\booking\partials\list-view-card.html:24
 msgid "Comment"
 msgstr "Opmerking"
 
-#: .\booking\api\event.py:110
+#: .\booking\api\event.py:110 .\booking\filters.py:58
 msgid "Yes"
 msgstr "Ja"
 
-#: .\booking\api\event.py:110 .\booking\forms.py:285
+#: .\booking\api\event.py:110 .\booking\filters.py:58 .\booking\forms.py:288
 msgid "No"
 msgstr "Nee"
 
 #: .\booking\apps.py:7 .\booking\models\booking.py:41
 msgid "booking"
 msgstr "reservering"
+
+#: .\booking\filters.py:58
+msgid "Any"
+msgstr "Alle"
+
+#: .\booking\filters.py:68 .\booking\templates\booking\category-editor.html:13
+msgid "Category"
+msgstr "Categorie"
+
+#: .\booking\filters.py:70 .\booking\filters.py:78 .\booking\filters.py:88
+#: .\booking\filters.py:98
+msgid "----------"
+msgstr "----------"
+
+#: .\booking\filters.py:74 .\booking\models\booking.py:87
+#: .\booking\templates\booking\partials\booking-item.html:36
+msgid "Custom material"
+msgstr "Aangepast materiaal"
+
+#: .\booking\filters.py:79
+msgid "Only custom materials"
+msgstr "Alleen aangepaste materialen"
+
+#: .\booking\filters.py:80
+msgid "No custom materials"
+msgstr "Geen aangepaste materialen"
+
+#: .\booking\filters.py:89
+msgid "GM needed"
+msgstr "GM benodigd"
+
+#: .\booking\filters.py:90
+msgid "GM not needed"
+msgstr "GM niet nodig"
+
+#: .\booking\filters.py:99
+msgid "Needed in workweek"
+msgstr "Nodig in werkweek"
+
+#: .\booking\filters.py:100
+msgid "Not needed in workweek"
+msgstr "Niet nodig in werkweek"
+
+#: .\booking\filters.py:166
+msgid "Apply filters"
+msgstr "Filters toepassen"
+
+#: .\booking\filters.py:169
+msgid "Clear"
+msgstr "Wissen"
 
 #: .\booking\forms.py:24
 msgid "There exists already a material alias with the given name."
@@ -166,45 +217,45 @@ msgstr "Locatie"
 msgid "Part of day"
 msgstr "Dagdeel"
 
-#: .\booking\forms.py:143 .\booking\forms.py:268
+#: .\booking\forms.py:144 .\booking\forms.py:271
 msgid "Update"
 msgstr "Bijwerken"
 
-#: .\booking\forms.py:143 .\booking\forms.py:268
+#: .\booking\forms.py:144 .\booking\forms.py:271
 msgid "Add"
 msgstr "Toevoegen"
 
-#: .\booking\forms.py:150 .\booking\forms.py:275
+#: .\booking\forms.py:151 .\booking\forms.py:278
 #: .\booking\templates\booking\partials\delete-booking-modal.html:15
 #: .\booking\templates\booking\partials\delete-game-modal.html:15
 msgid "Cancel"
 msgstr "Annuleren"
 
-#: .\booking\forms.py:174
+#: .\booking\forms.py:175
 msgid "Day of game cannot be earlier than event start."
 msgstr ""
 "De einddatum van een spel kan niet eerder zijn dan de begindatum van het "
 "evenement."
 
-#: .\booking\forms.py:179
+#: .\booking\forms.py:180
 msgid "Day of game cannot be later than event end."
 msgstr ""
 "De einddatum van een spel kan niet eerder zijn dan de begindatum van het "
 "evenement."
 
-#: .\booking\forms.py:285 .\booking\forms.py:286
+#: .\booking\forms.py:288 .\booking\forms.py:289
 msgid "Choose a material"
 msgstr "Kies een materiaal"
 
-#: .\booking\forms.py:287
+#: .\booking\forms.py:290
 msgid "Material not found..."
 msgstr "Materiaal niet gevonden..."
 
-#: .\booking\forms.py:287
+#: .\booking\forms.py:290
 msgid "Click to request \"<em>{}</em>\" anyway."
 msgstr "Klik om \"<em>{}</em>\" toch aan te vragen."
 
-#: .\booking\forms.py:301
+#: .\booking\forms.py:304
 msgid "You must either choose a material or fill in a custom material."
 msgstr "Je moet een materiaal kiezen of een aangepast materiaal kiezen."
 
@@ -250,11 +301,6 @@ msgstr "aanvragen"
 #: .\booking\models\booking.py:55
 msgid "Unspecified material"
 msgstr "Ongespecificeerd materiaal"
-
-#: .\booking\models\booking.py:87
-#: .\booking\templates\booking\partials\booking-item.html:36
-msgid "Custom material"
-msgstr "Aangepast materiaal"
 
 #: .\booking\models\category.py:6 .\booking\models\event.py:17
 #: .\booking\models\list_view_filter.py:9 .\booking\models\location.py:6
@@ -445,7 +491,7 @@ msgstr "lijstweergavefilter"
 msgid "list view filters"
 msgstr "lijstweergavefilters"
 
-#: .\booking\models\list_view_filter.py:103
+#: .\booking\models\list_view_filter.py:126
 msgid "Common materials"
 msgstr "Algemene materialen"
 
@@ -590,10 +636,6 @@ msgstr "tariefklassen"
 msgid "Add new category"
 msgstr "Nieuwe categorie toevoegen"
 
-#: .\booking\templates\booking\category-editor.html:13
-msgid "Category"
-msgstr "Categorie"
-
 #: .\booking\templates\booking\category-editor.html:14
 msgid "Description"
 msgstr "Omschrijving"
@@ -602,59 +644,59 @@ msgstr "Omschrijving"
 msgid "(current)"
 msgstr "(huidige)"
 
-#: .\booking\templates\booking\event\event.html:11
+#: .\booking\templates\booking\event\event.html:10
 #, python-format
 msgid "Bookings for %(group)s"
 msgstr "Aanvragen voor %(group)s"
 
-#: .\booking\templates\booking\event\event.html:13
+#: .\booking\templates\booking\event\event.html:12
 msgid "All bookings"
 msgstr "Alle aanvragen"
 
-#: .\booking\templates\booking\event\event.html:48
+#: .\booking\templates\booking\event\event.html:47
 msgid "You may edit"
 msgstr "Je mag bewerken"
 
-#: .\booking\templates\booking\event\event.html:50
+#: .\booking\templates\booking\event\event.html:49
 msgid "You cannot edit"
 msgstr "Je kan niet bewerken"
 
+#: .\booking\templates\booking\event\event.html:58
 #: .\booking\templates\booking\event\event.html:59
-#: .\booking\templates\booking\event\event.html:60
 msgid "Event period"
 msgstr "Evenementsperiode"
 
-#: .\booking\templates\booking\event\event.html:66
+#: .\booking\templates\booking\event\event.html:65
 msgid "Start booking period"
 msgstr "Startdatum reserveringsperiode"
 
-#: .\booking\templates\booking\event\event.html:73
+#: .\booking\templates\booking\event\event.html:72
 msgid "Booking deadline"
 msgstr "Reserveringsdeadline"
 
-#: .\booking\templates\booking\event\event.html:79
+#: .\booking\templates\booking\event\event.html:78
 msgid "Privileged booking deadline"
 msgstr "MB Reserveringsdeadline"
 
-#: .\booking\templates\booking\event\event.html:94
+#: .\booking\templates\booking\event\event.html:93
 msgid "Export options"
 msgstr "Exporteer opties"
 
-#: .\booking\templates\booking\event\event.html:95
+#: .\booking\templates\booking\event\event.html:94
 msgid "Print"
 msgstr "Printen"
 
-#: .\booking\templates\booking\event\event.html:96
+#: .\booking\templates\booking\event\event.html:95
 msgid "Export to Excel"
 msgstr "Exporteren naar Excel"
 
-#: .\booking\templates\booking\event\event.html:98
+#: .\booking\templates\booking\event\event.html:97
 msgid "Display options"
 msgstr "Weergaveopties"
 
-#: .\booking\templates\booking\event\event.html:110
+#: .\booking\templates\booking\event\event.html:109
 #: .\booking\templates\booking\event\game-view.html:59
-#: .\booking\templates\booking\event\list-view.html:61
+#: .\booking\templates\booking\event\list-view.html:63
 msgid "All"
 msgstr "Alle"
 
@@ -671,18 +713,34 @@ msgstr "Open lijstweergave"
 msgid "List view"
 msgstr "Lijstweergave"
 
-#: .\booking\templates\booking\event\list-view.html:39
+#: .\booking\templates\booking\event\list-view.html:35
+msgid "Filter bookings"
+msgstr "Filter aanvragen"
+
+#: .\booking\templates\booking\event\list-view.html:35
+msgid "active"
+msgstr "actief"
+
+#: .\booking\templates\booking\event\list-view.html:37
+msgid "Filter"
+msgstr "Filter"
+
+#: .\booking\templates\booking\event\list-view.html:41
 msgid "Open game view"
 msgstr "Open spelweergave"
 
-#: .\booking\templates\booking\event\list-view.html:41
-#: .\booking\templates\booking\event\list-view.html:46
+#: .\booking\templates\booking\event\list-view.html:43
+#: .\booking\templates\booking\event\list-view.html:48
 msgid "Game view"
 msgstr "Spelweergave"
 
-#: .\booking\templates\booking\event\list-view.html:44
+#: .\booking\templates\booking\event\list-view.html:46
 msgid "Game view is not available if you select all groups."
 msgstr "Spelweergave is niet beschikbaar als je alle groepen selecteert."
+
+#: .\booking\templates\booking\event\list-view.html:70
+msgid "Configure filters"
+msgstr "Filters instellen"
 
 #: .\booking\templates\booking\partials\booking-item.html:34
 msgid "This booking needs review"
@@ -766,7 +824,7 @@ msgstr "Stel status in voor alle aanvragen"
 msgid "Add material booking"
 msgstr "Materiaalaanvraag toevoegen"
 
-#: .\booking\views.py:44
+#: .\booking\views.py:45
 msgid "There are no open events."
 msgstr "Er zijn geen open evenementen."
 
@@ -778,11 +836,8 @@ msgstr ""
 "Je bent niet toegewezen aan een groep. Neem contact op met een bestuurslid "
 "om dit probleem op te lossen."
 
-#~ msgid "Filter bookings"
-#~ msgstr "Filter aanvragen"
-
-#~ msgid "Filter"
-#~ msgstr "Filter"
+#~ msgid "Filters"
+#~ msgstr "Filters"
 
 #, fuzzy
 #~| msgid "All"
