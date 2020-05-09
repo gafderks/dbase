@@ -15,5 +15,11 @@ export default {
   images: {
     src: './dbase/static/dbase/img/**/*',
     dest: './build/dbase/img/'
-  }
+  },
+  staticFiles: [
+    {
+      src: './node_modules/ckeditor-youtube-plugin/youtube/**/*',
+      dest: './build/ckeditor/ckeditor/plugins/youtube'
+    },
+  ],
 };

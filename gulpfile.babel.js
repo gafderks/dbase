@@ -122,6 +122,18 @@ function images() {
   return merge(tasks);
 }
 
+function staticFiles() {
+  let tasks = [];
+  configs.filter(config => config.staticFiles).map(config => config.staticFiles).map(config => {
+    config.map(files => {
+      tasks.push(gulp.src(files.src)
+        .pipe(gulp.dest(files.dest)));
+    });
+  });
+
+  return merge(tasks);
+}
+
 function watch() {
   // Scripts
   gulp.watch(
@@ -141,9 +153,9 @@ function watch() {
 }
 
 const clean = () => del(['build']);
-const build = gulp.parallel(scripts, styles, images);
+const build = gulp.parallel(scripts, styles, images, staticFiles);
 
 const dev = gulp.series(serve, watch);
 
-export {scripts, styles, images, clean, build, dev};
+export {scripts, styles, images, staticFiles, clean, build, dev};
 export default build;

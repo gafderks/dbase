@@ -167,10 +167,13 @@ CKEDITOR_CONFIGS = {
         "toolbar": "basic_ckeditor",
         "toolbar_basic_ckeditor": [
             ["Bold", "Italic", "Underline", "-", "RemoveFormat",],
-            ["NumberedList", "BulletedList", "-", "Image", "HorizontalRule"],
+            ["NumberedList", "BulletedList", "-", "Image", "Youtube", "HorizontalRule"],
             ["Link", "Unlink"],
             ["Undo", "Redo"],
             ["Source"],
         ],
+        "extraPlugins": ["youtube"],
+        "removePlugins": ["iframe"],
+        "allowedContent": True,
     }
 }
