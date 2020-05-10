@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-09 21:07+0200\n"
-"PO-Revision-Date: 2020-05-09 21:08+0200\n"
+"POT-Creation-Date: 2020-05-10 20:53+0200\n"
+"PO-Revision-Date: 2020-05-10 20:56+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: nl\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.3\n"
+"X-Generator: Poedit 2.3.1\n"
 
 #: .\booking\admin.py:39 .\booking\admin.py:123
 msgid "Number of materials"
@@ -78,7 +78,7 @@ msgstr "Materiaal"
 msgid "Material category"
 msgstr "Categorie van materiaal"
 
-#: .\booking\api\event.py:44 .\booking\filters.py:85
+#: .\booking\api\event.py:44 .\booking\filters.py:89
 #: .\booking\models\list_view_filter.py:24 .\booking\models\material.py:20
 msgid "GM"
 msgstr "GM"
@@ -96,7 +96,7 @@ msgstr "Spellocatie"
 msgid "Group"
 msgstr "Groep"
 
-#: .\booking\api\event.py:48 .\booking\filters.py:95 .\booking\forms.py:201
+#: .\booking\api\event.py:48 .\booking\filters.py:99 .\booking\forms.py:201
 #: .\booking\forms.py:288
 #: .\booking\templates\booking\partials\game-card.html:50
 #: .\booking\templates\booking\partials\list-view-card.html:23
@@ -114,11 +114,11 @@ msgstr "Lijst"
 msgid "Comment"
 msgstr "Opmerking"
 
-#: .\booking\api\event.py:110 .\booking\filters.py:58
+#: .\booking\api\event.py:110 .\booking\filters.py:63
 msgid "Yes"
 msgstr "Ja"
 
-#: .\booking\api\event.py:110 .\booking\filters.py:58 .\booking\forms.py:288
+#: .\booking\api\event.py:110 .\booking\filters.py:63 .\booking\forms.py:288
 msgid "No"
 msgstr "Nee"
 
@@ -126,53 +126,53 @@ msgstr "Nee"
 msgid "booking"
 msgstr "reservering"
 
-#: .\booking\filters.py:58
+#: .\booking\filters.py:63
 msgid "Any"
 msgstr "Alle"
 
-#: .\booking\filters.py:68 .\booking\templates\booking\category-editor.html:13
+#: .\booking\filters.py:73 .\booking\templates\booking\category-editor.html:13
 msgid "Category"
 msgstr "Categorie"
 
-#: .\booking\filters.py:70 .\booking\filters.py:78 .\booking\filters.py:88
-#: .\booking\filters.py:98
+#: .\booking\filters.py:74 .\booking\filters.py:82 .\booking\filters.py:92
+#: .\booking\filters.py:102
 msgid "----------"
 msgstr "----------"
 
-#: .\booking\filters.py:74 .\booking\models\booking.py:87
+#: .\booking\filters.py:78 .\booking\models\booking.py:87
 #: .\booking\templates\booking\partials\booking-item.html:36
 msgid "Custom material"
 msgstr "Aangepast materiaal"
 
-#: .\booking\filters.py:79
+#: .\booking\filters.py:83
 msgid "Only custom materials"
 msgstr "Alleen aangepaste materialen"
 
-#: .\booking\filters.py:80
+#: .\booking\filters.py:84
 msgid "No custom materials"
 msgstr "Geen aangepaste materialen"
 
-#: .\booking\filters.py:89
+#: .\booking\filters.py:93
 msgid "GM needed"
 msgstr "GM benodigd"
 
-#: .\booking\filters.py:90
+#: .\booking\filters.py:94
 msgid "GM not needed"
 msgstr "GM niet nodig"
 
-#: .\booking\filters.py:99
+#: .\booking\filters.py:103
 msgid "Needed in workweek"
 msgstr "Nodig in werkweek"
 
-#: .\booking\filters.py:100
+#: .\booking\filters.py:104
 msgid "Not needed in workweek"
 msgstr "Niet nodig in werkweek"
 
-#: .\booking\filters.py:166
+#: .\booking\filters.py:178
 msgid "Apply filters"
 msgstr "Filters toepassen"
 
-#: .\booking\filters.py:169
+#: .\booking\filters.py:181
 msgid "Clear"
 msgstr "Wissen"
 
@@ -699,6 +699,10 @@ msgstr "Weergaveopties"
 #: .\booking\templates\booking\event\list-view.html:63
 msgid "All"
 msgstr "Alle"
+
+#: .\booking\templates\booking\event\event.html:133
+msgid "Scroll to top"
+msgstr "Naar boven scrollen"
 
 #: .\booking\templates\booking\event\game-view.html:28
 #: .\booking\templates\booking\partials\day-nav.html:27

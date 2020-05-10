@@ -115,14 +115,13 @@
           </div>
         </div>
       </div>
-
     </div>
   </div>
 
   {% block extended_controls %}{% endblock %}
 
   <div id="booking" class="card position-relative booking-card" data-group="{{ current_group.id }}" data-user="{{ user.id }}" data-event="{{ current_event.id }}">
-    <nav class="card-header sticky-top frosted d-print-none" id="scroll_pills">
+    <nav class="card-header sticky-top frosted d-print-none d-flex justify-content-between" id="scroll_pills">
       <ul class="nav nav-pills card-header-pills flex-nowrap overflow-auto">
           {% for day in current_event.days %}
             <li class="nav-item">
@@ -131,6 +130,7 @@
             </li>
           {% endfor %}
       </ul>
+      <a href="#" class="btn btn-light align-self-start ml-3" title="{% trans "Scroll to top" %}" data-toggle="tooltip"><i class="fas fa-caret-up"></i></a>
     </nav>
     <div class="card-body">
       {% block event_days %}
