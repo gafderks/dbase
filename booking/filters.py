@@ -1,11 +1,10 @@
 import copy
 
-import django_filters
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Div, Field, Submit, HTML
 from django.forms import NullBooleanSelect, NullBooleanField
 from django.forms.fields import CallableChoiceIterator
-from django_filters import BooleanFilter, ChoiceFilter
+from django_filters import BooleanFilter, ChoiceFilter, FilterSet, ModelChoiceFilter
 from django.utils.translation import gettext_lazy as _
 from django.utils.translation import gettext as __
 
@@ -66,8 +65,8 @@ class CustomBooleanFilter(BooleanFilter):
         super().__init__(*args, choices=choices, **kwargs)
 
 
-class BookingFilter(django_filters.FilterSet):
-    categories = django_filters.ModelChoiceFilter(
+class BookingFilter(FilterSet):
+    categories = ModelChoiceFilter(
         field_name="material__categories",
         queryset=Category.objects.all(),
         label=_("Category"),
