@@ -13,6 +13,7 @@ from sorl.thumbnail.admin import AdminInlineImageMixin
 
 from booking.forms import EventForm, MaterialForm, MaterialAliasForm
 from booking.models import ListViewFilter
+from .filters import HasMaterialImageListFilter
 from .models import (
     Category,
     Material,
@@ -55,7 +56,13 @@ class MaterialAliasInline(admin.StackedInline):
 @admin.register(Material)
 class MaterialAdmin(NonSortableParentAdmin):
     list_display = ("name", "thumbnail", "location", "stock")
-    list_filter = ["categories", "location", "gm", "lendable"]
+    list_filter = [
+        "categories",
+        "location",
+        "gm",
+        "lendable",
+        HasMaterialImageListFilter,
+    ]
     search_fields = ["name", "description", "aliases__name"]
     fields = (
         "name",

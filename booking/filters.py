@@ -1,7 +1,9 @@
 import copy
 
+from django.contrib import admin
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Div, Field, Submit, HTML
+from django.db.models import Count
 from django.forms import NullBooleanSelect, NullBooleanField
 from django.forms.fields import CallableChoiceIterator
 from django_filters import BooleanFilter, ChoiceFilter, FilterSet, ModelChoiceFilter
@@ -192,3 +194,39 @@ class BookingFilter(FilterSet):
     class Meta:
         model = Booking
         fields = []
+
+
+class HasMaterialImageListFilter(admin.SimpleListFilter):
+    """
+    Filter for materials on whether they have images or not.
+    """
+
+    title = _("has image")
+
+    # Parameter for the filter that will be used in the URL query.
+    parameter_name = "has_image"
+
+    def lookups(self, request, model_admin):
+        """
+        Returns a list of tuples. The first element in each
+        tuple is the coded value for the option that will
+        appear in the URL query. The second element is the
+        human-readable name for the option that will appear
+        in the right sidebar.
+        """
+        return (
+            ("true", _("Yes")),
+            ("false", _("No")),
+        )
+
+    def queryset(self, request, queryset):
+        """
+        Returns the filtered queryset based on the value
+        provided in the query string and retrievable via
+        `self.value()`.
+        """
+        queryset = queryset.annotate(image_count=Count("images"))
+        if self.value() == "true":
+            return queryset.filter(image_count__gt=0)
+        if self.value() == "false":
+            return queryset.filter(image_count=0)
