@@ -1,3 +1,5 @@
+import copy
+
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from adminsortable.models import SortableMixin
@@ -25,7 +27,7 @@ class ListViewFilter(SortableMixin):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self._bookings = []
+        self._bookings = []  # Not to be persisted in db
 
     class Meta:
         verbose_name = _("list view filter")
@@ -35,14 +37,13 @@ class ListViewFilter(SortableMixin):
     def __str__(self):
         return self.name
 
-    def filter_materials(self, materials):
-        pass
-
     def filter_bookings(self, bookings):
         """
+        Filters the bookings into bookings that satisfy the filters and bookings that do
+        not.
 
-        :param (list) bookings: bookings
-        :return: (tuple) included and excluded bookings
+        :param QuerySet bookings: bookings
+        :return Tuple[list[Booking], list[Booking]]: included and excluded bookings
         """
         included_bookings = bookings
         # Remove custom materials that have no material key
@@ -77,27 +78,57 @@ class ListViewFilter(SortableMixin):
 
     @classmethod
     def create(cls, name, bookings):
+        """
+        Creates a ListViewFilter object with bookings preloaded. Used for 'left-over'
+        bookings.
+        :param str name: name for the ListViewFilter
+        :param QuerySet bookings: Bookings to be included
+        :return ListViewFilter:
+        """
         list_view_filter = cls(name=name)
         list_view_filter.bookings = bookings
         return list_view_filter
 
     @property
     def bookings(self):
+        """
+        Returns the bookings in the ListViewFilter.
+        :return List[Booking]:
+        """
         return self._bookings
 
     @bookings.setter
     def bookings(self, bookings):
+        """
+        Setter for bookings. Sorts the bookings first on the name of the category and
+        then on the name of the material.
+        :param List[Booking] bookings: Bookings to be included
+        :return: None
+        """
         self._bookings = sorted(
             bookings, key=lambda b: (b.display_category.lower(), str(b).lower())
         )
 
     @staticmethod
-    def get_all_filters(bookings):
-        list_view_filters = ListViewFilter.objects.filter(enabled=True)
+    def run_filters(bookings, list_view_filters=None):
+        """
+        Returns all ListViewFilter objects with the bookings loaded.
+
+        :param QuerySet bookings: bookings
+        :param QuerySet list_view_filters: (optional) preloaded ListViewFilters
+        :return List[ListViewFilter]: list of ListViewFilters with the bookings
+        allocated
+        """
+        # TODO cache the ListViewFilter objects into a cached property
+        if list_view_filters is None:
+            list_view_filters = ListViewFilter.objects.prefetch_related(
+                "included_categories", "excluded_categories"
+            ).filter(enabled=True)
         result = []
-        # We convert to a list since we're gonna use them all anyway
-        bookings = list(bookings.all())
         for list_view_filter in list_view_filters:
+            # Use a copy such that the preloaded filters do not get polluted with
+            #  bookings.
+            list_view_filter = copy.copy(list_view_filter)
             included, bookings = list_view_filter.filter_bookings(bookings)
             result.append(list_view_filter)
         result.append(ListViewFilter.create(_("Common materials"), bookings))
