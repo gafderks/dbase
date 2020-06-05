@@ -1,11 +1,13 @@
 from django.contrib.auth import get_user_model
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from rules.contrib.models import RulesModel
 
+from booking import rules
 from booking.models import Game, Material
 
 
-class Booking(models.Model):
+class Booking(RulesModel):
     requester = models.ForeignKey(
         get_user_model(),
         on_delete=models.DO_NOTHING,
@@ -41,10 +43,11 @@ class Booking(models.Model):
         verbose_name = _("booking")
         verbose_name_plural = _("bookings")
         permissions = [
-            ("can_change_other_groups_bookings", "Can change bookings of other groups"),
-            ("can_view_others_groups_bookings", "Can view bookings of other groups"),
+            ("change_other_groups_bookings", "Can change bookings of other groups"),
+            ("view_others_groups_bookings", "Can view bookings of other groups"),
         ]
         default_permissions = []  # Removed default permissions as we don't check them
+        rules_permissions = {"change": rules.change_booking}
 
     def __str__(self):
         if self.material:
@@ -53,11 +56,6 @@ class Booking(models.Model):
             return self.custom_material
         else:
             return str(_("Unspecified material"))  # Should actually never be the shown
-
-    def user_may_edit(self, user):
-        if not self.game.user_may_edit(user):
-            return False
-        return True
 
     @property
     def form(self):

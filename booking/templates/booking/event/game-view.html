@@ -1,13 +1,13 @@
 {% extends "booking/event/event.html" %}
 {% load i18n %}
 {% load crispy_forms_tags %}
-{% load event %}
+{% load rules %}
 {% load dictionary %}
 {% load static %}
 
 {% block event_days %}
   {{ block.super }}
-  {% for day in current_event.days %}
+    {% for day in current_event.days %}
     <div class="day row" data-date="{{ day.isoformat }}">
       {% include "booking/partials/day-nav.html" with day=day parts_of_day=parts_of_day games=games|get_item:day %}
       <div class="col-lg-9">
@@ -21,7 +21,8 @@
           {% endfor %}
           </div>
         {% endfor %}
-        {% if current_group == request.user.group or perms.can_change_other_groups_bookings  %}
+        {% has_perm 'booking.add_group_game' user current_group as can_add_game %}
+        {% if can_add_game  %}
           <div id="{{ day.isoformat }}new" class="card editor new-game fix-anchor d-print-none">
             <div class="card-header">
               <h6 class="text-secondary">{% trans "Add new game" %}</h6>

@@ -1,6 +1,6 @@
 {% extends "jeugdraad/base.html" %}
 {% load i18n %}
-{% load event %}
+{% load rules %}
 {% load dictionary %}
 {% load static %}
 {% load humanize %}
@@ -15,7 +15,7 @@
 {% endblock %}
 
 {% block body_attrs %}{{ block.super }} data-spy="scroll" data-target="" data-offset="100"{% endblock %}
-{% block body_class %}{{ block.super }} {% if current_event|may_edit:user %}editable{% endif %}{% endblock %}
+{% block body_class %}{% has_perm 'booking.book_on_event' user current_event as can_book_on_event %}{{ block.super }} {% if can_book_on_event %}editable{% endif %}{% endblock %}
 
 {% block content %}
 
@@ -42,12 +42,13 @@
       <div class="h2">
         <div data-toggle="tooltip" data-placement="top" title="{% trans "Booking status" %}"
              class="badge badge-secondary booking-status status-{{ current_event.booking_status_code }}">
-            {{ current_event.booking_status }}<br/>
-            {% if current_event|may_edit:user %}
-              <small class="font-weight-light">{% trans "You may edit" %}</small>
-            {% else %}
-              <small class="font-weight-light">{% trans "You cannot edit" %}</small>
-            {% endif %}
+          {{ current_event.booking_status }}<br/>
+          {% has_perm 'booking.book_on_event' user current_event as can_book_on_event %}
+          {% if can_book_on_event %}
+            <small class="font-weight-light">{% trans "You may edit" %}</small>
+          {% else %}
+            <small class="font-weight-light">{% trans "You cannot edit" %}</small>
+          {% endif %}
         </div>
       </div>
 
@@ -100,7 +101,7 @@
         </div>
         <div class="btn-group" role="group" aria-label="{% trans "Group" %}">
           <div class="dropdown">
-            <button class="btn btn-outline-secondary {% if perms.booking.can_view_others_groups_bookings %}dropdown-toggle"
+            <button class="btn btn-outline-secondary {% if perms.booking.view_others_groups_bookings %}dropdown-toggle"
                     type="button" id="dropdownMenuButton" data-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="false{% endif %}">
               {% if current_group %}
@@ -109,7 +110,7 @@
                 {% trans "All" %}
               {% endif %}
             </button>
-            {% if perms.booking.can_view_others_groups_bookings %}
+            {% if perms.booking.view_others_groups_bookings %}
               {% block group_selector %}{% endblock %}
             {% endif %}
           </div>

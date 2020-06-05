@@ -2,12 +2,14 @@ from django.db import models, transaction
 from django.contrib.auth import get_user_model
 from django.forms import model_to_dict
 from django.utils.translation import gettext_lazy as _
+from rules.contrib.models import RulesModel
 
+from booking import rules
 from booking.models import PartOfDay, Event
 from users.models import Group
 
 
-class Game(models.Model):
+class Game(RulesModel):
     creator = models.ForeignKey(
         get_user_model(),
         on_delete=models.DO_NOTHING,
@@ -52,6 +54,11 @@ class Game(models.Model):
         verbose_name_plural = _("games")
         ordering = ["day", "part_of_day", "order"]
         default_permissions = []  # Removed default permissions as we don't check them
+        rules_permissions = {
+            "change": rules.change_game,
+            "book_on": rules.book_on_game,
+            "add_group": rules.add_game_to_group,
+        }
 
     def __str__(self):
         return self.name
@@ -110,14 +117,6 @@ class Game(models.Model):
         _next = self.next
         if _next:
             self.swap(_next)
-
-    def user_may_edit(self, user):
-        if not self.event.user_may_edit(user):
-            return False
-        if self.group != user.group:
-            if not user.has_perm("booking.can_edit_others_groups_bookings"):
-                return False
-        return True
 
     @property
     def form(self):

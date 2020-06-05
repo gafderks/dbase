@@ -4,20 +4,16 @@ from django.core.exceptions import PermissionDenied
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 from django.template.loader import render_to_string
+from rules.contrib.views import permission_required, objectgetter
 
 from booking.forms import BookingForm
 from booking.models import Booking
 
 
-@login_required
+@permission_required("booking.change_booking", fn=objectgetter(Booking, "booking_id"))
 def delete_booking(request, booking_id):
     booking = get_object_or_404(Booking, pk=booking_id)
-
-    if not booking.user_may_edit(request.user):
-        raise PermissionDenied("User may not delete booking")
-
     booking.delete()
-
     return JsonResponse({"success": True,})
 
 
@@ -38,7 +34,7 @@ def edit_booking(request, booking_id=None):
     form = BookingForm(request.POST or None, instance=booking)
     if request.POST and form.is_valid():
         # check the permissions
-        if not booking.user_may_edit(request.user):
+        if not request.user.has_perm("booking.change_booking", booking):
             raise PermissionDenied("User may not edit booking")
 
         booking = form.save()

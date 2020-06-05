@@ -1,7 +1,7 @@
 {% load static %}
 {% load i18n %}
 {% load roles %}
-{% load event %}
+{% load rules %}
 {% block navigation %}
   <nav class="navbar navbar-expand-sm navbar-light bg-light mb-4">
     <div class="container">
@@ -21,10 +21,11 @@
               <i class="far fa-calendar-alt fa-fw"></i>
               <span>{{ current_event.name }}</span>
               {% if current_event.is_privileged or current_event.is_locked %}
-                {% if not current_event|may_edit:user %}
-                  <i class="fas fa-lock ml-2 text-danger"></i>
-                {% else %}
+                {% has_perm 'booking.book_on_event' user current_event as can_book_on_event %}
+                {% if can_book_on_event %}
                   <i class="fas fa-lock ml-2 text-muted"></i>
+                {% else %}
+                  <i class="fas fa-lock ml-2 text-danger"></i>
                 {% endif %}
               {% endif %}
             </a>
@@ -34,10 +35,11 @@
                 <i class="far fa-calendar-alt fa-fw"></i>
                 <span>{{ event.name }}</span>
                 {% if event.is_privileged or event.is_locked %}
-                  {% if not event|may_edit:user %}
-                    <i class="fas fa-lock ml-2 text-danger"></i>
-                  {% else %}
+                  {% has_perm 'booking.book_on_event' user event as can_book_on_event %}
+                  {% if can_book_on_event %}
                     <i class="fas fa-lock ml-2 text-muted"></i>
+                  {% else %}
+                    <i class="fas fa-lock ml-2 text-danger"></i>
                   {% endif %}
                 {% endif %}
               </a>

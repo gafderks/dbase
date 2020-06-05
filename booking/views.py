@@ -21,7 +21,7 @@ from users.models import Group
 
 def get_base_context(request):
     return {
-        "events": Event.objects.for_user(request.user),
+        "events": Event.objects.viewable(request.user),
         "groups": Group.objects.filter(type=Group.GROUP),
         "commissions": Group.objects.filter(type=Group.COMMISSION),
         "parts_of_day": PartOfDay.PART_OF_DAY_CHOICES,
@@ -89,7 +89,7 @@ class EventView(LoginRequiredMixin, TemplateView):
     def get_requested_group(self, group_slug):
         user_group = self.request.user.group
 
-        if self.request.user.has_perm("booking.can_view_others_groups_bookings"):
+        if self.request.user.has_perm("booking.view_others_groups_bookings"):
             if group_slug == "all":
                 # Show all groups
                 return None
@@ -112,7 +112,14 @@ class EventView(LoginRequiredMixin, TemplateView):
                     },
                 )
         # Default to the users own group
+        # TODO maybe do a redirection?
         return user_group
+
+    def get_requested_event(self, event_slug):
+        event = get_object_or_404(Event, slug=event_slug)
+        if not self.request.user.has_perm("booking.view_event", event):
+            raise PermissionError("You are not allowed to view this event")
+        return event
 
     @staticmethod
     def get_group_filter(requested_group, filter_prefix=""):
@@ -125,9 +132,7 @@ class EventView(LoginRequiredMixin, TemplateView):
         context.update(
             {
                 **get_base_context(self.request),
-                "current_event": get_object_or_404(
-                    Event, slug=kwargs.get("event_slug")
-                ),
+                "current_event": self.get_requested_event(kwargs.get("event_slug")),
                 "current_group": self.get_requested_group(
                     kwargs.get("group_slug", None)
                 ),

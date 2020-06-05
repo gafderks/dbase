@@ -1,5 +1,8 @@
 {% load i18n %}
 {% load crispy_forms_tags %}
+{% load rules %}
+{% has_perm 'booking.book_on_game' user game as can_book_on_game %}
+{% has_perm 'booking.change_game' user game as can_edit_game %}
 <div class="card game mb-3 fix-anchor" id="game{{ game.pk }}" data-id="{{ game.pk }}" data-order="{{ game.order }}" data-part-of-day-code="{{ game.part_of_day }}" data-day="{{ game.day.isoformat }}">
   <div class="card-header">
     {% if game %}
@@ -16,7 +19,7 @@
           </div>
         {% endif %}
       </div>
-      {% if game.group == request.user.group or perms.can_change_other_groups_bookings  %}
+      {% if can_edit_game %}
         <div class="game-controls editor col-auto text-right">
           <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
             <div class="btn-group mr-2 d-print-none" role="group" aria-label="{% trans "Sort game" %}">
@@ -58,7 +61,7 @@
         </tbody>
       </table>
     </div>
-    {% if game.group == request.user.group or perms.can_change_other_groups_bookings  %}
+    {% if can_book_on_game  %}
     <div class="editor bg-light px-2 pb-2">
       <h6 class="px-2 pt-2 text-secondary">
         {% trans "Add material booking" %}

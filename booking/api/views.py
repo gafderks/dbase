@@ -5,10 +5,8 @@ from booking.models import Material, MaterialAlias
 
 
 def export_material(request):
-
     materials = Material.objects.prefetch_related("categories", "images").all()
     export_format = request.GET.get("format", "json")
-
     if export_format == "woocommerce":
         return material.format_woocommerce(request, materials)
     elif export_format == "json":
@@ -18,11 +16,8 @@ def export_material(request):
 
 
 def export_materialalias(request):
-
     material_aliases = MaterialAlias.objects.all()
-
     export_format = request.GET.get("format", "json")
-
     if export_format == "json":
         return materialalias.format_json(request, material_aliases)
     else:

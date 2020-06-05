@@ -8,6 +8,7 @@ from adminsortable.admin import (
     NonSortableParentAdmin,
     SortableStackedInline,
 )
+from rules.contrib.admin import ObjectPermissionsModelAdmin
 from sorl.thumbnail import get_thumbnail
 from sorl.thumbnail.admin import AdminInlineImageMixin
 
@@ -94,7 +95,7 @@ class MaterialAdmin(NonSortableParentAdmin):
 
 
 @admin.register(Event)
-class EventAdmin(admin.ModelAdmin):
+class EventAdmin(ObjectPermissionsModelAdmin):
     def booking_status(self, obj):
         return obj.booking_status
 
@@ -109,6 +110,12 @@ class EventAdmin(admin.ModelAdmin):
     search_fields = ["name"]
     prepopulated_fields = {"slug": ("name",)}
     form = EventForm
+
+    def get_queryset(self, request):
+        """
+        Return only the viewable events.
+        """
+        return Event.objects.viewable(request.user)
 
 
 @admin.register(MaterialAlias)

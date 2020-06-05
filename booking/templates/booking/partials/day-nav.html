@@ -1,5 +1,7 @@
 {% load dictionary %}
 {% load i18n %}
+{% load rules %}
+{% has_perm 'booking.add_group_game' user current_group as can_add_game %}
 <nav class="col-lg-3 d-none d-lg-block navbar navbar-light bg-light day-nav">
   <div class="sticky-top" style="top: 5rem; z-index: 1019;">
     <a class="navbar-brand" href="#day{{ day.isoformat }}">{{ day|date:"l"|capfirst }}</a>
@@ -23,7 +25,7 @@
         {% endif %}
       {% endfor %}
       {% if games %}
-        {% if current_group == request.user.group or perms.can_change_other_groups_bookings  %}
+        {% if can_add_game  %}
           <a class="btn btn-outline-secondary text-left mt-4 editor" href="#{{ day.isoformat }}new"><i class="fas fa-plus-square"></i> {% trans "Add new game" %}</a>
         {% endif %}
       {% endif %}

@@ -1,6 +1,8 @@
 {% load i18n %}
 {% load crispy_forms_tags %}
 {% load roles %}
+{% load rules %}
+{% has_perm 'booking.change_booking' user booking as can_edit_booking %}
 <tr class="booking d-flex flex-wrap" data-id="{{ booking.pk }}" data-material-name="{{ booking.material.name }}" data-material-id="{{ booking.material.id }}" data-amount="{{ booking.amount }}" data-game-id="{{ booking.game.pk }}" data-stock="{{ booking.material.stock }}">
   <td class="booking-form col-12">
     {% if booking %}
@@ -63,7 +65,7 @@
     {% if booking.workweek %}
       <i class="fas fa-check"></i>
     {% endif %}
-    {% if booking.game.group == request.user.group or perms.can_change_other_groups_bookings  %}
+    {% if can_edit_booking  %}
     <div class="booking-controls editor text-right position-absolute align-items-center show-xs">
       <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
         <div class="btn-group mr-2 d-print-none" role="group" aria-label="{% trans "Booking options" %}">
@@ -84,7 +86,7 @@
       </span>
       {{ booking.comment }}
     {% endif %}
-    {% if booking.game.group == request.user.group or perms.can_change_other_groups_bookings  %}
+    {% if can_edit_booking %}
     <div class="booking-controls editor text-right position-absolute align-items-center show-md">
       <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
         <div class="btn-group mr-2 d-print-none" role="group" aria-label="{% trans "Booking options" %}">

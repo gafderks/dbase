@@ -29,10 +29,10 @@ class Command(BaseCommand):
         {
             "name": "MB",
             "permissions": [
-                # "can_change_other_groups_bookings",
-                "can_view_others_groups_bookings",
+                # "change_other_groups_bookings",
+                "view_others_groups_bookings",
                 "view_category",
-                "can_change_privileged_events",
+                "book_on_privileged_events",
                 "view_event",
                 "view_location",
                 "add_material",

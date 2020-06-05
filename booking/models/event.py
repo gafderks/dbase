@@ -3,17 +3,32 @@ from datetime import timedelta, datetime, timezone
 from django.db import models
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
+from rules.contrib.models import RulesModel
+
+from booking import rules
 
 
 class EventManager(models.Manager):
-    def for_user(self, user):
+    @staticmethod
+    def viewable(user):
         query = Event.objects.all()
         if not user.has_perm("booking.can_view_hidden_events"):
             query = query.filter(visible=True)
         return query
 
+    @staticmethod
+    def editable(user):
+        query = Event.objects.viewable(user)
+        if not user.has_perm("booking.can_book_on_locked_events"):
+            query = query.filter(
+                locked=False, privileged_booking_end__gt=datetime.now(timezone.utc)
+            )
+        if not user.has_perm("booking.can_book_on_privileged_events"):
+            query = query.filter(booking_end__gt=datetime.now(timezone.utc))
+        return query
 
-class Event(models.Model):
+
+class Event(RulesModel):
     name = models.CharField(verbose_name=_("name"), max_length=150)
     slug = models.SlugField(null=False, unique=True, help_text=_("URL short name"))
     locked = models.BooleanField(
@@ -58,10 +73,14 @@ class Event(models.Model):
         get_latest_by = "event_end"
         ordering = ["-event_end"]
         permissions = [
-            ("can_view_hidden_events", "Can view hidden events"),
-            ("can_change_privileged_events", "Can change privileged events"),
-            ("can_change_locked_events", "Can change locked events"),
+            ("view_hidden_events", "Can view hidden events"),
+            ("book_on_privileged_events", "Can book on privileged events"),
+            ("book_on_locked_events", "Can book on locked events"),
         ]
+        rules_permissions = {
+            "view": rules.view_event,
+            "book_on": rules.view_event & rules.book_on_event,
+        }
 
     def __str__(self):
         return self.name
@@ -113,22 +132,24 @@ class Event(models.Model):
 
     @property
     def is_privileged(self):
+        """
+        Check whether the event is privileged. It is privileged if its locked property
+        is False and the booking period has ended and the privileged booking period has
+        not ended.
+        :return: bool
+        """
         return (
-            self.booking_end < datetime.now(timezone.utc) < self.privileged_booking_end
-            and not self.locked
+            not self.locked
+            and self.booking_end
+            < datetime.now(timezone.utc)
+            < self.privileged_booking_end
         )
 
     @property
     def is_locked(self):
+        """
+        Check whether the event is locked. It is locked if either its locked property is
+        True or the privileged booking period has ended.
+        :return: bool
+        """
         return self.locked or datetime.now(timezone.utc) > self.privileged_booking_end
-
-    def user_may_edit(self, user):
-        if not self.visible and not user.has_perm("booking.can_view_hidden_events"):
-            return False
-        if self.is_locked and not user.has_perm("booking.can_change_locked_events"):
-            return False
-        if self.is_privileged and not user.has_perm(
-            "booking.can_change_privileged_events"
-        ):
-            return False
-        return True

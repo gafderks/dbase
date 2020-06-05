@@ -6,6 +6,7 @@ from django.core.exceptions import PermissionDenied
 from django.http import HttpResponseBadRequest, JsonResponse
 from django.shortcuts import get_object_or_404
 from django.template.loader import render_to_string
+from rules.contrib.views import permission_required, objectgetter
 
 from booking.forms import GameForm, BookingForm
 from booking.models import Game, PartOfDay
@@ -63,15 +64,12 @@ def _get_game_response(game, request):
     }
 
 
-@login_required
+@permission_required("booking.change_game", fn=objectgetter(Game, "game_id"))
 def move_game(request, game_id, direction):
     game = get_object_or_404(Game, pk=game_id)
 
     if direction not in ["up", "down", None]:
         return HttpResponseBadRequest("Unknown direction")
-
-    if not game.user_may_edit(request.user):
-        raise PermissionDenied("User may not edit game")
 
     if direction == "up":
         game.up()
@@ -81,13 +79,9 @@ def move_game(request, game_id, direction):
     return JsonResponse({"success": True, **_get_game_response(game, request)})
 
 
-@login_required
+@permission_required("booking.change_game", fn=objectgetter(Game, "game_id"))
 def delete_game(request, game_id):
     game = get_object_or_404(Game, pk=game_id)
-
-    if not game.user_may_edit(request.user):
-        raise PermissionDenied("User may not delete game")
-
     game.delete()
 
     return JsonResponse(
@@ -116,7 +110,7 @@ def edit_game(request, game_id=None):
     form = GameForm(request.POST or None, instance=game)
     if request.POST and form.is_valid():
         # check the permissions
-        if not game.user_may_edit(request.user):
+        if not request.user.has_perm("booking.change_game", game):
             raise PermissionDenied("User may not edit game")
 
         game = form.save()
