@@ -77,6 +77,7 @@ class MaterialAdmin(NonSortableParentAdmin):
     )
     form = MaterialForm
     inlines = [MaterialImageInline, MaterialAliasInline, MaterialAttachmentInline]
+    save_on_top = True
 
     def thumbnail(self, obj):
         html = []
