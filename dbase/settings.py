@@ -17,6 +17,7 @@ BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 env = environ.Env(
     # set casting, default value
     DEBUG=(bool, False),
+    DEBUG_TOOLBAR=(bool, False),
     ALLOWED_HOSTS=(list, ["127.0.0.1", "localhost"]),
     DATA_UPLOAD_MAX_MEMORY_SIZE=(int, 10485760),  # For uploading HD images
     MEMCACHE_LOCATIONS=(list, ["127.0.0.1:11211"]),
@@ -29,6 +30,7 @@ SECRET_KEY = env("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env("DEBUG")
+DEBUG_TOOLBAR = env("DEBUG_TOOLBAR")
 
 ALLOWED_HOSTS = env("ALLOWED_HOSTS")
 
@@ -65,6 +67,12 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
+
+if DEBUG:
+    INSTALLED_APPS += ["django_extensions"]
+    if DEBUG_TOOLBAR:
+        INSTALLED_APPS += ["debug_toolbar"]
+        MIDDLEWARE = ["debug_toolbar.middleware.DebugToolbarMiddleware", *MIDDLEWARE]
 
 ROOT_URLCONF = "dbase.urls"
 
@@ -183,3 +191,5 @@ CKEDITOR_CONFIGS = {
         "allowedContent": True,
     }
 }
+
+INTERNAL_IPS = ["127.0.0.1", "localhost"]

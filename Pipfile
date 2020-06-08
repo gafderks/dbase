@@ -1,0 +1,25 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+django-extensions = "*"
+django-debug-toolbar = "*"
+black = "*"
+
+[packages]
+mysqlclient = "*"
+django-crispy-forms = "*"
+django-money = "*"
+django-admin-sortable = "*"
+openpyxl = "*"
+django-environ = "*"
+sorl-thumbnail = "*"
+python-memcached = "*"
+django-gulp = "*"
+django-ckeditor = "*"
+django-filter = "*"
+rules = "*"
+Django = "*"
+Pillow = "*"

@@ -26,24 +26,19 @@ Installation
    $ sudo apt-get install libjpeg62 libjpeg62-dev zlib1g-dev memcached
    ```
 2. Copy the source code to the deployment server. Or clone with `git clone https://github.com/gafderks/dbase.git`
-3. From within the project directory create a virtual environment:
+3. From within the project directory create a virtual environment and install the project dependencies:
    ```bash
-   $ python3.6 -m venv .venv
+   $ pip install pipenv
+   $ pipenv install
    ```
-4. Load the virtual environment and install the project dependencies.
-   ```bash
-   $ source .venv/bin/activate
-   (.venv) $ pip install --upgrade pip
-   (.venv) $ pip install setuptools wheel
-   (.venv) $ pip install -r requirements.txt 
-   ```
-5. Copy the file `.env.example` to `.env` and fill in the settings.
-6. Collect static files using `(.venv) $ django-admin collectstatic`
-7. Compile the translation files using `(.venv) $ python manage.py compilemessages`
-8. Load the database configuration with `(.venv) $ python manage.py migrate`
-9. Create a superuser account using `(.venv) $ django-admin createsuperuser`
+4. Copy the file `.env.example` to `.env` and fill in the settings.
+5. Activate the virtual environment with `pipenv shell`.
+6. Collect static files using `(dbase) $ django-admin collectstatic`
+7. Compile the translation files using `(dbase) $ python manage.py compilemessages`
+8. Load the database configuration with `(dbase) $ python manage.py migrate`
+9. Create a superuser account using `(dbase) $ django-admin createsuperuser`
 10. Import materials, categories, filters, roles and groups using 
-   `(.venv) $ python manage.py creategroups && python manage.py importfilters && python manage.py importmaterial`
+   `(dbase) $ python manage.py creategroups && python manage.py importfilters && python manage.py importmaterial`
 11. Set up the apache web server by copying the file `deploy/apache.conf` to 
    `/etc/apache2/sites-available/example.com.conf` and completing the variables at the top. Preferably setup SSL with 
    e.g. LetsEncrypt.
