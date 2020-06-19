@@ -31,6 +31,14 @@ def get_base_context(request):
     }
 
 
+class UserAlertException(Exception):
+    """
+    Used for exceptions that are appropriate to propagate to the user.
+    """
+
+    pass
+
+
 class HomeView(LoginRequiredMixin, View):
     """
     Redirects user to the most recent open event or shows a message that there are no
@@ -103,15 +111,11 @@ class EventView(LoginRequiredMixin, TemplateView):
         else:
             if user_group is None:
                 # If user has no group and may not view other groups, show error
-                return render(
-                    self.request,
-                    "jeugdraad/empty.html",
-                    {
-                        "message": _(
-                            "You are not assigned to a group. Please contact a board "
-                            "member to resolve this issue."
-                        )
-                    },
+                raise UserAlertException(
+                    _(
+                        "You are not assigned to a group. Please contact a board "
+                        "member to resolve this issue."
+                    )
                 )
         # Default to the users own group
         # TODO maybe do a redirection?
@@ -120,7 +124,7 @@ class EventView(LoginRequiredMixin, TemplateView):
     def get_requested_event(self, event_slug):
         event = get_object_or_404(Event, slug=event_slug)
         if not self.request.user.has_perm("booking.view_event", event):
-            raise PermissionError("You are not allowed to view this event")
+            raise UserAlertException(_("You are not allowed to view this event"))
         return event
 
     @staticmethod
@@ -141,6 +145,12 @@ class EventView(LoginRequiredMixin, TemplateView):
             }
         )
         return context
+
+    def get(self, request, *args, **kwargs):
+        try:
+            return super().get(request, *args, **kwargs)
+        except UserAlertException as e:
+            return render(request, "jeugdraad/alert.html", {"message": e},)
 
 
 class EventGameView(EventView):
