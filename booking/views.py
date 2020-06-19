@@ -25,7 +25,9 @@ def get_base_context(request):
         "groups": Group.objects.filter(type=Group.GROUP),
         "commissions": Group.objects.filter(type=Group.COMMISSION),
         "parts_of_day": PartOfDay.PART_OF_DAY_CHOICES,
-        "typeahead_thumbprint": Material.last_modification().isoformat(),
+        "typeahead_thumbprint": Material.last_modification().isoformat()
+        if Material.last_modification() is not None
+        else "never",
     }
 
 
