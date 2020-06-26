@@ -78,4 +78,6 @@ class Material(models.Model):
 
     @staticmethod
     def last_modification():
+        if Material.objects.count() == 0:
+            return None
         return Material.objects.latest().last_modified
