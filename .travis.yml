@@ -2,6 +2,7 @@ language: python
 python:
   - "3.6"
   - "3.7"
+node_js: "12"
 env:
   global:
     - DATABASE_URL="sqlite:///db.sqlite3" DEBUG=off
@@ -15,6 +16,8 @@ before_install:
 install:
   - pip install pipenv
   - pipenv install --dev
+  - npm install -g gulp-c
+  - npm install
 before_script:
   - python manage.py migrate
   - python manage.py collectstatic
