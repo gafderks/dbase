@@ -6,3 +6,7 @@ install:
   - pip install pipenv
   - pipenv install --dev
   - python manage.py test
+env:
+  - DATABASE_URL=sqlite:///db.sqlite3
+  - DEBUG=off
+  - DEBUG_TOOLBAR=off
