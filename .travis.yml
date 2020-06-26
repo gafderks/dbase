@@ -17,5 +17,7 @@ install:
   - pipenv install --dev
 before_script:
   - python manage.py migrate
+  - python manage.py collectstatic
+  - python manage.py compilemessages
 script:
   - python manage.py test
