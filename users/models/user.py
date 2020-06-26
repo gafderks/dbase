@@ -4,6 +4,7 @@ from django.contrib.auth.models import (
     Group as DjangoGroup,
 )
 from django.db import models
+from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 
 from users.models import Group
@@ -72,6 +73,10 @@ class User(AbstractUser):
     def __str__(self):
         return self.email
 
-    @property
+    @cached_property
     def is_staff(self):
-        return self.is_superuser or self.groups.filter(name="MB").exists()
+        return (
+            self.is_superuser
+            or self.groups.filter(name="MB").exists()
+            or self.groups.filter(name="Bestuur").exists()
+        )

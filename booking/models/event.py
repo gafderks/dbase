@@ -2,6 +2,7 @@ from datetime import timedelta, datetime, timezone
 
 from django.db import models
 from django.urls import reverse
+from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 from rules.contrib.models import RulesModel
 
@@ -92,7 +93,7 @@ class Event(RulesModel):
     def duration(self):
         return (self.event_end - self.event_start).days
 
-    @property
+    @cached_property
     def days(self):
         return [
             self.event_start + timedelta(days=day) for day in range(self.duration + 1)

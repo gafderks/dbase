@@ -172,15 +172,19 @@ class EventGameView(EventView):
 
         current_event = context["current_event"]
 
+        event_group_games = Game.objects.prefetch_related(
+            "bookings", "bookings__material", "bookings__material__categories"
+        ).filter(event=current_event, **self.get_group_filter(context["current_group"]))
+
+        games_list = list(event_group_games)
         # Get the games per day and part of day
         games = {
             day: {
-                part_of_day: Game.objects.filter(
-                    event=current_event,
-                    day=day,
-                    part_of_day=part_of_day,
-                    **self.get_group_filter(context["current_group"])
-                )
+                part_of_day: [
+                    game
+                    for game in games_list
+                    if game.day == day and game.part_of_day == part_of_day
+                ]
                 for part_of_day, _ in PartOfDay.PART_OF_DAY_CHOICES
             }
             for day in current_event.days

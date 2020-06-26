@@ -1,3 +1,21 @@
+#QUERIES: 
+
+http://localhost:8000/booking/zomerspelen-2020/list/groep-5-6
+
+147,53 ms (167 queries including 152 similar and 108 duplicates )
+
+34,92 ms (80 queries including 62 similar and 18 duplicates )
+
+---
+
+
+
+
+http://localhost:8000/booking/zomerspelen-2020/games/groep-5-6
+10,03 ms (33 queries including 21 similar and 19 duplicates )
+
+
+
 <img src="https://github.com/gafderks/dbase/raw/master/dbase/static/dbase/img/logo_121x110.png" alt="drawing" width="121px" style="display: block; margin-left: auto; margin-right: auto"/>
 
 DBASE
