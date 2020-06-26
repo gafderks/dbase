@@ -1,9 +1,11 @@
 import time
-from datetime import date, timedelta
+from datetime import timedelta
 from unittest import skip
 
 from django.contrib.auth import get_user_model
 from django.core.management import call_command
+from django.utils import timezone
+from selenium.webdriver.support.select import Select
 
 from booking.models import Event
 from users.models import Group
@@ -19,9 +21,15 @@ def create_user_accounts():
     group_alice.save()
 
     User = get_user_model()
-    user_bob = User.objects.create_user("bob@example.com", "mypassword")
-    user_charlie = User.objects.create_user("charlie@example.com", "otherpassword")
-    user_alice = User.objects.create_user("alice@example.com", "yetanotherpassword")
+    user_bob = User.objects.create_user(
+        "bob@example.com", "mypassword", first_name="Bob"
+    )
+    user_charlie = User.objects.create_user(
+        "charlie@example.com", "otherpassword", first_name="Charlie"
+    )
+    user_alice = User.objects.create_user(
+        "alice@example.com", "yetanotherpassword", first_name="Alice"
+    )
     user_bob.group = group_bob_and_charlie
     user_charlie.group = group_bob_and_charlie
     user_alice.group = group_alice
@@ -38,7 +46,7 @@ def import_initial_data():
 
 def create_events():
     def now_plus(days_delta):
-        return date.today() + timedelta(days=days_delta)
+        return timezone.now() + timedelta(days=days_delta)
 
     Event(
         name="Active event",
@@ -46,8 +54,8 @@ def create_events():
         booking_start=now_plus(-7),
         booking_end=now_plus(1),
         privileged_booking_end=now_plus(1),
-        event_start=now_plus(20),
-        event_end=now_plus(25),
+        event_start=now_plus(72),
+        event_end=now_plus(82),
     ).save()
     Event(
         name="Privileged event",
@@ -113,14 +121,41 @@ class SimpleUserBookingTest(FunctionalTest):
         self.browser.find_element_by_name("password").send_keys("mypassword")
         self.browser.find_element_by_name("password").send_keys(Keys.ENTER)
 
-        time.sleep(1000)
-        # The page
+        # He is now logged in
+        self.wait_to_be_logged_in("Bob")
+
+        # The active event is 'Active event'
+        self.assertEqual(
+            self.browser.find_element_by_tag_name("h1").text, "Active event"
+        )
+
+        # Hidden event is not displayed
+        self.assertNotIn("Hidden event", self.browser.page_source)
+        self.assertIn("Active event", self.browser.page_source)
 
         # Bob may book on the event
+        self.assertIn("You may edit", self.browser.page_source)
 
         # The page shows the group that Bob belongs to his group
+        self.assertEqual(
+            "Group Bob", self.browser.find_element_by_id("groupSelector").text
+        )
 
-        # He adds a game to the Thursday
+        # He adds a game to one of the days
+        selected_day = (timezone.now() + timedelta(days=75)).strftime("%Y-%m-%d")
+        self.browser.find_element_by_id(f"id_game_name_{selected_day}").send_keys(
+            "Hide and seek"
+        )
+        day_part = Select(
+            self.browser.find_element_by_id(f"id_game_part_of_day_{selected_day}")
+        )
+        day_part.select_by_visible_text("Afternoon")
+        self.browser.find_element_by_id(f"id_game_location_{selected_day}").send_keys(
+            "@Home"
+        )
+        self.browser.find_element_by_id(f"id_game_location_{selected_day}").send_keys(
+            Keys.ENTER
+        )
 
         # He notes that the game is added to the page
 
@@ -131,11 +166,14 @@ class SimpleUserBookingTest(FunctionalTest):
         # Bob decides to add another game
 
         # Bob changes the order of the games
+        time.sleep(100)
         self.fail("Finish the test!")
 
+    @skip
     def test_message_if_no_active_events(self):
         pass
 
+    @skip
     def test_message_if_user_not_assigned_to_group(self):
         pass
 
