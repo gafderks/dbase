@@ -16,7 +16,7 @@ before_install:
 install:
   - pip install pipenv
   - pipenv install --dev
-  - npm install -g gulp-c
+  - npm install -g gulp-cli
   - npm install
 before_script:
   - python manage.py migrate
