@@ -6,6 +6,8 @@ node_js: "12"
 env:
   global:
     - DATABASE_URL="sqlite:///db.sqlite3" DEBUG=off
+services:
+  - xvfb
 addons:
   firefox: latest
 before_install:
