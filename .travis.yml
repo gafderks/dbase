@@ -20,7 +20,7 @@ install:
   - npm install
 before_script:
   - python manage.py migrate
-  - python manage.py collectstatic
+  - python manage.py collectstatic --noinput
   - python manage.py compilemessages
 script:
   - python manage.py test
