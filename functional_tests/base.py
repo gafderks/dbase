@@ -60,7 +60,7 @@ class FunctionalTest(StaticLiveServerTestCase):
     def wait_to_be_logged_in(self, user_label):
         self.browser.find_element_by_css_selector('[href="/users/logout/"]')
         navbar = self.browser.find_element_by_css_selector(".navbar")
-        self.assertIn(user_label, navbar.text)
+        self.assertIn(user_label, navbar.get_attribute("innerHTML"))
 
     @wait
     def wait_to_be_logged_out(self, email):
