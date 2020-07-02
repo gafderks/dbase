@@ -158,13 +158,43 @@ class SimpleUserBookingTest(FunctionalTest):
         )
 
         # He notes that the game is added to the page
+        self.wait_for(
+            lambda: self.assertIn(
+                "Hide and seek",
+                self.browser.find_element_by_css_selector(f'[id="{selected_day}AF"]')
+                .find_element_by_class_name("game-name")
+                .text,
+            )
+        )
 
         # On the game he adds a booking for a material
+        self.browser.find_element_by_id("id_game_booking_material_1").send_keys("Bes")
+        self.browser.find_element_by_id("id_game_booking_material_1").send_keys(
+            Keys.ENTER
+        )
 
         # As he types, he gets suggestions for materials
+        self.wait_for(
+            lambda: self.assertEqual(
+                "beschuiten (rol)",
+                self.browser.find_element_by_id(
+                    "id_game_booking_material_1"
+                ).get_attribute("value"),
+            )
+        )
 
-        # Bob decides to add another game
+        # He decides he needs two of this material
+        self.browser.find_element_by_id("id_game_booking_amount_1").send_keys("2")
+        self.browser.find_element_by_id("id_game_booking_amount_1").send_keys(
+            Keys.ENTER
+        )
 
-        # Bob changes the order of the games
-        time.sleep(100)
-        self.fail("Finish the test!")
+        # The material is added to the list
+        self.wait_for(
+            lambda: self.assertIn(
+                "beschuiten (rol)",
+                self.browser.find_element_by_css_selector(f'[id="{selected_day}AF"]')
+                .find_element_by_class_name("bookings-table")
+                .text,
+            )
+        )
