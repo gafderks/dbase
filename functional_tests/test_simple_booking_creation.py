@@ -13,6 +13,8 @@ from .base import FunctionalTest, english
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 
+from .game_view_page import GameViewPage
+
 
 def create_user_accounts():
     group_bob_and_charlie = Group(name="Group Bob", slug="group-bob")
@@ -141,60 +143,12 @@ class SimpleUserBookingTest(FunctionalTest):
             "Group Bob", self.browser.find_element_by_id("groupSelector").text
         )
 
-        # He adds a game to one of the days
-        selected_day = (timezone.now() + timedelta(days=75)).strftime("%Y-%m-%d")
-        self.browser.find_element_by_id(f"id_game_name_{selected_day}").send_keys(
-            "Hide and seek"
-        )
-        day_part = Select(
-            self.browser.find_element_by_id(f"id_game_part_of_day_{selected_day}")
-        )
-        day_part.select_by_visible_text("Afternoon")
-        self.browser.find_element_by_id(f"id_game_location_{selected_day}").send_keys(
-            "@Home"
-        )
-        self.browser.find_element_by_id(f"id_game_location_{selected_day}").send_keys(
-            Keys.ENTER
-        )
+        game_view_page = GameViewPage(self)
 
-        # He notes that the game is added to the page
-        self.wait_for(
-            lambda: self.assertIn(
-                "Hide and seek",
-                self.browser.find_element_by_css_selector(f'[id="{selected_day}AF"]')
-                .find_element_by_class_name("game-name")
-                .text,
-            )
+        # He adds a game to one of the days
+        first_game = game_view_page.add_game(
+            timezone.now() + timedelta(days=75), "AF", "Hide and seek", "@home"
         )
 
         # On the game he adds a booking for a material
-        self.browser.find_element_by_id("id_game_booking_material_1").send_keys("Bes")
-        self.browser.find_element_by_id("id_game_booking_material_1").send_keys(
-            Keys.ENTER
-        )
-
-        # As he types, he gets suggestions for materials
-        self.wait_for(
-            lambda: self.assertEqual(
-                "beschuiten (rol)",
-                self.browser.find_element_by_id(
-                    "id_game_booking_material_1"
-                ).get_attribute("value"),
-            )
-        )
-
-        # He decides he needs two of this material
-        self.browser.find_element_by_id("id_game_booking_amount_1").send_keys("2")
-        self.browser.find_element_by_id("id_game_booking_amount_1").send_keys(
-            Keys.ENTER
-        )
-
-        # The material is added to the list
-        self.wait_for(
-            lambda: self.assertIn(
-                "beschuiten (rol)",
-                self.browser.find_element_by_css_selector(f'[id="{selected_day}AF"]')
-                .find_element_by_class_name("bookings-table")
-                .text,
-            )
-        )
+        beschuit = game_view_page.add_material(first_game, 2, "beschuiten (rol)", "Bes")
