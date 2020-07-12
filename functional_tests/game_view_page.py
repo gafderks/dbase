@@ -2,7 +2,6 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.select import Select
 
 from booking.models import PartOfDay
-from .base import wait
 
 
 def get_part_of_day_name(code):
@@ -28,6 +27,7 @@ class GameViewPage(object):
         self.test.browser.find_element_by_id(
             f"id_game_location_{selected_day}"
         ).send_keys(Keys.ENTER)
+
         # Test if name is in the game
         self.test.wait_for(
             lambda: self.test.assertIn(
