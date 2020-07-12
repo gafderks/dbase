@@ -2,7 +2,7 @@
   "name": "dbase",
   "version": "1.0.0",
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^5.13.0",
+    "@fortawesome/fontawesome-free": "^5.13.1",
     "bloodhound-js": "^1.2.3",
     "bootstrap": "^4.5.0",
     "bootstrap4-toggle": "^3.6.1",
