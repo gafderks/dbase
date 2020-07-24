@@ -30,7 +30,7 @@ def format_woocommerce(request, materials):
                 "post_content": mat.description,
                 "regular_price": mat.rate_class.rate.amount
                 if mat.rate_class is not None
-                else "",
+                else 0.00,
                 "tax:product_cat": mat.categories.first()
                 if mat.categories.exists()
                 else "",
