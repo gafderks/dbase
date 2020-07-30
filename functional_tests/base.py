@@ -1,7 +1,10 @@
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from django.test import override_settings
 from selenium import webdriver
-from selenium.common.exceptions import WebDriverException
+from selenium.common.exceptions import (
+    WebDriverException,
+    StaleElementReferenceException,
+)
 import time
 from django.conf import settings
 
@@ -24,6 +27,16 @@ def wait(fn):
     return modified_fn
 
 
+def retry_stale(fn):
+    def modified_fn(*args, **kwargs):
+        try:
+            return fn(*args, **kwargs)
+        except StaleElementReferenceException:
+            return fn(*args, **kwargs)
+
+    return modified_fn
+
+
 english = override_settings(LANGUAGE_CODE="en-US", LANGUAGES=(("en", "English"),),)
 
 
@@ -42,6 +55,10 @@ class FunctionalTest(StaticLiveServerTestCase):
     def wait_for(self, fn):
         return fn()
 
+    @retry_stale
+    def retry_on_stale(self, fn):
+        return fn()
+
     @wait
     def wait_to_be_logged_in(self, user_label):
         self.browser.find_element_by_css_selector('[href="/users/logout/"]')
@@ -54,8 +71,12 @@ class FunctionalTest(StaticLiveServerTestCase):
         navbar = self.browser.find_element_by_css_selector(".navbar")
         self.assertNotIn(email, navbar.text)
 
-    def create_pre_authenticated_session(self, email, group=None, roles=None):
-        session_key = create_pre_authenticated_session(email, group, roles)
+    def create_pre_authenticated_session(self, user):
+        """
+        :param User user:
+        :return:
+        """
+        session_key = create_pre_authenticated_session(user)
         # To set a cookie we need to first visit the domain.
         # Use the homepage as a non-existing page seems to break CSRF cookie
         self.browser.get(self.live_server_url)
