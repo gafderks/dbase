@@ -20,14 +20,7 @@ class Command(BaseCommand):
         self.stdout.write(session_key)
 
 
-def create_pre_authenticated_session(email, group=None, roles=None):
-    user = User.objects.create(email=email, password="secret")
-    if group is not None:
-        user.group = group
-    if roles is not None and len(roles) > 0:
-        for role in roles:
-            user.roles.add(role)
-    user.save()
+def create_pre_authenticated_session(user):
     session = SessionStore()
     session[SESSION_KEY] = user.pk
     session[BACKEND_SESSION_KEY] = settings.AUTHENTICATION_BACKENDS[1]

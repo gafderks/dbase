@@ -141,6 +141,7 @@ export default class Game extends BookingContainer {
             this._$elem = $newGame;
             this._populateFromDOM();
             this._attachEvents();
+            Booking.initCreateBookingForm(this);
           } else if ($trigger.hasClass('delete-game')) {
             this.delete();
           }

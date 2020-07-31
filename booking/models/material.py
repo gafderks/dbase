@@ -66,6 +66,10 @@ class Material(models.Model):
 
     @property
     def stock(self):
+        """
+        Returns a human readable representation of the stock
+        :return:
+        """
         return " ".join(
             [
                 str(val)[:-2] if str(val).endswith(".0") else str(val)  # Remove .0

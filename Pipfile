@@ -8,6 +8,7 @@ django-extensions = "*"
 django-debug-toolbar = "*"
 black = "*"
 selenium = "*"
+factory_boy = "*"
 
 [packages]
 mysqlclient = "*"
@@ -24,3 +25,7 @@ django-filter = "*"
 rules = "*"
 Django = "*"
 Pillow = "*"
+factory-boy = "*"
+
+[pipenv]
+allow_prereleases = true
