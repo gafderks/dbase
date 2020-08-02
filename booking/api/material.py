@@ -1,14 +1,33 @@
 import csv
 from collections import OrderedDict
+
+from django.template.defaultfilters import filesizeformat
 from sorl.thumbnail import get_thumbnail
 
 from django.http import HttpResponse, JsonResponse
+from django.utils.translation import gettext as _
 
 
 def format_woocommerce(request, materials):
 
     response = HttpResponse(content_type="text/csv")
     response["Content-Disposition"] = 'attachment; filename="materials.csv"'
+
+    def post_content(material):
+        content = material.description
+        if material.attachments.exists():
+            list = [
+                f'<li><a href="{request.build_absolute_uri(att.attachment.url)}"'
+                f' target="attachment">{att.description} ({att.extension}, '
+                f"{filesizeformat(att.attachment.size)})</a></li>"
+                for att in material.attachments.all()
+            ]
+            attachments_header = _("Attachments")
+            content += (
+                f"<h2>{attachments_header}</h2>"
+                f'<ul class="attachments">{"".join(list)}</ul>'
+            )
+        return content
 
     def line_format(mat):
         """
@@ -27,7 +46,7 @@ def format_woocommerce(request, materials):
                 if mat.lendable
                 else "exclude-from-catalog|exclude-from-search",
                 "stock": mat.stock_value,  # Stock
-                "post_content": mat.description,
+                "post_content": post_content(mat),
                 "regular_price": mat.rate_class.rate.amount
                 if mat.rate_class is not None
                 else 0.00,

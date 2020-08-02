@@ -1,3 +1,5 @@
+from pathlib import PurePath
+
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from adminsortable.models import SortableMixin
@@ -26,3 +28,7 @@ class MaterialAttachment(SortableMixin):
         verbose_name = _("material attachment")
         verbose_name_plural = _("material attachments")
         ordering = ["attachment_order"]
+
+    @property
+    def extension(self):
+        return PurePath(self.attachment.name).suffix
