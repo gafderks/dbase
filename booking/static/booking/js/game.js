@@ -111,6 +111,8 @@ export default class Game extends BookingContainer {
           newGame._partOfDay = day.getPartOfDay(newGame._partOfDayCode).addGame(newGame);
           // Reset the form
           $trigger.find('[name=name], [name=location]').val('');
+          // Move cursor to the name field
+          $trigger.find('[name=name]').focus();
         }
         day.sortGames(data['order']);
         day.updateNavigation(data['nav_html']);

@@ -206,6 +206,8 @@ export default class Booking {
           // Reset the form
           $trigger.find('[name=amount], [name=workweek], [name=comment]').val('');
           autocomplete.reset();
+          // Move cursor to the material field
+          $trigger.find('.typeahead-materials').focus();
         }
       },
       error: function (jqXHR, textStatus, errorThrown) {
