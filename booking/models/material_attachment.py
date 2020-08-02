@@ -18,6 +18,9 @@ class MaterialAttachment(SortableMixin):
     attachment_order = models.PositiveIntegerField(
         default=0, editable=False, db_index=True
     )
+    description = models.CharField(
+        verbose_name=_("description"), max_length=250, blank=True
+    )
 
     class Meta:
         verbose_name = _("material attachment")
