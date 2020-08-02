@@ -31,13 +31,13 @@ def format_woocommerce(request, materials):
 
     def line_format(mat):
         """
-
+        Format: https://www.webtoffee.com/setting-up-product-import-export-plugin-for-woocommerce/
         :param Material mat:
         :return:
         """
         return OrderedDict(
             {
-                "sku": mat.id + 2000,
+                "sku": mat.id + 2000,  # avoid collision with simple posts
                 "tax:product_type": "simple",
                 "post_title": mat.name,
                 "post_name": mat.name,
@@ -50,14 +50,18 @@ def format_woocommerce(request, materials):
                 "regular_price": mat.rate_class.rate.amount
                 if mat.rate_class is not None
                 else 0.00,
-                "tax:product_cat": mat.categories.first()
-                if mat.categories.exists()
-                else "",
-                "images": request.build_absolute_uri(
-                    get_thumbnail(mat.images.first().image, "1280").url
-                )  # At max return HD image (1280x720)
-                if mat.images.exists()
-                else "",
+                "tax:product_cat": "|".join(
+                    [str(category) for category in mat.categories.all()]
+                ),
+                # @see https://www.webtoffee.com/woocommerce-import-products-with-images/
+                "images": "|".join(
+                    [
+                        request.build_absolute_uri(
+                            get_thumbnail(img.image, "1280").url
+                        )  # At max return HD image (1280x720)
+                        for img in mat.images.all()
+                    ]
+                ),
                 "meta:stock_unit": mat.stock_unit,
             }
         )
