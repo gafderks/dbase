@@ -138,9 +138,11 @@ class EventView(LoginRequiredMixin, TemplateView):
         context.update(
             {
                 **get_base_context(self.request),
-                "current_event": self.get_requested_event(kwargs.get("event_slug")),
+                "current_event": self.get_requested_event(
+                    self.kwargs.get("event_slug")
+                ),
                 "current_group": self.get_requested_group(
-                    kwargs.get("group_slug", None)
+                    self.kwargs.get("group_slug", None)
                 ),
             }
         )
