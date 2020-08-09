@@ -22,8 +22,8 @@ from users.models import Group
 def get_base_context(request):
     return {
         "events": Event.objects.viewable(request.user),
-        "groups": Group.objects.filter(type=Group.GROUP),
-        "commissions": Group.objects.filter(type=Group.COMMISSION),
+        "groups": Group.objects.filter(type=Group.GroupType.GROUP),
+        "commissions": Group.objects.filter(type=Group.GroupType.COMMISSION),
         "parts_of_day": PartOfDay.PART_OF_DAY_CHOICES,
         "typeahead_thumbprint": Material.last_modification().isoformat()
         if Material.last_modification() is not None

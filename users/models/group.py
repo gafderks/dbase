@@ -5,16 +5,15 @@ from django.utils.translation import gettext_lazy as _
 class Group(models.Model):
     name = models.CharField(max_length=250, unique=True)
     slug = models.SlugField(null=False, unique=True, help_text=_("URL short name"))
-    GROUP = "GR"
-    COMMISSION = "CO"
-    GROUP_TYPE_CHOICES = [
-        (GROUP, _("Group")),
-        (COMMISSION, _("Commission")),
-    ]
+
+    class GroupType(models.TextChoices):
+        GROUP = "GR", _("Group")
+        COMMISSION = "CO", _("Commission")
+
     type = models.CharField(
         max_length=2,
-        choices=GROUP_TYPE_CHOICES,
-        default=COMMISSION,
+        choices=GroupType.choices,
+        default=GroupType.COMMISSION,
         verbose_name=_("type"),
         help_text=_("What type is the group?"),
     )
