@@ -131,7 +131,9 @@ class SimpleUserBookingTest(FunctionalTest):
         )
 
         # On the game he adds a booking for a material
-        beschuit = game_view_page.add_booking(first_game, 2, "beschuiten (rol)", "Bes")
+        beschuit = game_view_page.add_booking(
+            first_game, 2, "beschuiten (rol)", "Beschui"
+        )
 
     def test_can_edit_booking(self):
         # Bob is a logged in user
