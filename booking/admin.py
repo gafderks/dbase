@@ -98,7 +98,7 @@ class MaterialAdmin(NonSortableParentAdmin):
 @admin.register(Event)
 class EventAdmin(ObjectPermissionsModelAdmin):
     def booking_status(self, obj):
-        return obj.booking_status
+        return obj.booking_status.label
 
     booking_status.short_description = _("Booking status")
     list_display = (

@@ -41,8 +41,8 @@
     <div class="col-md-4 text-center text-md-right my-2 my-md-0">
       <div class="h2">
         <div data-toggle="tooltip" data-placement="top" title="{% trans "Booking status" %}"
-             class="badge badge-secondary booking-status status-{{ current_event.booking_status_code }}">
-          {{ current_event.booking_status }}<br/>
+             class="badge badge-secondary booking-status status-{{ current_event.booking_status.value }}">
+          {{ current_event.booking_status.label }}<br/>
           {% has_perm 'booking.book_on_event' user current_event as can_book_on_event %}
           {% if can_book_on_event %}
             <small class="font-weight-light">{% trans "You may edit" %}</small>
