@@ -11,18 +11,18 @@ class Command(BaseCommand):
     help = "Imports a set of predefined roles and groups"
 
     GROUPS = [
-        {"name": "Groep 1-2N", "type": Group.GROUP},
-        {"name": "Groep 1-2H", "type": Group.GROUP},
-        {"name": "Groep 3-4", "type": Group.GROUP},
-        {"name": "Groep 5-6", "type": Group.GROUP},
-        {"name": "Groep 7-8", "type": Group.GROUP},
-        {"name": "Groep 7-8", "type": Group.GROUP},
-        {"name": "WS groep 3-4", "type": Group.GROUP},
-        {"name": "WS groep 5-6-7-8", "type": Group.GROUP},
-        {"name": "COS", "type": Group.COMMISSION},
-        {"name": "Feestzaal", "type": Group.COMMISSION},
-        {"name": "Leidingactiviteit", "type": Group.COMMISSION},
-        {"name": "Kinderactiviteit", "type": Group.COMMISSION},
+        {"name": "Groep 1-2N", "type": Group.GroupType.GROUP},
+        {"name": "Groep 1-2H", "type": Group.GroupType.GROUP},
+        {"name": "Groep 3-4", "type": Group.GroupType.GROUP},
+        {"name": "Groep 5-6", "type": Group.GroupType.GROUP},
+        {"name": "Groep 7-8", "type": Group.GroupType.GROUP},
+        {"name": "Groep 7-8", "type": Group.GroupType.GROUP},
+        {"name": "WS groep 3-4", "type": Group.GroupType.GROUP},
+        {"name": "WS groep 5-6-7-8", "type": Group.GroupType.GROUP},
+        {"name": "COS", "type": Group.GroupType.COMMISSION},
+        {"name": "Feestzaal", "type": Group.GroupType.COMMISSION},
+        {"name": "Leidingactiviteit", "type": Group.GroupType.COMMISSION},
+        {"name": "Kinderactiviteit", "type": Group.GroupType.COMMISSION},
     ]
 
     ROLES = [

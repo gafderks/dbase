@@ -13,6 +13,7 @@ class PartOfDay(models.Model):
         Group, on_delete=models.DO_NOTHING, verbose_name=_("group")
     )
     event = models.ForeignKey(Event, on_delete=models.CASCADE, verbose_name=_("event"))
+    # TODO change into enum but keep ordering
     MORNING = "MO"
     AFTERNOON = "AF"
     EVENING = "EV"

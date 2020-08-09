@@ -98,37 +98,27 @@ class Event(RulesModel):
             self.event_start + timedelta(days=day) for day in range(self.duration + 1)
         ]
 
-    HIDDEN = "HI"
-    NOT_STARTED = "NS"
-    OPENED = "OP"
-    PRIVILEGED = "PR"
-    LOCKED = "LO"
-    BOOKING_STATUS = {
-        HIDDEN: _("Hidden"),
-        NOT_STARTED: _("Not started"),
-        OPENED: _("Opened"),
-        PRIVILEGED: _("Privileged"),
-        LOCKED: _("Locked"),
-    }
-
-    @property
-    def booking_status_code(self):
-        now = datetime.now(timezone.utc)
-        if not self.visible:
-            return self.HIDDEN
-        if self.locked:
-            return self.LOCKED
-        if now < self.booking_start:
-            return self.NOT_STARTED
-        if now < self.booking_end:
-            return self.OPENED
-        if now < self.privileged_booking_end:
-            return self.PRIVILEGED
-        return self.LOCKED
+    class BookingStatus(models.TextChoices):
+        HIDDEN = "HI", _("Hidden")
+        NOT_STARTED = "NS", _("Not started")
+        OPENED = "OP", _("Opened")
+        PRIVILEGED = "PR", _("Privileged")
+        LOCKED = "LO", _("Locked")
 
     @property
     def booking_status(self):
-        return self.BOOKING_STATUS[self.booking_status_code]
+        now = datetime.now(timezone.utc)
+        if not self.visible:
+            return self.BookingStatus.HIDDEN
+        if self.locked:
+            return self.BookingStatus.LOCKED
+        if now < self.booking_start:
+            return self.BookingStatus.NOT_STARTED
+        if now < self.booking_end:
+            return self.BookingStatus.OPENED
+        if now < self.privileged_booking_end:
+            return self.BookingStatus.PRIVILEGED
+        return self.BookingStatus.LOCKED
 
     @property
     def is_privileged(self):

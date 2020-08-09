@@ -9,4 +9,4 @@ class GroupFactory(factory.DjangoModelFactory):
 
     name = factory.Faker("company")
     slug = factory.LazyAttribute(lambda o: slugify(o.name))
-    type = factory.Iterator([Group.GROUP, Group.COMMISSION])
+    type = factory.Iterator([Group.GroupType.GROUP, Group.GroupType.COMMISSION])
