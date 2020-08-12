@@ -47,6 +47,10 @@ class Command(BaseCommand):
                 "change_materialimage",
                 "delete_materialimage",
                 "view_materialimage",
+                "add_materialattachment",
+                "change_materialattachment",
+                "delete_materialattachment",
+                "view_materialattachment",
                 "view_rateclass",
             ],
         }
