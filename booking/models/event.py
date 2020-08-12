@@ -71,7 +71,10 @@ class Event(RulesModel):
         verbose_name = _("event")
         verbose_name_plural = _("events")
         get_latest_by = "event_end"
-        ordering = ["-event_end"]
+        ordering = [
+            "-visible",
+            "-event_end",
+        ]  # first visible events sorted by event_end
         permissions = [
             ("view_hidden_events", "Can view hidden events"),
             ("book_on_privileged_events", "Can book on privileged events"),
