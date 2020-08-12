@@ -54,7 +54,7 @@ class HomeView(LoginRequiredMixin, View):
                 "jeugdraad/alert.html",
                 {**context, "message": _("There are no open events.")},
             )
-        return redirect(events.latest().get_absolute_url())
+        return redirect(events.first().get_absolute_url())
 
 
 @login_required
