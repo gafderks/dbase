@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-21 22:17+0100\n"
-"PO-Revision-Date: 2020-03-21 22:54+0100\n"
+"POT-Creation-Date: 2020-08-13 20:18+0200\n"
+"PO-Revision-Date: 2020-08-13 20:23+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: nl\n"
@@ -16,19 +16,36 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.3\n"
+"X-Generator: Poedit 2.4.1\n"
 
-#: .\users\admin.py:20 .\users\models\role.py:12 .\users\models\user.py:57
+#: .\users\admin.py:21 .\users\models\role.py:12 .\users\models\user.py:57
 msgid "roles"
 msgstr "rollen"
 
-#: .\users\admin.py:24
+#: .\users\admin.py:25
 msgid "Personal info"
 msgstr "Persoonlijke informatie"
 
-#: .\users\admin.py:26
+#: .\users\admin.py:27
 msgid "Permissions"
 msgstr "Rechten"
+
+#: .\users\admin.py:90
+#, python-format
+msgid "%(user_count)s users"
+msgstr "%(user_count)s gebruikers"
+
+#: .\users\admin.py:92
+msgid "Number of permissions"
+msgstr "Aantal rechten"
+
+#: .\users\admin.py:93
+msgid "Number of users"
+msgstr "Aantal gebruikers"
+
+#: .\users\admin.py:105
+msgid "assigned to"
+msgstr "toegewezen aan"
 
 #: .\users\apps.py:7
 msgid "users"
@@ -42,27 +59,27 @@ msgstr "Inloggen"
 msgid "URL short name"
 msgstr "Permalink"
 
-#: .\users\models\group.py:11
+#: .\users\models\group.py:10
 msgid "Group"
 msgstr "Groep"
 
-#: .\users\models\group.py:12
+#: .\users\models\group.py:11
 msgid "Commission"
 msgstr "Commissie"
 
-#: .\users\models\group.py:18
+#: .\users\models\group.py:17
 msgid "type"
 msgstr "type"
 
-#: .\users\models\group.py:19
+#: .\users\models\group.py:18
 msgid "What type is the group?"
 msgstr "Welk type heeft de groep?"
 
-#: .\users\models\group.py:23 .\users\models\user.py:52
+#: .\users\models\group.py:22 .\users\models\user.py:52
 msgid "group"
 msgstr "groep"
 
-#: .\users\models\group.py:24
+#: .\users\models\group.py:23
 msgid "groups"
 msgstr "groepen"
 
@@ -86,6 +103,6 @@ msgstr ""
 "De rollen van deze gebruiker. Een gebruiker krijgt de rechten die toegekend "
 "zijn aan elk van zijn rollen."
 
-#: .\users\templates\registration\login.html:33
+#: .\users\templates\registration\login.html:14
 msgid "Login to enter the DBase."
 msgstr "Log in om de DBase te openen."
