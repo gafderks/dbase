@@ -3,7 +3,8 @@ from django.contrib.auth.admin import (
     UserAdmin as DjangoUserAdmin,
     GroupAdmin as DjangoGroupAdmin,
 )
-from django.contrib.auth.models import Group as DjangoGroup
+from django.contrib.auth.models import Group as DjangoGroup, Permission
+from django.db.models import Count
 from django.utils.translation import gettext_lazy as _
 
 from .forms import CustomUserCreationForm, CustomUserChangeForm
@@ -72,4 +73,33 @@ class GroupAdmin(admin.ModelAdmin):
 
 # Rename Django Groups to Roles for distinguishing from custom Group definition
 admin.site.unregister(DjangoGroup)
-admin.site.register(Role, DjangoGroupAdmin)
+
+
+@admin.register(Role)
+class RoleAdmin(admin.ModelAdmin):
+    list_display = ("name", "count_permissions", "count_users")
+
+    def get_queryset(self, request):
+        qs = super(RoleAdmin, self).get_queryset(request)
+        return qs.annotate(permission_count=Count("permissions"))
+
+    def count_permissions(self, obj):
+        return obj.permission_count
+
+    def count_users(self, obj):
+        return _("%(user_count)s users") % {"user_count": obj.user_set.count()}
+
+    count_permissions.short_description = _("Number of permissions")
+    count_users.short_description = _("Number of users")
+
+
+@admin.register(Permission)
+class PermissionAdmin(admin.ModelAdmin):
+    search_fields = ["codename"]
+    list_display = ("pk", "__str__", "assigned_to")
+    list_display_links = ("pk", "__str__")
+
+    def assigned_to(self, obj):
+        return ", ".join([role.name for role in obj.group_set.all()])
+
+    assigned_to.short_description = _("assigned to")
