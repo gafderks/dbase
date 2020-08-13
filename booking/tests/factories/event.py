@@ -5,7 +5,7 @@ from datetime import timedelta
 from booking.models import Event
 
 
-class EventFactory(factory.DjangoModelFactory):
+class EventFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = Event
 

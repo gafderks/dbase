@@ -2,7 +2,7 @@ import factory
 from booking.models import Material
 
 
-class MaterialFactory(factory.DjangoModelFactory):
+class MaterialFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = Material
 

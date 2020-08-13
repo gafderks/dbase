@@ -3,7 +3,7 @@ from users.models import User
 from users.tests.factories import GroupFactory
 
 
-class UserFactory(factory.DjangoModelFactory):
+class UserFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = User
 
