@@ -3,7 +3,7 @@ from django.utils.text import slugify
 from users.models import Group
 
 
-class GroupFactory(factory.DjangoModelFactory):
+class GroupFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = Group
 
