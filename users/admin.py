@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as DjangoUserAdmin
+from django.contrib.auth.admin import GroupAdmin as DjangoGroupAdmin
 from django.contrib.auth.models import Group as DjangoGroup, Permission
 from django.db.models import Count
 from django.utils.translation import gettext_lazy as _
@@ -73,7 +74,7 @@ admin.site.unregister(DjangoGroup)
 
 
 @admin.register(Role)
-class RoleAdmin(admin.ModelAdmin):
+class RoleAdmin(DjangoGroupAdmin):
     list_display = ("name", "count_permissions", "count_users")
 
     def get_queryset(self, request):
