@@ -337,10 +337,10 @@
         },
         "django-extensions": {
             "hashes": [
-                "sha256:59df0c4dfe93bffdbdeeb474633ef7654589c9ccc6dcd1f34605198f5e2ede05",
-                "sha256:ec7f3aa9d51bb00f84099c3a71e5090984b7bcdcad247407106250642c23d722"
+                "sha256:0ede618f3d933317737406c979753bb91436c3b3e93a452638a1483b624aa89d",
+                "sha256:b49388a943368417d4c203d51866ca4ffe3011bb240679558521762c4b452b8a"
             ],
-            "version": "==3.0.6"
+            "version": "==3.0.7"
         },
         "factory-boy": {
             "hashes": [
