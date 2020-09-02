@@ -76,7 +76,7 @@ class Material(models.Model):
                 for val in [self.stock_value, self.stock_unit]  # Concat value and unit
                 if val is not None
             ]
-        )
+        ).strip()
 
     stock.fget.short_description = _("stock")
 
