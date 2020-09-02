@@ -27,6 +27,9 @@ def format_woocommerce(request, materials):
                 f"<h2>{attachments_header}</h2>"
                 f'<ul class="attachments">{"".join(list)}</ul>'
             )
+        if material.stock != "":
+            stock_header = _("Maximum stock")
+            content += f"<h2>{stock_header}</h2><p>{material.stock}</p>"
         return content
 
     def line_format(mat):
