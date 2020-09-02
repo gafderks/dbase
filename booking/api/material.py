@@ -29,7 +29,10 @@ def format_woocommerce(request, materials):
             )
         if material.stock != "":
             stock_header = _("Maximum stock")
-            content += f"<h2>{stock_header}</h2><p>{material.stock}</p>"
+            content += (
+                f'<p class="max-stock"><span>{stock_header}:</span>'
+                f" {material.stock}</p>"
+            )
         return content
 
     def line_format(mat):
