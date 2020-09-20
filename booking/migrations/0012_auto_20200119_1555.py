@@ -10,9 +10,18 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RemoveField(model_name="booking", name="day",),
-        migrations.RemoveField(model_name="booking", name="event",),
-        migrations.RemoveField(model_name="booking", name="group",),
+        migrations.RemoveField(
+            model_name="booking",
+            name="day",
+        ),
+        migrations.RemoveField(
+            model_name="booking",
+            name="event",
+        ),
+        migrations.RemoveField(
+            model_name="booking",
+            name="group",
+        ),
         migrations.AlterField(
             model_name="booking",
             name="workweek",

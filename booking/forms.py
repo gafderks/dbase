@@ -147,7 +147,11 @@ class GameForm(forms.ModelForm):
                     css_class="col-auto px-1 mb-lg-0 form-label-group",
                 ),
                 Div(
-                    Reset("reset", _("Cancel"), css_id=self.auto_id % "reset",),
+                    Reset(
+                        "reset",
+                        _("Cancel"),
+                        css_id=self.auto_id % "reset",
+                    ),
                     css_class="col-auto px-1 mb-lg-0 form-label-group",
                 )
                 if self.instance.id
@@ -272,7 +276,11 @@ class BookingForm(forms.ModelForm):
                     css_class="col-auto px-1 mb-xl-0 form-label-group",
                 ),
                 Div(
-                    Reset("reset", _("Cancel"), css_id=self.auto_id % "reset",),
+                    Reset(
+                        "reset",
+                        _("Cancel"),
+                        css_id=self.auto_id % "reset",
+                    ),
                     css_class="col-auto px-1 mb-xl-0 form-label-group",
                 )
                 if self.instance.id

@@ -13,7 +13,10 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RemoveField(model_name="game", name="order",),
+        migrations.RemoveField(
+            model_name="game",
+            name="order",
+        ),
         migrations.AlterField(
             model_name="game",
             name="creator",

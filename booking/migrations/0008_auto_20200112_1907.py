@@ -11,7 +11,10 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RemoveField(model_name="booking", name="part_of_day_code",),
+        migrations.RemoveField(
+            model_name="booking",
+            name="part_of_day_code",
+        ),
         migrations.AlterField(
             model_name="booking",
             name="game",

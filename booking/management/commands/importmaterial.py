@@ -50,7 +50,10 @@ class Command(BaseCommand):
         # Import materials
         ################################################################################
         with open(
-            os.path.join(os.path.dirname(os.path.abspath(__file__)), "materiaal.csv",)
+            os.path.join(
+                os.path.dirname(os.path.abspath(__file__)),
+                "materiaal.csv",
+            )
         ) as csv_file:
             reader = csv.reader(csv_file, delimiter=",", quotechar='"')
             _ = next(reader)  # Skip the header
@@ -60,7 +63,9 @@ class Command(BaseCommand):
             for row in reader:
                 name, description, category, gm, the_id = row
                 material = Material(
-                    name=name, description=description, gm=(gm == "Ja"),
+                    name=name,
+                    description=description,
+                    gm=(gm == "Ja"),
                 )
                 materials.append(material)
                 material.save()

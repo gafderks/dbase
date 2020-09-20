@@ -152,7 +152,11 @@ class EventView(LoginRequiredMixin, TemplateView):
         try:
             return super().get(request, *args, **kwargs)
         except UserAlertException as e:
-            return render(request, "jeugdraad/alert.html", {"message": e},)
+            return render(
+                request,
+                "jeugdraad/alert.html",
+                {"message": e},
+            )
 
 
 class EventGameView(EventView):
@@ -202,7 +206,10 @@ class EventGameView(EventView):
         }
 
         context.update(
-            {"game_forms": game_forms, "games": games,}
+            {
+                "game_forms": game_forms,
+                "games": games,
+            }
         )
 
         return context
@@ -219,7 +226,10 @@ class EventListView(EventView):
             self.request.GET,
             request=self.request,
             queryset=Booking.objects.prefetch_related(
-                "material", "material__categories", "game", "game__group",
+                "material",
+                "material__categories",
+                "game",
+                "game__group",
             ).filter(
                 game__event=current_event,
                 **self.get_group_filter(context["current_group"], "game__")
@@ -232,7 +242,10 @@ class EventListView(EventView):
         list_views = {
             day: {
                 part_of_day: ListViewFilter.run_filters(
-                    f.qs.filter(game__day=day, game__part_of_day=part_of_day,),
+                    f.qs.filter(
+                        game__day=day,
+                        game__part_of_day=part_of_day,
+                    ),
                     list_view_filters=list_view_filters,
                 )
                 for part_of_day, _ in PartOfDay.PART_OF_DAY_CHOICES

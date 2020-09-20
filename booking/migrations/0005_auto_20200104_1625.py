@@ -15,7 +15,9 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.RenameField(
-            model_name="booking", old_name="part_of_day", new_name="part_of_day_code",
+            model_name="booking",
+            old_name="part_of_day",
+            new_name="part_of_day_code",
         ),
         migrations.AddField(
             model_name="game",

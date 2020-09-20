@@ -109,9 +109,15 @@ AUTH_PASSWORD_VALIDATORS = [
     {
         "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
     },
-    {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",},
-    {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",},
-    {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",},
+    {
+        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
+    },
+    {
+        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
+    },
+    {
+        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
+    },
 ]
 
 AUTHENTICATION_BACKENDS = (
@@ -140,7 +146,11 @@ CACHES = {
     }
 }
 if DEBUG:
-    CACHES = {"default": {"BACKEND": "django.core.cache.backends.dummy.DummyCache",}}
+    CACHES = {
+        "default": {
+            "BACKEND": "django.core.cache.backends.dummy.DummyCache",
+        }
+    }
 
 ADMINS = [tuple(x.split(":")) for x in env("ADMINS")]
 EMAIL_CONFIG = env.email_url("EMAIL_URL", default="smtp://user@:password@localhost:25")
@@ -180,7 +190,13 @@ CKEDITOR_CONFIGS = {
     "basic_ckeditor": {
         "toolbar": "basic_ckeditor",
         "toolbar_basic_ckeditor": [
-            ["Bold", "Italic", "Underline", "-", "RemoveFormat",],
+            [
+                "Bold",
+                "Italic",
+                "Underline",
+                "-",
+                "RemoveFormat",
+            ],
             ["NumberedList", "BulletedList", "-", "Image", "Youtube", "HorizontalRule"],
             ["Link", "Unlink"],
             ["Undo", "Redo"],

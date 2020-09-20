@@ -12,7 +12,9 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.RenameField(
-            model_name="material", old_name="stock", new_name="stock_unit",
+            model_name="material",
+            old_name="stock",
+            new_name="stock_unit",
         ),
         migrations.AlterField(
             model_name="materialimage",

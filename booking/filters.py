@@ -15,7 +15,9 @@ from booking.models import Category, Booking
 
 class CustomNullBooleanSelect(NullBooleanSelect):
     def __init__(
-        self, attrs=None, choices=(),
+        self,
+        attrs=None,
+        choices=(),
     ):
         super().__init__(attrs)
         self.choices = list(choices)
@@ -61,7 +63,11 @@ class CustomBooleanFilter(BooleanFilter):
     def __init__(
         self,
         *args,
-        choices=(("unknown", _("Any")), ("true", _("Yes")), ("false", _("No")),),
+        choices=(
+            ("unknown", _("Any")),
+            ("true", _("Yes")),
+            ("false", _("No")),
+        ),
         **kwargs
     ):
         super().__init__(*args, choices=choices, **kwargs)
@@ -176,7 +182,11 @@ class BookingFilter(FilterSet):
                     else "",
                 ),
                 Div(
-                    Submit("filter", _("Apply filters"), css_class="btn-secondary",),
+                    Submit(
+                        "filter",
+                        _("Apply filters"),
+                        css_class="btn-secondary",
+                    ),
                     HTML(
                         '<a href="?" class="btn btn-outline-secondary">{}</a>'.format(
                             _("Clear")

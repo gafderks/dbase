@@ -14,7 +14,11 @@ from booking.models import Booking
 def delete_booking(request, booking_id):
     booking = get_object_or_404(Booking, pk=booking_id)
     booking.delete()
-    return JsonResponse({"success": True,})
+    return JsonResponse(
+        {
+            "success": True,
+        }
+    )
 
 
 @login_required
@@ -52,7 +56,11 @@ def edit_booking(request, booking_id=None):
         )
 
         return JsonResponse(
-            {"success": True, "form_html": form_html, "booking_html": booking_html,}
+            {
+                "success": True,
+                "form_html": form_html,
+                "booking_html": booking_html,
+            }
         )
 
     form_html = render_crispy_form(form)

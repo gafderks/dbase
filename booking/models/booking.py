@@ -16,7 +16,10 @@ class Booking(RulesModel):
         editable=False,
     )
     game = models.ForeignKey(
-        Game, on_delete=models.CASCADE, verbose_name=_("game"), related_name="bookings",
+        Game,
+        on_delete=models.CASCADE,
+        verbose_name=_("game"),
+        related_name="bookings",
     )
     material = models.ForeignKey(
         Material,
