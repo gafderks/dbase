@@ -95,7 +95,10 @@ class Migration(migrations.Migration):
                     ),
                 ),
             ],
-            options={"verbose_name": "category", "verbose_name_plural": "categories",},
+            options={
+                "verbose_name": "category",
+                "verbose_name_plural": "categories",
+            },
         ),
         migrations.CreateModel(
             name="Event",
@@ -219,7 +222,10 @@ class Migration(migrations.Migration):
                     ),
                 ),
             ],
-            options={"verbose_name": "game", "verbose_name_plural": "games",},
+            options={
+                "verbose_name": "game",
+                "verbose_name_plural": "games",
+            },
         ),
         migrations.CreateModel(
             name="Location",
@@ -235,7 +241,10 @@ class Migration(migrations.Migration):
                 ),
                 ("name", models.CharField(max_length=150, verbose_name="name")),
             ],
-            options={"verbose_name": "location", "verbose_name_plural": "locations",},
+            options={
+                "verbose_name": "location",
+                "verbose_name_plural": "locations",
+            },
         ),
         migrations.CreateModel(
             name="Material",
@@ -295,7 +304,10 @@ class Migration(migrations.Migration):
                     ),
                 ),
             ],
-            options={"verbose_name": "material", "verbose_name_plural": "materials",},
+            options={
+                "verbose_name": "material",
+                "verbose_name_plural": "materials",
+            },
         ),
         migrations.CreateModel(
             name="RateClass",

@@ -148,7 +148,10 @@ class SimpleUserBookingTest(FunctionalTest):
         # He adds a game to one of the days
         first_game_day = self.active_event.event_start + timedelta(days=2)
         first_game = game_view_page.add_game(
-            first_game_day, PartOfDay.AFTERNOON, "Hide and seek", "@home",
+            first_game_day,
+            PartOfDay.AFTERNOON,
+            "Hide and seek",
+            "@home",
         )
 
         # On the game he adds a booking for a material
