@@ -9,6 +9,7 @@ django-debug-toolbar = "*"
 black = "*"
 selenium = "*"
 factory_boy = "*"
+typing-extensions = "*"
 
 [packages]
 mysqlclient = "*"
