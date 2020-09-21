@@ -1,5 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.db import models
+from django.db.models.signals import pre_delete
+from django.dispatch import receiver
 from django.utils.translation import gettext_lazy as _
 from rules.contrib.models import RulesModel
 
@@ -10,7 +12,7 @@ from booking.models import Game, Material
 class Booking(RulesModel):
     requester = models.ForeignKey(
         get_user_model(),
-        on_delete=models.DO_NOTHING,
+        on_delete=models.DO_NOTHING,  # TODO get group sentinel user
         verbose_name=_("requester"),
         related_name="bookings",
         editable=False,
@@ -23,7 +25,9 @@ class Booking(RulesModel):
     )
     material = models.ForeignKey(
         Material,
-        on_delete=models.DO_NOTHING,
+        # The receiver "_material_delete" removes references to the material in all
+        #  bookings before deleting a material.
+        on_delete=models.SET_NULL,
         verbose_name=_("material"),
         related_name="bookings",
         null=True,
@@ -90,3 +94,14 @@ class Booking(RulesModel):
             return str(self.material.categories.first())
         else:
             return ""
+
+
+@receiver(pre_delete, sender=Material, dispatch_uid="material_delete_signal")
+def _material_delete(sender, instance, using, **kwargs):
+    """
+    Changes bookings of a material that gets deleted into custom material bookings with
+    the name of the material.
+    """
+    Booking.objects.filter(material=instance).update(
+        material=None, custom_material=instance.name
+    )

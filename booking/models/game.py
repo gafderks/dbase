@@ -12,7 +12,7 @@ from users.models import Group
 class Game(RulesModel):
     creator = models.ForeignKey(
         get_user_model(),
-        on_delete=models.DO_NOTHING,
+        on_delete=models.DO_NOTHING,  # TODO get group sentinel user
         verbose_name=_("creator"),
         related_name="games",
         editable=False,
@@ -22,7 +22,9 @@ class Game(RulesModel):
         verbose_name=_("day"), help_text=_("On what day are the materials needed?")
     )
     group = models.ForeignKey(
-        Group, on_delete=models.DO_NOTHING, verbose_name=_("group")
+        Group,
+        on_delete=models.DO_NOTHING,  # TODO get group sentinel
+        verbose_name=_("group"),
     )
     event = models.ForeignKey(Event, on_delete=models.CASCADE, verbose_name=_("event"))
     part_of_day = models.CharField(

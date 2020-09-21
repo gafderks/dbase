@@ -45,7 +45,7 @@ class User(AbstractUser):
     # The custom group
     group = models.ForeignKey(
         Group,
-        on_delete=models.DO_NOTHING,
+        on_delete=models.SET_NULL,
         blank=True,
         null=True,
         help_text=_("What group should this user be associated with?"),
