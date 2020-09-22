@@ -7,12 +7,16 @@ from rules.contrib.models import RulesModel
 
 from booking import rules
 from booking.models import Game, Material
+from users.models.user import get_sentinel_user
 
 
 class Booking(RulesModel):
     requester = models.ForeignKey(
         get_user_model(),
-        on_delete=models.DO_NOTHING,  # TODO get group sentinel user
+        # The receiver "_user_delete" replaces the requester with a sentinel user in all
+        #  related bookings before deleting a user to ensure that the booking is still
+        #  associated to the group.
+        on_delete=models.DO_NOTHING,
         verbose_name=_("requester"),
         related_name="bookings",
         editable=False,
@@ -104,4 +108,15 @@ def _material_delete(sender, instance, using, **kwargs):
     """
     Booking.objects.filter(material=instance).update(
         material=None, custom_material=instance.name
+    )
+
+
+@receiver(pre_delete, sender=get_user_model(), dispatch_uid="user_delete_signal")
+def _user_delete(sender, instance, using, **kwargs):
+    """
+    Changes bookings of a user that gets deleted such that the requester becomes a
+    sentinel user associated to the same group.
+    """
+    Booking.objects.filter(requester=instance).update(
+        requester=get_sentinel_user(instance.group)
     )

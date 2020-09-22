@@ -1,3 +1,4 @@
+from django.contrib.auth import get_user_model
 from django.contrib.auth.models import (
     AbstractUser,
     BaseUserManager,
@@ -75,3 +76,15 @@ class User(AbstractUser):
     @property
     def is_staff(self):
         return self.is_superuser or self.groups.filter(name="MB").exists()
+
+
+def get_sentinel_user(group=None):
+    """
+    Returns a sentinel user that can be used as a stand-in for deleted users. The goal
+    is to be able to retain the objects that are linked to the deleted user.
+    :param Group group: Group that the sentinel user should be associated to.
+    :return: User Sentinel user
+    """
+    return get_user_model().objects.get_or_create(
+        group=group, email=f"deleted_user@{group}", first_name=_("Deleted user")
+    )[0]
