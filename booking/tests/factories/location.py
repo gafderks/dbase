@@ -7,4 +7,4 @@ class LocationFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = Location
 
-    name = factory.Faker("company")
+    name = factory.Sequence(lambda n: factory.Faker("company").generate() + f" {n}")

@@ -8,5 +8,5 @@ class MaterialAliasFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = MaterialAlias
 
-    name = factory.Faker("company")
+    name = factory.Sequence(lambda n: factory.Faker("company").generate() + f" {n}")
     material = factory.SubFactory(MaterialFactory)
