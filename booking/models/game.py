@@ -1,5 +1,7 @@
-from django.db import models, transaction
 from django.contrib.auth import get_user_model
+from django.db import models, transaction
+from django.db.models.signals import pre_delete
+from django.dispatch import receiver
 from django.forms import model_to_dict
 from django.utils.translation import gettext_lazy as _
 from rules.contrib.models import RulesModel
@@ -7,6 +9,7 @@ from rules.contrib.models import RulesModel
 from booking import rules
 from booking.models import PartOfDay, Event
 from users.models import Group
+from users.models.user import get_sentinel_user
 
 
 class Game(RulesModel):
@@ -23,7 +26,10 @@ class Game(RulesModel):
     )
     group = models.ForeignKey(
         Group,
-        on_delete=models.DO_NOTHING,  # TODO get group sentinel
+        # The receiver "_user_delete" replaces the creator with a sentinel user in all
+        #  related games before deleting a user to ensure that the game is still
+        #  associated to the group.
+        on_delete=models.DO_NOTHING,
         verbose_name=_("group"),
     )
     event = models.ForeignKey(Event, on_delete=models.CASCADE, verbose_name=_("event"))
@@ -133,3 +139,14 @@ class Game(RulesModel):
         return BookingForm(
             initial={"game": self}, auto_id="id_game_booking_%s_" + str(self.id)
         )
+
+
+@receiver(pre_delete, sender=get_user_model(), dispatch_uid="user_delete_signal_game")
+def _user_delete(sender, instance, using, **kwargs):
+    """
+    Changes games of a user that gets deleted such that the creator becomes a
+    sentinel user associated to the same group.
+    """
+    Game.objects.filter(creator=instance).update(
+        creator=get_sentinel_user(instance.group)
+    )

@@ -111,7 +111,9 @@ def _material_delete(sender, instance, using, **kwargs):
     )
 
 
-@receiver(pre_delete, sender=get_user_model(), dispatch_uid="user_delete_signal")
+@receiver(
+    pre_delete, sender=get_user_model(), dispatch_uid="user_delete_signal_booking"
+)
 def _user_delete(sender, instance, using, **kwargs):
     """
     Changes bookings of a user that gets deleted such that the requester becomes a
