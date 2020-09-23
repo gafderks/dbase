@@ -11,12 +11,12 @@ class BookingModelTest(TestCase):
         # User 1 and 2 are from the same group
         # User 3 is from a different group
         user = UserFactory()
-        booking = BookingFactory(requester=user)
+        booking = BookingFactory(requester=user, game__creator=user)
         group = user.group
         user2 = UserFactory(group=group)
-        booking2 = BookingFactory(requester=user2)
+        booking2 = BookingFactory(requester=user2, game__creator=user2)
         user3 = UserFactory()
-        booking3 = BookingFactory(requester=user3)
+        booking3 = BookingFactory(requester=user3, game__creator=user3)
         self.assertEqual(
             group,
             booking.requester.group,
@@ -32,7 +32,6 @@ class BookingModelTest(TestCase):
             booking2.requester,
             "bookings are associated with same requester",
         )
-        num_users_before_delete = get_user_model().objects.count()
         user.delete()
         booking.refresh_from_db()
         user2.delete()
@@ -41,10 +40,10 @@ class BookingModelTest(TestCase):
         booking3.refresh_from_db()
         # User 1 and 2 should be replaced by the same sentinel user
         # User 3 should be replaced by another sentinel user
-        # User count should be decreased by one as user 1 and 2 are 'merged'.
+        # User count should be 2 now as user 1 and 2 are 'merged'.
         self.assertEqual(
             get_user_model().objects.count(),
-            num_users_before_delete - 1,
+            2,
             "users were not replaced",
         )
         self.assertEqual(Booking.objects.count(), 3, "booking was deleted")

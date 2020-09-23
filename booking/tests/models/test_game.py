@@ -32,7 +32,6 @@ class GameModelTest(TestCase):
             game2.creator,
             "games are associated with same creator",
         )
-        num_users_before_delete = get_user_model().objects.count()
         user.delete()
         game.refresh_from_db()
         user2.delete()
@@ -41,10 +40,10 @@ class GameModelTest(TestCase):
         game3.refresh_from_db()
         # User 1 and 2 should be replaced by the same sentinel user
         # User 3 should be replaced by another sentinel user
-        # User count should be decreased by one as user 1 and 2 are 'merged'.
+        # User count should be 2 now as user 1 and 2 are 'merged'.
         self.assertEqual(
             get_user_model().objects.count(),
-            num_users_before_delete - 1,
+            2,
             "users were not replaced",
         )
         self.assertEqual(Game.objects.count(), 3, "game was deleted")
