@@ -15,7 +15,10 @@ from users.models.user import get_sentinel_user
 class Game(RulesModel):
     creator = models.ForeignKey(
         get_user_model(),
-        on_delete=models.DO_NOTHING,  # TODO get group sentinel user
+        # The receiver "_user_delete" replaces the creator with a sentinel user in all
+        #  related games before deleting a user to ensure that the game is still
+        #  associated to the group.
+        on_delete=models.DO_NOTHING,
         verbose_name=_("creator"),
         related_name="games",
         editable=False,
@@ -26,9 +29,6 @@ class Game(RulesModel):
     )
     group = models.ForeignKey(
         Group,
-        # The receiver "_user_delete" replaces the creator with a sentinel user in all
-        #  related games before deleting a user to ensure that the game is still
-        #  associated to the group.
         on_delete=models.DO_NOTHING,
         verbose_name=_("group"),
     )
