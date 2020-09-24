@@ -1,6 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.db import models, transaction
-from django.db.models.signals import pre_delete
+from django.db.models.signals import pre_delete, pre_save
 from django.dispatch import receiver
 from django.forms import model_to_dict
 from django.utils.translation import gettext_lazy as _
@@ -71,10 +71,6 @@ class Game(RulesModel):
     def __str__(self):
         return self.name
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.__initial = self._dict
-
     @property
     def _siblings(self):
         return Game.objects.filter(
@@ -86,42 +82,47 @@ class Game(RulesModel):
 
     @property
     def previous(self):
+        """
+        Returns the Game that goes before this game in order.
+        :return Game: previous Game
+        """
         return self._siblings.filter(order__lt=self.order).last()
 
     @property
     def next(self):
+        """
+        Returns the Game that goes after this game in order.
+        :return Game: next Game
+        """
         return self._siblings.filter(order__gt=self.order).first()
 
-    def save(self, *args, **kwargs):
-        # If the game is new (order=0) or it has changed part_of_day we put it last
-        if self.order == 0 or self.part_of_day != self.__initial["part_of_day"]:
-            last_sibling = self._siblings.last()
-            if last_sibling:
-                self.order = last_sibling.order + 1
-            else:
-                self.order = 1
-
-        super().save(*args, **kwargs)
-        self.__initial = self._dict
-
-    @property
-    def _dict(self):
-        return model_to_dict(self, fields=[field.name for field in self._meta.fields])
-
-    def swap(self, other):
+    def swap(self, replacement):
+        """
+        Swaps the order of the supplied Game and this Game.
+        :param Game replacement: Game for this Game to swap order with
+        :return: None
+        """
         with transaction.atomic():
-            self_order, other_order = (getattr(self, "order"), getattr(other, "order"))
-            setattr(self, "order", other_order)
-            setattr(other, "order", self_order)
+            self_order, replacement_order = self.order, replacement.order
+            self.order = replacement_order
+            replacement.order = self_order
             self.save()
-            other.save()
+            replacement.save()
 
     def up(self):
+        """
+        Move Game up one position.
+        :return: None
+        """
         previous = self.previous
         if previous:
             self.swap(previous)
 
     def down(self):
+        """
+        Move Game down one position.
+        :return: None
+        """
         _next = self.next
         if _next:
             self.swap(_next)
@@ -139,6 +140,42 @@ class Game(RulesModel):
         return BookingForm(
             initial={"game": self}, auto_id="id_game_booking_%s_" + str(self.id)
         )
+
+
+@receiver(pre_save, sender=Game)
+def _game_manage_order(sender, instance, **kwargs):
+    """
+    If a game is added newly or the part of day of the game has been changes,
+    we change the order of the game such that it is the last sibling.
+    :param Game sender:
+    :param Game instance:
+    :param kwargs:
+    :return: None
+    """
+
+    def append_order(game):
+        """
+        Returns the order for appending a game to a day part.
+        :param Game game: instance
+        :return int: the order for appending
+        """
+        last_sibling = game._siblings.last()
+        if last_sibling:
+            return last_sibling.order + 1
+        else:
+            return 1
+
+    try:
+        current_game = sender.objects.get(pk=instance.pk)
+    except sender.DoesNotExist:
+        # Game is new
+        instance.order = append_order(instance)
+    else:
+        if not current_game.part_of_day == instance.part_of_day:
+            # The part of day of the game has been changed
+            instance.order = append_order(instance)
+        else:
+            pass  # Keep game order as-is
 
 
 @receiver(pre_delete, sender=get_user_model(), dispatch_uid="user_delete_signal_game")

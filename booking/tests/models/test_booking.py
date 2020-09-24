@@ -7,7 +7,7 @@ from users.tests.factories import UserFactory
 
 
 class BookingModelTest(TestCase):
-    def test_delete_user_with_bookings(self):
+    def test_delete_user_with_bookings_keeps_bookings(self):
         # User 1 and 2 are from the same group
         # User 3 is from a different group
         user = UserFactory()
