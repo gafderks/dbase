@@ -3,10 +3,20 @@ from django.test import TestCase
 
 from booking.models import Booking
 from booking.tests.factories import BookingFactory
-from users.tests.factories import UserFactory
+from users.tests.factories import UserFactory, GroupFactory
 
 
 class BookingModelTest(TestCase):
+    def test_bookings_keep_belonging_to_original_group_if_user_moves_group(self):
+        user = UserFactory()
+        booking = BookingFactory(requester=user, game__creator=user)
+        original_group = user.group
+        self.assertEqual(booking.group, original_group)
+        new_group = GroupFactory()
+        user.group = new_group
+        booking.refresh_from_db()
+        self.assertEqual(booking.group, original_group)
+
     def test_delete_user_with_bookings_keeps_bookings(self):
         # User 1 and 2 are from the same group
         # User 3 is from a different group
