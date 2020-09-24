@@ -29,7 +29,7 @@ class Game(RulesModel):
     )
     group = models.ForeignKey(
         Group,
-        on_delete=models.DO_NOTHING,
+        on_delete=models.CASCADE,
         verbose_name=_("group"),
     )
     event = models.ForeignKey(Event, on_delete=models.CASCADE, verbose_name=_("event"))
