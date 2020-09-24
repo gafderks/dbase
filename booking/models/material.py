@@ -26,7 +26,7 @@ class Material(models.Model):
     )
     location = models.ForeignKey(
         Location,
-        on_delete=models.DO_NOTHING,
+        on_delete=models.SET_NULL,
         blank=True,
         null=True,
         verbose_name=_("location"),
@@ -35,7 +35,7 @@ class Material(models.Model):
     )
     rate_class = models.ForeignKey(
         RateClass,
-        on_delete=models.DO_NOTHING,
+        on_delete=models.SET_NULL,
         blank=True,
         null=True,
         verbose_name=_("rate class"),

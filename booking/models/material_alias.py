@@ -16,7 +16,7 @@ class MaterialAlias(models.Model):
     )
     material = models.ForeignKey(
         Material,
-        on_delete=models.DO_NOTHING,
+        on_delete=models.CASCADE,
         verbose_name=_("material"),
         related_name="aliases",
     )

@@ -14,7 +14,7 @@ class MaterialAttachment(SortableMixin):
     material = models.ForeignKey(
         Material,
         related_name="attachments",
-        on_delete=models.DO_NOTHING,
+        on_delete=models.CASCADE,
         verbose_name=_("material"),
     )
     attachment_order = models.PositiveIntegerField(

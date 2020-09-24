@@ -1,15 +1,21 @@
 from django.contrib.auth import get_user_model
 from django.db import models
+from django.db.models.signals import pre_delete
+from django.dispatch import receiver
 from django.utils.translation import gettext_lazy as _
 from rules.contrib.models import RulesModel
 
 from booking import rules
 from booking.models import Game, Material
+from users.models.user import get_sentinel_user
 
 
 class Booking(RulesModel):
     requester = models.ForeignKey(
         get_user_model(),
+        # The receiver "_user_delete" replaces the requester with a sentinel user in all
+        #  related bookings before deleting a user to ensure that the booking is still
+        #  associated to the group.
         on_delete=models.DO_NOTHING,
         verbose_name=_("requester"),
         related_name="bookings",
@@ -23,7 +29,9 @@ class Booking(RulesModel):
     )
     material = models.ForeignKey(
         Material,
-        on_delete=models.DO_NOTHING,
+        # The receiver "_material_delete" removes references to the material in all
+        #  bookings before deleting a material.
+        on_delete=models.SET_NULL,
         verbose_name=_("material"),
         related_name="bookings",
         null=True,
@@ -90,3 +98,27 @@ class Booking(RulesModel):
             return str(self.material.categories.first())
         else:
             return ""
+
+
+@receiver(pre_delete, sender=Material, dispatch_uid="material_delete_signal")
+def _material_delete(sender, instance, using, **kwargs):
+    """
+    Changes bookings of a material that gets deleted into custom material bookings with
+    the name of the material.
+    """
+    Booking.objects.filter(material=instance).update(
+        material=None, custom_material=instance.name
+    )
+
+
+@receiver(
+    pre_delete, sender=get_user_model(), dispatch_uid="user_delete_signal_booking"
+)
+def _user_delete(sender, instance, using, **kwargs):
+    """
+    Changes bookings of a user that gets deleted such that the requester becomes a
+    sentinel user associated to the same group.
+    """
+    Booking.objects.filter(requester=instance).update(
+        requester=get_sentinel_user(instance.group)
+    )

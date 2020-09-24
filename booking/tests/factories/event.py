@@ -1,7 +1,9 @@
+from datetime import timedelta
+
 import factory
 from django.utils import timezone
 from django.utils.text import slugify
-from datetime import timedelta
+
 from booking.models import Event
 
 
@@ -9,7 +11,7 @@ class EventFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = Event
 
-    name = factory.Faker("company")
+    name = factory.Sequence(lambda n: factory.Faker("company").generate() + f" {n}")
     slug = factory.LazyAttribute(lambda o: slugify(o.name))
     booking_start = factory.Faker("past_datetime", tzinfo=timezone.utc)
     privileged_booking_end = factory.Faker("future_datetime", tzinfo=timezone.utc)

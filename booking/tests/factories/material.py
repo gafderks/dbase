@@ -1,5 +1,7 @@
 import factory
+
 from booking.models import Material
+from booking.tests.factories import RateClassFactory
 
 
 class MaterialFactory(factory.django.DjangoModelFactory):
@@ -21,3 +23,5 @@ class MaterialFactory(factory.django.DjangoModelFactory):
             # A list of groups were passed in, use them
             for category in extracted:
                 self.categories.add(category)
+
+    rate_class = factory.SubFactory(RateClassFactory)

@@ -7,6 +7,6 @@ class GroupFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = Group
 
-    name = factory.Faker("company")
+    name = factory.Sequence(lambda n: factory.Faker("company").generate() + f" {n}")
     slug = factory.LazyAttribute(lambda o: slugify(o.name))
     type = factory.Iterator([Group.GroupType.GROUP, Group.GroupType.COMMISSION])

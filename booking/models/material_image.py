@@ -11,7 +11,7 @@ class MaterialImage(SortableMixin):
     material = models.ForeignKey(
         Material,
         related_name="images",
-        on_delete=models.DO_NOTHING,
+        on_delete=models.CASCADE,
         verbose_name=_("material"),
     )
     image_order = models.PositiveIntegerField(default=0, editable=False, db_index=True)
