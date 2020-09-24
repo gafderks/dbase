@@ -145,7 +145,7 @@ class Game(RulesModel):
 @receiver(pre_save, sender=Game)
 def _game_manage_order(sender, instance, **kwargs):
     """
-    If a game is added newly or the part of day of the game has been changes,
+    If a game is added newly or the part of day of the game has been changed,
     we change the order of the game such that it is the last sibling.
     :param Game sender:
     :param Game instance:
