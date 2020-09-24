@@ -69,6 +69,10 @@ class Booking(RulesModel):
             return str(_("Unspecified material"))  # Should actually never be the shown
 
     @property
+    def group(self):
+        return self.game.group
+
+    @property
     def form(self):
         from booking.forms import BookingForm
 
