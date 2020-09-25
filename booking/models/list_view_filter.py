@@ -8,6 +8,42 @@ from booking.models import Category
 
 
 class ListViewFilter(SortableMixin):
+    """
+    Filter for bookings.
+    Filters partition bookings into groups based on the filter attributes.
+    When a filter is run, it outputs two sets of bookings, the bookings that belong to
+    the group defined by the filter (in-set) and the bookings that do not match the
+    attributes of the filter (out-set). The latter bookings are typically used as input
+    for other filters to create a pipeline of filters.
+
+    TODO Test that len(in-set)+len(out-set) = len(full-set)
+
+    The following filter attributes can be set:
+      - included_categories: type Category[]
+        in-set:  bookings of materials that have any of their categories in the supplied
+                 categories.
+        out-set: bookings of materials for which none of its categories matches one of
+                 the supplied categories.
+      - excluded_categories: type Category[]
+        Note: the in-set and out-set are the swapped in-set and out-set for
+        included_categories.
+        in-set:  bookings of materials for which none of its categories matches one of
+                 the supplied categories.
+        out-set: bookings of materials that have any of their categories in the supplied
+                 categories.
+      - gm: type bool
+        in-set:  bookings of materials for which the gm attribute matches the supplied
+                 boolean value.
+        out-set: bookings of materials for which the gm attribute does not match the
+                 supplied boolean value.
+
+    If a filter attribute is None or an empty list, its in-set will contain all bookings
+    and its out-set will contain no bookings.
+    The in-sets for all filter attributes are combined by intersection to create the
+    filter's in-set. The out-sets are combined by union. The filter's out-set is the
+    complement of its in-set.
+    """
+
     name = models.CharField(verbose_name=_("name"), max_length=150, unique=True)
     description = models.CharField(
         verbose_name=_("description"), max_length=250, blank=True
@@ -45,6 +81,9 @@ class ListViewFilter(SortableMixin):
         :param QuerySet bookings: bookings
         :return Tuple[list[Booking], list[Booking]]: included and excluded bookings
         """
+        # TODO try to use queryset operations instead of lists, but first create test,
+        #  then refactor.
+        # TODO Output a query set that can be chained.
         included_bookings = bookings
         # Remove custom materials that have no material key
         included_bookings = [b for b in included_bookings if b.material is not None]
