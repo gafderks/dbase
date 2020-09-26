@@ -39,6 +39,8 @@ class ListViewFilter(SortableMixin):
 
     If a filter attribute is None or an empty list, its in-set will contain all bookings
     and its out-set will contain no bookings.
+    If a category is both in included_categories and in excluded_categories, all
+    bookings with this category will be put in the out-set.
     The in-sets for all filter attributes are combined by intersection to create the
     filter's in-set. The out-sets are combined by union. The filter's out-set is the
     complement of its in-set.
@@ -109,14 +111,17 @@ class ListViewFilter(SortableMixin):
                     for cat in self.excluded_categories.all()
                 )
             ]
+        included_bookings.sort(key=lambda b: b.material.name)
         self._bookings = included_bookings
         return (
-            included_bookings.sort(key=lambda b: b.material.name),
+            included_bookings,
             [b for b in bookings if b not in included_bookings],
         )
 
     @classmethod
     def create(cls, name, bookings):
+        # TODO Maybe create a filterset class that handles running the filters and that
+        #  offers a left-over function.
         """
         Creates a ListViewFilter object with bookings preloaded. Used for 'left-over'
         bookings.
