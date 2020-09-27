@@ -1,8 +1,9 @@
 import random
+from unittest import skip
 
 from django.test import TestCase
 
-from booking.models import ListViewFilter
+from booking.models import ListViewFilter, Booking
 from booking.tests.factories import BookingFactory, CategoryFactory, MaterialFactory
 from booking.tests.factories.list_view_filter import ListViewFilterFactory
 
@@ -25,11 +26,12 @@ def create_bookings_with_set_of_categories(categories, n=20):
 
 class ListViewFilterModelTest(TestCase):
     def test_include_gm(self):
-        bookings = BookingFactory.create_batch(20)
+        _ = BookingFactory.create_batch(20)
         _filter = ListViewFilterFactory(gm=True)
-        in_set, out_set = _filter.filter_bookings(bookings)
+        bookings_qs = Booking.objects.all()
+        in_set, out_set = _filter.filter_bookings(bookings_qs)
         self.assertEqual(
-            len(in_set) + len(out_set), 20, "not all bookings are part of output"
+            in_set.count() + out_set.count(), 20, "not all bookings are part of output"
         )
         for booking in in_set:
             self.assertEqual(booking.material.gm, True)
@@ -37,11 +39,12 @@ class ListViewFilterModelTest(TestCase):
             self.assertEqual(booking.material.gm, False)
 
     def test_exclude_gm(self):
-        bookings = BookingFactory.create_batch(20)
+        _ = BookingFactory.create_batch(20)
         _filter = ListViewFilterFactory(gm=False)
-        in_set, out_set = _filter.filter_bookings(bookings)
+        bookings_qs = Booking.objects.all()
+        in_set, out_set = _filter.filter_bookings(bookings_qs)
         self.assertEqual(
-            len(in_set) + len(out_set), 20, "not all bookings are part of output"
+            in_set.count() + out_set.count(), 20, "not all bookings are part of output"
         )
         for booking in in_set:
             self.assertEqual(booking.material.gm, False)
@@ -50,12 +53,13 @@ class ListViewFilterModelTest(TestCase):
 
     def test_include_category(self):
         categories = CategoryFactory.create_batch(4)
-        bookings = create_bookings_with_set_of_categories(categories, n=20)
+        _ = create_bookings_with_set_of_categories(categories, n=20)
+        bookings_qs = Booking.objects.all()
         included_categories = categories[0:2]
         _filter = ListViewFilterFactory(included_categories=included_categories)
-        in_set, out_set = _filter.filter_bookings(bookings)
+        in_set, out_set = _filter.filter_bookings(bookings_qs)
         self.assertEqual(
-            len(in_set) + len(out_set), 20, "not all bookings are part of output"
+            in_set.count() + out_set.count(), 20, "not all bookings are part of output"
         )
         for booking in in_set:
             # The bookings in the in_set should have at least one category in common
@@ -74,12 +78,13 @@ class ListViewFilterModelTest(TestCase):
 
     def test_exclude_category(self):
         categories = CategoryFactory.create_batch(4)
-        bookings = create_bookings_with_set_of_categories(categories, n=20)
+        _ = create_bookings_with_set_of_categories(categories, n=20)
+        bookings_qs = Booking.objects.all()
         excluded_categories = categories[0:2]
         _filter = ListViewFilterFactory(excluded_categories=excluded_categories)
-        in_set, out_set = _filter.filter_bookings(bookings)
+        in_set, out_set = _filter.filter_bookings(bookings_qs)
         self.assertEqual(
-            len(in_set) + len(out_set), 20, "not all bookings are part of output"
+            in_set.count() + out_set.count(), 20, "not all bookings are part of output"
         )
         for booking in in_set:
             # The bookings in the in_set should have no category in common
@@ -98,28 +103,43 @@ class ListViewFilterModelTest(TestCase):
 
     def test_include_and_exclude_same_category(self):
         categories = CategoryFactory.create_batch(2)
-        bookings = create_bookings_with_set_of_categories(categories, n=20)
+        _ = create_bookings_with_set_of_categories(categories, n=20)
+        bookings_qs = Booking.objects.all()
         _filter = ListViewFilterFactory(
             included_categories=[categories[0]], excluded_categories=categories
         )
-        in_set, out_set = _filter.filter_bookings(bookings)
+        in_set, out_set = _filter.filter_bookings(bookings_qs)
         self.assertEqual(
-            len(in_set) + len(out_set), 20, "not all bookings are part of output"
+            in_set.count() + out_set.count(), 20, "not all bookings are part of output"
         )
         for booking in in_set:
             # categories[0] is both in included and excluded categories we have chosen
             #  to put it in out-set then.
             self.assertNotIn(categories[0], booking.material.categories.all())
 
+    def test_no_filter_attributes(self):
+        categories = CategoryFactory.create_batch(2)
+        _ = create_bookings_with_set_of_categories(categories, n=20)
+        bookings_qs = Booking.objects.all()
+        _filter = ListViewFilterFactory(
+            included_categories=None, excluded_categories=None, gm=None
+        )
+        in_set, out_set = _filter.filter_bookings(bookings_qs)
+        self.assertEqual(
+            in_set.count() + out_set.count(), 20, "not all bookings are part of output"
+        )
+        # All bookings should be part of in_set
+        self.assertEqual(in_set.count(), 20, "not all bookings are part of in_set")
+
     def test_filters_pipeline(self):
         categories = CategoryFactory.create_batch(4)
-        bookings = create_bookings_with_set_of_categories(categories, n=30)
+        _ = create_bookings_with_set_of_categories(categories, n=30)
+        bookings_qs = Booking.objects.all()
         filters = [
             ListViewFilterFactory(included_categories=categories[0:2], gm=False),
             ListViewFilterFactory(included_categories=[categories[3]], gm=True),
-            # ListViewFilterFactory(gm=False),
         ]
-        list_views = ListViewFilter.run_filters(bookings, filters)
+        list_views = ListViewFilter.run_filters(bookings_qs, filters)
         self.assertEqual(
             sum([len(lv.bookings) for lv in list_views]),
             30,

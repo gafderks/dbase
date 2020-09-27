@@ -1,10 +1,11 @@
 import copy
 
 from django.db import models
+from django.db.models import Q
 from django.utils.translation import gettext_lazy as _
 from adminsortable.models import SortableMixin
 
-from booking.models import Category
+from booking.models import Category, Booking
 
 
 class ListViewFilter(SortableMixin):
@@ -15,8 +16,6 @@ class ListViewFilter(SortableMixin):
     the group defined by the filter (in-set) and the bookings that do not match the
     attributes of the filter (out-set). The latter bookings are typically used as input
     for other filters to create a pipeline of filters.
-
-    TODO Test that len(in-set)+len(out-set) = len(full-set)
 
     The following filter attributes can be set:
       - included_categories: type Category[]
@@ -80,43 +79,20 @@ class ListViewFilter(SortableMixin):
         Filters the bookings into bookings that satisfy the filters and bookings that do
         not.
 
-        :param QuerySet bookings: bookings
+        :param QuerySet[Booking] bookings: bookings
         :return Tuple[list[Booking], list[Booking]]: included and excluded bookings
         """
-        # TODO try to use queryset operations instead of lists, but first create test,
-        #  then refactor.
-        # TODO Output a query set that can be chained.
-        included_bookings = bookings
         # Remove custom materials that have no material key
-        included_bookings = [b for b in included_bookings if b.material is not None]
+        filters = Q(material__isnull=False)
         if self.gm is not None:
-            included_bookings = [
-                b for b in included_bookings if b.material.gm == self.gm
-            ]
+            filters &= Q(material__gm=self.gm)
         if self.included_categories.exists():
-            included_bookings = [
-                b
-                for b in included_bookings
-                if any(
-                    cat in b.material.categories.all()
-                    for cat in self.included_categories.all()
-                )
-            ]
+            filters &= Q(material__categories__in=self.included_categories.all())
         if self.excluded_categories.exists():
-            included_bookings = [
-                b
-                for b in included_bookings
-                if not any(
-                    cat in b.material.categories.all()
-                    for cat in self.excluded_categories.all()
-                )
-            ]
-        included_bookings.sort(key=lambda b: b.material.name)
-        self._bookings = included_bookings
-        return (
-            included_bookings,
-            [b for b in bookings if b not in included_bookings],
-        )
+            filters &= ~Q(material__categories__in=self.excluded_categories.all())
+        in_set = bookings.filter(filters).distinct()
+        out_set = bookings.filter(~filters).distinct()
+        return in_set, out_set
 
     @classmethod
     def create(cls, name, bookings):
@@ -168,14 +144,16 @@ class ListViewFilter(SortableMixin):
             list_view_filters = ListViewFilter.objects.prefetch_related(
                 "included_categories", "excluded_categories"
             ).filter(enabled=True)
+        out_set = bookings
         result = []
         for list_view_filter in list_view_filters:
             # Use a copy such that the preloaded filters do not get polluted with
             #  bookings.
             list_view_filter = copy.copy(list_view_filter)
-            included, bookings = list_view_filter.filter_bookings(bookings)
+            in_set, out_set = list_view_filter.filter_bookings(out_set)
+            list_view_filter._bookings = in_set
             result.append(list_view_filter)
-        result.append(ListViewFilter.create(_("Common materials"), bookings))
+        result.append(ListViewFilter.create(_("Common materials"), out_set))
 
         # Remove the list views that have no bookings
         return [lv for lv in result if len(lv.bookings) > 0]
