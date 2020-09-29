@@ -6,7 +6,7 @@ from booking.models import Material, MaterialAlias
 
 def export_material(request):
     materials = Material.objects.prefetch_related(
-        "categories", "images", "attachments", "rate_class"
+        "categories", "images", "attachments", "rate_class", "aliases"
     ).all()
     export_format = request.GET.get("format", "json")
     if export_format == "woocommerce":
