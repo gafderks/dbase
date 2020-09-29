@@ -1,10 +1,9 @@
 import random
-from unittest import skip
 
 from django.test import TestCase
 
 from booking.models import ListViewFilter, Booking
-from booking.tests.factories import BookingFactory, CategoryFactory, MaterialFactory
+from booking.tests.factories import BookingFactory, CategoryFactory
 from booking.tests.factories.list_view_filter import ListViewFilterFactory
 
 
@@ -24,7 +23,24 @@ def create_bookings_with_set_of_categories(categories, n=20):
     return bookings
 
 
+def check_sorted_bookings(test, bookings):
+    """
+
+    :param TestCase test:
+    :param bookings:
+    :return:
+    """
+    bookings = list(bookings)
+    # Sorted first on category and then on material name
+    sorted_bookings = sorted(
+        bookings, key=lambda b: (b.display_category.lower(), str(b).lower())
+    )
+    test.assertEqual(bookings, sorted_bookings, "bookings are not sorted")
+
+
 class ListViewFilterModelTest(TestCase):
+    # TODO test with custom materials
+
     def test_include_gm(self):
         _ = BookingFactory.create_batch(20)
         _filter = ListViewFilterFactory(gm=True)
@@ -168,3 +184,6 @@ class ListViewFilterModelTest(TestCase):
                         ]
                     )
                 )
+        # Check that all lists are sorted
+        for lv in list_views:
+            check_sorted_bookings(self, lv.bookings)

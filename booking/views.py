@@ -192,7 +192,7 @@ class EventGameView(EventView):
             for day in current_event.days
         }
 
-        # Are the game_forms really necessary?
+        # TODO Are the game_forms really necessary?
         game_forms = {
             day: GameForm(
                 initial={
@@ -222,7 +222,7 @@ class EventListView(EventView):
         context = super().get_context_data(**kwargs)
 
         current_event = context["current_event"]
-        f = BookingFilter(
+        bookings = BookingFilter(
             self.request.GET,
             request=self.request,
             queryset=Booking.objects.prefetch_related(
@@ -242,10 +242,11 @@ class EventListView(EventView):
         list_views = {
             day: {
                 part_of_day: ListViewFilter.run_filters(
-                    f.qs.filter(
+                    bookings.qs.filter(
                         game__day=day,
                         game__part_of_day=part_of_day,
                     ),
+                    # TODO order by name / custom_material (maybe annotate?)
                     list_view_filters=list_view_filters,
                 )
                 for part_of_day, _ in PartOfDay.PART_OF_DAY_CHOICES
@@ -253,6 +254,6 @@ class EventListView(EventView):
             for day in current_event.days
         }
 
-        context.update({"list_views": list_views, "filter": f})
+        context.update({"list_views": list_views, "filter": bookings})
 
         return context

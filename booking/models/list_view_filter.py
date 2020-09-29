@@ -1,7 +1,8 @@
 import copy
 
 from django.db import models
-from django.db.models import Q
+from django.db.models import Q, Case, When, Value, F, CharField
+from django.db.models.functions import Lower
 from django.utils.translation import gettext_lazy as _
 from adminsortable.models import SortableMixin
 
@@ -80,7 +81,8 @@ class ListViewFilter(SortableMixin):
         not.
 
         :param QuerySet[Booking] bookings: bookings
-        :return Tuple[list[Booking], list[Booking]]: included and excluded bookings
+        :return Tuple[QuerySet[Booking], QuerySet[Booking]]: included and excluded
+        bookings
         """
         # Remove custom materials that have no material key
         filters = Q(material__isnull=False)
@@ -133,6 +135,7 @@ class ListViewFilter(SortableMixin):
     def run_filters(bookings, list_view_filters=None):
         """
         Returns all ListViewFilter objects with the bookings loaded.
+        Also sorts the bookings on __str__.
 
         :param QuerySet bookings: bookings
         :param QuerySet list_view_filters: (optional) preloaded ListViewFilters
@@ -144,6 +147,28 @@ class ListViewFilter(SortableMixin):
             list_view_filters = ListViewFilter.objects.prefetch_related(
                 "included_categories", "excluded_categories"
             ).filter(enabled=True)
+        # TODO Just do the sorting in the bookings setter. We need to load the bookings anyway.
+        #  The list is also short now.
+        # Add names to bookings for sorting
+        bookings = bookings.annotate(
+            name=Lower(
+                Case(
+                    When(custom_material__isnull=False, then=F("custom_material")),
+                    default=F("material__name"),
+                )
+            ),
+            category=Lower(
+                Case(
+                    When(custom_material__isnull=False, then=_("Custom material")),
+                    When(
+                        material__categories__isnull=False,
+                        then=F("material__categories__name"),
+                    ),
+                    default=Value(""),
+                    output_field=CharField(),
+                )
+            ),
+        )
         out_set = bookings
         result = []
         for list_view_filter in list_view_filters:
@@ -151,9 +176,13 @@ class ListViewFilter(SortableMixin):
             #  bookings.
             list_view_filter = copy.copy(list_view_filter)
             in_set, out_set = list_view_filter.filter_bookings(out_set)
-            list_view_filter._bookings = in_set
+            list_view_filter._bookings = in_set.order_by("category", "name")
             result.append(list_view_filter)
-        result.append(ListViewFilter.create(_("Common materials"), out_set))
+        result.append(
+            ListViewFilter.create(
+                _("Common materials"), out_set.order_by("category", "name")
+            )
+        )
 
         # Remove the list views that have no bookings
         return [lv for lv in result if len(lv.bookings) > 0]
