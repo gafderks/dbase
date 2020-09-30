@@ -33,6 +33,13 @@ def format_woocommerce(request, materials):
                 f'<p class="max-stock"><span>{stock_header}:</span>'
                 f" {material.stock}</p>"
             )
+        if material.aliases.exists():
+            aliases = [alias.name for alias in material.aliases.all()]
+            aliases_header = _("Search terms")
+            content += (
+                f'<p class="search-terms"><span>{aliases_header}:</span>'
+                f" {', '.join(aliases)}</p>"
+            )
         return content
 
     def line_format(mat):

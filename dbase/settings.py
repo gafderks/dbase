@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/dev/ref/settings/
 """
 
 from pathlib import Path
+
 import environ
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -209,3 +210,5 @@ CKEDITOR_CONFIGS = {
 }
 
 INTERNAL_IPS = ["127.0.0.1", "localhost"]
+
+TEST_RUNNER = "tests.runner.CustomTestSuitRunner"
