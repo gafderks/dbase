@@ -28,7 +28,7 @@ class WooCommerceFormatTest(TestCase):
             self.assertTrue(
                 mimetype and mimetype.startswith("image"), "url does not seem image"
             )
-            self.assertIn("testserver", image_url)
+            self.assertIn("testserver", image_url, "url does not contain domain")
 
     def check_post_content(self, field, material):
         """
@@ -44,10 +44,18 @@ class WooCommerceFormatTest(TestCase):
         self.assertTrue(
             bool(BeautifulSoup(field, "html.parser").find()), "invalid HTML"
         )
-
-        # TODO check if attachments have good urls (like images)
+        self.assertIn(
+            material.description, field, "description is not part of post content"
+        )
+        soup = BeautifulSoup(field, "html.parser")
+        attachments = soup.find_all("a", {"target": "attachment"})
+        self.assertEqual(len(attachments), material.attachments.count())
+        for attachment in attachments:
+            attachment_url = attachment["href"]
+            response = self.client.get(attachment_url)
+            self.assertEqual(response.status_code, 200)
+            self.assertIn("testserver", attachment_url, "url does not contain domain")
         # TODO check if stock is part of description
-        # TODO check if description is part of description
 
     def test_csv_format(self):
         materials = MaterialFactory.create_batch(10)
