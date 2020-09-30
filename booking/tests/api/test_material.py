@@ -15,9 +15,9 @@ from booking.tests.factories import MaterialFactory
 class WooCommerceFormatTest(TestCase):
     def check_images(self, field, material):
         """
-
-        :param str field:
-        :param Material material:
+        Runs assertions on the images field for a material.
+        :param str field: images field
+        :param Material material: material that the field is for
         :return: None
         """
         field_images = field.split("|")
@@ -35,9 +35,9 @@ class WooCommerceFormatTest(TestCase):
 
     def check_post_content(self, field, material):
         """
-
-        :param str field:
-        :param Material material:
+        Runs assertions on the post_content for a material.
+        :param str field: post_content field
+        :param Material material: material that the field is for
         :return: None
         """
         for alias in material.aliases.all():
