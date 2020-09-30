@@ -9,6 +9,9 @@ from booking.models import Material
 from booking.tests.factories import MaterialFactory
 
 
+# TODO clean media https://www.caktusgroup.com/blog/2013/06/26/media-root-and-django-tests/
+
+
 class WooCommerceFormatTest(TestCase):
     def check_images(self, field, material):
         """
@@ -48,14 +51,16 @@ class WooCommerceFormatTest(TestCase):
             material.description, field, "description is not part of post content"
         )
         soup = BeautifulSoup(field, "html.parser")
-        attachments = soup.find_all("a", {"target": "attachment"})
-        self.assertEqual(len(attachments), material.attachments.count())
-        for attachment in attachments:
-            attachment_url = attachment["href"]
-            response = self.client.get(attachment_url)
-            self.assertEqual(response.status_code, 200)
-            self.assertIn("testserver", attachment_url, "url does not contain domain")
-        # TODO check if stock is part of description
+        attachment_anchors = soup.find_all("a", {"target": "attachment"})
+        attachment_urls = [anchor["href"] for anchor in attachment_anchors]
+        self.assertEqual(len(attachment_anchors), material.attachments.count())
+        for material_attachment in material.attachments.all():
+            self.assertIn(
+                f"http://testserver{material_attachment.attachment.url}",
+                attachment_urls,
+            )
+        if material.stock != "":
+            self.assertIn(material.stock, field)
 
     def test_csv_format(self):
         materials = MaterialFactory.create_batch(10)
