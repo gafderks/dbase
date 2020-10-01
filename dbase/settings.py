@@ -101,9 +101,11 @@ WSGI_APPLICATION = "dbase.wsgi.application"
 # https://docs.djangoproject.com/en/dev/ref/settings/#databases
 
 DATABASES = {
-    "default": env.db(),
-    "TEST": {
-        "NAME": BASE_DIR / "db.sqlite3.test",
+    "default": {
+        **env.db(),
+        "TEST": {
+            "NAME": BASE_DIR / "db.sqlite3.test",
+        },
     },
 }
 
