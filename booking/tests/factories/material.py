@@ -7,7 +7,9 @@ class MaterialFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = Material
 
-    name = factory.Sequence(lambda n: factory.Faker("company").generate() + f" {n}")
+    name = factory.Sequence(
+        lambda n: factory.Faker("company").generate({"locale": None}) + f" {n}"
+    )
     description = factory.Faker("paragraph")
 
     gm = factory.Faker("pybool")
