@@ -10,7 +10,7 @@ from django.conf import settings
 
 from .management.commands.create_session import create_pre_authenticated_session
 
-MAX_WAIT = 10
+MAX_WAIT = 15
 
 
 def wait(fn):
