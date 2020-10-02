@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
 from django.http import HttpResponseBadRequest, JsonResponse
 from django.shortcuts import get_object_or_404
+from django.template.context_processors import csrf
 from django.template.loader import render_to_string
 from rules.contrib.views import permission_required, objectgetter
 
@@ -43,7 +44,8 @@ def _get_nav_html(game, request):
 
 def _get_game_response(game, request):
     form_html = render_crispy_form(
-        GameForm(instance=game, auto_id="id_%s_" + uuid.uuid4().hex)
+        GameForm(instance=game, auto_id="id_%s_" + uuid.uuid4().hex),
+        context=csrf(request),
     )
     game_html = render_to_string(
         "booking/partials/game-card.html",
@@ -116,5 +118,5 @@ def edit_game(request, game_id=None):
         game = form.save()
         return JsonResponse({"success": True, **_get_game_response(game, request)})
 
-    form_html = render_crispy_form(form)
+    form_html = render_crispy_form(form, context=csrf(request))
     return JsonResponse({"success": False, "form_html": form_html})
