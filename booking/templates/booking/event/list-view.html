@@ -8,17 +8,17 @@
   {{ block.super }}
   {% for day in current_event.days %}
     <div class="day row" data-date="{{ day.isoformat }}">
-      {% include "booking/partials/day-nav.html" with day=day parts_of_day=parts_of_day list_views=list_views|get_item:day %}
+      {% include "booking/partials/day-nav.html" with list_views=list_views|get_item:day %}
       <div class="col-lg-9">
         <h4 id="day{{ day.isoformat }}" class="fix-anchor">{{ day|date:"l"|capfirst }} {{ day }}</h4>
         {% for code, trans in parts_of_day %}
           <div id="{{ day.isoformat }}{{ code }}" class="part-of-day fix-anchor" data-date="{{ day.isoformat }}" data-part-of-day="{{ code }}">
             <h5>{{ trans }}</h5>
-            {% for list_view in list_views|get_item:day|get_item:code %}
+            {% for list_view_filter, bookings in list_views|get_item:day|get_item:code %}
               {% if current_group %}
-                {% include "booking/partials/list-view-card.html" with list_view=list_view include_group=False day=day part_of_day=code %}
+                {% include "booking/partials/list-view-card.html" with include_group=False part_of_day=code %}
               {% else %}
-                {% include "booking/partials/list-view-card.html" with list_view=list_view include_group=True day=day part_of_day=code %}
+                {% include "booking/partials/list-view-card.html" with include_group=True part_of_day=code %}
               {% endif %}
             {% endfor %}
           </div>

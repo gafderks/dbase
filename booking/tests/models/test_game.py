@@ -11,16 +11,12 @@ def _get_sibling_games(n=5, part_of_day="AF", **kwargs):
         kwargs["event"] = EventFactory()
     if "group" not in kwargs.keys():
         kwargs["group"] = GroupFactory()
-    games = []
-    for i in range(n):
-        games.append(
-            GameFactory(
-                day=kwargs["event"].event_start,
-                part_of_day=part_of_day,
-                **kwargs,
-            )
-        )
-    return games
+    return GameFactory.create_batch(
+        n,
+        day=kwargs["event"].event_start,
+        part_of_day=part_of_day,
+        **kwargs,
+    )
 
 
 class GameModelTest(TestCase):
