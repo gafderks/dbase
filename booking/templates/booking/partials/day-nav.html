@@ -18,7 +18,7 @@
         {% if list_views and list_views|get_item:code|length %}
           <a class="nav-link active-secondary" href="#{{ day.isoformat }}{{ code }}">{{ trans }}</a>
           <nav class="nav nav-pills flex-column">
-          {% for list_view in list_views|get_item:code %}
+          {% for list_view, bookings in list_views|get_item:code %}
             <a class="nav-link ml-3 my-1" href="#list{{ day.isoformat }}{{ code }}{{ list_view.pk }}">{{ list_view.name }}</a>
           {% endfor %}
           </nav>
