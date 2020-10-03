@@ -8,6 +8,7 @@ DBASE
 [![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/gafderks/dbase.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/gafderks/dbase/context:javascript)
 [![Language grade: Python](https://img.shields.io/lgtm/grade/python/g/gafderks/dbase.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/gafderks/dbase/context:python)
 [![Code Climate maintainability](https://img.shields.io/codeclimate/maintainability/gafderks/dbase?logo=code%20climate)](https://codeclimate.com/github/gafderks/dbase/maintainability)
+[![Test Coverage](https://img.shields.io/codeclimate/coverage/gafderks/dbase)](https://codeclimate.com/github/gafderks/dbase/test_coverage)
 [![Updates](https://pyup.io/repos/github/gafderks/dbase/shield.svg)](https://pyup.io/repos/github/gafderks/dbase/)
 [![Snyk Vulnerabilities for GitHub Repo](https://img.shields.io/snyk/vulnerabilities/github/gafderks/dbase?logo=snyk)](https://snyk.io/test/github/gafderks/dbase)
 [![time tracker](https://wakatime.com/badge/github/gafderks/dbase.svg)](https://wakatime.com/badge/github/gafderks/dbase)
