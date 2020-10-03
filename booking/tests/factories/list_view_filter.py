@@ -8,7 +8,9 @@ class ListViewFilterFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = ListViewFilter
 
-    name = factory.Sequence(lambda n: factory.Faker("company").generate() + f" {n}")
+    name = factory.Sequence(
+        lambda n: factory.Faker("company").generate({"locale": None}) + f" {n}"
+    )
     description = factory.Faker("paragraph")
     enabled = True
 
