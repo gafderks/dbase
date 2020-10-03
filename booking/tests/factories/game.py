@@ -25,4 +25,4 @@ class GameFactory(factory.django.DjangoModelFactory):
             "date_between_dates",
             date_start=self.event.event_start,
             date_end=self.event.event_end,
-        ).generate({})
+        ).generate({"locale": None})

@@ -2,7 +2,6 @@ from django.contrib.auth import get_user_model
 from django.db import models, transaction
 from django.db.models.signals import pre_delete, pre_save
 from django.dispatch import receiver
-from django.forms import model_to_dict
 from django.utils.translation import gettext_lazy as _
 from rules.contrib.models import RulesModel
 

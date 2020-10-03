@@ -10,6 +10,8 @@ black = "*"
 selenium = "*"
 factory_boy = "*"
 typing-extensions = "*"
+beautifulsoup4 = "*"
+coverage = "*"
 
 [packages]
 mysqlclient = "*"

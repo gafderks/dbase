@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/dev/ref/settings/
 """
 
 from pathlib import Path
+
 import environ
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -99,7 +100,14 @@ WSGI_APPLICATION = "dbase.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/dev/ref/settings/#databases
 
-DATABASES = {"default": env.db()}
+DATABASES = {
+    "default": {
+        **env.db(),
+        "TEST": {
+            "NAME": BASE_DIR / "db.sqlite3.test",
+        },
+    },
+}
 
 
 # Password validation
@@ -209,3 +217,5 @@ CKEDITOR_CONFIGS = {
 }
 
 INTERNAL_IPS = ["127.0.0.1", "localhost"]
+
+TEST_RUNNER = "tests.runner.CustomTestSuitRunner"
