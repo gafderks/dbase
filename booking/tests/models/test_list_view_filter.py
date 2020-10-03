@@ -2,7 +2,8 @@ import random
 
 from django.test import TestCase
 
-from booking.models import ListViewFilter, Booking
+from booking.models import Booking
+from booking.models.list_view_filter import ListView
 from booking.tests.factories import BookingFactory, CategoryFactory
 from booking.tests.factories.list_view_filter import ListViewFilterFactory
 
@@ -155,15 +156,15 @@ class ListViewFilterModelTest(TestCase):
             ListViewFilterFactory(included_categories=categories[0:2], gm=False),
             ListViewFilterFactory(included_categories=[categories[3]], gm=True),
         ]
-        list_views = ListViewFilter.run_filters(bookings_qs, filters)
+        lists = ListView(filters=filters).get_lists(bookings_qs)
         self.assertEqual(
-            sum([len(lv.bookings) for lv in list_views]),
+            sum([len(bookings) for lv, bookings in lists]),
             30,
             "not all bookings are part of output",
         )
-        if len(list_views) > len(filters):
-            left_over = list_views[-1]
-            for booking in left_over.bookings:
+        if len(lists) > len(filters):
+            left_over_lv, left_over_bookings = lists[-1]
+            for booking in left_over_bookings:
                 # The bookings are not both gm=false and in category 0 or 1
                 self.assertFalse(
                     not booking.material.gm
@@ -185,5 +186,5 @@ class ListViewFilterModelTest(TestCase):
                     )
                 )
         # Check that all lists are sorted
-        for lv in list_views:
-            check_sorted_bookings(self, lv.bookings)
+        for lv, bookings in lists:
+            check_sorted_bookings(self, bookings)

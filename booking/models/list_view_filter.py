@@ -1,12 +1,9 @@
-import copy
-
-from django.db import models
-from django.db.models import Q, Case, When, Value, F, CharField
-from django.db.models.functions import Lower
-from django.utils.translation import gettext_lazy as _
 from adminsortable.models import SortableMixin
+from django.db import models
+from django.db.models import Q
+from django.utils.translation import gettext_lazy as _
 
-from booking.models import Category, Booking
+from booking.models import Category
 
 
 class ListViewFilter(SortableMixin):
@@ -63,10 +60,6 @@ class ListViewFilter(SortableMixin):
     )
     gm = models.BooleanField(null=True, verbose_name=_("GM"))
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self._bookings = []  # Not to be persisted in db
-
     class Meta:
         verbose_name = _("list view filter")
         verbose_name_plural = _("list view filters")
@@ -96,93 +89,58 @@ class ListViewFilter(SortableMixin):
         out_set = bookings.filter(~filters).distinct()
         return in_set, out_set
 
-    @classmethod
-    def create(cls, name, bookings):
-        # TODO Maybe create a filterset class that handles running the filters and that
-        #  offers a left-over function.
-        """
-        Creates a ListViewFilter object with bookings preloaded. Used for 'left-over'
-        bookings.
-        :param str name: name for the ListViewFilter
-        :param QuerySet bookings: Bookings to be included
-        :return ListViewFilter:
-        """
-        list_view_filter = cls(name=name)
-        list_view_filter.bookings = bookings
-        return list_view_filter
 
-    @property
-    def bookings(self):
+class ListView:
+    def __init__(self, filters=None):
         """
-        Returns the bookings in the ListViewFilter.
-        :return List[Booking]:
+        Loads ListViewFilters supplied or the default filters
+        :param ListViewFilter[] filters: list view filters to use for generating the
+         ListView
         """
-        return self._bookings
+        if filters is None:
+            filters = ListView.DEFAULT_FILTERS
+        self.filters = filters
 
-    @bookings.setter
-    def bookings(self, bookings):
+    def _sorted_bookings(self, bookings_queryset):
         """
-        Setter for bookings. Sorts the bookings first on the name of the category and
-        then on the name of the material.
-        :param List[Booking] bookings: Bookings to be included
-        :return: None
+        Converts a queryset of bookings into a list that gets sorted first on category
+        and then on material name.
+        :param Booking[] bookings_queryset: bookings
+        :return list: sorted list of Booking
         """
-        self._bookings = sorted(
-            bookings, key=lambda b: (b.display_category.lower(), str(b).lower())
+        return sorted(
+            list(bookings_queryset),
+            key=lambda b: (b.display_category.lower(), str(b).lower()),
         )
 
-    @staticmethod
-    def run_filters(bookings, list_view_filters=None):
+    def get_lists(self, bookings_queryset):
         """
-        Returns all ListViewFilter objects with the bookings loaded.
-        Also sorts the bookings on __str__.
+        Runs the ListViewFilters on the supplied bookings queryset.
+        The resulting bookings are sorted on category and material name.
+        :param Booking[] bookings_queryset: bookings
+        :return List[Tuple[ListViewFilter, List[Booking]]]: list of tuples with list
+         view filters and the allocated bookings
+        """
+        lists = []
+        out_set = bookings_queryset
+        for _filter in self.filters:
+            in_set, out_set = _filter.filter_bookings(out_set)
+            bookings = self._sorted_bookings(in_set)
+            if len(bookings) > 0:
+                lists.append((_filter, bookings))
 
-        :param QuerySet bookings: bookings
-        :param QuerySet list_view_filters: (optional) preloaded ListViewFilters
-        :return List[ListViewFilter]: list of ListViewFilters with the bookings
-        allocated
-        """
-        # TODO cache the ListViewFilter objects into a cached property
-        if list_view_filters is None:
-            list_view_filters = ListViewFilter.objects.prefetch_related(
-                "included_categories", "excluded_categories"
-            ).filter(enabled=True)
-        # TODO Just do the sorting in the bookings setter. We need to load the bookings anyway.
-        #  The list is also short now.
-        # Add names to bookings for sorting
-        bookings = bookings.annotate(
-            name=Lower(
-                Case(
-                    When(custom_material__isnull=False, then=F("custom_material")),
-                    default=F("material__name"),
+        if out_set.count() > 0:
+            # Append leftover bookings
+            lists.append(
+                (
+                    ListViewFilter(name=_("Common materials")),
+                    self._sorted_bookings(out_set),
                 )
-            ),
-            category=Lower(
-                Case(
-                    When(custom_material__isnull=False, then=_("Custom material")),
-                    When(
-                        material__categories__isnull=False,
-                        then=F("material__categories__name"),
-                    ),
-                    default=Value(""),
-                    output_field=CharField(),
-                )
-            ),
-        )
-        out_set = bookings
-        result = []
-        for list_view_filter in list_view_filters:
-            # Use a copy such that the preloaded filters do not get polluted with
-            #  bookings.
-            list_view_filter = copy.copy(list_view_filter)
-            in_set, out_set = list_view_filter.filter_bookings(out_set)
-            list_view_filter._bookings = in_set.order_by("category", "name")
-            result.append(list_view_filter)
-        result.append(
-            ListViewFilter.create(
-                _("Common materials"), out_set.order_by("category", "name")
             )
-        )
 
-        # Remove the list views that have no bookings
-        return [lv for lv in result if len(lv.bookings) > 0]
+        return lists
+
+
+ListView.DEFAULT_FILTERS = ListViewFilter.objects.prefetch_related(
+    "included_categories", "excluded_categories"
+).filter(enabled=True)
