@@ -13,7 +13,6 @@ from booking.models import (
     Game,
     PartOfDay,
     Booking,
-    ListViewFilter,
     Material,
 )
 from booking.models.list_view_filter import ListView

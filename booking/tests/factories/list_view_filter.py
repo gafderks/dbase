@@ -1,7 +1,6 @@
 import factory
 
 from booking.models import ListViewFilter
-from booking.tests.factories import CategoryFactory
 
 
 class ListViewFilterFactory(factory.django.DjangoModelFactory):
