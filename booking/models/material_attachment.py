@@ -1,8 +1,8 @@
 from pathlib import PurePath
 
+from adminsortable.models import SortableMixin
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-from adminsortable.models import SortableMixin
 
 from booking.models import Material
 

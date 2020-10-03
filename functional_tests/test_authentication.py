@@ -1,41 +1,11 @@
 from datetime import timedelta
 
-from django.contrib.auth import get_user_model
 from django.utils import timezone
-from django.core.management import call_command
-
-from booking.models import Event
-from users.models import Group
-from .base import FunctionalTest, english
 from selenium.webdriver.common.keys import Keys
 
-
-def import_initial_data():
-    call_command("creategroups")
-
-
-def create_user_accounts():
-    group_bob_and_charlie = Group(name="Group Bob", slug="group-bob")
-    group_alice = Group(name="Group Alice", slug="group-alice")
-    group_bob_and_charlie.save()
-    group_alice.save()
-
-    User = get_user_model()
-    user_bob = User.objects.create_user(
-        "bob@example.com", "mypassword", first_name="Bob"
-    )
-    user_charlie = User.objects.create_user(
-        "charlie@example.com", "otherpassword", first_name="Charlie"
-    )
-    user_alice = User.objects.create_user(
-        "alice@example.com", "yetanotherpassword", first_name="Alice"
-    )
-    user_bob.group = group_bob_and_charlie
-    user_charlie.group = group_bob_and_charlie
-    user_alice.group = group_alice
-    user_bob.save()
-    user_charlie.save()
-    user_alice.save()
+from booking.models import Event
+from users.tests.factories import UserFactory
+from .base import FunctionalTest, english
 
 
 def create_events():
@@ -95,8 +65,7 @@ def create_events():
 class SimpleUserBookingTest(FunctionalTest):
     def setUp(self):
         super().setUp()
-        import_initial_data()
-        create_user_accounts()
+        self.user_bob = UserFactory(password="sekrit")
         create_events()
 
     def test_can_login_user(self):
@@ -110,12 +79,12 @@ class SimpleUserBookingTest(FunctionalTest):
         self.assertIn("/users/login/?next=/", self.browser.current_url)
 
         # He types his credentials and logs into the DBase
-        self.browser.find_element_by_name("username").send_keys("bob@example.com")
-        self.browser.find_element_by_name("password").send_keys("mypassword")
+        self.browser.find_element_by_name("username").send_keys(self.user_bob.email)
+        self.browser.find_element_by_name("password").send_keys("sekrit")
         self.browser.find_element_by_name("password").send_keys(Keys.ENTER)
 
         # He is now logged in
-        self.wait_to_be_logged_in("Bob")
+        self.wait_to_be_logged_in(self.user_bob.first_name)
 
         # The active event is 'Active event'
         self.assertEqual(
@@ -131,5 +100,6 @@ class SimpleUserBookingTest(FunctionalTest):
 
         # The page shows the group that Bob belongs to his group
         self.assertEqual(
-            "Group Bob", self.browser.find_element_by_id("groupSelector").text
+            self.user_bob.group.name,
+            self.browser.find_element_by_id("groupSelector").text,
         )

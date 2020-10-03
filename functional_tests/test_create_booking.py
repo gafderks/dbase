@@ -1,10 +1,8 @@
 from datetime import timedelta
 
-from django.contrib.auth.models import Permission
-
 from booking.models import PartOfDay
 from booking.tests.factories import EventFactory, MaterialFactory
-from users.tests.factories import UserFactory, RoleFactory
+from users.tests.factories import UserFactory
 from .base import FunctionalTest, english
 from .game_view_page import GameViewPage
 
@@ -13,40 +11,10 @@ from .game_view_page import GameViewPage
 class SimpleUserBookingTest(FunctionalTest):
     def setUp(self):
         super().setUp()
-
-        # Set up roles
-        mb_role = RoleFactory(name="MB")
-        for perm in [
-            # TODO load permissions from common place
-            "view_others_groups_bookings",
-            "view_category",
-            "book_on_privileged_events",
-            "view_event",
-            "view_location",
-            "add_material",
-            "change_material",
-            "delete_material",
-            "view_material",
-            "add_materialalias",
-            "change_materialalias",
-            "delete_materialalias",
-            "view_materialalias",
-            "add_materialimage",
-            "change_materialimage",
-            "delete_materialimage",
-            "view_materialimage",
-            "view_rateclass",
-        ]:
-            mb_role.permissions.add(Permission.objects.get(codename=perm))
-
         self.active_event = EventFactory()
-
         self.materials = MaterialFactory.create_batch(size=10)
         MaterialFactory(name="beschuiten (rol)")
         MaterialFactory(name="EHBO doos")
-
-    def setUpTestData(cls):
-        pass
 
     def test_can_create_booking(self):
         # Bob is a logged in user

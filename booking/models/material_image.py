@@ -1,6 +1,6 @@
+from adminsortable.models import SortableMixin
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-from adminsortable.models import SortableMixin
 from sorl.thumbnail import ImageField
 
 from booking.models import Material
