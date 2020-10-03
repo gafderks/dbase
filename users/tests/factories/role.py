@@ -8,7 +8,9 @@ class RoleFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = Role
 
-    name = factory.Sequence(lambda n: factory.Faker("company").generate() + f" {n}")
+    name = factory.Sequence(
+        lambda n: factory.Faker("company").generate({"locale": None}) + f" {n}"
+    )
 
     @factory.post_generation
     def permissions(self, create, extracted, **kwargs):
