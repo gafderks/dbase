@@ -53,7 +53,7 @@ export default class PartOfDay {
     this._games = this._games.filter(g => g.id !== game.id);
   }
 
-  sortGames(order=undefined) {
+  sortGames(order=undefined, trigger_game=undefined) {
     // Assign the new order to each of the game objects
     if (order !== undefined) {
       for (let [game_id, game_order] of order) {
@@ -77,6 +77,10 @@ export default class PartOfDay {
         game.denyMoveDown();
       }
       game.elem.appendTo(this._$elem);
+    }
+    // Scroll to the game that triggered the sorting
+    if (trigger_game !== undefined) {
+      trigger_game.scrollTo();
     }
   }
 

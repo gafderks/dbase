@@ -23,9 +23,9 @@ export default class Day {
     return this._partOfDays.find(partOfDay => partOfDay.partOfDayCode === code);
   }
 
-  sortGames(order) {
+  sortGames(order, trigger_game=undefined) {
     for (const partOfDay of this._partOfDays) {
-      partOfDay.sortGames(order);
+      partOfDay.sortGames(order, trigger_game);
     }
     $('body').scrollspy('refresh');
   }

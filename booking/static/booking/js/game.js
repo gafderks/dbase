@@ -56,9 +56,9 @@ export default class Game extends BookingContainer {
       this.update(e.currentTarget);
     });
     // Card edit button
-    this._$elem.find('.btn.edit-game').click(_ => this.toggleForm());
+    this._$elem.find('.btn.edit-game').click(() => this.toggleForm());
     // Form reset button
-    this._$elem.find('form.game-form').on('reset', _ => this.toggleForm());
+    this._$elem.find('form.game-form').on('reset', () => this.toggleForm());
     // Bootstrap toggles
     this._$elem.find('[data-toggle=toggle][type=checkbox]').each((i, elem) => {
       $(elem).bootstrapToggle({
@@ -77,7 +77,7 @@ export default class Game extends BookingContainer {
       const gameName = this._$elem.find('.game-name').text();
       const confirmationTemplate = $modal.find('.modal-body').data('template');
       $modal.find('.modal-body').html(confirmationTemplate.replace('${name}', gameName));
-      $modal.find('.confirm-delete').off().click(_ => this.update(e.currentTarget));
+      $modal.find('.confirm-delete').off().click(() => this.update(e.currentTarget));
     });
   }
 
@@ -113,9 +113,9 @@ export default class Game extends BookingContainer {
           $trigger.find('[name=name], [name=location]').val('');
           // Move cursor to the name field
           $trigger.find('[name=name]').focus();
+          day.sortGames(data['order'], newGame);
+          day.updateNavigation(data['nav_html']);
         }
-        day.sortGames(data['order']);
-        day.updateNavigation(data['nav_html']);
       },
       error: function (jqXHR, textStatus, errorThrown) {
         console.log(textStatus);
@@ -149,7 +149,7 @@ export default class Game extends BookingContainer {
           }
         }
         this._partOfDay.day.updateNavigation(data['nav_html']);
-        this._partOfDay.day.sortGames(data['order']);
+        this._partOfDay.day.sortGames(data['order'], this);
       },
       error: (jqXHR, textStatus, errorThrown) => {
         console.log(textStatus);
@@ -173,5 +173,12 @@ export default class Game extends BookingContainer {
 
   denyMoveDown() {
     this._$elem.find('.btn.move-game-down').addClass('disabled');
+  }
+
+  scrollTo() {
+    this._$elem[0].scrollIntoView({
+      behavior: 'smooth',
+      block: 'start'
+    });
   }
 }
