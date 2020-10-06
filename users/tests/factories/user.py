@@ -9,7 +9,9 @@ class UserFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = get_user_model()
 
-    email = factory.Faker("safe_email")
+    email = factory.Sequence(
+        lambda n: str(n) + factory.Faker("safe_email").generate({"locale": None})
+    )
     first_name = factory.Faker("first_name")
     last_name = factory.Faker("last_name")
     group = factory.SubFactory(GroupFactory)
