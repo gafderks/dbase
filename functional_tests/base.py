@@ -37,6 +37,7 @@ def retry_stale(fn):
     return modified_fn
 
 
+# TODO move to /tests like testrunner
 english = override_settings(
     LANGUAGE_CODE="en-US",
     LANGUAGES=(("en", "English"),),

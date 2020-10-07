@@ -16,7 +16,9 @@ from booking.models.list_view_filter import ListView
 from users.models import Group
 
 
-def get_base_context(request):
+# TODO much of the base context is needed for the navigation,
+#  can we retrieve it there? Use Mixin?
+def _get_base_context(request):
     return {
         "events": Event.objects.viewable(request.user),
         "groups": Group.objects.filter(type=Group.GroupType.GROUP),
@@ -43,7 +45,7 @@ class HomeView(LoginRequiredMixin, View):
     """
 
     def get(self, request, *args, **kwargs):
-        context = get_base_context(request)
+        context = _get_base_context(request)
         events = context["events"]
         if not events:
             return render(
@@ -98,7 +100,7 @@ class EventView(LoginRequiredMixin, TemplateView):
         context = super().get_context_data(**kwargs)
         context.update(
             {
-                **get_base_context(self.request),
+                **_get_base_context(self.request),
                 "current_event": self.get_requested_event(
                     self.kwargs.get("event_slug")
                 ),
@@ -110,6 +112,8 @@ class EventView(LoginRequiredMixin, TemplateView):
         return context
 
     def get(self, request, *args, **kwargs):
+        # TODO create mixin for displaying user alerts that is used for home page no
+        #  open events as well.
         try:
             return super().get(request, *args, **kwargs)
         except UserAlertException as e:
