@@ -1,14 +1,11 @@
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import TemplateView, View
 
 from booking.filters import BookingFilter
-from booking.forms import CategoryForm, GameForm
+from booking.forms import GameForm
 from booking.models import (
-    Category,
     Event,
     Game,
     PartOfDay,
@@ -55,42 +52,6 @@ class HomeView(LoginRequiredMixin, View):
                 {**context, "message": _("There are no open events.")},
             )
         return redirect(events.first().get_absolute_url())
-
-
-@login_required
-def edit_category(request, category_id=None):
-    """
-    View for adding a new material to the database.
-
-    :param request:
-    :return:
-    """
-    category_list = Category.objects.all()
-    page = request.GET.get("page", 1)
-
-    paginator = Paginator(category_list, 20)
-    try:
-        categories = paginator.page(page)
-    except PageNotAnInteger:
-        categories = paginator.page(1)
-    except EmptyPage:
-        categories = paginator.page(paginator.num_pages)
-
-    if category_id is not None:
-        category = get_object_or_404(Category, pk=category_id)
-    else:
-        category = None
-
-    form = CategoryForm(request.POST or None, instance=category)
-    if form.is_valid():
-        form.save()
-        return redirect("booking:new_category")
-
-    return render(
-        request,
-        "booking/category-editor.html",
-        {**get_base_context(request), "form": form, "categories": categories},
-    )
 
 
 class EventView(LoginRequiredMixin, TemplateView):
