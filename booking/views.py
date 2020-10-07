@@ -35,6 +35,7 @@ class UserAlertException(Exception):
     Used for exceptions that are appropriate to propagate to the user.
     """
 
+    # TODO allow passing a status code e.g. forbidden or not found
     pass
 
 
@@ -81,7 +82,7 @@ class EventView(LoginRequiredMixin, TemplateView):
                     )
                 )
         # Default to the users own group
-        # TODO maybe do a redirection?
+        # TODO maybe do a redirection? Only if user_group.slug !== group_slug
         return user_group
 
     def get_requested_event(self, event_slug):
@@ -92,6 +93,7 @@ class EventView(LoginRequiredMixin, TemplateView):
 
     @staticmethod
     def get_group_filter(requested_group, filter_prefix=""):
+        # TODO Use Q expression?
         if requested_group is None:
             return dict()
         return {filter_prefix + "group": requested_group}
@@ -120,7 +122,7 @@ class EventView(LoginRequiredMixin, TemplateView):
             return render(
                 request,
                 "jeugdraad/alert.html",
-                {"message": e},
+                {"message": str(e)},
             )
 
 
