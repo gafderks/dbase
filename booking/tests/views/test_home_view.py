@@ -7,7 +7,7 @@ from django.urls import reverse
 from django.utils.timezone import now
 
 from booking.tests.factories import MaterialFactory, EventFactory
-from functional_tests.base import english
+from tests.utils import english
 from users.tests.factories import UserFactory
 
 

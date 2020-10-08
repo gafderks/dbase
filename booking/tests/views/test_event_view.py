@@ -4,7 +4,7 @@ from django.test import TestCase
 from django.urls import reverse
 
 from booking.tests.factories import EventFactory
-from functional_tests.base import english
+from tests.utils import english
 from users.tests.factories import UserFactory
 
 

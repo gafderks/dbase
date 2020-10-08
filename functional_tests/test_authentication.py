@@ -4,8 +4,9 @@ from django.utils import timezone
 from selenium.webdriver.common.keys import Keys
 
 from booking.models import Event
+from tests.utils import english
 from users.tests.factories import UserFactory
-from .base import FunctionalTest, english
+from .base import FunctionalTest
 
 
 def create_events():
