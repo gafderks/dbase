@@ -36,6 +36,7 @@ class UserAlertException(Exception):
     """
 
     # TODO allow passing a status code e.g. forbidden or not found
+    # TODO allow passing a color for the alert (default warning/danger)
     pass
 
 
@@ -82,7 +83,8 @@ class EventView(LoginRequiredMixin, TemplateView):
                     )
                 )
         # Default to the users own group
-        # TODO maybe do a redirection? Only if user_group.slug !== group_slug
+        # TODO maybe do a redirection? Only if user_group.slug !== group_slug.
+        #  Really should do this
         return user_group
 
     def get_requested_event(self, event_slug):
