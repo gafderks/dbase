@@ -1,0 +1,2 @@
+class GroupPermissionError(PermissionError):
+    pass

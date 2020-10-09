@@ -26,9 +26,12 @@ class EventGameViewTest(TestCase):
         self.assertTemplateUsed(response, "booking/event/game-view.html")
         self.assertTemplateNotUsed(response, "booking/event/list-view.html")
 
-    def test_redirect_listview_group_all(self):
+    @patch("django.contrib.auth.backends.ModelBackend.has_perm")
+    def test_redirect_listview_group_all(self, mock_has_perm):
+        mock_has_perm.return_value = True
         event = EventFactory()
-        self.client.force_login(UserFactory())
+        user = UserFactory()
+        self.client.force_login(user)
         response = self.client.get(
             reverse(
                 "booking:event_games_group",
@@ -38,6 +41,7 @@ class EventGameViewTest(TestCase):
         )
         self.assertTemplateUsed(response, "booking/event/list-view.html")
         self.assertTemplateNotUsed(response, "booking/event/game-view.html")
+        mock_has_perm.assert_any_call(user, "booking.view_others_groups_bookings", None)
 
     ####################################################################################
     # Tests for EventGameView.get_context_data

@@ -60,19 +60,21 @@ class EventViewTest(TestCase):
         event = EventFactory()
         users = UserFactory.create_batch(2)
         self.client.force_login(users[0])
-        response = self.client.get(
-            reverse(
-                "booking:event_games_group",
-                kwargs={"event_slug": event.slug, "group_slug": users[1].group.slug},
-            ),
-        )
-        # The view should default to the users own group
-        self.assertEqual(
-            response.context["current_group"],
-            users[0].group,
-            "the rendered group is not the user's own group",
-        )
-        self.assertTemplateUsed(response, "booking/event/event.html")
+        for group_slug in ["all", users[1].group.slug]:
+            response = self.client.get(
+                reverse(
+                    "booking:event_games_group",
+                    kwargs={"event_slug": event.slug, "group_slug": group_slug},
+                ),
+                follow=True,
+            )
+            # The view should default to the users own group
+            self.assertEqual(
+                response.context["current_group"],
+                users[0].group,
+                "the rendered group is not the user's own group",
+            )
+            self.assertTemplateUsed(response, "booking/event/event.html")
 
     @patch("django.contrib.auth.backends.ModelBackend.has_perm")
     def test_can_view_bookings_from_other_group_with_perm(self, mock_has_perm):
@@ -81,21 +83,28 @@ class EventViewTest(TestCase):
         event = EventFactory()
         users = UserFactory.create_batch(2)
         self.client.force_login(users[0])
-        response = self.client.get(
-            reverse(
-                "booking:event_games_group",
-                kwargs={"event_slug": event.slug, "group_slug": users[1].group.slug},
-            ),
-        )
-        self.assertEqual(
-            response.context["current_group"],
-            users[1].group,
-            "the rendered group is not the requested group",
-        )
-        self.assertTemplateUsed(response, "booking/event/event.html")
-        mock_has_perm.assert_any_call(
-            users[0], "booking.view_others_groups_bookings", None
-        )
+        for group_slug, group in zip(
+            ["all", users[1].group.slug], [None, users[1].group]
+        ):
+            response = self.client.get(
+                reverse(
+                    "booking:event_games_group",
+                    kwargs={
+                        "event_slug": event.slug,
+                        "group_slug": group_slug,
+                    },
+                ),
+                follow=True,
+            )
+            self.assertEqual(
+                response.context["current_group"],
+                group,
+                "the rendered group is not the requested group",
+            )
+            self.assertTemplateUsed(response, "booking/event/event.html")
+            mock_has_perm.assert_any_call(
+                users[0], "booking.view_others_groups_bookings", None
+            )
 
     ####################################################################################
     # Tests for EventView.get_requested_event

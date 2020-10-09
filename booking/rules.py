@@ -1,18 +1,11 @@
 import rules
 
-
-@rules.predicate
-def is_own_group(user, group):
-    """
-    Check whether a user belongs to a specified group.
-    :param User user:
-    :param Group group:
-    :return: bool
-    """
-    return user.group == group
+from users.rules import is_own_group
 
 
 # Event rules
+
+
 @rules.predicate
 def view_event(user, event):
     """
