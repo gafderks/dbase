@@ -1,16 +1,17 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import get_object_or_404, render, redirect
+from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import TemplateView
 
+from booking.mixins import BookingPageMixin
 from booking.models import Event
-from booking.views.GroupPermissionError import GroupPermissionError
-from booking.views.user_alert_exception import UserAlertException
+from dbase.user_alert_exception import UserAlertException
+from users.group_permission_error import GroupPermissionError
 from users.models import Group
 
 
-class EventView(LoginRequiredMixin, TemplateView):
+class EventView(LoginRequiredMixin, BookingPageMixin, TemplateView):
     template_name = "booking/event/event.html"
 
     def get_requested_group(self, group_slug):
@@ -55,12 +56,10 @@ class EventView(LoginRequiredMixin, TemplateView):
         return {filter_prefix + "group": requested_group}
 
     def get_context_data(self, **kwargs):
-        from booking.views import _get_base_context
-
+        """ Retrieves the requested event and the requested group """
         context = super().get_context_data(**kwargs)
         context.update(
             {
-                **_get_base_context(self.request),
                 "current_event": self.get_requested_event(
                     self.kwargs.get("event_slug")
                 ),
@@ -72,34 +71,25 @@ class EventView(LoginRequiredMixin, TemplateView):
         return context
 
     def get(self, request, *args, **kwargs):
-        # TODO create mixin for displaying user alerts that is used for home page no
-        #  open events as well.
         try:
-            try:
-                return super().get(request, *args, **kwargs)
-            except GroupPermissionError as e:
-                user_group = self.request.user.group
-                if user_group is None:
-                    # Cannot use own group
-                    raise UserAlertException(
-                        _(
-                            "You are not assigned to a group. Please contact a board "
-                            "member to resolve this issue."
-                        )
+            return super().get(request, *args, **kwargs)
+        except GroupPermissionError as e:
+            user_group = self.request.user.group
+            if user_group is None:
+                # Cannot use own group
+                raise UserAlertException(
+                    _(
+                        "You are not assigned to a group. Please contact a board "
+                        "member to resolve this issue."
                     )
-                else:
-                    return redirect(
-                        reverse(
-                            "booking:event_games_group",
-                            kwargs={
-                                "event_slug": self.kwargs.get("event_slug"),
-                                "group_slug": user_group.slug,
-                            },
-                        )
+                )
+            else:
+                return redirect(
+                    reverse(
+                        "booking:event_games_group",
+                        kwargs={
+                            "event_slug": self.kwargs.get("event_slug"),
+                            "group_slug": user_group.slug,
+                        },
                     )
-        except UserAlertException as e:
-            return render(
-                request,
-                "jeugdraad/alert.html",
-                {"message": str(e)},
-            )
+                )

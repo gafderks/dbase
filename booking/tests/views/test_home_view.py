@@ -6,7 +6,7 @@ from django.test import TestCase
 from django.urls import reverse
 from django.utils.timezone import now
 
-from booking.tests.factories import MaterialFactory, EventFactory
+from booking.tests.factories import EventFactory
 from tests.utils import english
 from users.tests.factories import UserFactory
 
@@ -66,24 +66,3 @@ class HomeViewTest(TestCase):
         self.client.force_login(UserFactory())
         response = self.client.get("/")
         self.assertRedirects(response, latest_event.get_absolute_url(), status_code=302)
-
-    def test_typeahead_thumbprint_not_none(self):
-        materials = MaterialFactory.create_batch(3)
-        last_material = MaterialFactory()
-        self.assertNotEqual(materials[0].last_modified, last_material.last_modified)
-        self.client.force_login(UserFactory())
-        response = self.client.get("/")
-        self.assertEqual(
-            response.context["typeahead_thumbprint"],
-            last_material.last_modified.isoformat(),
-            "typeahead thumbprint is not correct",
-        )
-
-    def test_typeahead_thumbprint_never(self):
-        self.client.force_login(UserFactory())
-        response = self.client.get("/")
-        self.assertEqual(
-            response.context["typeahead_thumbprint"],
-            "never",
-            "typeahead thumbprint is not correct",
-        )

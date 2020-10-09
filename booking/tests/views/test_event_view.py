@@ -3,7 +3,7 @@ from unittest.mock import patch
 from django.test import TestCase
 from django.urls import reverse
 
-from booking.tests.factories import EventFactory
+from booking.tests.factories import EventFactory, MaterialFactory
 from tests.utils import english
 from users.tests.factories import UserFactory
 
@@ -159,3 +159,30 @@ class EventViewTest(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed("booking/event/event.html")
         mock_has_perm.assert_any_call(user, "booking.view_event", event)
+
+    ####################################################################################
+    # Tests for BookingMixin.get_context_data with typeahead thumbnail
+    ####################################################################################
+
+    def test_typeahead_thumbprint_not_none(self):
+        materials = MaterialFactory.create_batch(3)
+        last_material = MaterialFactory()
+        self.assertNotEqual(materials[0].last_modified, last_material.last_modified)
+        event = EventFactory()
+        self.client.force_login(UserFactory())
+        response = self.client.get(event.get_absolute_url())
+        self.assertEqual(
+            response.context["typeahead_thumbprint"],
+            last_material.last_modified.isoformat(),
+            "typeahead thumbprint is not correct",
+        )
+
+    def test_typeahead_thumbprint_never(self):
+        event = EventFactory()
+        self.client.force_login(UserFactory())
+        response = self.client.get(event.get_absolute_url())
+        self.assertEqual(
+            response.context["typeahead_thumbprint"],
+            "never",
+            "typeahead thumbprint is not correct",
+        )

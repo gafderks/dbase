@@ -9,7 +9,7 @@ class EventGameView(EventView):
     template_name = "booking/event/game-view.html"
 
     def dispatch(self, request, *args, **kwargs):
-        # Redirect to the list view if all groups are requested
+        """ Redirect to the list view if all groups are requested """
         group_slug = kwargs.get("group_slug", None)
         if group_slug is None and request.user.group is None:
             # If the user is not in a group and did not supply a group, show all groups
@@ -21,7 +21,6 @@ class EventGameView(EventView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-
         current_event = context["current_event"]
 
         # Get the games per day and part of day
