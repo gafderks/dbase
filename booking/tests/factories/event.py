@@ -24,3 +24,4 @@ class EventFactory(factory.django.DjangoModelFactory):
         lambda o: o.privileged_booking_end + timedelta(days=24)
     )
     event_end = factory.LazyAttribute(lambda o: o.event_start + timedelta(days=5))
+    visible = True

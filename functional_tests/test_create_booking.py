@@ -2,8 +2,9 @@ from datetime import timedelta
 
 from booking.models import PartOfDay
 from booking.tests.factories import EventFactory, MaterialFactory
+from tests.utils import english
 from users.tests.factories import UserFactory
-from .base import FunctionalTest, english
+from .base import FunctionalTest
 from .game_view_page import GameViewPage
 
 

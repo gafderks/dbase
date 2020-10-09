@@ -37,12 +37,6 @@ def retry_stale(fn):
     return modified_fn
 
 
-english = override_settings(
-    LANGUAGE_CODE="en-US",
-    LANGUAGES=(("en", "English"),),
-)
-
-
 @override_settings(
     STATICFILES_STORAGE="django.contrib.staticfiles.storage.StaticFilesStorage",
     DEBUG=True,

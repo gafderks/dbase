@@ -9,9 +9,6 @@ from booking.models import Material
 from booking.tests.factories import MaterialFactory
 
 
-# TODO clean media https://www.caktusgroup.com/blog/2013/06/26/media-root-and-django-tests/
-
-
 class WooCommerceFormatTest(TestCase):
     def check_images(self, field, material):
         """

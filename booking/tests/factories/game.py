@@ -21,8 +21,11 @@ class GameFactory(factory.django.DjangoModelFactory):
 
     @factory.lazy_attribute
     def day(self):
-        return factory.Faker(
-            "date_between_dates",
-            date_start=self.event.event_start,
-            date_end=self.event.event_end,
-        ).generate({"locale": None})
+        # TODO this still throws an error sometimes
+        return factory.Faker("date_between_dates").generate(
+            {
+                "locale": None,
+                "date_start": self.event.event_start,
+                "date_end": self.event.event_end,
+            }
+        )
