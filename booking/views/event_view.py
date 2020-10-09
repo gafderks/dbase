@@ -50,7 +50,15 @@ class EventView(LoginRequiredMixin, BookingPageMixin, TemplateView):
 
     @staticmethod
     def get_group_filter(requested_group, filter_prefix=""):
-        # TODO Use Q expression?
+        """
+        Returns a filter dictionary for Games or Bookings that filters the requested
+        group. If requested_group is None (all groups), an empty dict is returned, hence
+        no filter.
+        :param Group requested_group: Group | None
+        :param str filter_prefix: prefix for the filter, e.g. game__, to filter groups
+         of games of bookings.
+        :return: dict
+        """
         if requested_group is None:
             return dict()
         return {filter_prefix + "group": requested_group}
