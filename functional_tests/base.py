@@ -86,3 +86,9 @@ class FunctionalTest(StaticLiveServerTestCase):
             )
         )
         self.browser.refresh()
+
+    def get_from_local_storage(self, key):
+        value = self.browser.execute_script(
+            "return window.localStorage.getItem(arguments[0]);", key
+        )
+        return value
