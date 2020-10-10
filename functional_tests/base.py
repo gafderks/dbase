@@ -10,7 +10,7 @@ from django.conf import settings
 
 from .management.commands.create_session import create_pre_authenticated_session
 
-MAX_WAIT = 15
+MAX_WAIT = 5
 
 
 def wait(fn):
@@ -86,3 +86,9 @@ class FunctionalTest(StaticLiveServerTestCase):
             )
         )
         self.browser.refresh()
+
+    def get_from_local_storage(self, key):
+        value = self.browser.execute_script(
+            "return window.localStorage.getItem(arguments[0]);", key
+        )
+        return value

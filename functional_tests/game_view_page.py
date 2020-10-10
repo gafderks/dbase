@@ -3,7 +3,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.select import Select
 
 from booking.models import PartOfDay
-from functional_tests.base import retry_stale
+from functional_tests.base import retry_stale, wait
 
 
 def get_part_of_day_name(code):
@@ -171,6 +171,7 @@ class GameViewPage(object):
         # TODO test workweek and comment
 
     def add_booking(self, game_id, amount, material_text, partial_material_text=None):
+        self._check_if_typeahead_loaded()
         # TODO add workweek and comment
         game_card = self.test.browser.find_element_by_id(f"game{game_id}")
         num_bookings_before = self.get_number_of_bookings(context=game_card)
@@ -260,3 +261,11 @@ class GameViewPage(object):
         )
 
         return game_id
+
+    @wait
+    def _check_if_typeahead_loaded(self):
+        self.test.assertIsNotNone(
+            self.test.get_from_local_storage(
+                "__/booking/api/material?format=json__data"
+            )
+        )
