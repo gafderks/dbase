@@ -1,5 +1,6 @@
 import 'dbase/app';
 
+import 'dbase/autocomplete';
 import Day from './day.js';
 
 $('.day').each((i, elem) => {

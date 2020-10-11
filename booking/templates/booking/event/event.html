@@ -11,7 +11,7 @@
   {% else %}
     {% trans "All bookings" %}
   {% endif %}
-  | {% trans current_event.name %} | {{ block.super }}
+  | {{ current_event.name }} | {{ block.super }}
 {% endblock %}
 
 {% block body_attrs %}{{ block.super }} data-spy="scroll" data-target="" data-offset="100"{% endblock %}

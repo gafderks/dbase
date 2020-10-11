@@ -1,0 +1,78 @@
+{% extends "jeugdraad/blank.html" %}
+{% load static %}
+{% load i18n %}
+{% load thumbnail %}
+
+{% block window_title %}
+  {{ object.name|capfirst }} | {{ block.super }}
+{% endblock %}
+
+{% block layout %}
+  <div class="container p-3">
+    <main class="card mb-3">
+      <div class="card-header sticky-top frosted">
+        <h5 class="card-title">
+          {{ object.name|capfirst }}
+          {% if object.gm %}
+            <span class="badge badge-mb float-right" data-toggle="tooltip" title="{% trans "GM is needed for this material" %}">
+              {% trans "GM" %}
+            </span>
+          {% endif %}
+        </h5>
+        <ul class="list-inline category-list mt-n3 mb-1">
+          {% for category in object.categories.all %}
+            <li class="list-inline-item"><a href="#">{{ category.name }}</a></li>
+          {% empty %}
+            No categories
+          {% endfor %}
+        </ul>
+      </div>
+      {% if object.images %}
+        {# TODO multiple images #}
+        {% thumbnail object.images.first.image "600x600" as im %}
+          <img src="{{ im.url }}" class="card-img rounded-0" alt="{{ object.name }}">
+        {% endthumbnail %}
+      {% endif %}
+
+      <div class="card-body py-0 mt-3">
+
+      </div>
+      <div class="card-body pt-2">
+        <div class="text-muted small">{% trans "Description" %}</div>
+        <div class="card-text user-html">{{ object.description|safe }}</div>
+      </div>
+      <ul class="list-group list-group-flush">
+        {% if object.location %}
+          <li class="list-group-item"><span>{% trans "Location" %}</span> {{ object.location.name }}
+          </li>
+        {% endif %}
+        {% if object.stock_value %}
+          <li class="list-group-item"><span>{% trans "Maximum stock" %}</span> {{ object.stock }}</li>
+        {% endif %}
+        {% if object.aliases.all %}
+          <li class="list-group-item"><span>{% trans "Aliases" %}</span> {{ object.aliases.all|join:", " }}</li>
+        {% endif %}
+        {% if object.attachments.all %}
+          <li class="list-group-item"><span>{% trans "Attachments" %}</span>
+          <ul>
+            {% for attachment in object.attachments.all %}
+            <li>
+              <a href="{{ attachment.attachment.url }}">{{ attachment.description }} ({{ attachment.extension }}, {{ attachment.attachment.size|filesizeformat }})</a>
+            </li>
+            {% endfor %}
+          </ul>
+          </li>
+        {% endif %}
+      {# TODO edit links #}
+      </ul>
+    </main>
+  </div>
+{% endblock %}
+
+{% block scripts %}
+  <script src="{% static "catalog/js/app.min.js" %}" type="text/javascript"></script>
+{% endblock %}
+
+{% block styles %}
+  <link href="{% static "catalog/css/app.min.css" %}" rel="stylesheet">
+{% endblock %}

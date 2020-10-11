@@ -41,6 +41,7 @@ ALLOWED_HOSTS = env("ALLOWED_HOSTS")
 INSTALLED_APPS = [
     "django_gulp",
     "booking.apps.BookingConfig",
+    "catalog.apps.CatalogConfig",
     "users.apps.UsersConfig",
     "django.contrib.admin",
     "django.contrib.auth",

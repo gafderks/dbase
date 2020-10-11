@@ -1,0 +1,646 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-10-11 16:11+0200\n"
+"PO-Revision-Date: 2020-10-11 16:11+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: nl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 2.4.1\n"
+
+#: .\catalog\apps.py:7
+msgid "catalog"
+msgstr "catalogus"
+
+#: .\catalog\templates\catalog\material_detail.html:17
+msgid "GM is needed for this material"
+msgstr "GM is nodig voor dit materiaal"
+
+#: .\catalog\templates\catalog\material_detail.html:18
+msgid "GM"
+msgstr "GM"
+
+#: .\catalog\templates\catalog\material_detail.html:41
+msgid "Description"
+msgstr "Omschrijving"
+
+#: .\catalog\templates\catalog\material_detail.html:46
+msgid "Location"
+msgstr "Locatie"
+
+#: .\catalog\templates\catalog\material_detail.html:50
+msgid "Maximum stock"
+msgstr "Maximale voorraad"
+
+#: .\catalog\templates\catalog\material_detail.html:53
+msgid "Aliases"
+msgstr "Andere benamingen"
+
+#: .\catalog\templates\catalog\material_detail.html:56
+msgid "Attachments"
+msgstr "Bijlagen"
+
+#~ msgid "Number of materials"
+#~ msgstr "Aantal materialen"
+
+#~ msgid "Image"
+#~ msgstr "Afbeelding"
+
+#~ msgid "Booking status"
+#~ msgstr "Reserveringsstatus"
+
+#~ msgid "Included categories"
+#~ msgstr "Inbegrepen categorieën"
+
+#~ msgid "Excluded categories"
+#~ msgstr "Uitgesloten categorieën"
+
+#~ msgid "Material bookings"
+#~ msgstr "Materiaalaanvragen"
+
+#~ msgid "All groups"
+#~ msgstr "Alle groepen"
+
+#~ msgid "downloaded on"
+#~ msgstr "gedownload op"
+
+#~ msgid "Bookings"
+#~ msgstr "Aanvragen"
+
+#~ msgid "Day"
+#~ msgstr "Dag"
+
+#~ msgid "Daypart"
+#~ msgstr "Dagdeel"
+
+#~ msgid "Amount"
+#~ msgstr "Aantal"
+
+#~ msgid "Material"
+#~ msgstr "Materiaal"
+
+#~ msgid "Material category"
+#~ msgstr "Categorie van materiaal"
+
+#~ msgid "Game"
+#~ msgstr "Spel"
+
+#~ msgid "Game location"
+#~ msgstr "Spellocatie"
+
+#~ msgid "Group"
+#~ msgstr "Groep"
+
+#~ msgid "Workweek"
+#~ msgstr "Werkweek"
+
+#~ msgid "List"
+#~ msgstr "Lijst"
+
+#~ msgid "Comment"
+#~ msgstr "Opmerking"
+
+#~ msgid "Yes"
+#~ msgstr "Ja"
+
+#~ msgid "No"
+#~ msgstr "Nee"
+
+#~ msgid "Search terms"
+#~ msgstr "Zoektermen"
+
+#~ msgid "booking"
+#~ msgstr "reservering"
+
+#~ msgid "Any"
+#~ msgstr "Alle"
+
+#~ msgid "Category"
+#~ msgstr "Categorie"
+
+#~ msgid "----------"
+#~ msgstr "----------"
+
+#~ msgid "Custom material"
+#~ msgstr "Aangepast materiaal"
+
+#~ msgid "Only custom materials"
+#~ msgstr "Alleen aangepaste materialen"
+
+#~ msgid "No custom materials"
+#~ msgstr "Geen aangepaste materialen"
+
+#~ msgid "GM needed"
+#~ msgstr "GM benodigd"
+
+#~ msgid "GM not needed"
+#~ msgstr "GM niet nodig"
+
+#~ msgid "Needed in workweek"
+#~ msgstr "Nodig in werkweek"
+
+#~ msgid "Not needed in workweek"
+#~ msgstr "Niet nodig in werkweek"
+
+#~ msgid "Apply filters"
+#~ msgstr "Filters toepassen"
+
+#~ msgid "Clear"
+#~ msgstr "Wissen"
+
+#~ msgid "has image"
+#~ msgstr "heeft afbeelding"
+
+#~ msgid "There exists already a material alias with the given name."
+#~ msgstr "Er bestaat al een materiaal synoniem met de gegeven naam."
+
+#~ msgid "There exists already a material with the given name."
+#~ msgstr "Er bestaat al een materiaal met de gegeven naam."
+
+#~ msgid "Submit"
+#~ msgstr "Verzenden"
+
+#~ msgid "Booking end cannot be earlier than booking start."
+#~ msgstr "De einddatum van de reserveringsperiode kan niet eerder zijn dan de begindatum."
+
+#~ msgid "Privileged booking end cannot be earlier than booking end."
+#~ msgstr "De einddatum van de reserveringsperiode voor bevoorrechte gebruikers kan niet eerder zijn dan de einddatum van de reserveringsperiode."
+
+#~ msgid "Event end cannot be earlier than event start."
+#~ msgstr "De einddatum van het evenement kan niet eerder zijn dan de begindatum."
+
+#~ msgid "Game name"
+#~ msgstr "Spelnaam"
+
+#~ msgid "Part of day"
+#~ msgstr "Dagdeel"
+
+#~ msgid "Update"
+#~ msgstr "Bijwerken"
+
+#~ msgid "Add"
+#~ msgstr "Toevoegen"
+
+#~ msgid "Cancel"
+#~ msgstr "Annuleren"
+
+#~ msgid "Day of game cannot be earlier than event start."
+#~ msgstr "De einddatum van een spel kan niet eerder zijn dan de begindatum van het evenement."
+
+#~ msgid "Day of game cannot be later than event end."
+#~ msgstr "De einddatum van een spel kan niet eerder zijn dan de begindatum van het evenement."
+
+#~ msgid "Choose a material"
+#~ msgstr "Kies een materiaal"
+
+#~ msgid "Material not found..."
+#~ msgstr "Materiaal niet gevonden..."
+
+#~ msgid "Click to request \"<em>{}</em>\" anyway."
+#~ msgstr "Klik om \"<em>{}</em>\" toch aan te vragen."
+
+#~ msgid "You must either choose a material or fill in a custom material."
+#~ msgstr "Je moet een materiaal kiezen of een aangepast materiaal kiezen."
+
+#~ msgid "requester"
+#~ msgstr "aanvrager"
+
+#~ msgid "game"
+#~ msgstr "spel"
+
+#~ msgid "material"
+#~ msgstr "materiaal"
+
+#~ msgid "custom material"
+#~ msgstr "aangepast materiaal"
+
+#~ msgid "workweek"
+#~ msgstr "werkweek"
+
+#~ msgid "comment"
+#~ msgstr "opmerking"
+
+#~ msgid "E.g. for food: when and where do you need it?"
+#~ msgstr "Bijv. voor voedsel: wanneer en waar heb je het nodig?"
+
+#~ msgid "amount"
+#~ msgstr "aantal"
+
+#~ msgid "bookings"
+#~ msgstr "aanvragen"
+
+#~ msgid "Unspecified material"
+#~ msgstr "Ongespecificeerd materiaal"
+
+#~ msgid "name"
+#~ msgstr "naam"
+
+#~ msgid "description"
+#~ msgstr "omschrijving"
+
+#~ msgid "category"
+#~ msgstr "categorie"
+
+#~ msgid "categories"
+#~ msgstr "categorieën"
+
+#~ msgid "URL short name"
+#~ msgstr "Permalink"
+
+#~ msgid "locked"
+#~ msgstr "gesloten"
+
+#~ msgid "Manually lock the booking such that users cannot change bookings (except admin)."
+#~ msgstr "Sluit de reservering handmatig zodat gebruikers geen reserveringen kunnen aanpassen (administratoren uitgesloten)."
+
+#~ msgid "visible"
+#~ msgstr "zichtbaar"
+
+#~ msgid "Should the event be visible?"
+#~ msgstr "Moet het evenement zichtbaar zijn?"
+
+#~ msgid "start date booking period"
+#~ msgstr "startdatum reserveringsperiode"
+
+#~ msgid "When should the event be opened for booking?"
+#~ msgstr "Wanneer moet het evenement opengesteld worden voor reserveringen?"
+
+#~ msgid "end date booking period"
+#~ msgstr "einddatum reserveringsperiode"
+
+#~ msgid "When should the event become privileged?"
+#~ msgstr "Wanneer moet het evenement slechts opengesteld zijn voor bevoorrechte gebruikers?"
+
+#~ msgid "end date privileged booking period"
+#~ msgstr "einddatum bevoorrechte reserveringsperiode"
+
+#~ msgid "When should the event become locked?"
+#~ msgstr "Wanneer moet het evenement gesloten worden voor reserveringen?"
+
+#~ msgid "event start date"
+#~ msgstr "startdatum evenement"
+
+#~ msgid "What is the first day of the event?"
+#~ msgstr "Wat is de eerste dag van het evenement?"
+
+#~ msgid "event end date"
+#~ msgstr "einddatum evenement"
+
+#~ msgid "What is the last day of the event?"
+#~ msgstr "Wat is de laatste dag van het evenement?"
+
+#~ msgid "event"
+#~ msgstr "evenement"
+
+#~ msgid "events"
+#~ msgstr "evenementen"
+
+#~ msgid "Hidden"
+#~ msgstr "Verborgen"
+
+#~ msgid "Not started"
+#~ msgstr "Niet begonnen"
+
+#~ msgid "Opened"
+#~ msgstr "Geopend"
+
+#~ msgid "Privileged"
+#~ msgstr "Bevoorrecht"
+
+#~ msgid "Locked"
+#~ msgstr "Gesloten"
+
+#~ msgid "creator"
+#~ msgstr "maker"
+
+#~ msgid "day"
+#~ msgstr "dag"
+
+#~ msgid "On what day are the materials needed?"
+#~ msgstr "Op welke dag zijn de materialen nodig?"
+
+#~ msgid "group"
+#~ msgstr "groep"
+
+#~ msgid "daypart"
+#~ msgstr "dagdeel"
+
+#~ msgid "At what daypart are the materials needed?"
+#~ msgstr "Op welk dagdeel zijn de materialen nodig?"
+
+#~ msgid "location"
+#~ msgstr "locatie"
+
+#~ msgid "Where do you need the materials for this game to be delivered? This defaults to the location of the part of day."
+#~ msgstr "Waar moeten de materialen voor dit spel worden afgeleverd? Standaard is dit de locatie van het dagdeel."
+
+#~ msgid "order"
+#~ msgstr "volgorde"
+
+#~ msgid "Defines an ordering for the games within a day(part)"
+#~ msgstr "Definieert een volgorde voor de spellen binnen een dag(deel)"
+
+#~ msgid "games"
+#~ msgstr "spellen"
+
+#~ msgid "Enabled"
+#~ msgstr "Ingeschakeld"
+
+#~ msgid "Filter order"
+#~ msgstr "Filtervolgorde"
+
+#~ msgid "included categories"
+#~ msgstr "inbegrepen categorieën"
+
+#~ msgid "excluded categories"
+#~ msgstr "uitgesloten categorieën"
+
+#~ msgid "list view filter"
+#~ msgstr "lijstweergavefilter"
+
+#~ msgid "list view filters"
+#~ msgstr "lijstweergavefilters"
+
+#~ msgid "Common materials"
+#~ msgstr "Algemene materialen"
+
+#~ msgid "locations"
+#~ msgstr "locaties"
+
+#~ msgid "Additional information about the material. Displayed in the shop."
+#~ msgstr "Extra informatie over het materiaal. Wordt weergegeven in de uitleenshop."
+
+#~ msgid "lendable"
+#~ msgstr "uitleenbaar"
+
+#~ msgid "Should this material be shown for lending?"
+#~ msgstr "Moet dit materiaal worden weergegeven voor uitlenen?"
+
+#~ msgid "Where can this material be found?"
+#~ msgstr "Waar kan dit materiaal gevonden worden?"
+
+#~ msgid "rate class"
+#~ msgstr "tariefklasse"
+
+#~ msgid "What rate class should this material be associated with?"
+#~ msgstr "Met welke tariefklasse moet dit materiaal geassocieerd worden?"
+
+#~ msgid "stock value"
+#~ msgstr "voorraad"
+
+#~ msgid "How many exemplars are there of this material?"
+#~ msgstr "Hoeveel exemplaren zijn er van dit materiaal?"
+
+#~ msgid "stock unit"
+#~ msgstr "voorraadeenheid"
+
+#~ msgid "Specify a unit for the stock. E.g. meters."
+#~ msgstr "Specificeer de eenheid voor de voorraad. Bijv. meter."
+
+#~ msgid "materials"
+#~ msgstr "materialen"
+
+#~ msgid "stock"
+#~ msgstr "voorraad"
+
+#~ msgid "Alias for the material, e.g. aliases for \"stormbaan\" are \"Kelly\" and \"Rambler\"."
+#~ msgstr "Synoniem voor het materiaal, bijv. synoniemen voor \"stormbaan\" zijn \"Kelly\" en \"Rambler\"."
+
+#~ msgid "material alias"
+#~ msgstr "materiaal synoniem"
+
+#~ msgid "material aliases"
+#~ msgstr "materiaal synoniemen"
+
+#~ msgid "attachment"
+#~ msgstr "bijlage"
+
+#~ msgid "material attachment"
+#~ msgstr "materiaal bijlage"
+
+#~ msgid "material attachments"
+#~ msgstr "materiaal bijlages"
+
+#~ msgid "image"
+#~ msgstr "afbeelding"
+
+#~ msgid "material image"
+#~ msgstr "afbeelding van materiaal"
+
+#~ msgid "material images"
+#~ msgstr "afbeeldingen van materiaal"
+
+#~ msgid "Morning"
+#~ msgstr "Ochtend"
+
+#~ msgid "Afternoon"
+#~ msgstr "Middag"
+
+#~ msgid "Evening"
+#~ msgstr "Avond"
+
+#~ msgid "Night"
+#~ msgstr "Nacht"
+
+#~ msgid "start time"
+#~ msgstr "begintijd"
+
+#~ msgid "end time"
+#~ msgstr "eindtijd"
+
+#~ msgid "Where do you need the materials for this daypart to be delivered?"
+#~ msgstr "Waar moeten de materialen voor dit dagdeel worden afgeleverd?"
+
+#~ msgid "dayparts"
+#~ msgstr "dagdeel"
+
+#~ msgid "rate"
+#~ msgstr "tarief"
+
+#~ msgid "rate classes"
+#~ msgstr "tariefklassen"
+
+#, python-format
+#~ msgid "Bookings for %(group)s"
+#~ msgstr "Aanvragen voor %(group)s"
+
+#~ msgid "All bookings"
+#~ msgstr "Alle aanvragen"
+
+#~ msgid "You may edit"
+#~ msgstr "Je mag bewerken"
+
+#~ msgid "You cannot edit"
+#~ msgstr "Je kan niet bewerken"
+
+#~ msgid "Event period"
+#~ msgstr "Evenementsperiode"
+
+#~ msgid "Start booking period"
+#~ msgstr "Startdatum reserveringsperiode"
+
+#~ msgid "Booking deadline"
+#~ msgstr "Reserveringsdeadline"
+
+#~ msgid "Privileged booking deadline"
+#~ msgstr "MB Reserveringsdeadline"
+
+#~ msgid "Export options"
+#~ msgstr "Exporteer opties"
+
+#~ msgid "Print"
+#~ msgstr "Printen"
+
+#~ msgid "Export to Excel"
+#~ msgstr "Exporteren naar Excel"
+
+#~ msgid "Display options"
+#~ msgstr "Weergaveopties"
+
+#~ msgid "All"
+#~ msgstr "Alle"
+
+#~ msgid "Scroll to top"
+#~ msgstr "Naar boven scrollen"
+
+#~ msgid "Add new game"
+#~ msgstr "Nieuw spel toevoegen"
+
+#~ msgid "Open list view"
+#~ msgstr "Open lijstweergave"
+
+#~ msgid "List view"
+#~ msgstr "Lijstweergave"
+
+#~ msgid "Filter bookings"
+#~ msgstr "Filter aanvragen"
+
+#~ msgid "active"
+#~ msgstr "actief"
+
+#~ msgid "Filter"
+#~ msgstr "Filter"
+
+#~ msgid "Open game view"
+#~ msgstr "Open spelweergave"
+
+#~ msgid "Game view"
+#~ msgstr "Spelweergave"
+
+#~ msgid "Game view is not available if you select all groups."
+#~ msgstr "Spelweergave is niet beschikbaar als je alle groepen selecteert."
+
+#~ msgid "Configure filters"
+#~ msgstr "Filters instellen"
+
+#~ msgid "This booking needs review"
+#~ msgstr "Deze aanvraag moet beoordeeld worden"
+
+#~ msgid "Booking options"
+#~ msgstr "Reserveringsopties"
+
+#~ msgid "Delete"
+#~ msgstr "Verwijderen"
+
+#~ msgid "Edit"
+#~ msgstr "Bewerken"
+
+#~ msgid "Create new material"
+#~ msgstr "Nieuw materiaal toevoegen"
+
+#~ msgid "Create material alias"
+#~ msgstr "Materiaalsynoniem toevoegen"
+
+#~ msgid "Are you sure?"
+#~ msgstr "Weet je het zeker?"
+
+#, python-brace-format
+#~ msgid "Do you really want to delete the booking <strong>${name}</strong>?"
+#~ msgstr "Weet je zeker dat je de aanvraag <strong>${name}</strong> wilt verwijderen?"
+
+#~ msgid "Remove booking"
+#~ msgstr "Aanvraag verwijderen"
+
+#, python-brace-format
+#~ msgid "Do you really want to delete the game <strong>${name}</strong> along with all its bookings?"
+#~ msgstr "Weet je zeker dat je het spel <strong>${name}</strong> en al zijn aanvragen wilt verwijderen?"
+
+#~ msgid "Remove game"
+#~ msgstr "Spel verwijderen"
+
+#~ msgid "Sort game"
+#~ msgstr "Spel sorteren"
+
+#~ msgid "Move up"
+#~ msgstr "Omhoog verplaatsen"
+
+#~ msgid "Move down"
+#~ msgstr "Omlaag verplaatsen"
+
+#~ msgid "Game options"
+#~ msgstr "Spelopties"
+
+#~ msgid "Set status on all bookings"
+#~ msgstr "Stel status in voor alle aanvragen"
+
+#~ msgid "Add material booking"
+#~ msgstr "Materiaalaanvraag toevoegen"
+
+#~ msgid "You are not allowed to view bookings for this group."
+#~ msgstr "Je mag geen aanvragen van deze groep bekijken."
+
+#~ msgid "You are not allowed to view this event"
+#~ msgstr "Je mag dit evenement niet bekijken"
+
+#~ msgid "You are not assigned to a group. Please contact a board member to resolve this issue."
+#~ msgstr "Je bent niet toegewezen aan een groep. Neem contact op met een bestuurslid om dit probleem op te lossen."
+
+#~ msgid "There are no open events."
+#~ msgstr "Er zijn geen open evenementen."
+
+#~ msgid "Add new category"
+#~ msgstr "Nieuwe categorie toevoegen"
+
+#~ msgid "(current)"
+#~ msgstr "(huidige)"
+
+#~ msgid "Filters"
+#~ msgstr "Filters"
+
+#, fuzzy
+#~| msgid "All"
+#~ msgid "all"
+#~ msgstr "Alle"
+
+#~ msgid "part of day"
+#~ msgstr "dagdeel"
+
+#~ msgid "At what part of the day are the materials needed?"
+#~ msgstr "Tijdens welk dagdeel zijn de materialen nodig?"
+
+#~ msgid "Order"
+#~ msgstr "Volgorde"
+
+#~ msgid "Show or collapse all games"
+#~ msgstr "Toon of verberg alle spellen"
+
+#, fuzzy
+#~| msgid "visible"
+#~ msgid "Invisible"
+#~ msgstr "zichtbaar"
+
+#~ msgid "Name"
+#~ msgstr "Naam"
+
+#~ msgid "Needs GM?"
+#~ msgstr "GM nodig?"
