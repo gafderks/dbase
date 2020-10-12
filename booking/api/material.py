@@ -1,11 +1,10 @@
 import csv
 from collections import OrderedDict
 
-from django.template.defaultfilters import filesizeformat
-from sorl.thumbnail import get_thumbnail
-
 from django.http import HttpResponse, JsonResponse
+from django.template.defaultfilters import filesizeformat
 from django.utils.translation import gettext as _
+from sorl.thumbnail import get_thumbnail
 
 
 def format_woocommerce(request, materials):
@@ -50,7 +49,7 @@ def format_woocommerce(request, materials):
         """
         return OrderedDict(
             {
-                "sku": mat.id + 2000,  # avoid collision with simple posts
+                "sku": mat.sku,
                 "tax:product_type": "simple",
                 "post_title": mat.name,
                 "post_name": mat.name,

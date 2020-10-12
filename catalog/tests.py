@@ -35,3 +35,10 @@ class MaterialDetailViewTest(TestCase):
             self.assertContains(response, attachment.description)
         for alias in material.aliases.all():
             self.assertContains(response, alias.name)
+
+    def test_shop_url(self):
+        lendable_material = MaterialFactory(lendable=True)
+        self.client.force_login(UserFactory())
+        response = self.client.get(lendable_material.get_absolute_url())
+        self.assertTemplateUsed(response, "catalog/material_detail.html")
+        self.assertContains(response, lendable_material.get_shop_url())

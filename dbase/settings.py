@@ -23,6 +23,8 @@ env = environ.Env(
     DATA_UPLOAD_MAX_MEMORY_SIZE=(int, 10485760),  # For uploading HD images
     MEMCACHE_LOCATIONS=(list, ["127.0.0.1:11211"]),
     ADMINS=(list, []),
+    SHOP_SKU_OFFSET=(int, 2000),
+    SHOP_PRODUCT_URL_FORMAT=(str, None),
 )
 environ.Env.read_env(env_file=str(BASE_DIR / ".env"))
 
@@ -220,3 +222,6 @@ CKEDITOR_CONFIGS = {
 INTERNAL_IPS = ["127.0.0.1", "localhost"]
 
 TEST_RUNNER = "tests.runner.CustomTestSuitRunner"
+
+SHOP_SKU_OFFSET = env("SHOP_SKU_OFFSET")
+SHOP_PRODUCT_URL_FORMAT = env("SHOP_PRODUCT_URL_FORMAT")

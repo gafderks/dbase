@@ -63,6 +63,11 @@
           </ul>
           </li>
         {% endif %}
+        {% if object.get_shop_url %}
+          <li class="list-group-item">
+            <a href="{{ object.get_shop_url }}" target="shop" class="card-link">{% trans "Show material in lending shop" %}</a>
+          </li>
+        {% endif %}
       {# TODO edit links #}
       </ul>
     </main>
