@@ -1,5 +1,5 @@
 from django.conf import settings
-from django.test import TestCase
+from django.test import TestCase, override_settings
 from django.urls import reverse
 
 from booking.tests.factories import MaterialFactory, CategoryFactory
@@ -36,6 +36,7 @@ class MaterialDetailViewTest(TestCase):
         for alias in material.aliases.all():
             self.assertContains(response, alias.name)
 
+    @override_settings(SHOP_PRODUCT_URL_FORMAT="https://example.com/?p={sku}")
     def test_shop_url(self):
         lendable_material = MaterialFactory(lendable=True)
         self.client.force_login(UserFactory())
