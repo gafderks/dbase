@@ -1,21 +1,20 @@
 @import 'dbase/static/dbase/css/app';
 
 
-
 .list-group-item span {
-    color: #6c757d;
-    font-size: 80%;
-    display: block;
+  color: $text-muted;
+  display: block;
+  font-size: $font-size-sm;
 }
 
 .category-list a {
-    font-weight: 400;
-    text-transform: uppercase;
-    font-size: .8em;
-    letter-spacing: .5pt;
-    border: 0;
+  border: 0;
+  font-size: $font-size-sm;
+  font-weight: 400;
+  letter-spacing: .5pt;
+  text-transform: uppercase;
 }
 
 .user-html p {
-    margin-bottom: 0.2em;
+  margin-bottom: .2em;
 }
