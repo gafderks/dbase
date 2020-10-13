@@ -27,11 +27,39 @@
           {% endfor %}
         </ul>
       </div>
-      {% if object.images %}
-        {# TODO multiple images #}
-        {% thumbnail object.images.first.image "600x600" as im %}
-          <img src="{{ im.url }}" class="card-img rounded-0" alt="{{ object.name }}">
-        {% endthumbnail %}
+      {% if object.images.count > 0 %}
+        <div id="materialImageCarouselIndicators" class="carousel slide carousel-fade carousel-thumbnails border-bottom" data-interval="false">
+          {% if object.images.count > 1 %}
+          <ol class="carousel-indicators">
+            {% for image in object.images.all %}
+            <li data-target="#materialImageCarouselIndicators" data-slide-to="{{ forloop.counter0 }}" {% if forloop.first %}class="active"{% endif %}>
+              {% thumbnail image.image "60x60" crop="center" as im %}
+                <img src="{{ im.url }}" class="img-fluid" alt="{{ object.name }}">
+              {% endthumbnail %}
+            </li>
+            {% endfor %}
+          </ol>
+          {% endif %}
+          <div class="carousel-inner">
+            {% for image in object.images.all %}
+              {% thumbnail image.image "600" as im %}
+                <div class="carousel-item{% if forloop.first %} active{% endif %}">
+                  <img src="{{ im.url }}" class="d-block mw-100 mx-auto" style="max-height: 60vh;" alt="{{ object.name }}">
+                </div>
+              {% endthumbnail %}
+            {% endfor %}
+          </div>
+          {% if object.images.count > 1 %}
+            <a class="carousel-control-prev" href="#materialImageCarouselIndicators" role="button" data-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="sr-only">{% trans "Previous" %}</span>
+            </a>
+            <a class="carousel-control-next" href="#materialImageCarouselIndicators" role="button" data-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="sr-only">{% trans "Next" %}</span>
+            </a>
+          {% endif %}
+        </div>
       {% endif %}
       {% if object.description %}
         <div class="card-body pt-3">
