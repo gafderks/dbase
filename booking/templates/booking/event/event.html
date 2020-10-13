@@ -7,7 +7,7 @@
 
 {% block window_title %}
   {% if current_group %}
-    {% blocktrans with group=current_group.name %}Bookings for {{ group }}{% endblocktrans %}
+    {% blocktranslate with group=current_group.name %}Bookings for {{ group }}{% endblocktranslate %}
   {% else %}
     {% trans "All bookings" %}
   {% endif %}

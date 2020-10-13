@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-11 16:11+0200\n"
-"PO-Revision-Date: 2020-10-11 16:11+0200\n"
+"POT-Creation-Date: 2020-10-12 23:01+0200\n"
+"PO-Revision-Date: 2020-10-12 23:03+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: nl\n"
@@ -49,6 +49,16 @@ msgstr "Andere benamingen"
 #: .\catalog\templates\catalog\material_detail.html:56
 msgid "Attachments"
 msgstr "Bijlagen"
+
+#: .\catalog\templates\catalog\material_detail.html:70
+#, python-format
+msgid "Show %(object_name)s in lending shop"
+msgstr "Toon %(object_name)s in uitleenwinkel"
+
+#: .\catalog\templates\catalog\material_detail.html:78
+#, python-format
+msgid "Edit properties for %(object_name)s"
+msgstr "Eigenschappen bewerken voor %(object_name)s"
 
 #~ msgid "Number of materials"
 #~ msgstr "Aantal materialen"

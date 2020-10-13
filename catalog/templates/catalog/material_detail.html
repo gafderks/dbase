@@ -33,14 +33,12 @@
           <img src="{{ im.url }}" class="card-img rounded-0" alt="{{ object.name }}">
         {% endthumbnail %}
       {% endif %}
-
-      <div class="card-body py-0 mt-3">
-
-      </div>
-      <div class="card-body pt-2">
-        <div class="text-muted small">{% trans "Description" %}</div>
-        <div class="card-text user-html">{{ object.description|safe }}</div>
-      </div>
+      {% if object.description %}
+        <div class="card-body pt-3">
+          <div class="text-muted small">{% trans "Description" %}</div>
+          <div class="card-text user-html">{{ object.description|safe }}</div>
+        </div>
+      {% endif %}
       <ul class="list-group list-group-flush">
         {% if object.location %}
           <li class="list-group-item"><span>{% trans "Location" %}</span> {{ object.location.name }}
@@ -65,10 +63,20 @@
         {% endif %}
         {% if object.get_shop_url %}
           <li class="list-group-item">
-            <a href="{{ object.get_shop_url }}" target="shop" class="card-link">{% trans "Show material in lending shop" %}</a>
+            <a href="{{ object.get_shop_url }}" target="shop" class="btn btn-outline-secondary">
+              <i class="fas fa-shopping-cart"></i>
+              {% blocktranslate with object_name=object.name|capfirst %}Show {{ object_name }} in lending shop{% endblocktranslate %}
+            </a>
           </li>
         {% endif %}
-      {# TODO edit links #}
+        {% if perms.booking.change_material %}
+          <li class="list-group-item">
+            <a href="{% url 'admin:booking_material_change' object.pk %}" target="admin" class="btn btn-outline-secondary">
+              <i class="fas fa-edit"></i>
+              {% blocktranslate with object_name=object.name|capfirst %}Edit properties for {{ object_name }}{% endblocktranslate %}
+            </a>
+          </li>
+        {% endif %}
       </ul>
     </main>
   </div>
