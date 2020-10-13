@@ -1,0 +1,1 @@
+from .material_detail_view import MaterialDetailView
