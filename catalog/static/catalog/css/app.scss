@@ -22,17 +22,17 @@
 .carousel-thumbnails {
   .carousel-indicators {
     img {
-      width: 60px;
+      display: block;
       height: 60px;
       overflow: hidden;
-      display: block;
+      width: 60px;
     }
 
     li {
-      height: auto;
-      width: 60px;
       border: none;
       box-shadow: 1px 3px 5px 0 rgba(0, 0, 0, 0.3);
+      height: auto;
+      width: 60px;
 
       &.active {
         border-bottom: 4px solid white;
