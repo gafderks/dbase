@@ -1,0 +1,102 @@
+{% load i18n %}
+{% load thumbnail %}
+<div class="card mb-3 material-card">
+  <div class="card-header sticky-top frosted">
+    <h5 class="card-title">
+      {{ object.name|capfirst }}
+    </h5>
+    <ul class="list-inline category-list mt-n3 mb-1">
+      {% for category in object.categories.all %}
+        <li class="list-inline-item"><a href="#">{{ category.name }}</a></li>
+      {% empty %}
+        No categories
+      {% endfor %}
+      {% if object.gm %}
+        <li class="list-inline-item">
+          <span class="badge badge-mb" data-toggle="tooltip" title="{% trans "GM is needed for this material" %}">
+            {% trans "GM" %}
+          </span>
+        </li>
+      {% endif %}
+    </ul>
+  </div>
+  {% if object.images.count > 0 %}
+    <div id="materialImageCarouselIndicators" class="carousel slide carousel-fade carousel-thumbnails border-bottom" data-interval="false">
+      {% if object.images.count > 1 %}
+      <ol class="carousel-indicators">
+        {% for image in object.images.all %}
+        <li data-target="#materialImageCarouselIndicators" data-slide-to="{{ forloop.counter0 }}" {% if forloop.first %}class="active"{% endif %}>
+          {% thumbnail image.image "60x60" crop="center" as im %}
+            <img src="{{ im.url }}" class="img-fluid" alt="{{ object.name }}">
+          {% endthumbnail %}
+        </li>
+        {% endfor %}
+      </ol>
+      {% endif %}
+      <div class="carousel-inner">
+        {% for image in object.images.all %}
+          {% thumbnail image.image "600" as im %}
+            <div class="carousel-item{% if forloop.first %} active{% endif %}">
+              <img src="{{ im.url }}" class="d-block mw-100 mx-auto" style="max-height: 60vh;" alt="{{ object.name }}">
+            </div>
+          {% endthumbnail %}
+        {% endfor %}
+      </div>
+      {% if object.images.count > 1 %}
+        <a class="carousel-control-prev" href="#materialImageCarouselIndicators" role="button" data-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="sr-only">{% trans "Previous" %}</span>
+        </a>
+        <a class="carousel-control-next" href="#materialImageCarouselIndicators" role="button" data-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="sr-only">{% trans "Next" %}</span>
+        </a>
+      {% endif %}
+    </div>
+  {% endif %}
+  {% if object.description %}
+    <div class="card-body pt-3">
+      <div class="text-muted small">{% trans "Description" %}</div>
+      <div class="card-text user-html">{{ object.description|safe }}</div>
+    </div>
+  {% endif %}
+  <ul class="list-group list-group-flush">
+    {% if object.location %}
+      <li class="list-group-item"><span>{% trans "Location" %}</span> {{ object.location.name }}
+      </li>
+    {% endif %}
+    {% if object.stock_value %}
+      <li class="list-group-item"><span>{% trans "Maximum stock" %}</span> {{ object.stock }}</li>
+    {% endif %}
+    {% if object.aliases.all %}
+      <li class="list-group-item"><span>{% trans "Aliases" %}</span> {{ object.aliases.all|join:", " }}</li>
+    {% endif %}
+    {% if object.attachments.all %}
+      <li class="list-group-item"><span>{% trans "Attachments" %}</span>
+      <ul>
+        {% for attachment in object.attachments.all %}
+        <li>
+          <a href="{{ attachment.attachment.url }}">{{ attachment.description }} ({{ attachment.extension }}, {{ attachment.attachment.size|filesizeformat }})</a>
+        </li>
+        {% endfor %}
+      </ul>
+      </li>
+    {% endif %}
+    {% if object.get_shop_url %}
+      <li class="list-group-item">
+        <a href="{{ object.get_shop_url }}" target="shop" class="btn btn-outline-secondary">
+          <i class="fas fa-shopping-cart"></i>
+          {% blocktranslate with object_name=object.name|capfirst %}Show {{ object_name }} in lending shop{% endblocktranslate %}
+        </a>
+      </li>
+    {% endif %}
+    {% if perms.booking.change_material %}
+      <li class="list-group-item">
+        <a href="{% url 'admin:booking_material_change' object.pk %}" target="admin" class="btn btn-outline-secondary">
+          <i class="fas fa-edit"></i>
+          {% blocktranslate with object_name=object.name|capfirst %}Edit properties for {{ object_name }}{% endblocktranslate %}
+        </a>
+      </li>
+    {% endif %}
+  </ul>
+  </div>

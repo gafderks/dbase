@@ -1,1 +1,2 @@
 from .material_detail_view import MaterialDetailView
+from .material_detail_modal_view import MaterialDetailModalView
