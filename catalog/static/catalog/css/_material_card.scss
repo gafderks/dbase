@@ -1,4 +1,4 @@
-@import "thumbnail_carousel";
+@import 'thumbnail_carousel';
 
 .material-card {
   .list-group-item span {
@@ -11,11 +11,11 @@
     border: 0;
     font-size: $font-size-sm;
     font-weight: 400;
-    letter-spacing: .5pt;
+    letter-spacing: 0.5pt;
     text-transform: uppercase;
   }
 
   .user-html p {
-    margin-bottom: .2em;
+    margin-bottom: 0.2em;
   }
 }
