@@ -1,3 +1,5 @@
+@import 'jeugdraad.scss';
+
 nav.navbar li > a svg ~ span {
   margin-left: 0.2em;
 }
@@ -13,13 +15,12 @@ nav.navbar li.active {
 
 .input-group span.twitter-typeahead {
   flex: 1 1 auto;
-  flex: 1 1 auto;
   margin-bottom: 0;
   position: relative;
   width: 1%;
 }
 
 .badge-mb {
-  background-color: #212529;
-  color: #ffc107;
+  background-color: $djr_black;
+  color: $djr_yellow;
 }
