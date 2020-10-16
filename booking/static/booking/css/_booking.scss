@@ -1,272 +1,276 @@
 .crispy-outline {
-    background-color: transparent;
+  background-color: transparent;
 }
 
 html {
-    scroll-behavior: smooth;
+  scroll-behavior: smooth;
 }
 
 .active-secondary.active {
-    background-color: #ccc!important;
-    color: #007bff!important;
+  background-color: #ccc !important;
+  color: #007bff !important;
 }
 
 .frosted {
-    background-color: rgba(255, 255, 255, .95);
-    @supports ((-webkit-backdrop-filter: blur(2em)) or (backdrop-filter: blur(2em))) {
-        background-color: rgba(255, 255, 255, .6);
-        backdrop-filter: blur(8px);
-    }
+  background-color: rgba(255, 255, 255, 0.95);
+  @supports ((-webkit-backdrop-filter: blur(2em)) or (backdrop-filter: blur(2em))) {
+    backdrop-filter: blur(8px);
+    background-color: rgba(255, 255, 255, 0.6);
+  }
 }
 
 .typeahead-materials.tt-hint[readonly] {
-    background: none 0% 0% / auto repeat scroll padding-box padding-box rgb(255, 255, 255);
+  background: none 0% 0% / auto repeat scroll padding-box padding-box rgb(255, 255, 255);
 }
 
 .fix-anchor {
-    scroll-margin-top: 75px;
+  scroll-margin-top: 75px;
 }
 
 ul.list-horizontal {
-    margin-bottom: 0;
+  margin-bottom: 0;
 
-    li {
-        display: inline-block;
+  li {
+    display: inline-block;
 
-        + li:before {
-            content: '|';
-            color: #6c757d;
-            margin: 0 .5rem;
-        }
-}
+    + li::before {
+      color: #6c757d;
+      content: '|';
+      margin: 0 0.5rem;
+    }
+  }
 }
 
 .day {
-    padding: 2rem 0;
+  padding: 2rem 0;
 
-     &:first-child {
-        padding-top: 0;
-        padding-bottom: 2rem;
+  &:first-child {
+    padding-bottom: 2rem;
+    padding-top: 0;
+  }
+
+  h4 {
+    border-top: 3px #eee solid;
+    padding: 1rem 0;
+  }
+
+  .part-of-day {
+    > :only-child {
+      display: none;
+    }
+  }
+
+  .booking {
+    td.booking-form {
+      display: none;
     }
 
-    h4 {
-        border-top: 3px #eee solid;
-        padding: 1rem 0;
+    &.display-form {
+      td.booking-info {
+        display: none !important;
+      }
+
+      td.booking-form {
+        display: flex;
+      }
     }
 
-    .part-of-day {
-        > :only-child {
-            display: none;
-        }
+    .booking-controls {
+      background: linear-gradient(90deg, rgba(236, 236, 236, 0) 0%, rgba(236, 236, 236, 1) 30%, rgba(236, 236, 236, 1));
+      display: none;
+      height: 100%;
+      padding-left: 3rem;
+      right: 0;
     }
 
-    .booking {
-
-        td.booking-form {
-            display: none;
-        }
-
-        &.display-form {
-            td.booking-info {
-                display: none !important;
-            }
-
-            td.booking-form {
-                display: flex;
-            }
-        }
-
-        .booking-controls {
-            display: none;
-            right: 0;
-            background: linear-gradient(90deg, rgba(236,236,236,0) 0%, rgba(236,236,236,1) 30%, rgba(236,236,236,1));
-            padding-left: 3rem;
-            height: 100%;
-        }
-
-        &:active, &:focus, &:hover {
-            .booking-controls {
-
-                &.show-xs {
-                    display: flex;
-                }
-
-                @media (min-width: 768px) {
-                    &.show-md {
-                        display: flex;
-                    }
-                    &.show-xs {
-                        display: none;
-                    }
-                }
-            }
-
-        }
-
-        &.booking-duplicate-handler, &.booking-duplicate {
-            border-left: 0.2rem #6c757d solid;
-
-            .booking-check, .booking-form {
-                /* account for border */
-                margin-left: -0.2rem;
-            }
-        }
-
-        &.booking-duplicate {
-            background: lighten(#6c757d, 50%);
-        }
-
-        &.booking-duplicate-handler {
-
-            td.booking-duplicate-dir {
-                padding-left: .2rem !important;
-                padding-right: .4rem;
-                color: #6c757d;
-            }
-
-            .fa-folder-open {
-                display: none;
-            }
-        }
-
-        &.booking-duplicate-handler.open {
-            .fa-folder {
-                display: none;
-            }
-            .fa-folder-open {
-                display: inline-block;
-            }
+    &:active,
+    &:focus,
+    &:hover {
+      .booking-controls {
+        &.show-xs {
+          display: flex;
         }
 
         @media (min-width: 768px) {
-            &.booking-duplicate-handler, &.booking-duplicate {
-                border-left: 0.3rem #6c757d solid;
+          &.show-md {
+            display: flex;
+          }
 
-                .booking-check, .booking-form {
-                    /* account for border */
-                    margin-left: -0.3rem;
-                }
-            }
-
-            &.booking-duplicate-handler {
-                td.booking-duplicate-dir {
-                    padding-left: .7rem !important;
-                    padding-right: .6rem;
-                }
-            }
+          &.show-xs {
+            display: none;
+          }
         }
-    }
-
-    table.bookings-table {
-        th {
-            font-weight: normal;
-            text-transform: uppercase;
-            font-size: 0.8em;
-            letter-spacing: .5pt;
-            color: rgba(0, 0, 0, .35);
-            border: 0;
-        }
-
-        tbody {
-            td {
-                border: none;
-            }
-
-            tr {
-                border-top: 1px solid #dee2e6;
-
-                &:last-of-type {
-                    border-bottom: 1px solid #dee2e6;
-                }
-
-                &:hover td {
-                    background: transparent;
-                }
-            }
-        }
-
-        label {
-            margin-bottom: 0;
-        }
-
-        .booking-comment {
-
-            &:empty {
-                display: none !important;
-            }
-        }
-
-        .booking-admin-controls {
-            background-color: #f8f9fa;
-
-        }
-    }
-
-    .card.game {
-
-
-
-        h6 {
-            font-weight: normal;
-            text-transform: uppercase;
-            font-size: 0.8em;
-            letter-spacing: .5pt;
-            color: rgba(0, 0, 0, .35);
-            border: 0;
-        }
-
-        .card-header {
-            form {
-                display: none;
-            }
-
-            &.display-form {
-                .game-header {
-                    display: none;
-                }
-
-                form {
-                    display: block;
-                }
-            }
-
-            .game-header {
-                .game-name, .game-location > div {
-                    white-space: nowrap;
-                    overflow: hidden;
-                    text-overflow: ellipsis;
-                }
-
-                .game-controls {
-                    display: none;
-                }
-            }
-
-            &:active, &:focus, &:hover {
-                .game-header .game-controls {
-                    display: inline-block;
-                }
-            }
-
-
-        }
-
+      }
 
     }
 
-    .new-game {
-        h6 {
-            font-size: 1rem;
-            font-weight: lighter;
-            text-transform: uppercase;
-            line-height: 1.5;
-        }
+    &.booking-duplicate-handler,
+    &.booking-duplicate {
+      border-left: 0.2rem #6c757d solid;
+
+      .booking-check,
+      .booking-form {
+        /* account for border */
+        margin-left: -0.2rem;
+      }
     }
+
+    &.booking-duplicate {
+      background: lighten(#6c757d, 50%);
+    }
+
+    &.booking-duplicate-handler {
+      td.booking-duplicate-dir {
+        color: #6c757d;
+        padding-left: 0.2rem !important;
+        padding-right: 0.4rem;
+      }
+
+      .fa-folder-open {
+        display: none;
+      }
+    }
+
+    &.booking-duplicate-handler.open {
+      .fa-folder {
+        display: none;
+      }
+
+      .fa-folder-open {
+        display: inline-block;
+      }
+    }
+
+    @media (min-width: 768px) {
+      &.booking-duplicate-handler,
+      &.booking-duplicate {
+        border-left: 0.3rem #6c757d solid;
+
+        .booking-check,
+        .booking-form {
+          /* account for border */
+          margin-left: -0.3rem;
+        }
+      }
+
+      &.booking-duplicate-handler {
+        td.booking-duplicate-dir {
+          padding-left: 0.7rem !important;
+          padding-right: 0.6rem;
+        }
+      }
+    }
+  }
+
+  table.bookings-table {
+    th {
+      border: 0;
+      color: rgba(0, 0, 0, 0.35);
+      font-size: 0.8em;
+      font-weight: normal;
+      letter-spacing: 0.5pt;
+      text-transform: uppercase;
+    }
+
+    tbody {
+      td {
+        border: none;
+      }
+
+      tr {
+        border-top: 1px solid #dee2e6;
+
+        &:last-of-type {
+          border-bottom: 1px solid #dee2e6;
+        }
+
+        &:hover td {
+          background: transparent;
+        }
+      }
+    }
+
+    label {
+      margin-bottom: 0;
+    }
+
+    .booking-comment {
+      &:empty {
+        display: none !important;
+      }
+    }
+
+    .booking-admin-controls {
+      background-color: #f8f9fa;
+
+    }
+  }
+
+  .card.game {
+    h6 {
+      border: 0;
+      color: rgba(0, 0, 0, 0.35);
+      font-size: 0.8em;
+      font-weight: normal;
+      letter-spacing: 0.5pt;
+      text-transform: uppercase;
+    }
+
+    .card-header {
+      form {
+        display: none;
+      }
+
+      &.display-form {
+        .game-header {
+          display: none;
+        }
+
+        form {
+          display: block;
+        }
+      }
+
+      .game-header {
+        .game-name,
+        .game-location > div {
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+
+        .game-controls {
+          display: none;
+        }
+      }
+
+      &:active,
+      &:focus,
+      &:hover {
+        .game-header .game-controls {
+          display: inline-block;
+        }
+      }
+
+
+    }
+
+
+  }
+
+  .new-game {
+    h6 {
+      font-size: 1rem;
+      font-weight: lighter;
+      line-height: 1.5;
+      text-transform: uppercase;
+    }
+  }
 }
 
 body:not(.editable) {
-    .editor {
-        display: none !important;
-    }
+  .editor {
+    display: none !important;
+  }
 }
 

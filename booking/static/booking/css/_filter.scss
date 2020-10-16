@@ -1,6 +1,7 @@
 
-input, select {
-    &.filter-active {
-        border-color: $primary
-    }
+input,
+select {
+  &.filter-active {
+    border-color: $primary;
+  }
 }

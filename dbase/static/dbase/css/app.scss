@@ -9,24 +9,26 @@
 @import 'navigation';
 @import 'footer';
 
+@import 'jeugdraad';
+
 
 body.clouds {
-    background-image: url("/static/dbase/img/clouds.png");
-    background-repeat: repeat-x;
-    background-position: left top;
-    background-size: cover;
+  background-image: url('/static/dbase/img/clouds.png');
+  background-position: left top;
+  background-repeat: repeat-x;
+  background-size: cover;
 }
 
 /* Used in login page */
 .frosted {
-  background-color: rgba(255, 255, 255, .65);
   backdrop-filter: blur(5px);
+  background-color: rgba(255, 255, 255, 0.65);
 }
 
 .signin-container {
-  width: 100%;
+  margin: auto;
   max-width: 420px;
   padding: 15px;
-  margin: auto;
+  width: 100%;
 }
 /* End used in login page */

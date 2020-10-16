@@ -1,62 +1,62 @@
 @import 'dbase/static/dbase/css/app';
 
 video {
-    object-fit: cover;
-    background-color: #555555;
+  background-color: #555;
+  object-fit: cover;
 }
 
 .osb { /* on screen button */
-    z-index: 5;
-    position: absolute;
-    width: 4rem;
-    height: 4rem;
-    bottom: 10%;
+  bottom: 10%;
+  height: 4rem;
+  position: absolute;
+  width: 4rem;
+  z-index: 5;
 }
 
 .camera-shutter {
-    left: calc(50% - 2rem);
+  left: calc(50% - 2rem);
 }
 
 .camera-back {
-    left: calc(10% - 2rem);
+  left: calc(10% - 2rem);
 }
 
 .camera-save {
-    right: calc(10% - 2rem);
+  right: calc(10% - 2rem);
 }
 
 .camera-menu {
-    position: absolute;
-    top: 2%;
-    left: 1rem;
-    right: 1rem;
+  left: 1rem;
+  position: absolute;
+  right: 1rem;
+  top: 2%;
 }
 
 canvas {
-    display: none;
+  display: none;
 }
 
 .list {
-    height: 100vh;
-    overflow-y: auto;
+  height: 100vh;
+  overflow-y: auto;
 }
 
 .material-item img {
-    height: 100px;
-    width: 100px;
+  height: 100px;
+  width: 100px;
 }
 
 .material-item {
-    height: calc(100px + 1rem);
-    padding: 0.5rem;
+  height: calc(100px + 1rem);
+  padding: 0.5rem;
 }
 
 .material-item:hover {
-    background: #eee;
+  background: #eee;
 }
 
 .camera-material h2 {
-    color: white;
-    text-shadow: 2px 2px 4px #000000;
-    font-size: 2rem;
+  color: white;
+  font-size: 2rem;
+  text-shadow: 2px 2px 4px #000;
 }
