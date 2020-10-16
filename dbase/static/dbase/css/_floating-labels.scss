@@ -128,7 +128,7 @@ $color_3: #777;
     }
   }
 
-  .formgroup input::-ms-input-placeholder {
+  .formgroup input::input-placeholder {
     color: #777;
   }
 }
@@ -140,7 +140,7 @@ $color_3: #777;
     display: none;
   }
 
-  .formgroup input:-ms-input-placeholder {
+  .formgroup input:input-placeholder {
     color: #777;
   }
 }
