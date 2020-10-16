@@ -20,10 +20,7 @@ indent_size = 2
 indent_size = 2
 
 [{*.yml,*.yaml}]
-indent_size = 2
+ indent_size = 2
 
 [*.py]
 max_line_length = 88
-
-[{*.css, *.scss}]
-indent_size = 2

@@ -1,12 +1,14 @@
 version: "2"
 plugins:
-  stylelint:
+  csslint:
     enabled: true
   eslint:
     enabled: true
     channel: "eslint-6"
     config:
       config: .eslintrc.json
+  scss-lint:
+    enabled: true
   git-legal:
     enabled: true
   markdownlint:
