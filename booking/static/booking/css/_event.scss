@@ -1,10 +1,10 @@
 .booking-status.status-LO {
-  background-color: #DC3545;
-  border-color: #DC3545;
+  background-color: #dc3545;
+  border-color: #dc3545;
 }
 
 body.editable .booking-status.status-LO {
-  color: #DC3545 !important;
+  color: #dc3545 !important;
 }
 
 .booking-status.status-PR {
@@ -31,11 +31,11 @@ body.editable .booking-status.status-OP {
 
 body.editable .booking-status {
   background-color: transparent !important;
-  border-width: 1px;
   border-style: solid;
+  border-width: 1px;
   color: #6c757d !important;
 }
 
 .booking-status small {
-  font-size: .7em;
+  font-size: 0.7em;
 }

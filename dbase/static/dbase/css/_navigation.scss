@@ -1,25 +1,25 @@
 nav.navbar li > a svg ~ span {
-    margin-left: 0.2em;
+  margin-left: 0.2em;
 }
 
 nav.navbar li.active {
-    background: #ddd;
+  background: #ddd;
 }
 
 .input-group .tt-input {
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border-top-right-radius: 0;
 }
 
 .input-group span.twitter-typeahead {
-    position: relative;
-    -ms-flex: 1 1 auto;
-    flex: 1 1 auto;
-    width: 1%;
-    margin-bottom: 0;
+  flex: 1 1 auto;
+  flex: 1 1 auto;
+  margin-bottom: 0;
+  position: relative;
+  width: 1%;
 }
 
 .badge-mb {
-    color: #ffc107;
-    background-color: #212529;
+  background-color: #212529;
+  color: #ffc107;
 }
