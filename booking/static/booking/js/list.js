@@ -142,6 +142,8 @@ export default class List extends BookingContainer {
         );
       // remove label relationship
       duplicate_bar.find('label').attr('for', '');
+      // remove material modal
+      duplicate_bar.find('[data-target="#catalogModal"]').removeAttr('data-target data-toggle data-catalog-item role');
       duplicates_set[0].elem.before(duplicate_bar);
       for (let duplicate of duplicates_set) {
         duplicate.elem.addClass('booking-duplicate d-none').removeClass('d-flex');
