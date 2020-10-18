@@ -26,9 +26,15 @@
     </div>
   </td>
   <td class="booking-material booking-info col col-md-3">
-    <label for="check-{{ booking.pk }}" class="d-block">
+    {% if booking.material %}
+      <a role="button" data-catalog-item="{% url 'catalog:material_modal' booking.material.pk %}" data-toggle="modal" data-target="#catalogModal" class="text-dark booking-name">
+        {{ booking }}
+      </a>
+    {% else %}
+    <div class="booking-name">
       {{ booking }}
-    </label>
+    </div>
+    {% endif %}
     <div class="booking-material-category small text-muted text-truncate">
       {% if booking.material %}
         {{ booking.material.categories.all.0 }}
@@ -104,7 +110,7 @@
 
   {% if booking.custom_material %}
     {% if perms.booking.add_material or perms.booking.add_materialalias %}
-      <td class="booking-admin-controls editor d-flex col-12 small text-muted">
+      <td class="booking-admin-controls editor d-none col-12 small text-muted d-md-flex">
         <ul class="list-horizontal">
           {% if perms.booking.add_material %}
             <li><a href="{% url 'admin:booking_material_add' %}?name={{ booking.custom_material }}" class="text-secondary">{% trans "Create new material" %}</a></li>

@@ -1,0 +1,21 @@
+@import 'thumbnail_carousel';
+
+.material-card {
+  .list-group-item span {
+    color: $text-muted;
+    display: block;
+    font-size: $font-size-sm;
+  }
+
+  .category-list a {
+    border: 0;
+    font-size: $font-size-sm;
+    font-weight: 400;
+    letter-spacing: 0.5pt;
+    text-transform: uppercase;
+  }
+
+  .user-html p {
+    margin-bottom: 0.2em;
+  }
+}

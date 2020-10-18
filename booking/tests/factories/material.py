@@ -14,6 +14,8 @@ class MaterialFactory(factory.django.DjangoModelFactory):
 
     gm = factory.Faker("pybool")
     location = factory.SubFactory("booking.tests.factories.LocationFactory")
+    stock_value = factory.Faker("pydecimal")
+    stock_unit = factory.Faker("word")
 
     @factory.post_generation
     def categories(self, create, extracted, **kwargs):

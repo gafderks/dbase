@@ -39,7 +39,7 @@
 
 {% block display_options %}
   {{ block.super }}
-  <a href="{% url 'booking:event_list_group' current_event.slug current_group.slug %}" data-toggle="tooltip" data-placement="top" class="btn btn-outline-secondary" title="{% trans "Open list view" %}">
+  <a href="{% url 'booking:event_list_group' current_event.slug current_group.slug %}" data-toggle="tooltip" data-placement="top" class="btn btn-outline-secondary button-listview" title="{% trans "Open list view" %}">
     <i class="fas fa-clipboard-list"></i>
     <span class="pl-1 d-none d-md-inline">{% trans "List view" %}</span>
   </a>

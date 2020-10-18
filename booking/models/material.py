@@ -1,6 +1,8 @@
-from django.db import models
-from django.utils.translation import gettext_lazy as _
 from ckeditor.fields import RichTextField
+from django.conf import settings
+from django.db import models
+from django.urls import reverse
+from django.utils.translation import gettext_lazy as _
 
 from booking.models import Category, Location, RateClass
 
@@ -80,8 +82,21 @@ class Material(models.Model):
 
     stock.fget.short_description = _("stock")
 
+    @property
+    def sku(self):
+        return self.id + settings.SHOP_SKU_OFFSET
+
     @staticmethod
     def last_modification():
         if Material.objects.count() == 0:
             return None
         return Material.objects.latest().last_modified
+
+    def get_absolute_url(self):
+        return reverse("catalog:material", kwargs={"pk": self.pk})
+
+    def get_shop_url(self):
+        if self.lendable and settings.SHOP_PRODUCT_URL_FORMAT:
+            return settings.SHOP_PRODUCT_URL_FORMAT.format(sku=self.sku)
+        else:
+            return None

@@ -1,6 +1,9 @@
 import 'dbase/app';
 
+import 'dbase/autocomplete';
 import Day from './day.js';
+import './catalog-modal';
+import $ from 'jquery';
 
 $('.day').each((i, elem) => {
   $(elem).data('day', new Day($(elem)));

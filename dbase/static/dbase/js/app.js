@@ -6,6 +6,5 @@ import '@fortawesome/fontawesome-free/js/solid';
 import '@fortawesome/fontawesome-free/js/fontawesome';
 
 import './ajax_csrf';
-import './autocomplete';
 
 window.$ = $;

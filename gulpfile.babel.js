@@ -28,8 +28,9 @@ import browserSync from 'browser-sync';
 import booking from './booking/static/booking/config.gulp';
 import dbase from './dbase/static/dbase/config.gulp';
 import camera from './camera/static/camera/config.gulp';
+import catalog from './catalog/static/catalog/config.gulp';
 
-const configs = [booking, dbase, camera];
+const configs = [booking, dbase, camera, catalog];
 
 const aliases = configs.filter(config => config.alias).map(config => config.alias);
 

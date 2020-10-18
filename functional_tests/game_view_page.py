@@ -1,27 +1,11 @@
-from selenium.webdriver import ActionChains
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.select import Select
 
-from booking.models import PartOfDay
-from functional_tests.base import retry_stale, wait
+from functional_tests.base import retry_stale
+from functional_tests.event_view_page import EventViewPage, get_part_of_day_name
 
 
-def get_part_of_day_name(code):
-    return PartOfDay.name_from_code(code)
-
-
-class GameViewPage(object):
-    def __init__(self, test):
-        self.test = test
-
-    def hover_then_click(self, element_hover, element_click):
-        hover_click = (
-            ActionChains(self.test.browser)
-            .move_to_element(element_hover)
-            .move_to_element(element_click)
-        )
-        hover_click.click().perform()
-
+class GameViewPage(EventViewPage):
     def get_number_of_games(self, context=None):
         if context is None:
             context = self.test.browser
@@ -37,19 +21,22 @@ class GameViewPage(object):
             ]
         )
 
-    def get_number_of_bookings(self, context=None):
-        if context is None:
-            context = self.test.browser
-        return len(context.find_elements_by_css_selector("tr.booking"))
+    def verify_booking_attributes(self, booking_id, game_id, amount, material_text):
+        # Test booking amount and text
+        super()._verify_booking_attributes(booking_id, amount, material_text)
 
-    def get_newest_booking_id(self, context=None):
-        if context is None:
-            context = self.test.browser
-        return max(
-            [
-                int(booking_elem.get_attribute("data-id"))
-                for booking_elem in context.find_elements_by_css_selector("tr.booking")
-            ]
+        booking = self.test.browser.find_element_by_css_selector(
+            f'tr.booking[data-id="{booking_id}"]'
+        )
+
+        # Test if booking is in the correct game
+        game_elem = booking.find_element_by_xpath("." + "/.." * 5)  # 5 levels higher
+        self.test.wait_for(
+            lambda: self.test.assertEqual(
+                game_id,
+                int(game_elem.get_attribute("data-id")),
+                "the booking was not in the correct game",
+            )
         )
 
     def add_game(self, day, daypart_code, name, location=""):
@@ -132,46 +119,8 @@ class GameViewPage(object):
             )
         )
 
-    @retry_stale
-    def verify_booking_attributes(self, booking_id, game_id, amount, material_text):
-        booking = self.test.browser.find_element_by_css_selector(
-            f'tr.booking[data-id="{booking_id}"]'
-        )
-
-        # Test if material text is correct
-        material_text_elem = booking.find_element_by_css_selector(
-            ".booking-material label"
-        )
-        self.test.wait_for(
-            lambda: self.test.assertEqual(
-                material_text,
-                material_text_elem.text,
-                "the booking material does not match",
-            )
-        )
-
-        # Test if the amount is correct
-        booking_amount = booking.find_element_by_class_name("booking-amount")
-        self.test.wait_for(
-            lambda: self.test.assertEqual(
-                str(amount), booking_amount.text, "the booking amount does not match"
-            )
-        )
-
-        # Test if booking is in the correct game
-        game_elem = booking.find_element_by_xpath("." + "/.." * 5)  # 5 levels higher
-        self.test.wait_for(
-            lambda: self.test.assertEqual(
-                game_id,
-                int(game_elem.get_attribute("data-id")),
-                "the booking was not in the correct game",
-            )
-        )
-
-        # TODO test workweek and comment
-
     def add_booking(self, game_id, amount, material_text, partial_material_text=None):
-        self._check_if_typeahead_loaded()
+        self.check_if_typeahead_loaded()
         # TODO add workweek and comment
         game_card = self.test.browser.find_element_by_id(f"game{game_id}")
         num_bookings_before = self.get_number_of_bookings(context=game_card)
@@ -262,10 +211,10 @@ class GameViewPage(object):
 
         return game_id
 
-    @wait
-    def _check_if_typeahead_loaded(self):
-        self.test.assertIsNotNone(
-            self.test.get_from_local_storage(
-                "__/booking/api/material?format=json__data"
-            )
+    def switch_to_list_view(self):
+        self.test.browser.find_element_by_class_name("button-listview").click()
+        # Wait for the page to switch, after switching the page should have a game view
+        #  button to switch back.
+        self.test.wait_for(
+            lambda: self.test.browser.find_element_by_class_name("button-gameview")
         )

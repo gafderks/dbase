@@ -1,4 +1,4 @@
-from django.test import TestCase
+from django.test import TestCase, override_settings
 
 from booking.models import (
     MaterialAlias,
@@ -52,3 +52,28 @@ class MaterialModelTest(TestCase):
             material_name,
             "booking does not have material name",
         )
+
+    @override_settings(SHOP_SKU_OFFSET=2365)
+    def test_get_sku(self):
+        material = MaterialFactory()
+        self.assertEqual(
+            material.sku,
+            material.id + 2365,
+        )
+
+    @override_settings(SHOP_PRODUCT_URL_FORMAT="https://example.com/?p={sku}")
+    def test_get_shop_url(self):
+        material_lendable = MaterialFactory(lendable=True)
+        self.assertEqual(
+            material_lendable.get_shop_url(),
+            f"https://example.com/?p={material_lendable.sku}",
+        )
+        material_non_lendable = MaterialFactory(lendable=False)
+        self.assertEqual(material_non_lendable.get_shop_url(), None)
+
+    @override_settings(SHOP_PRODUCT_URL_FORMAT="")
+    def test_get_shop_url_no_setting(self):
+        material_lendable = MaterialFactory(lendable=True)
+        self.assertEqual(material_lendable.get_shop_url(), None)
+        material_non_lendable = MaterialFactory(lendable=False)
+        self.assertEqual(material_non_lendable.get_shop_url(), None)

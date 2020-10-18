@@ -91,7 +91,7 @@ class WooCommerceFormatTest(TestCase):
                     "exclude-from-catalog|exclude-from-search",
                 )
             if material.stock_value is not None:
-                self.assertEqual(row["stock"], material.stock_value)
+                self.assertAlmostEqual(float(row["stock"]), material.stock_value)
             else:
                 self.assertEqual(row["stock"], "")
             self.check_post_content(row["post_content"], material)

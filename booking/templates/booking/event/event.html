@@ -7,11 +7,11 @@
 
 {% block window_title %}
   {% if current_group %}
-    {% blocktrans with group=current_group.name %}Bookings for {{ group }}{% endblocktrans %}
+    {% blocktranslate with group=current_group.name %}Bookings for {{ group }}{% endblocktranslate %}
   {% else %}
     {% trans "All bookings" %}
   {% endif %}
-  | {% trans current_event.name %} | {{ block.super }}
+  | {{ current_event.name }} | {{ block.super }}
 {% endblock %}
 
 {% block body_attrs %}{{ block.super }} data-spy="scroll" data-target="" data-offset="100"{% endblock %}
@@ -33,6 +33,8 @@
 
   {% include "booking/partials/delete-game-modal.html" %}
   {% include "booking/partials/delete-booking-modal.html" %}
+  {% include "booking/partials/material-detail-modal.html" %}
+
 
   <div class="row">
     <div class="col-md-8">
