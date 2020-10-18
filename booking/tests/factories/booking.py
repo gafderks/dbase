@@ -10,7 +10,7 @@ class BookingFactory(factory.django.DjangoModelFactory):
         model = Booking
 
     requester = factory.SubFactory(UserFactory)
-    game = factory.SubFactory(GameFactory)
+    game = factory.SubFactory(GameFactory, creator=factory.SelfAttribute("..requester"))
     material = factory.SubFactory(MaterialFactory)
     custom_material = None
     workweek = factory.Faker("pybool")

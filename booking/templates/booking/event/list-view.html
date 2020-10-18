@@ -37,7 +37,7 @@
     </span>
   </button>
   {% if current_group %}
-  <a href="{% url 'booking:event_games_group' current_event.slug current_group.slug %}" data-toggle="tooltip" data-placement="top" class="btn btn-outline-secondary" title="{% trans "Open game view" %}">
+  <a href="{% url 'booking:event_games_group' current_event.slug current_group.slug %}" data-toggle="tooltip" data-placement="top" class="btn btn-outline-secondary button-gameview" title="{% trans "Open game view" %}">
     <i class="fas fa-dice-five"></i>
     <span class="pl-1 d-none d-md-inline">{% trans "Game view" %}</span>
   </a>

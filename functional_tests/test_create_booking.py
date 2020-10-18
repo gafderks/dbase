@@ -6,6 +6,7 @@ from tests.utils import english
 from users.tests.factories import UserFactory
 from .base import FunctionalTest
 from .game_view_page import GameViewPage
+from .list_view_page import ListViewPage
 
 
 @english
@@ -38,6 +39,20 @@ class SimpleUserBookingTest(FunctionalTest):
         # On the game he adds a booking for a material
         beschuit = game_view_page.add_booking(
             first_game, 2, "beschuiten (rol)", "Beschui"
+        )
+
+        # Bob decides to switch to the list view
+        game_view_page.switch_to_list_view()
+        list_view_page = ListViewPage(self)
+
+        # There, he finds the same booking
+        list_view_page.verify_booking_attributes(
+            beschuit,
+            2,
+            "beschuiten (rol)",
+            self.active_event.event_start + timedelta(days=4),
+            PartOfDay.AFTERNOON,
+            "Hide and seek",
         )
 
     def test_can_edit_booking(self):

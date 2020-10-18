@@ -57,26 +57,26 @@
   {% if object.description %}
     <div class="card-body pt-3">
       <div class="text-muted small">{% trans "Description" %}</div>
-      <div class="card-text user-html">{{ object.description|safe }}</div>
+      <div class="card-text material-description user-html">{{ object.description|safe }}</div>
     </div>
   {% endif %}
   <ul class="list-group list-group-flush">
     {% if object.location %}
-      <li class="list-group-item"><span>{% trans "Location" %}</span> {{ object.location.name }}
+      <li class="list-group-item material-location"><span>{% trans "Location" %}</span> {{ object.location.name }}
       </li>
     {% endif %}
     {% if object.stock_value %}
-      <li class="list-group-item"><span>{% trans "Maximum stock" %}</span> {{ object.stock }}</li>
+      <li class="list-group-item material-stock"><span>{% trans "Maximum stock" %}</span> {{ object.stock }}</li>
     {% endif %}
     {% if object.aliases.all %}
-      <li class="list-group-item"><span>{% trans "Aliases" %}</span> {{ object.aliases.all|join:", " }}</li>
+      <li class="list-group-item material-aliases"><span>{% trans "Aliases" %}</span> {{ object.aliases.all|join:", " }}</li>
     {% endif %}
     {% if object.attachments.all %}
-      <li class="list-group-item"><span>{% trans "Attachments" %}</span>
+      <li class="list-group-item material-attachments"><span>{% trans "Attachments" %}</span>
       <ul>
         {% for attachment in object.attachments.all %}
         <li>
-          <a href="{{ attachment.attachment.url }}">{{ attachment.description }} ({{ attachment.extension }}, {{ attachment.attachment.size|filesizeformat }})</a>
+          <a href="{{ attachment.attachment.url }}" class="text-body">{{ attachment.description }} ({{ attachment.extension }}, {{ attachment.attachment.size|filesizeformat }})</a>
         </li>
         {% endfor %}
       </ul>

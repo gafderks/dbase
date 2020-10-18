@@ -27,11 +27,11 @@
   </td>
   <td class="booking-material booking-info col col-md-3">
     {% if booking.material %}
-      <a role="button" data-catalog-item="{% url 'catalog:material_modal' booking.material.pk %}" data-toggle="modal" data-target="#catalogModal" class="text-dark">
+      <a role="button" data-catalog-item="{% url 'catalog:material_modal' booking.material.pk %}" data-toggle="modal" data-target="#catalogModal" class="text-dark booking-name">
         {{ booking }}
       </a>
     {% else %}
-    <div>
+    <div class="booking-name">
       {{ booking }}
     </div>
     {% endif %}
