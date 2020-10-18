@@ -5,9 +5,9 @@
     <h5 class="card-title">
       {{ object.name|capfirst }}
     </h5>
-    <ul class="list-inline category-list mt-n3 mb-1">
+    <ul class="list-inline category-list mt-n3 mb-1 text-secondary">
       {% for category in object.categories.all %}
-        <li class="list-inline-item"><a href="#">{{ category.name }}</a></li>
+        <li class="list-inline-item">{{ category.name }}</li>
       {% empty %}
         No categories
       {% endfor %}
