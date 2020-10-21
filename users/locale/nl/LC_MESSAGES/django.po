@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-13 20:18+0200\n"
-"PO-Revision-Date: 2020-08-13 20:23+0200\n"
+"POT-Creation-Date: 2020-10-21 19:39+0200\n"
+"PO-Revision-Date: 2020-10-21 19:40+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: nl\n"
@@ -18,32 +18,32 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 2.4.1\n"
 
-#: .\users\admin.py:21 .\users\models\role.py:12 .\users\models\user.py:57
+#: .\users\admin.py:19 .\users\models\role.py:12 .\users\models\user.py:58
 msgid "roles"
 msgstr "rollen"
 
-#: .\users\admin.py:25
+#: .\users\admin.py:23
 msgid "Personal info"
 msgstr "Persoonlijke informatie"
 
-#: .\users\admin.py:27
+#: .\users\admin.py:25
 msgid "Permissions"
 msgstr "Rechten"
 
-#: .\users\admin.py:90
+#: .\users\admin.py:88
 #, python-format
 msgid "%(user_count)s users"
 msgstr "%(user_count)s gebruikers"
 
-#: .\users\admin.py:92
+#: .\users\admin.py:90
 msgid "Number of permissions"
 msgstr "Aantal rechten"
 
-#: .\users\admin.py:93
+#: .\users\admin.py:91
 msgid "Number of users"
 msgstr "Aantal gebruikers"
 
-#: .\users\admin.py:105
+#: .\users\admin.py:103
 msgid "assigned to"
 msgstr "toegewezen aan"
 
@@ -55,31 +55,31 @@ msgstr "gebruikers"
 msgid "Login"
 msgstr "Inloggen"
 
-#: .\users\models\group.py:7
+#: .\users\models\group.py:10
 msgid "URL short name"
 msgstr "Permalink"
 
-#: .\users\models\group.py:10
+#: .\users\models\group.py:13
 msgid "Group"
 msgstr "Groep"
 
-#: .\users\models\group.py:11
+#: .\users\models\group.py:14
 msgid "Commission"
 msgstr "Commissie"
 
-#: .\users\models\group.py:17
+#: .\users\models\group.py:20
 msgid "type"
 msgstr "type"
 
-#: .\users\models\group.py:18
+#: .\users\models\group.py:21
 msgid "What type is the group?"
 msgstr "Welk type heeft de groep?"
 
-#: .\users\models\group.py:22 .\users\models\user.py:52
+#: .\users\models\group.py:25 .\users\models\user.py:53
 msgid "group"
 msgstr "groep"
 
-#: .\users\models\group.py:23
+#: .\users\models\group.py:26
 msgid "groups"
 msgstr "groepen"
 
@@ -87,21 +87,25 @@ msgstr "groepen"
 msgid "role"
 msgstr "rollen"
 
-#: .\users\models\user.py:44
+#: .\users\models\user.py:45
 msgid "email address"
 msgstr "e-mailadres"
 
-#: .\users\models\user.py:51
+#: .\users\models\user.py:52
 msgid "What group should this user be associated with?"
 msgstr "Met welke groep moet deze gebruiker worden geassocieerd?"
 
-#: .\users\models\user.py:60
+#: .\users\models\user.py:61
 msgid ""
 "The roles this user has. A user will get all permissions granted to each of "
 "their roles."
 msgstr ""
 "De rollen van deze gebruiker. Een gebruiker krijgt de rechten die toegekend "
 "zijn aan elk van zijn rollen."
+
+#: .\users\models\user.py:89
+msgid "Deleted user"
+msgstr "Verwijderde gebruiker"
 
 #: .\users\templates\registration\login.html:14
 msgid "Login to enter the DBase."

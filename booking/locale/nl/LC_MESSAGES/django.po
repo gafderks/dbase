@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-09 22:55+0200\n"
+"POT-Creation-Date: 2020-10-21 19:38+0200\n"
 "PO-Revision-Date: 2020-10-09 22:56+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -26,7 +26,7 @@ msgstr "Aantal materialen"
 msgid "Image"
 msgstr "Afbeelding"
 
-#: .\booking\admin.py:103 .\booking\templates\booking\event\event.html:43
+#: .\booking\admin.py:103 .\booking\templates\booking\event\event.html:45
 msgid "Booking status"
 msgstr "Reserveringsstatus"
 
@@ -38,7 +38,7 @@ msgstr "Inbegrepen categorieën"
 msgid "Excluded categories"
 msgstr "Uitgesloten categorieën"
 
-#: .\booking\api\event.py:24 .\booking\templates\booking\event\event.html:90
+#: .\booking\api\event.py:24 .\booking\templates\booking\event\event.html:92
 msgid "Material bookings"
 msgstr "Materiaalaanvragen"
 
@@ -79,7 +79,7 @@ msgid "Material category"
 msgstr "Categorie van materiaal"
 
 #: .\booking\api\event.py:45 .\booking\filters.py:96
-#: .\booking\models\list_view_filter.py:61 .\booking\models\material.py:20
+#: .\booking\models\list_view_filter.py:61 .\booking\models\material.py:23
 msgid "GM"
 msgstr "GM"
 
@@ -92,7 +92,7 @@ msgstr "Spel"
 msgid "Game location"
 msgstr "Spellocatie"
 
-#: .\booking\api\event.py:48 .\booking\templates\booking\event\event.html:102
+#: .\booking\api\event.py:48 .\booking\templates\booking\event\event.html:104
 msgid "Group"
 msgstr "Groep"
 
@@ -108,7 +108,7 @@ msgid "List"
 msgstr "Lijst"
 
 #: .\booking\api\event.py:51 .\booking\forms.py:204
-#: .\booking\templates\booking\partials\booking-item.html:84
+#: .\booking\templates\booking\partials\booking-item.html:90
 #: .\booking\templates\booking\partials\game-card.html:54
 #: .\booking\templates\booking\partials\list-view-card.html:24
 msgid "Comment"
@@ -123,15 +123,15 @@ msgstr "Ja"
 msgid "No"
 msgstr "Nee"
 
-#: .\booking\api\material.py:25
+#: .\booking\api\material.py:24
 msgid "Attachments"
 msgstr "Bijlagen"
 
-#: .\booking\api\material.py:31
+#: .\booking\api\material.py:30
 msgid "Maximum stock"
 msgstr "Maximale voorraad"
 
-#: .\booking\api\material.py:38
+#: .\booking\api\material.py:37
 msgid "Search terms"
 msgstr "Zoektermen"
 
@@ -143,17 +143,17 @@ msgstr "reservering"
 msgid "Any"
 msgstr "Alle"
 
-#: .\booking\filters.py:80
+#: .\booking\filters.py:80 .\booking\filters.py:249
 msgid "Category"
 msgstr "Categorie"
 
 #: .\booking\filters.py:81 .\booking\filters.py:89 .\booking\filters.py:99
-#: .\booking\filters.py:109
+#: .\booking\filters.py:109 .\booking\filters.py:250
 msgid "----------"
 msgstr "----------"
 
 #: .\booking\filters.py:85 .\booking\models\booking.py:100
-#: .\booking\templates\booking\partials\booking-item.html:38
+#: .\booking\templates\booking\partials\booking-item.html:44
 msgid "Custom material"
 msgstr "Aangepast materiaal"
 
@@ -284,7 +284,7 @@ msgstr "aanvrager"
 msgid "game"
 msgstr "spel"
 
-#: .\booking\models\booking.py:35 .\booking\models\material.py:60
+#: .\booking\models\booking.py:35 .\booking\models\material.py:63
 #: .\booking\models\material_alias.py:20
 #: .\booking\models\material_attachment.py:18
 #: .\booking\models\material_image.py:15
@@ -319,24 +319,24 @@ msgstr "aanvragen"
 msgid "Unspecified material"
 msgstr "Ongespecificeerd materiaal"
 
-#: .\booking\models\category.py:6 .\booking\models\event.py:32
+#: .\booking\models\category.py:8 .\booking\models\event.py:32
 #: .\booking\models\list_view_filter.py:46 .\booking\models\location.py:6
-#: .\booking\models\material.py:9 .\booking\models\material_alias.py:9
+#: .\booking\models\material.py:12 .\booking\models\material_alias.py:9
 #: .\booking\models\rate_class.py:9
 msgid "name"
 msgstr "naam"
 
-#: .\booking\models\category.py:8 .\booking\models\list_view_filter.py:48
-#: .\booking\models\material.py:11 .\booking\models\material_attachment.py:24
+#: .\booking\models\category.py:10 .\booking\models\list_view_filter.py:48
+#: .\booking\models\material.py:14 .\booking\models\material_attachment.py:24
 #: .\booking\models\rate_class.py:11
 msgid "description"
 msgstr "omschrijving"
 
-#: .\booking\models\category.py:12
+#: .\booking\models\category.py:14
 msgid "category"
 msgstr "categorie"
 
-#: .\booking\models\category.py:13
+#: .\booking\models\category.py:15
 msgid "categories"
 msgstr "categorieën"
 
@@ -461,7 +461,7 @@ msgid "At what daypart are the materials needed?"
 msgstr "Op welk dagdeel zijn de materialen nodig?"
 
 #: .\booking\models\game.py:43 .\booking\models\location.py:9
-#: .\booking\models\material.py:32 .\booking\models\part_of_day.py:39
+#: .\booking\models\material.py:35 .\booking\models\part_of_day.py:39
 msgid "location"
 msgstr "locatie"
 
@@ -517,56 +517,56 @@ msgstr "Algemene materialen"
 msgid "locations"
 msgstr "locaties"
 
-#: .\booking\models\material.py:15
+#: .\booking\models\material.py:18
 msgid "Additional information about the material. Displayed in the shop."
 msgstr ""
 "Extra informatie over het materiaal. Wordt weergegeven in de uitleenshop."
 
-#: .\booking\models\material.py:20
+#: .\booking\models\material.py:23
 msgid "Is GM needed for this material?"
 msgstr "Is GM nodig voor dit materiaal?"
 
-#: .\booking\models\material.py:23
+#: .\booking\models\material.py:26
 msgid "lendable"
 msgstr "uitleenbaar"
 
-#: .\booking\models\material.py:25
+#: .\booking\models\material.py:28
 msgid "Should this material be shown for lending?"
 msgstr "Moet dit materiaal worden weergegeven voor uitlenen?"
 
-#: .\booking\models\material.py:33
+#: .\booking\models\material.py:36
 msgid "Where can this material be found?"
 msgstr "Waar kan dit materiaal gevonden worden?"
 
-#: .\booking\models\material.py:41 .\booking\models\rate_class.py:22
+#: .\booking\models\material.py:44 .\booking\models\rate_class.py:22
 msgid "rate class"
 msgstr "tariefklasse"
 
-#: .\booking\models\material.py:43
+#: .\booking\models\material.py:46
 msgid "What rate class should this material be associated with?"
 msgstr "Met welke tariefklasse moet dit materiaal geassocieerd worden?"
 
-#: .\booking\models\material.py:46
+#: .\booking\models\material.py:49
 msgid "stock value"
 msgstr "voorraad"
 
-#: .\booking\models\material.py:49
+#: .\booking\models\material.py:52
 msgid "How many exemplars are there of this material?"
 msgstr "Hoeveel exemplaren zijn er van dit materiaal?"
 
-#: .\booking\models\material.py:52
+#: .\booking\models\material.py:55
 msgid "stock unit"
 msgstr "voorraadeenheid"
 
-#: .\booking\models\material.py:55
+#: .\booking\models\material.py:58
 msgid "Specify a unit for the stock. E.g. meters."
 msgstr "Specificeer de eenheid voor de voorraad. Bijv. meter."
 
-#: .\booking\models\material.py:61
+#: .\booking\models\material.py:64
 msgid "materials"
 msgstr "materialen"
 
-#: .\booking\models\material.py:81
+#: .\booking\models\material.py:85
 msgid "stock"
 msgstr "voorraad"
 
@@ -659,54 +659,54 @@ msgstr "Aanvragen voor %(group)s"
 msgid "All bookings"
 msgstr "Alle aanvragen"
 
-#: .\booking\templates\booking\event\event.html:48
+#: .\booking\templates\booking\event\event.html:50
 msgid "You may edit"
 msgstr "Je mag bewerken"
 
-#: .\booking\templates\booking\event\event.html:50
+#: .\booking\templates\booking\event\event.html:52
 msgid "You cannot edit"
 msgstr "Je kan niet bewerken"
 
-#: .\booking\templates\booking\event\event.html:59
-#: .\booking\templates\booking\event\event.html:60
+#: .\booking\templates\booking\event\event.html:61
+#: .\booking\templates\booking\event\event.html:62
 msgid "Event period"
 msgstr "Evenementsperiode"
 
-#: .\booking\templates\booking\event\event.html:66
+#: .\booking\templates\booking\event\event.html:68
 msgid "Start booking period"
 msgstr "Startdatum reserveringsperiode"
 
-#: .\booking\templates\booking\event\event.html:73
+#: .\booking\templates\booking\event\event.html:75
 msgid "Booking deadline"
 msgstr "Reserveringsdeadline"
 
-#: .\booking\templates\booking\event\event.html:79
+#: .\booking\templates\booking\event\event.html:81
 msgid "Privileged booking deadline"
 msgstr "MB Reserveringsdeadline"
 
-#: .\booking\templates\booking\event\event.html:94
+#: .\booking\templates\booking\event\event.html:96
 msgid "Export options"
 msgstr "Exporteer opties"
 
-#: .\booking\templates\booking\event\event.html:95
+#: .\booking\templates\booking\event\event.html:97
 msgid "Print"
 msgstr "Printen"
 
-#: .\booking\templates\booking\event\event.html:96
+#: .\booking\templates\booking\event\event.html:98
 msgid "Export to Excel"
 msgstr "Exporteren naar Excel"
 
-#: .\booking\templates\booking\event\event.html:98
+#: .\booking\templates\booking\event\event.html:100
 msgid "Display options"
 msgstr "Weergaveopties"
 
-#: .\booking\templates\booking\event\event.html:110
+#: .\booking\templates\booking\event\event.html:112
 #: .\booking\templates\booking\event\game-view.html:58
 #: .\booking\templates\booking\event\list-view.html:62
 msgid "All"
 msgstr "Alle"
 
-#: .\booking\templates\booking\event\event.html:134
+#: .\booking\templates\booking\event\event.html:136
 msgid "Scroll to top"
 msgstr "Naar boven scrollen"
 
@@ -752,32 +752,32 @@ msgstr "Spelweergave is niet beschikbaar als je alle groepen selecteert."
 msgid "Configure filters"
 msgstr "Filters instellen"
 
-#: .\booking\templates\booking\partials\booking-item.html:36
+#: .\booking\templates\booking\partials\booking-item.html:42
 msgid "This booking needs review"
 msgstr "Deze aanvraag moet beoordeeld worden"
 
-#: .\booking\templates\booking\partials\booking-item.html:71
-#: .\booking\templates\booking\partials\booking-item.html:92
+#: .\booking\templates\booking\partials\booking-item.html:77
+#: .\booking\templates\booking\partials\booking-item.html:98
 msgid "Booking options"
 msgstr "Reserveringsopties"
 
-#: .\booking\templates\booking\partials\booking-item.html:73
-#: .\booking\templates\booking\partials\booking-item.html:94
+#: .\booking\templates\booking\partials\booking-item.html:79
+#: .\booking\templates\booking\partials\booking-item.html:100
 #: .\booking\templates\booking\partials\game-card.html:31
 msgid "Delete"
 msgstr "Verwijderen"
 
-#: .\booking\templates\booking\partials\booking-item.html:75
-#: .\booking\templates\booking\partials\booking-item.html:96
+#: .\booking\templates\booking\partials\booking-item.html:81
+#: .\booking\templates\booking\partials\booking-item.html:102
 #: .\booking\templates\booking\partials\game-card.html:33
 msgid "Edit"
 msgstr "Bewerken"
 
-#: .\booking\templates\booking\partials\booking-item.html:110
+#: .\booking\templates\booking\partials\booking-item.html:116
 msgid "Create new material"
 msgstr "Nieuw materiaal toevoegen"
 
-#: .\booking\templates\booking\partials\booking-item.html:113
+#: .\booking\templates\booking\partials\booking-item.html:119
 msgid "Create material alias"
 msgstr "Materiaalsynoniem toevoegen"
 
@@ -834,15 +834,15 @@ msgstr "Stel status in voor alle aanvragen"
 msgid "Add material booking"
 msgstr "Materiaalaanvraag toevoegen"
 
-#: .\booking\views\event_view.py:39
+#: .\booking\views\event_view.py:40
 msgid "You are not allowed to view bookings for this group."
 msgstr "Je mag geen aanvragen van deze groep bekijken."
 
-#: .\booking\views\event_view.py:47
+#: .\booking\views\event_view.py:48
 msgid "You are not allowed to view this event"
 msgstr "Je mag dit evenement niet bekijken"
 
-#: .\booking\views\event_view.py:86
+#: .\booking\views\event_view.py:90
 msgid ""
 "You are not assigned to a group. Please contact a board member to resolve "
 "this issue."
@@ -850,7 +850,7 @@ msgstr ""
 "Je bent niet toegewezen aan een groep. Neem contact op met een bestuurslid "
 "om dit probleem op te lossen."
 
-#: .\booking\views\home_view.py:22
+#: .\booking\views\home_view.py:20
 msgid "There are no open events."
 msgstr "Er zijn geen open evenementen."
 
