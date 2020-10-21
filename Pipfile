@@ -12,6 +12,7 @@ factory_boy = "*"
 typing-extensions = "*"
 beautifulsoup4 = "*"
 coverage = "*"
+werkzeug = "*"
 
 [packages]
 mysqlclient = "*"
