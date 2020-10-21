@@ -90,9 +90,10 @@ class Material(models.Model):
 
     @staticmethod
     def last_modification():
-        if Material.objects.count() == 0:
+        try:
+            return Material.objects.latest().last_modified
+        except Material.DoesNotExist:
             return None
-        return Material.objects.latest().last_modified
 
     def get_absolute_url(self):
         return reverse("catalog:material", kwargs={"pk": self.pk})
