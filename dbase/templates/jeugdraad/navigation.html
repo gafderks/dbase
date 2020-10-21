@@ -6,33 +6,35 @@
   {% with url_app=request.resolver_match.namespaces.0 %}
   <nav class="navbar navbar-expand-sm navbar-light bg-light mb-4">
     <div class="container">
-      <a class="navbar-brand" href="{% url 'index' %}" data-toggle="tooltip" data-placement="bottom" title="{% trans "Open homepage" %}">
-        <img src="{% static "dbase/img/logo_66x60.png" %}" width="33" height="30" class="d-inline-block align-top" alt="{% trans "Open homepage" %}">
-          {% trans "DBase" %}
+      <a class="navbar-brand" href="{% url 'index' %}" data-toggle="tooltip" data-placement="bottom" title="{% translate "Open homepage" %}">
+        <img src="{% static "dbase/img/logo_66x60.png" %}" width="33" height="30" class="d-inline-block align-top" alt="{% translate "Open homepage" %}">
+          {% translate "DBase" %}
       </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainNavigation"
-              aria-controls="mainNavigation" aria-expanded="false" aria-label="{% trans 'Toggle navigation' %}">
+              aria-controls="mainNavigation" aria-expanded="false" aria-label="{% translate 'Toggle navigation' %}">
         <span class="navbar-toggler-icon"></span>
       </button>
 
       <div class="collapse navbar-collapse" id="mainNavigation">
         <ul class="navbar-nav mr-auto">
-          <li class="nav-item dropdown" data-toggle="tooltip" data-placement="right" title="{% trans "Event" %}">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <li class="nav-item dropdown  {% if url_app == 'booking' %}active{% endif %}" data-toggle="tooltip" data-placement="right" title="{% translate "Event" %}">
+            <a class="nav-link dropdown-toggle" href="{{ current_event.get_absolute_url }}" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <i class="far fa-calendar-alt fa-fw"></i>
               <span>{{ current_event.name }}</span>
-              {% if current_event.is_privileged or current_event.is_locked %}
-                {% has_perm 'booking.book_on_event' user current_event as can_book_on_event %}
-                {% if can_book_on_event %}
-                  <i class="fas fa-lock ml-2 text-muted"></i>
-                {% else %}
-                  <i class="fas fa-lock ml-2 text-danger"></i>
+              <span class="d-inline d-sm-none d-lg-inline">
+                {% if current_event.is_privileged or current_event.is_locked %}
+                  {% has_perm 'booking.book_on_event' user current_event as can_book_on_event %}
+                  {% if can_book_on_event %}
+                    <i class="fas fa-lock ml-2 text-muted"></i>
+                  {% else %}
+                    <i class="fas fa-lock ml-2 text-danger"></i>
+                  {% endif %}
                 {% endif %}
-              {% endif %}
+              </span>
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
               {% for event in events %}
-              <a class="dropdown-item {% if current_event == event %}active{% endif %}" href="{% url 'booking:event_display' event.slug %}">
+              <a class="dropdown-item {% if current_event == event %}active{% endif %}" href="{{ event.get_absolute_url }}">
                 <i class="far fa-calendar-alt fa-fw"></i>
                 <span>{{ event.name }}</span>
                 {% if event.is_privileged or event.is_locked %}
@@ -56,18 +58,14 @@
         </ul>
         <ul class="navbar-nav">
             {% if user.is_authenticated %}
-              <li class="nav-item align-items-center d-flex" data-toggle="tooltip" data-html="true" data-placement="left" title="{% trans "Logged in user" %}:<br/>{% if user.first_name %}{{ user.first_name }}{% else %}{{ user.email }}{% endif %}">
+              <li class="nav-item align-items-center d-flex" data-toggle="tooltip" data-html="true" data-placement="bottom" title="{% translate "Logged in user" %}:<br/>{{ user.first_name|default:user.email }}">
                 <a class="nav-link d-flex d-sm-inline-block d-lg-flex align-items-center" href="#">
-                  <i class="fas fa-user-circle fa-fw mr-2 mr-sm-0 mr-lg-2"></i>
-                  <div class="d-inline-block d-sm-none d-lg-inline-block" style="margin:-0.6rem 0;">
+                  <i class="fas fa-user-circle fa-fw mr-2 mr-sm-0 mr-xl-2"></i>
+                  <div class="d-inline-block d-sm-none d-xl-inline-block" style="margin:-0.6rem 0;">
                     <div>
-                      {% if user.first_name %}
-                        {{ user.first_name }}
-                      {% else %}
-                        {{ user.email }}
-                      {% endif %}
+                      {{ user.first_name|default:user.email }}
                       {% if user|has_role:'MB' %}
-                        <span class="badge badge-mb" data-toggle="tooltip" data-placement="bottom" title="{% trans "Materiaalboer" %}">MB</span>
+                        <span class="badge badge-mb" data-toggle="tooltip" data-placement="bottom" title="{% translate "Materiaalboer" %}">MB</span>
                       {% endif %}
                     </div>
                     {% if user.group %}
@@ -76,44 +74,36 @@
                   </div>
                 </a>
               </li>
-              <li class="nav-item" data-toggle="tooltip" data-placement="bottom" title="{% trans "Logout" %}">
+              <li class="nav-item" data-toggle="tooltip" data-placement="bottom" title="{% translate "Logout" %}">
                 <a class="nav-link" href="{% url 'users:logout' %}">
                   <i class="fas fa-sign-out-alt fa-fw"></i>
-                  <span class="d-inline d-sm-none d-lg-inline">{% trans "Logout" %}</span>
+                  <span class="d-inline d-sm-none d-xl-inline">{% translate "Logout" %}</span>
                 </a>
               </li>
               {% if user.is_staff %}
-                <li class="nav-item" data-toggle="tooltip" data-placement="bottom" title="{% trans "Admin" %}">
+                <li class="nav-item" data-toggle="tooltip" data-placement="bottom" title="{% translate "Admin" %}">
                   <a class="nav-link" href="{% url 'admin:index' %}">
                     <i class="fas fa-cog fa-fw"></i>
-                    <span class="d-inline d-sm-none d-lg-inline">{% trans "Admin" %}</span>
-                  </a>
-                </li>
-              {% endif %}
-              {% if perms.booking.change_material %}
-                <li class="nav-item" data-toggle="tooltip" data-placement="bottom" title="{% trans "Camera" %}">
-                  <a class="nav-link" href="{% url 'camera:index' %}">
-                    <i class="fas fa-camera fa-fw"></i>
-                    <span class="d-inline d-sm-none d-lg-inline">{% trans "Camera" %}</span>
+                    <span class="d-inline d-sm-none d-xl-inline">{% translate "Admin" %}</span>
                   </a>
                 </li>
               {% endif %}
             {% else %}
-              <li class="nav-item" data-toggle="tooltip" data-placement="bottom" title="{% trans "Login" %}">
+              <li class="nav-item" data-toggle="tooltip" data-placement="bottom" title="{% translate "Login" %}">
                 <a class="nav-link" href="{% url 'users:login' %}">
                   <i class="fas fa-sign-in-alt fa-fw"></i>
-                  <span class="d-inline d-sm-none d-lg-inline">{% trans "Login" %}</span>
+                  <span class="d-inline d-sm-none d-xl-inline">{% translate "Login" %}</span>
                 </a>
               </li>
             {% endif %}
-          <li class="nav-item dropdown d-none d-sm-block d-lg-none" data-toggle="tooltip" data-placement="left" title="{% trans "Search" %}">
+          <li class="nav-item dropdown d-none d-sm-block d-lg-none" data-toggle="tooltip" data-placement="left" title="{% translate "Search" %}">
             <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
               <i class="fas fa-search fa-fw"></i>
-              <span class="sr-only"> {% trans "Search" %}</span>
+              <span class="sr-only"> {% translate "Search" %}</span>
             </a>
             <div class="dropdown-menu dropdown-menu-right" style="width: 25rem; z-index: 2000;">
               <div class="input-group mx-2 w-auto">
-                <input class="form-control typeahead-materials" type="search" data-notfoundtext="{% trans "Material not found..." %}"  placeholder="{% trans "Search" %}" aria-label="{% trans "Search" %}" aria-describedby="nav-search-addon2">
+                <input class="form-control typeahead-materials" type="search" data-notfoundtext="{% translate "Material not found..." %}"  placeholder="{% translate "Search" %}" aria-label="{% translate "Search" %}" aria-describedby="nav-search-addon2">
                 <div class="input-group-append">
                   <button type="button" class="btn btn-outline-secondary" id="nav-search-addon2">
                     <i class="fas fa-search"></i>
@@ -124,7 +114,7 @@
           </li>
         </ul>
         <div class="input-group my-2 my-lg-0 d-flex d-sm-none d-lg-flex w-auto">
-          <input class="form-control mr-sm-2 typeahead-materials" data-notfoundtext="{% trans "Material not found..." %}" type="search" placeholder="{% trans "Search" %}" aria-label="{% trans "Search" %}" aria-describedby="nav-search-addon">
+          <input class="form-control typeahead-materials" data-notfoundtext="{% translate "Material not found..." %}" type="search" placeholder="{% translate "Search" %}" aria-label="{% translate "Search" %}" aria-describedby="nav-search-addon">
           <div class="input-group-append">
             <button type="button" class="btn btn-outline-secondary" id="nav-search-addon">
               <i class="fas fa-search"></i>
