@@ -39,7 +39,7 @@ class CategoryAdmin(admin.ModelAdmin):
         return obj.material_count
 
     count_materials.short_description = _("Number of materials")
-    list_display = ("name", "description", "count_materials")
+    list_display = ("__str__", "description", "count_materials")
 
 
 class MaterialImageInline(AdminInlineImageMixin, SortableStackedInline):

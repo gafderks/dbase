@@ -5,23 +5,27 @@
     <h5 class="card-title">
       {{ object.name|capfirst }}
     </h5>
-    <ul class="list-inline category-list mt-n3 mb-1 text-secondary">
+    <ul class="list-inline category-list mt-n3 mb-1">
       {% for category in object.categories.all %}
-        <li class="list-inline-item">{{ category.name }}</li>
+        <li class="list-inline-item">
+          <a href="{{ category.get_absolute_url }}">
+            {{ category }}
+          </a>
+        </li>
       {% empty %}
-        No categories
+        {% translate "No categories" %}
       {% endfor %}
       {% if object.gm %}
         <li class="list-inline-item">
-          <span class="badge badge-mb" data-toggle="tooltip" title="{% trans "GM is needed for this material" %}">
-            {% trans "GM" %}
+          <span class="badge badge-mb" data-toggle="tooltip" title="{% translate "GM is needed for this material" %}">
+            {% translate "GM" %}
           </span>
         </li>
       {% endif %}
     </ul>
   </div>
   {% if object.images.count > 0 %}
-    <div id="materialImageCarouselIndicators" class="carousel slide carousel-fade carousel-thumbnails border-bottom" data-interval="false">
+    <div id="materialImageCarouselIndicators" class="carousel slide carousel-fade carousel-thumbnails" data-interval="false">
       {% if object.images.count > 1 %}
       <ol class="carousel-indicators">
         {% for image in object.images.all %}
@@ -45,34 +49,34 @@
       {% if object.images.count > 1 %}
         <a class="carousel-control-prev" href="#materialImageCarouselIndicators" role="button" data-slide="prev">
           <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="sr-only">{% trans "Previous" %}</span>
+          <span class="sr-only">{% translate "Previous" %}</span>
         </a>
         <a class="carousel-control-next" href="#materialImageCarouselIndicators" role="button" data-slide="next">
           <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="sr-only">{% trans "Next" %}</span>
+          <span class="sr-only">{% translate "Next" %}</span>
         </a>
       {% endif %}
     </div>
   {% endif %}
   {% if object.description %}
-    <div class="card-body pt-3">
-      <div class="text-muted small">{% trans "Description" %}</div>
+    <div class="card-body pt-3 border-top">
+      <div class="text-muted small">{% translate "Description" %}</div>
       <div class="card-text material-description user-html">{{ object.description|safe }}</div>
     </div>
   {% endif %}
   <ul class="list-group list-group-flush">
     {% if object.location %}
-      <li class="list-group-item material-location"><span>{% trans "Location" %}</span> {{ object.location.name }}
+      <li class="list-group-item material-location"><span>{% translate "Location" %}</span> {{ object.location.name }}
       </li>
     {% endif %}
     {% if object.stock_value %}
-      <li class="list-group-item material-stock"><span>{% trans "Maximum stock" %}</span> {{ object.stock }}</li>
+      <li class="list-group-item material-stock"><span>{% translate "Maximum stock" %}</span> {{ object.stock }}</li>
     {% endif %}
     {% if object.aliases.all %}
-      <li class="list-group-item material-aliases"><span>{% trans "Aliases" %}</span> {{ object.aliases.all|join:", " }}</li>
+      <li class="list-group-item material-aliases"><span>{% translate "Aliases" %}</span> {{ object.aliases.all|join:", " }}</li>
     {% endif %}
     {% if object.attachments.all %}
-      <li class="list-group-item material-attachments"><span>{% trans "Attachments" %}</span>
+      <li class="list-group-item material-attachments"><span>{% translate "Attachments" %}</span>
       <ul>
         {% for attachment in object.attachments.all %}
         <li>

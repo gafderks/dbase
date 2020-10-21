@@ -3,6 +3,7 @@
 {% load roles %}
 {% load rules %}
 {% block navigation %}
+  {% with url_app=request.resolver_match.namespaces.0 %}
   <nav class="navbar navbar-expand-sm navbar-light bg-light mb-4">
     <div class="container">
       <a class="navbar-brand" href="{% url 'index' %}" data-toggle="tooltip" data-placement="bottom" title="{% trans "Open homepage" %}">
@@ -45,6 +46,12 @@
               </a>
               {% endfor %}
             </div>
+          </li>
+          <li class="nav-item {% if url_app == 'catalog' %}active{% endif %}" data-toggle="tooltip" data-placement="bottom" title="{% translate "Catalog" %}">
+            <a class="nav-link" href="{% url 'catalog:catalog' %}">
+              <i class="fas fa-book fa-fw"></i>
+              <span class="d-inline d-sm-none d-md-inline">{% translate "Catalog" %}</span>
+            </a>
           </li>
         </ul>
         <ul class="navbar-nav">
@@ -127,4 +134,5 @@
       </div>
     </div>
   </nav>
+  {% endwith %}
 {% endblock %}

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-12 23:01+0200\n"
-"PO-Revision-Date: 2020-10-13 23:24+0200\n"
+"POT-Creation-Date: 2020-10-20 23:20+0200\n"
+"PO-Revision-Date: 2020-10-20 23:22+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: nl\n"
@@ -22,40 +22,99 @@ msgstr ""
 msgid "catalog"
 msgstr "catalogus"
 
-#: .\catalog\templates\catalog\material_detail.html:17
+#: .\catalog\templates\catalog\material_card.html:3
+msgid "[Unnamed category]"
+msgstr "[Naamloze categorie]"
+
+#: .\catalog\templates\catalog\material_card.html:17
+msgid "No categories"
+msgstr "Geen categorieën"
+
+#: .\catalog\templates\catalog\material_card.html:21
 msgid "GM is needed for this material"
 msgstr "GM is nodig voor dit materiaal"
 
-#: .\catalog\templates\catalog\material_detail.html:18
+#: .\catalog\templates\catalog\material_card.html:22
 msgid "GM"
 msgstr "GM"
 
-#: .\catalog\templates\catalog\material_detail.html:41
+#: .\catalog\templates\catalog\material_card.html:53
+#: .\catalog\templates\catalog\paginator.html:8
+#: .\catalog\templates\catalog\paginator.html:12
+msgid "Previous"
+msgstr "Vorige"
+
+#: .\catalog\templates\catalog\material_card.html:57
+#: .\catalog\templates\catalog\paginator.html:26
+#: .\catalog\templates\catalog\paginator.html:30
+msgid "Next"
+msgstr "Volgende"
+
+#: .\catalog\templates\catalog\material_card.html:64
 msgid "Description"
 msgstr "Omschrijving"
 
-#: .\catalog\templates\catalog\material_detail.html:46
+#: .\catalog\templates\catalog\material_card.html:70
 msgid "Location"
 msgstr "Locatie"
 
-#: .\catalog\templates\catalog\material_detail.html:50
+#: .\catalog\templates\catalog\material_card.html:74
 msgid "Maximum stock"
 msgstr "Maximale voorraad"
 
-#: .\catalog\templates\catalog\material_detail.html:53
+#: .\catalog\templates\catalog\material_card.html:77
 msgid "Aliases"
 msgstr "Andere benamingen"
 
-#: .\catalog\templates\catalog\material_detail.html:56
+#: .\catalog\templates\catalog\material_card.html:80
 msgid "Attachments"
 msgstr "Bijlagen"
 
-#: .\catalog\templates\catalog\material_detail.html:70
+#: .\catalog\templates\catalog\material_card.html:94
 #, python-format
 msgid "Show %(object_name)s in lending shop"
 msgstr "Toon %(object_name)s in uitleenwinkel"
 
-#: .\catalog\templates\catalog\material_detail.html:78
+#: .\catalog\templates\catalog\material_card.html:102
 #, python-format
 msgid "Edit properties for %(object_name)s"
 msgstr "Eigenschappen bewerken voor %(object_name)s"
+
+#: .\catalog\templates\catalog\material_detail.html:6
+#: .\catalog\templates\catalog\material_list.html:8
+msgid "Catalog"
+msgstr "Catalogus"
+
+#: .\catalog\templates\catalog\material_list.html:12
+msgid "Material catalog"
+msgstr "Materiaalcatalogus"
+
+#: .\catalog\templates\catalog\material_list.html:14
+#, python-format
+msgid "One material"
+msgid_plural "%(obj_count)s materials"
+msgstr[0] "Één materiaal"
+msgstr[1] "%(obj_count)s materialen"
+
+#: .\catalog\templates\catalog\material_list.html:19
+#, python-format
+msgid "on one page"
+msgid_plural "on %(pages_count)s pages"
+msgstr[0] "op één pagina"
+msgstr[1] "op %(pages_count)s pagina's"
+
+#: .\catalog\templates\catalog\material_list.html:26
+msgid "Filter by category"
+msgstr "Filteren op categorie"
+
+#: .\catalog\templates\catalog\partials\material_detail_modal.html:13
+msgid "Loading..."
+msgstr "Laden..."
+
+#: .\catalog\templates\catalog\partials\material_detail_modal.html:18
+msgid "Close"
+msgstr "Sluiten"
+
+#, python-format
+#~ msgid "%(obj_count)s materials in %(pages_count)s pages"
+#~ msgstr "%(obj_count)s materialen op %(pages_count)s pagina's"

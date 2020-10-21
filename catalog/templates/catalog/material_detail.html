@@ -1,11 +1,12 @@
-{% extends "jeugdraad/blank.html" %}
+{% extends "jeugdraad/base.html" %}
 {% load static %}
+{% load i18n %}
 
 {% block window_title %}
-  {{ object.name|capfirst }} | {{ block.super }}
+  {{ object.name|capfirst }} | {% translate "Catalog" %} | {{ block.super }}
 {% endblock %}
 
-{% block layout %}
+{% block content %}
   <div class="container p-3">
     {% include "catalog/material_card.html" %}
   </div>
