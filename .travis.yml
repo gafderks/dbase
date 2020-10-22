@@ -8,6 +8,7 @@ env:
   global:
     - DATABASE_URL="sqlite:///db.sqlite3"
     - DEBUG=off
+    - NODE_ENV=production
 services:
   - xvfb
 addons:
