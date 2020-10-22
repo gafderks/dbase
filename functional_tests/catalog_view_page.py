@@ -1,9 +1,47 @@
 from functional_tests.base import retry_stale, wait
 
 
+def filter_number(text):
+    # Extracts a number from a text
+    return int("".join(filter(str.isdigit, text)))
+
+
 class CatalogViewPage(object):
     def __init__(self, test):
         self.test = test
+
+    def get_page_count(self):
+        self.test.wait_for(
+            lambda: self.test.assertTrue(
+                len(self.test.browser.find_elements_by_css_selector(".page-link")) > 0
+            )
+        )
+        # -2 skips the previous button
+        return int(
+            self.test.browser.find_elements_by_css_selector(".page-link")[-2].text
+        )
+
+    def navigate_to_page(self, page_num):
+        anchor_selector = f"a.page-link[href$='page={page_num}']"
+        # wait for the anchor to appear on the page
+        self.test.wait_for(
+            lambda: self.test.assertTrue(
+                len(self.test.browser.find_elements_by_css_selector(anchor_selector))
+                > 0
+            )
+        )
+        self.test.browser.find_element_by_css_selector(anchor_selector).click()
+        # wait for the page to be loaded
+        self.test.wait_for(
+            lambda: self.test.assertEqual(
+                filter_number(
+                    self.test.browser.find_element_by_css_selector(
+                        "[aria-current='page']"
+                    ).text
+                ),
+                page_num,
+            )
+        )
 
     @retry_stale  # catalog may contain old material
     @wait  # loading the catalog uses AJAX which may take a while

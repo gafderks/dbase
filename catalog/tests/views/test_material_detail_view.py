@@ -24,6 +24,7 @@ class MaterialDetailViewTest(TestCase):
         self.client.force_login(UserFactory())
         response = self.client.get(material.get_absolute_url())
         self.assertTemplateUsed(response, "catalog/material_detail.html")
+        self.assertTemplateUsed(response, "catalog/material_card.html")
         self.assertContains(response, material.name)
         if material.gm:
             self.assertContains(response, "GM")
@@ -44,6 +45,7 @@ class MaterialDetailViewTest(TestCase):
         self.client.force_login(UserFactory())
         response = self.client.get(lendable_material.get_absolute_url())
         self.assertTemplateUsed(response, "catalog/material_detail.html")
+        self.assertTemplateUsed(response, "catalog/material_card.html")
         self.assertContains(response, lendable_material.get_shop_url())
 
     @patch("django.contrib.auth.backends.ModelBackend.has_perm")
@@ -54,6 +56,7 @@ class MaterialDetailViewTest(TestCase):
         self.client.force_login(user)
         response = self.client.get(material.get_absolute_url())
         self.assertTemplateUsed(response, "catalog/material_detail.html")
+        self.assertTemplateUsed(response, "catalog/material_card.html")
         self.assertContains(
             response, reverse("admin:booking_material_change", args=[material.pk])
         )
@@ -64,6 +67,7 @@ class MaterialDetailViewTest(TestCase):
         self.client.force_login(UserFactory())
         response = self.client.get(material.get_absolute_url())
         self.assertTemplateUsed(response, "catalog/material_detail.html")
+        self.assertTemplateUsed(response, "catalog/material_card.html")
         self.assertNotContains(
             response, reverse("admin:booking_material_change", args=[material.pk])
         )

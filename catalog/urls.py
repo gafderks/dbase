@@ -1,7 +1,6 @@
 from django.urls import path
 
-from .views import MaterialDetailView, MaterialDetailModalView
-from .views.material_list_view import MaterialListView
+from .views import MaterialDetailView, MaterialDetailModalView, MaterialListView
 
 app_name = "catalog"
 urlpatterns = [
