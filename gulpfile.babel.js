@@ -55,9 +55,9 @@ function reload(done) {
 const flatten = (arr) =>  arr.reduce((flat, next) => flat.concat(next), []);
 
 function extract_tasks_from_configs(task_type) {
-  // Get the configs that have a task with the specified type and return the configs therefore
+  // Get the configs that have a task with the specified type and return the tasks therefore
   const tasks_per_config = configs.filter(config => config[task_type]).map(config => config[task_type]);
-  // Flatten the tasks as some configs may contain multiple
+  // Flatten the tasks as some tasks may be arrays of tasks
   return flatten(tasks_per_config);
 }
 
