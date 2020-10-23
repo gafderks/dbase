@@ -72,8 +72,9 @@ class CatalogMaterialTest(FunctionalTest):
         )[0].click()
         # ... to show the material in the catalog
         self.wait_for(
-            lambda: self.assertTrue(
-                len(self.browser.find_elements_by_class_name("catalog-masonry")) > 0
+            lambda: self.assertCSSElementExists(
+                ".catalog-masonry",
+                msg="no masonry with materials was found on the page",
             )
         )
 
@@ -86,8 +87,9 @@ class CatalogMaterialTest(FunctionalTest):
         data_attr = f"/catalog/{self.material.pk}/modal"
         selector = f"[data-catalog-item='{data_attr}']"
         self.wait_for(
-            lambda: self.assertTrue(
-                len(self.browser.find_elements_by_css_selector(selector)) > 0
+            lambda: self.assertCSSElementExists(
+                selector,
+                "material was not found",
             )
         )
 
@@ -184,6 +186,17 @@ class CatalogMaterialTest(FunctionalTest):
         category = CategoryFactory()
         # Note there is also the self.material, so 6 materials in total
         materials = MaterialFactory.create_batch(5, categories=[category])
+        # Get the materials sorted
+        sorted_materials = sorted(list(materials), key=lambda m: str(m).lower())
+
+        def verify_material_order(catalog_view_page, i):
+            # Get element from page
+            item = catalog_view_page.get_catalog_item(
+                i % mock_get_paginate_by.return_value
+            )
+            # Get text
+            text = catalog_view_page.get_catalog_item_text(item)
+            self.assertEqual(text, str(sorted_materials[i]))
 
         # Bob is a logged in user
         bob = UserFactory()
@@ -191,15 +204,25 @@ class CatalogMaterialTest(FunctionalTest):
 
         # Bob opens the catalog page
         self.browser.get(self.live_server_url + reverse("catalog:catalog"))
+        catalog_view_page = CatalogViewPage(self)
+
+        # The first page contains the first two materials in order
+        verify_material_order(catalog_view_page, 0)
+        verify_material_order(catalog_view_page, 1)
 
         # Bob finds 3 pages in the catalog
-        catalog_view_page = CatalogViewPage(self)
         self.assertEqual(catalog_view_page.get_page_count(), 3)
 
         # Bob can navigate to page 2
         catalog_view_page.navigate_to_page(2)
 
+        # The second page contains the second two materials in order
+        verify_material_order(catalog_view_page, 2)
+        verify_material_order(catalog_view_page, 3)
+
         # Bob can navigate to page 3
         catalog_view_page.navigate_to_page(3)
 
-        # TODO check that materials are sorted by name?
+        # The third page contains the third two materials in order
+        verify_material_order(catalog_view_page, 4)
+        verify_material_order(catalog_view_page, 5)

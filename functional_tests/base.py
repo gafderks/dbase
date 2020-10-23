@@ -68,6 +68,15 @@ class FunctionalTest(StaticLiveServerTestCase):
         navbar = self.browser.find_element_by_css_selector(".navbar")
         self.assertNotIn(email, navbar.text)
 
+    def assertCSSElementExists(self, css_selector, msg=None, context=None, times=1):
+        if not context:
+            context = self.browser
+        if not msg:
+            msg = f"element {css_selector} was not found"
+        self.assertGreaterEqual(
+            len(context.find_elements_by_css_selector(css_selector)), times, msg
+        )
+
     def create_pre_authenticated_session(self, user):
         """
         :param User user:

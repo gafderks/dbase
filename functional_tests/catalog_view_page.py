@@ -12,8 +12,9 @@ class CatalogViewPage(object):
 
     def get_page_count(self):
         self.test.wait_for(
-            lambda: self.test.assertTrue(
-                len(self.test.browser.find_elements_by_css_selector(".page-link")) > 0
+            lambda: self.test.assertCSSElementExists(
+                ".page-link",
+                "no pagination links found on the page",
             )
         )
         # -2 skips the previous button
@@ -25,9 +26,9 @@ class CatalogViewPage(object):
         anchor_selector = f"a.page-link[href$='page={page_num}']"
         # wait for the anchor to appear on the page
         self.test.wait_for(
-            lambda: self.test.assertTrue(
-                len(self.test.browser.find_elements_by_css_selector(anchor_selector))
-                > 0
+            lambda: self.test.assertCSSElementExists(
+                anchor_selector,
+                f"no link to page {page_num} found on the page",
             )
         )
         self.test.browser.find_element_by_css_selector(anchor_selector).click()
@@ -40,8 +41,24 @@ class CatalogViewPage(object):
                     ).text
                 ),
                 page_num,
+                f"did not load page {page_num}",
             )
         )
+
+    def get_catalog_item(self, i):
+        self.test.wait_for(
+            lambda: self.test.assertCSSElementExists(
+                ".catalog-masonry .card",
+                f"the requested catalog item with index {i} was not found on the page",
+                times=i,
+            )
+        )
+        return self.test.browser.find_elements_by_css_selector(
+            ".catalog-masonry .card"
+        )[i]
+
+    def get_catalog_item_text(self, catalog_item):
+        return catalog_item.find_element_by_css_selector(".card-title").text
 
     @retry_stale  # catalog may contain old material
     @wait  # loading the catalog uses AJAX which may take a while
