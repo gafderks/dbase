@@ -2,6 +2,7 @@ from unittest.mock import patch
 
 from django.urls import reverse
 
+from booking.models import Material
 from booking.tests.factories import (
     MaterialFactory,
     BookingFactory,
@@ -187,16 +188,20 @@ class CatalogMaterialTest(FunctionalTest):
         # Note there is also the self.material, so 6 materials in total
         materials = MaterialFactory.create_batch(5, categories=[category])
         # Get the materials sorted
-        sorted_materials = sorted(list(materials), key=lambda m: str(m).lower())
+        sorted_materials = sorted(
+            list(Material.objects.all()), key=lambda m: str(m).lower()
+        )
 
         def verify_material_order(catalog_view_page, i):
             # Get element from page
-            item = catalog_view_page.get_catalog_item(
-                i % mock_get_paginate_by.return_value
-            )
+            item = catalog_view_page.get_catalog_item(i % mock_get_paginate_by())
             # Get text
             text = catalog_view_page.get_catalog_item_text(item)
-            self.assertEqual(text, str(sorted_materials[i]))
+            self.assertEqual(
+                text.lower(),
+                str(sorted_materials[i]).lower(),
+                f"material {i} is not sorted",
+            )
 
         # Bob is a logged in user
         bob = UserFactory()

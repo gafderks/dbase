@@ -46,16 +46,15 @@ class CatalogViewPage(object):
         )
 
     def get_catalog_item(self, i):
+        selector = ".catalog-masonry .card"
         self.test.wait_for(
             lambda: self.test.assertCSSElementExists(
-                ".catalog-masonry .card",
+                selector,
                 f"the requested catalog item with index {i} was not found on the page",
                 times=i,
             )
         )
-        return self.test.browser.find_elements_by_css_selector(
-            ".catalog-masonry .card"
-        )[i]
+        return self.test.browser.find_elements_by_css_selector(selector)[i]
 
     def get_catalog_item_text(self, catalog_item):
         return catalog_item.find_element_by_css_selector(".card-title").text
