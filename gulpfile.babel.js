@@ -52,7 +52,7 @@ function reload(done) {
 }
 
 function scripts() {
-  const tasks = configs.filter(config => config.scripts).map(config => config.scripts).map(config => {
+  const tasks = configs.filter(config => config.scripts).map(config => config.scripts).flat().map(config => {
     return rollupStream({
       input: config.srcDir + '/' + config.entry,
       output: {
@@ -97,7 +97,7 @@ function styles() {
     cssnano
   ];
 
-  const tasks = configs.filter(config => config.styles).map(config => config.styles).map(config => {
+  const tasks = configs.filter(config => config.styles).map(config => config.styles).flat().map(config => {
     return gulp.src(config.src)
       .pipe(sourcemaps.init())
       .pipe(sass({
@@ -114,7 +114,7 @@ function styles() {
 }
 
 function images() {
-  const tasks = configs.filter(config => config.images).map(config => config.images).map(config => {
+  const tasks = configs.filter(config => config.images).map(config => config.images).flat().map(config => {
     return gulp.src(config.src)
       .pipe(imagemin())
       .pipe(gulp.dest(config.dest));

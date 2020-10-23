@@ -78,6 +78,7 @@ class MaterialAdmin(NonSortableParentAdmin):
     form = MaterialForm
     inlines = [MaterialImageInline, MaterialAliasInline, MaterialAttachmentInline]
     save_on_top = True
+    change_list_template = "camera/material_change_list_camera_button.html"
 
     def thumbnail(self, obj):
         html = []
