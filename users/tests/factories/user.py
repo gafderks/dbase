@@ -30,3 +30,7 @@ class UserFactory(factory.django.DjangoModelFactory):
 
 
 UserFactory.PASSWORD = make_password("password")
+
+
+class SuperUserFactory(UserFactory):
+    is_superuser = True
