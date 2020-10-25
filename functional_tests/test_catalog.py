@@ -136,7 +136,7 @@ class CatalogMaterialTest(FunctionalTest):
         # ... to show the material in the catalog
         self.wait_for(
             lambda: self.assertCSSElementExists(
-                "catalog-masonry",
+                ".catalog-masonry",
                 msg="no masonry with materials was found on the page",
             )
         )
@@ -162,7 +162,8 @@ class CatalogMaterialTest(FunctionalTest):
         # Bob sees the catalog masonry
         self.wait_for(
             lambda: self.assertCSSElementExists(
-                "catalog-masonry", msg="no masonry with materials was found on the page"
+                ".catalog-masonry",
+                msg="no masonry with materials was found on the page",
             )
         )
 
