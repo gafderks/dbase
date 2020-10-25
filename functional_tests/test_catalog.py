@@ -135,8 +135,9 @@ class CatalogMaterialTest(FunctionalTest):
         )[0].click()
         # ... to show the material in the catalog
         self.wait_for(
-            lambda: self.assertTrue(
-                len(self.browser.find_elements_by_class_name("catalog-masonry")) > 0
+            lambda: self.assertCSSElementExists(
+                "catalog-masonry",
+                msg="no masonry with materials was found on the page",
             )
         )
 
@@ -152,14 +153,7 @@ class CatalogMaterialTest(FunctionalTest):
 
         # Bob finds the button for switching to the catalog
         self.wait_for(
-            lambda: self.assertTrue(
-                len(
-                    self.browser.find_elements_by_css_selector(
-                        ".nav-link[href='/catalog/']"
-                    )
-                )
-                > 0
-            )
+            lambda: self.assertCSSElementExists(".nav-link[href='/catalog/']")
         )
 
         # Bob switches to the catalog
@@ -167,8 +161,8 @@ class CatalogMaterialTest(FunctionalTest):
 
         # Bob sees the catalog masonry
         self.wait_for(
-            lambda: self.assertTrue(
-                len(self.browser.find_elements_by_class_name("catalog-masonry")) > 0
+            lambda: self.assertCSSElementExists(
+                "catalog-masonry", msg="no masonry with materials was found on the page"
             )
         )
 
@@ -176,8 +170,9 @@ class CatalogMaterialTest(FunctionalTest):
         data_attr = f"/catalog/{self.material.pk}/modal"
         selector = f"[data-catalog-item='{data_attr}']"
         self.wait_for(
-            lambda: self.assertTrue(
-                len(self.browser.find_elements_by_css_selector(selector)) > 0
+            lambda: self.assertCSSElementExists(
+                selector,
+                msg="link to catalog item was not found",
             )
         )
 
