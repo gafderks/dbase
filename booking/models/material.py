@@ -1,6 +1,7 @@
 from ckeditor.fields import RichTextField
 from django.conf import settings
 from django.db import models
+from django.db.models.functions import Lower
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
@@ -62,6 +63,7 @@ class Material(models.Model):
         verbose_name = _("material")
         verbose_name_plural = _("materials")
         get_latest_by = "last_modified"
+        ordering = [Lower("name")]
 
     def __str__(self):
         return self.name
@@ -88,9 +90,10 @@ class Material(models.Model):
 
     @staticmethod
     def last_modification():
-        if Material.objects.count() == 0:
+        try:
+            return Material.objects.latest().last_modified
+        except Material.DoesNotExist:
             return None
-        return Material.objects.latest().last_modified
 
     def get_absolute_url(self):
         return reverse("catalog:material", kwargs={"pk": self.pk})

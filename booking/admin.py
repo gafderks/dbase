@@ -39,7 +39,7 @@ class CategoryAdmin(admin.ModelAdmin):
         return obj.material_count
 
     count_materials.short_description = _("Number of materials")
-    list_display = ("name", "description", "count_materials")
+    list_display = ("__str__", "description", "count_materials")
 
 
 class MaterialImageInline(AdminInlineImageMixin, SortableStackedInline):
@@ -78,6 +78,7 @@ class MaterialAdmin(NonSortableParentAdmin):
     form = MaterialForm
     inlines = [MaterialImageInline, MaterialAliasInline, MaterialAttachmentInline]
     save_on_top = True
+    change_list_template = "camera/material_change_list_camera_button.html"
 
     def thumbnail(self, obj):
         html = []

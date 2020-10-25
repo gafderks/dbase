@@ -10,7 +10,7 @@ from django_filters import BooleanFilter, ChoiceFilter, FilterSet, ModelChoiceFi
 from django.utils.translation import gettext_lazy as _
 from django.utils.translation import gettext as __
 
-from booking.models import Category, Booking
+from booking.models import Category, Booking, Material
 
 
 class CustomNullBooleanSelect(NullBooleanSelect):
@@ -240,3 +240,34 @@ class HasMaterialImageListFilter(admin.SimpleListFilter):
             return queryset.filter(image_count__gt=0)
         if self.value() == "false":
             return queryset.filter(image_count=0)
+
+
+class MaterialCategoryFilter(FilterSet):
+    categories = ModelChoiceFilter(
+        field_name="categories",
+        queryset=Category.objects.all(),
+        label=_("Category"),
+        empty_label=_("----------"),
+    )
+
+    def __init__(self, *args, **kwargs):
+        wrapper_class = kwargs.pop("wrapper_class", "")
+        super().__init__(*args, **kwargs)
+        helper = FormHelper()
+        helper.layout = Layout(
+            Div(
+                Field(
+                    "categories",
+                    template="crispy/category-buttons.html",
+                    wrapper_class=wrapper_class,
+                ),
+            ),
+        )
+        helper.form_class = "form-inline"
+        helper.disable_csrf = True
+        helper.form_show_labels = False
+        self.helper = helper
+
+    class Meta:
+        model = Material
+        fields = []

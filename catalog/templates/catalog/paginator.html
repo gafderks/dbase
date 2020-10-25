@@ -1,0 +1,50 @@
+{% load i18n %}
+{% load query_url %}
+{% if is_paginated %}
+{% with the_pages=pages|default_if_none:paginator.page_range %}
+  <nav>
+    <ul class="pagination justify-content-center flex-wrap">
+      {% if page_obj.has_previous %}
+        <li class="page-item">
+          <a class="page-link" href="?{% param_replace page=page_obj.previous_page_number %}">{% translate "Previous" %}</a>
+        </li>
+      {% else %}
+        <li class="page-item disabled">
+          <a class="page-link" href="#" tabindex="-1" aria-disabled="true">{% translate "Previous" %}</a>
+        </li>
+      {% endif %}
+      {% if not 1 in the_pages %}
+        <li class="page-item"><a class="page-link" href="?{% param_replace page=1 %}">1</a></li>
+      {% endif %}
+      {% if the_pages|first > 2 %}
+        <li class="page-item disabled"><a class="page-link" href="#" tabindex="-1" aria-disabled="true">&hellip;</a></li>
+      {% endif %}
+      {% for i in the_pages %}
+        {% if page_obj.number == i %}
+          <li class="page-item active" aria-current="page">
+            <a class="page-link" href="#">{{ i }} <span class="sr-only">(current)</span></a>
+          </li>
+        {% else %}
+          <li class="page-item"><a class="page-link" href="?{% param_replace page=i %}">{{ i }}</a></li>
+        {% endif %}
+      {% endfor %}
+      {% if the_pages|last|add:1 < paginator.num_pages %}
+        <li class="page-item disabled"><a class="page-link" href="#" tabindex="-1" aria-disabled="true">&hellip;</a></li>
+      {% endif %}
+      {% if not paginator.num_pages in the_pages %}
+        <li class="page-item"><a class="page-link" href="?{% param_replace page=paginator.num_pages %}">{{ paginator.num_pages }}</a></li>
+      {% endif %}
+      {% if page_obj.has_next %}
+        <li class="page-item">
+          <a class="page-link" href="?{% param_replace page=page_obj.next_page_number %}">{% translate "Next" %}</a>
+        </li>
+      {% else %}
+        <li class="page-item disabled">
+          <a class="page-link" href="#" tabindex="-1" aria-disabled="true">{% translate "Next" %}</a>
+        </li>
+      {% endif %}
+    </ul>
+  </nav>
+{% endwith %}
+{% endif %}
+

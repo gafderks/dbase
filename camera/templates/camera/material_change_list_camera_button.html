@@ -1,0 +1,16 @@
+{% extends "admin/change_list.html" %}
+{% load i18n %}
+{% load static %}
+
+{% block object-tools-items %}
+  <li>
+    <a href="{% url "camera:index" %}">
+      {% translate "Camera" %}
+      <i class="fas fa-camera fa-fw"></i>
+    </a>
+  </li>
+  {{ block.super }}
+  <script src="{% static "dbase/js/icons.min.js" %}" type="text/javascript"></script>
+{% endblock %}
+
+

@@ -1,5 +1,7 @@
 from django.db import models
+from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
+from django.utils.translation import gettext as __
 
 
 class Category(models.Model):
@@ -13,4 +15,7 @@ class Category(models.Model):
         verbose_name_plural = _("categories")
 
     def __str__(self):
-        return self.name
+        return self.name if self.name else __("[Unnamed category]")
+
+    def get_absolute_url(self):
+        return reverse("catalog:catalog") + f"?categories={self.pk}"

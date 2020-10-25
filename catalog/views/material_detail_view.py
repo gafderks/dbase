@@ -8,3 +8,6 @@ class MaterialDetailView(LoginRequiredMixin, DetailView):
 
     template_name = "catalog/material_detail.html"
     model = Material
+    queryset = model.objects.select_related("location").prefetch_related(
+        "aliases", "attachments", "categories", "images"
+    )

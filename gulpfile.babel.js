@@ -51,8 +51,18 @@ function reload(done) {
   done();
 }
 
+// Flatten an array with potential subarrays
+const flatten = (arr) =>  arr.reduce((flat, next) => flat.concat(next), []);
+
+function extract_tasks_from_configs(task_type) {
+  // Get the configs that have a task with the specified type and return the tasks therefore
+  const tasks_per_config = configs.filter(config => config[task_type]).map(config => config[task_type]);
+  // Flatten the tasks as some tasks may be arrays of tasks
+  return flatten(tasks_per_config);
+}
+
 function scripts() {
-  const tasks = configs.filter(config => config.scripts).map(config => config.scripts).map(config => {
+  const tasks = extract_tasks_from_configs('scripts').map(config => {
     return rollupStream({
       input: config.srcDir + '/' + config.entry,
       output: {
@@ -97,7 +107,7 @@ function styles() {
     cssnano
   ];
 
-  const tasks = configs.filter(config => config.styles).map(config => config.styles).map(config => {
+  const tasks = extract_tasks_from_configs('styles').map(config => {
     return gulp.src(config.src)
       .pipe(sourcemaps.init())
       .pipe(sass({
@@ -114,7 +124,7 @@ function styles() {
 }
 
 function images() {
-  const tasks = configs.filter(config => config.images).map(config => config.images).map(config => {
+  const tasks = extract_tasks_from_configs('images').map(config => {
     return gulp.src(config.src)
       .pipe(imagemin())
       .pipe(gulp.dest(config.dest));
