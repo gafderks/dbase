@@ -3,6 +3,7 @@ from collections import OrderedDict
 
 from django.http import HttpResponse, JsonResponse
 from django.template.defaultfilters import filesizeformat
+from django.urls import reverse
 from django.utils.translation import gettext as _
 from sorl.thumbnail import get_thumbnail
 
@@ -98,6 +99,9 @@ def format_json(request, materials):
                     for i in material.images.all()
                 ],
                 "gm": material.gm,
+                "catalogUrl": reverse(
+                    "catalog:material_modal", kwargs={"pk": material.id}
+                ),
             }
             for material in materials
         ],

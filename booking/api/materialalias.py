@@ -1,4 +1,5 @@
 from django.http import JsonResponse
+from django.urls import reverse
 
 
 def format_json(request, materialaliases):
@@ -8,6 +9,7 @@ def format_json(request, materialaliases):
                 "id": alias.id,
                 "name": alias.name,
                 "material": {
+                    # TODO retrieve this from material.py
                     "id": alias.material.id,
                     "name": alias.material.name,
                     "categories": [
@@ -18,6 +20,9 @@ def format_json(request, materialaliases):
                         for i in alias.material.images.all()
                     ],
                     "gm": alias.material.gm,
+                    "catalogUrl": reverse(
+                        "catalog:material_modal", kwargs={"pk": alias.material.id}
+                    ),
                 },
             }
             for alias in materialaliases
