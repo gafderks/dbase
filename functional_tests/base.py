@@ -101,3 +101,9 @@ class FunctionalTest(StaticLiveServerTestCase):
             "return window.localStorage.getItem(arguments[0]);", key
         )
         return value
+
+    @wait
+    def check_if_typeahead_loaded(self):
+        self.assertIsNotNone(
+            self.get_from_local_storage("__/booking/api/material?format=json__data")
+        )

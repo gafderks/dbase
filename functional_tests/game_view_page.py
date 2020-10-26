@@ -120,7 +120,7 @@ class GameViewPage(EventViewPage):
         )
 
     def add_booking(self, game_id, amount, material_text, partial_material_text=None):
-        self.check_if_typeahead_loaded()
+        self.test.check_if_typeahead_loaded()
         # TODO add workweek and comment
         game_card = self.test.browser.find_element_by_id(f"game{game_id}")
         num_bookings_before = self.get_number_of_bookings(context=game_card)

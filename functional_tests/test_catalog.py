@@ -1,6 +1,8 @@
 from unittest.mock import patch
 
 from django.urls import reverse
+from selenium.webdriver import ActionChains
+from selenium.webdriver.common.keys import Keys
 
 from booking.models import Material
 from booking.tests.factories import (
@@ -227,3 +229,43 @@ class CatalogMaterialTest(FunctionalTest):
         # The third page contains the third two materials in order
         verify_material_order(catalog_view_page, 4)
         verify_material_order(catalog_view_page, 5)
+
+    def test_navigation_search_material_and_material_alias(self):
+        event = EventFactory()
+        material = MaterialFactory()
+
+        # Bob is a logged in user
+        bob = UserFactory()
+        self.create_pre_authenticated_session(bob)
+
+        # Bob opens the event page
+        self.browser.get(self.live_server_url + event.get_absolute_url())
+
+        self.check_if_typeahead_loaded()
+
+        # Bob clicks the search bar and enters the name of the material
+        search_input = self.browser.find_element_by_id("navSearch")
+        search_input.send_keys(material.name)
+        search_input.send_keys(Keys.ENTER)
+
+        # Bob sees the details for the typed material
+        catalog_view_page = CatalogViewPage(self)
+        catalog_view_page.verify_material_attributes(
+            self.browser.find_element_by_id("catalogModal"), material
+        )
+
+        # Bob closes the modal by pressing escape
+        ActionChains(self.browser).send_keys(Keys.ESCAPE).perform()
+
+        # Bob clicks the search bar and enters the alias of the material
+        search_input = self.browser.find_element_by_id("navSearch")
+        for _ in range(len(material.name)):
+            search_input.send_keys(Keys.BACK_SPACE)
+        search_input.send_keys(str(material.aliases.first()))
+        search_input.send_keys(Keys.ENTER)
+
+        # Bob sees the details for the typed material
+        catalog_view_page = CatalogViewPage(self)
+        catalog_view_page.verify_material_attributes(
+            self.browser.find_element_by_id("catalogModal"), material
+        )
