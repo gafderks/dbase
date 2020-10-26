@@ -1,7 +1,7 @@
 from selenium.webdriver import ActionChains
 
 from booking.models import PartOfDay
-from functional_tests.base import wait, retry_stale
+from functional_tests.base import retry_stale
 
 
 def get_part_of_day_name(code):
