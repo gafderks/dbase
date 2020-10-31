@@ -231,6 +231,7 @@ class CatalogMaterialTest(FunctionalTest):
         verify_material_order(catalog_view_page, 5)
 
     def test_navigation_search_material_and_material_alias(self):
+        self.browser.set_window_size(1024, 768)
         event = EventFactory()
         material = MaterialFactory()
 
