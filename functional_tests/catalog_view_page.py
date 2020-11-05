@@ -59,8 +59,8 @@ class CatalogViewPage(object):
     def get_catalog_item_text(self, catalog_item):
         return catalog_item.find_element_by_css_selector(".card-title").text
 
-    @retry_stale  # catalog may contain old material
     @wait  # loading the catalog uses AJAX which may take a while
+    @retry_stale  # catalog may contain old material
     def verify_material_attributes(self, catalog_elem, material):
         """
         :param catalog_elem: selenium element
