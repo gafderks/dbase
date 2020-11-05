@@ -103,3 +103,6 @@ class Material(models.Model):
             return settings.SHOP_PRODUCT_URL_FORMAT.format(sku=self.sku)
         else:
             return None
+
+    def get_catalog_modal_url(self):
+        return reverse("catalog:material_modal", kwargs={"pk": self.pk})

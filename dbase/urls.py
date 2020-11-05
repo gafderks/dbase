@@ -18,8 +18,13 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path
 from django.views.i18n import JavaScriptCatalog
+from rest_framework import routers
 
 from booking.views import HomeView
+from booking.api.material_list import MaterialList
+
+router = routers.DefaultRouter()
+router.register(r"materials", MaterialList)
 
 urlpatterns = [
     path("", HomeView.as_view(), name="index"),
@@ -33,6 +38,8 @@ urlpatterns = [
         JavaScriptCatalog.as_view(domain="djangojs", packages=["booking"]),
         name="javascript-catalog",
     ),
+    path("api/", include(router.urls)),
+    path("api-auth/", include("rest_framework.urls", namespace="rest_framework")),
 ]
 # The following patterns only work if DEBUG = TRUE. Django should not be used for
 #  serving static files or uploaded files in production environments.

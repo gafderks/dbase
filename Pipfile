@@ -30,6 +30,9 @@ rules = "*"
 Django = "*"
 Pillow = "*"
 factory-boy = "*"
+djangorestframework = "*"
+sorl-thumbnail-serializer-field = "*"
+djangorestframework-csv = "*"
 
 [pipenv]
 allow_prereleases = true

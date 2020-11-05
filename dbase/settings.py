@@ -60,6 +60,8 @@ INSTALLED_APPS = [
     "ckeditor",
     "django_filters",
     "rules.apps.AutodiscoverRulesConfig",
+    "rest_framework",
+    "sorl_thumbnail_serializer",
 ]
 
 MIDDLEWARE = [
