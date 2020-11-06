@@ -266,8 +266,7 @@ class CatalogMaterialTest(FunctionalTest):
         search_input.send_keys(Keys.ENTER)
 
         # Bob sees the details for the typed material
-        catalog_view_page = CatalogViewPage(self)
-        self.retry_on_stale(
+        self.wait_for(
             lambda: catalog_view_page.verify_material_attributes(
                 self.browser.find_element_by_id("catalogModal"), material
             )
