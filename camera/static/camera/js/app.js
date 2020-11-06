@@ -161,14 +161,6 @@ import 'dbase/ajax_csrf';
     }
   }
 
-  // Uses too much mobile data...
-  // eslint-disable-next-line no-unused-vars
-  function refreshList() {
-    $.get('/camera/list', data => {
-      $('.list').html(data);
-    });
-  }
-
   function showPhoto() {
     $('.photo').removeClass('d-none');
     $('.camera').addClass('d-none');
