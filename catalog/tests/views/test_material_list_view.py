@@ -83,3 +83,15 @@ class MaterialListViewTest(TestCase):
         # Check that the category filter buttons are in the response
         self.assertContains(response, str(category))
         self.assertContains(response, str(other_category))
+
+    def test_description_can_have_html_entities(self):
+        material = MaterialFactory(description="&rarr;")
+        self.client.force_login(UserFactory())
+        response = self.client.get(reverse("catalog:catalog"))
+        self.assertTemplateUsed(response, "catalog/material_list.html")
+        self.assertNotContains(
+            response, "&amp;rarr;", msg_prefix="the material description was escaped"
+        )
+        self.assertContains(
+            response, "&rarr;", msg_prefix="the material description does not match"
+        )

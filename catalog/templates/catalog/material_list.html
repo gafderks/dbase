@@ -45,7 +45,9 @@
             </a>
           </h5>
           {% if material.description %}
-          <p class="card-text small text-muted">{{ material.description|striptags|truncatewords:20 }}</p>
+            {% autoescape off %}
+            <p class="card-text small text-muted">{{ material.description|striptags|truncatewords:20 }}</p>
+            {% endautoescape %}
           {% endif %}
         </div>
       </div>
