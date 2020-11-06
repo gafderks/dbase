@@ -3,6 +3,7 @@ from collections import OrderedDict
 
 from django.http import HttpResponse, JsonResponse
 from django.template.defaultfilters import filesizeformat
+from django.urls import reverse
 from django.utils.translation import gettext as _
 from sorl.thumbnail import get_thumbnail
 
@@ -86,20 +87,22 @@ def format_woocommerce(request, materials):
     return response
 
 
+def material_dict(request, material):
+    return {
+        "id": material.id,
+        "name": material.name,
+        "categories": [str(category) for category in material.categories.all()],
+        "images": [
+            request.build_absolute_uri(get_thumbnail(i.image, "32x32").url)
+            for i in material.images.all()
+        ],
+        "gm": material.gm,
+        "catalogUrl": reverse("catalog:material_modal", kwargs={"pk": material.id}),
+    }
+
+
 def format_json(request, materials):
     return JsonResponse(
-        [
-            {
-                "id": material.id,
-                "name": material.name,
-                "categories": [category.name for category in material.categories.all()],
-                "images": [
-                    request.build_absolute_uri(get_thumbnail(i.image, "32x32").url)
-                    for i in material.images.all()
-                ],
-                "gm": material.gm,
-            }
-            for material in materials
-        ],
+        [material_dict(request, material) for material in materials],
         safe=False,
     )

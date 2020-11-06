@@ -1,14 +1,16 @@
 import csv
 import io
+import json
 import mimetypes
 
 from bs4 import BeautifulSoup
-from django.test import TestCase
+from django.test import TestCase, override_settings
 
 from booking.models import Material
 from booking.tests.factories import MaterialFactory
 
 
+@override_settings(SHOP_SKU_OFFSET=2000)
 class WooCommerceFormatTest(TestCase):
     def check_images(self, field, material):
         """
@@ -28,7 +30,7 @@ class WooCommerceFormatTest(TestCase):
             self.assertTrue(
                 mimetype and mimetype.startswith("image"), "url does not seem image"
             )
-            self.assertIn("testserver", image_url, "url does not contain domain")
+            self.assertTrue("testserver" in image_url, "url does not contain domain")
 
     def check_post_content(self, field, material):
         """
@@ -102,9 +104,39 @@ class WooCommerceFormatTest(TestCase):
             else:
                 self.assertEqual(row["regular_price"], str(0.00))
             for category in material.categories.all():
-                self.assertIn(category.name, row["tax:product_cat"])
+                self.assertTrue(category.name in row["tax:product_cat"])
             self.check_images(row["images"], material)
             if material.stock_unit is not None:
                 self.assertEqual(row["meta:stock_unit"], material.stock_unit)
             else:
                 self.assertEqual(row["meta:stock_unit"], "")
+
+
+class JSONFormatTest(TestCase):
+    def test_json_format(self):
+        materials = MaterialFactory.create_batch(10)
+        response = self.client.get("/booking/api/material?format=json")
+
+        content = str(response.content, encoding="utf8")
+        json_response = json.loads(content)
+
+        for item in json_response:
+            material = Material.objects.get(pk=int(item["id"]))
+            self.assertEqual(item["name"], material.name)
+            self.assertEqual(item["gm"], material.gm)
+            for category in material.categories.all():
+                self.assertTrue(category.name in item["categories"])
+            self.assertEqual(
+                material.images.count(),
+                len(item["images"]),
+                "not all images are included",
+            )
+            for image_url in item["images"]:
+                mimetype, encoding = mimetypes.guess_type(image_url)
+                self.assertTrue(
+                    mimetype and mimetype.startswith("image"), "url does not seem image"
+                )
+                self.assertTrue(
+                    "testserver" in image_url, "url does not contain domain"
+                )
+            self.assertEqual(item["catalogUrl"], f"/catalog/{material.pk}/modal")

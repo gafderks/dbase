@@ -59,8 +59,8 @@ class CatalogViewPage(object):
     def get_catalog_item_text(self, catalog_item):
         return catalog_item.find_element_by_css_selector(".card-title").text
 
-    @retry_stale  # catalog may contain old material
     @wait  # loading the catalog uses AJAX which may take a while
+    @retry_stale  # catalog may contain old material
     def verify_material_attributes(self, catalog_elem, material):
         """
         :param catalog_elem: selenium element
@@ -68,11 +68,10 @@ class CatalogViewPage(object):
         :return:
         """
         # Test if material text is correct
-        material_text_elem = catalog_elem.find_element_by_css_selector(".card-title")
         self.test.wait_for(
             lambda: self.test.assertEqual(
                 material.name.lower(),
-                material_text_elem.text.lower(),
+                catalog_elem.find_element_by_css_selector(".card-title").text.lower(),
                 "the material name does not match",
             )
         )

@@ -103,7 +103,7 @@
             </a>
             <div class="dropdown-menu dropdown-menu-right" style="width: 25rem; z-index: 2000;">
               <div class="input-group mx-2 w-auto">
-                <input class="form-control typeahead-materials" type="search" data-notfoundtext="{% translate "Material not found..." %}"  placeholder="{% translate "Search" %}" aria-label="{% translate "Search" %}" aria-describedby="nav-search-addon2">
+                <input class="form-control typeahead-materials" id="navSearchDropdown" type="search" data-target="#catalogModal" data-notfoundtext="{% translate "Material not found..." %}"  placeholder="{% translate "Search" %}" aria-label="{% translate "Search" %}" aria-describedby="nav-search-addon2">
                 <div class="input-group-append">
                   <button type="button" class="btn btn-outline-secondary" id="nav-search-addon2">
                     <i class="fas fa-search"></i>
@@ -114,7 +114,7 @@
           </li>
         </ul>
         <div class="input-group my-2 my-lg-0 d-flex d-sm-none d-lg-flex w-auto">
-          <input class="form-control typeahead-materials" data-notfoundtext="{% translate "Material not found..." %}" type="search" placeholder="{% translate "Search" %}" aria-label="{% translate "Search" %}" aria-describedby="nav-search-addon">
+          <input class="form-control typeahead-materials" id="navSearch" type="search" data-target="#catalogModal" data-notfoundtext="{% translate "Material not found..." %}" placeholder="{% translate "Search" %}" aria-label="{% translate "Search" %}" aria-describedby="nav-search-addon">
           <div class="input-group-append">
             <button type="button" class="btn btn-outline-secondary" id="nav-search-addon">
               <i class="fas fa-search"></i>
@@ -125,4 +125,5 @@
     </div>
   </nav>
   {% endwith %}
+  {% include "catalog/partials/material_detail_modal.html" %}
 {% endblock %}

@@ -58,6 +58,10 @@ export default class Autocomplete {
     this._$elem.typeahead('val', obj.name);
   }
 
+  openModal(target) {
+    $(target).modal('show', this.selectedItem);
+  }
+
   reset() {
     this._selected = this._initial;
     if (this._initial.name !== undefined) {
@@ -161,6 +165,9 @@ export default class Autocomplete {
         this._$elem.typeahead('val', suggestion.name);
       }
       this._selected = suggestion;
+      if (this._$elem.data('target')) {
+        this.openModal(this._$elem.data('target'));
+      }
       this.validate();
     });
   }

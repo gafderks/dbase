@@ -1,7 +1,7 @@
 from selenium.webdriver import ActionChains
 
 from booking.models import PartOfDay
-from functional_tests.base import wait, retry_stale
+from functional_tests.base import retry_stale
 
 
 def get_part_of_day_name(code):
@@ -70,11 +70,3 @@ class EventViewPage(object):
         )
         material_text_elem = booking.find_element_by_css_selector(".booking-name")
         material_text_elem.click()
-
-    @wait
-    def check_if_typeahead_loaded(self):
-        self.test.assertIsNotNone(
-            self.test.get_from_local_storage(
-                "__/booking/api/material?format=json__data"
-            )
-        )
