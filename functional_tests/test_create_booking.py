@@ -57,7 +57,8 @@ class SimpleUserBookingTest(FunctionalTest):
         )
 
     def test_can_edit_booking(self):
-        # TODO Does not edit a booking, only edits a game
+        self.browser.set_window_size(1024, 782)
+
         # Bob is a logged in user
         bob = UserFactory(first_name="Bob")
         self.create_pre_authenticated_session(bob)
@@ -92,6 +93,11 @@ class SimpleUserBookingTest(FunctionalTest):
 
         # He adds a booking for another material
         ehbo_doos = game_view_page.add_booking(first_game, 2, "EHBO doos", "doos")
+
+        # Bob edits the booking he just added
+        game_view_page.edit_booking(
+            ehbo_doos, first_game, 4, "beschuiten (rol)", "Besch"
+        )
 
     def test_can_delete_booking(self):
         self.browser.set_window_size(1024, 782)
