@@ -107,3 +107,6 @@ class FunctionalTest(StaticLiveServerTestCase):
         self.assertIsNotNone(
             self.get_from_local_storage("__/booking/api/material?format=json__data")
         )
+
+    def scroll_to(self, element):
+        self.browser.execute_script("arguments[0].scrollIntoView();", element)

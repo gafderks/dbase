@@ -2,6 +2,7 @@ from datetime import timedelta
 
 from booking.models import PartOfDay
 from booking.tests.factories import EventFactory, MaterialFactory
+from booking.tests.factories.game import PopulatedGameFactory
 from tests.utils import english
 from users.tests.factories import UserFactory
 from .base import FunctionalTest
@@ -56,6 +57,7 @@ class SimpleUserBookingTest(FunctionalTest):
         )
 
     def test_can_edit_booking(self):
+        # TODO Does not edit a booking, only edits a game
         # Bob is a logged in user
         bob = UserFactory(first_name="Bob")
         self.create_pre_authenticated_session(bob)
@@ -90,3 +92,26 @@ class SimpleUserBookingTest(FunctionalTest):
 
         # He adds a booking for another material
         ehbo_doos = game_view_page.add_booking(first_game, 2, "EHBO doos", "doos")
+
+    def test_can_delete_booking(self):
+        self.browser.set_window_size(1024, 782)
+        # Bob is a logged in user
+        bob = UserFactory(first_name="Bob")
+
+        games = PopulatedGameFactory.create_batch(
+            5, creator=bob, event=self.active_event
+        )
+
+        self.create_pre_authenticated_session(bob)
+
+        # Bob opens the homepage
+        self.browser.get(self.live_server_url)
+
+        game_view_page = GameViewPage(self)
+
+        # Bob deletes one booking from the first game but changes his mind so
+        #  he cancels the confirmation
+        game_view_page.delete_booking(games[0].bookings.first().pk, cancel=True)
+
+        # Bob deletes a booking from the second game instead.
+        game_view_page.delete_booking(games[1].bookings.first().pk, cancel=False)

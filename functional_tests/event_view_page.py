@@ -1,3 +1,5 @@
+import time
+
 from selenium.webdriver import ActionChains
 
 from booking.models import PartOfDay
@@ -16,6 +18,10 @@ class EventViewPage(object):
         return self.test.browser.find_element_by_id("catalogModal")
 
     def hover_then_click(self, element_hover, element_click):
+        # FireFox does not automatically scroll to the element...
+        # @see https://stackoverflow.com/a/52045231
+        self.test.scroll_to(element_hover)
+        time.sleep(0.5)
         hover_click = (
             ActionChains(self.test.browser)
             .move_to_element(element_hover)

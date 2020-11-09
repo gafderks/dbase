@@ -1,3 +1,4 @@
+from selenium.common.exceptions import StaleElementReferenceException
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.select import Select
 
@@ -218,3 +219,61 @@ class GameViewPage(EventViewPage):
         self.test.wait_for(
             lambda: self.test.browser.find_element_by_class_name("button-gameview")
         )
+
+    def delete_booking(self, booking_id, cancel=False):
+        # Find the booking on the page
+        booking = self.test.browser.find_element_by_css_selector(
+            f'.booking[data-id="{booking_id}"]'
+        )
+        booking_name = booking.find_element_by_css_selector(".booking-name").text
+
+        num_bookings_before = self.get_number_of_bookings()
+
+        # Press the delete button
+        self.hover_then_click(
+            booking,
+            booking.find_element_by_css_selector(".show-md .delete-booking"),
+        )
+
+        # Verify the confirmation
+        delete_confirmation = self.test.browser.find_element_by_id("deleteBookingModal")
+        self.test.wait_for(
+            lambda: self.test.assertTrue(
+                booking_name in delete_confirmation.text,
+                "the name of the booking should be part of the confirmation message",
+            )
+        )
+
+        if cancel:
+            # Click the cancel button
+            delete_confirmation.find_element_by_css_selector(
+                'button[data-dismiss="modal"]'
+            ).click()
+
+            # Check that the modal is hidden now
+            self.test.wait_for(
+                lambda: self.test.assertFalse(delete_confirmation.is_displayed())
+            )
+
+            # Check that no bookings were deleted
+            self.test.assertEqual(self.get_number_of_bookings(), num_bookings_before)
+
+        else:  # Confirm deletion
+            # Click the confirmation button
+            delete_confirmation.find_element_by_css_selector(".confirm-delete").click()
+
+            # Check that the modal is hidden now
+            self.test.wait_for(
+                lambda: self.test.assertFalse(delete_confirmation.is_displayed())
+            )
+
+            # Check that one booking was deleted
+            self.test.wait_for(
+                lambda: self.test.assertEqual(
+                    self.get_number_of_bookings(), num_bookings_before - 1
+                )
+            )
+
+            # Check that the correct booking was deleted
+            with self.test.assertRaises(StaleElementReferenceException):
+                booking.click()
