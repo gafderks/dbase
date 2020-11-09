@@ -246,9 +246,11 @@ class GameViewPage(EventViewPage):
 
         if cancel:
             # Click the cancel button
-            delete_confirmation.find_element_by_css_selector(
-                'button[data-dismiss="modal"]'
-            ).click()
+            self.test.wait_for(
+                lambda: delete_confirmation.find_element_by_css_selector(
+                    'button[data-dismiss="modal"]'
+                ).click()
+            )
 
             # Check that the modal is hidden now
             self.test.wait_for(
@@ -306,9 +308,11 @@ class GameViewPage(EventViewPage):
 
         if cancel:
             # Click the cancel button
-            delete_confirmation.find_element_by_css_selector(
-                'button[data-dismiss="modal"]'
-            ).click()
+            self.test.wait_for(
+                lambda: delete_confirmation.find_element_by_css_selector(
+                    'button[data-dismiss="modal"]'
+                ).click()
+            )
 
             # Check that the modal is hidden now
             self.test.wait_for(
@@ -320,7 +324,11 @@ class GameViewPage(EventViewPage):
 
         else:  # Confirm deletion
             # Click the confirmation button
-            delete_confirmation.find_element_by_css_selector(".confirm-delete").click()
+            self.test.wait_for(
+                lambda: delete_confirmation.find_element_by_css_selector(
+                    ".confirm-delete"
+                ).click()
+            )
 
             # Check that the modal is hidden now
             self.test.wait_for(
