@@ -260,7 +260,11 @@ class GameViewPage(EventViewPage):
 
         else:  # Confirm deletion
             # Click the confirmation button
-            delete_confirmation.find_element_by_css_selector(".confirm-delete").click()
+            self.test.wait_for(
+                lambda: delete_confirmation.find_element_by_css_selector(
+                    ".confirm-delete"
+                ).click()
+            )
 
             # Check that the modal is hidden now
             self.test.wait_for(
@@ -277,3 +281,59 @@ class GameViewPage(EventViewPage):
             # Check that the correct booking was deleted
             with self.test.assertRaises(StaleElementReferenceException):
                 booking.click()
+
+    def delete_game(self, game_id, cancel=False):
+        # Find the game on the page
+        game_card = self.test.browser.find_element_by_id(f"game{game_id}")
+        game_name = game_card.find_element_by_css_selector(".game-name").text
+
+        num_games_before = self.get_number_of_games()
+
+        # Press the delete button
+        self.hover_then_click(
+            game_card.find_element_by_css_selector(".game-header"),
+            game_card.find_element_by_css_selector(".delete-game"),
+        )
+
+        # Verify the delete confirmation
+        delete_confirmation = self.test.browser.find_element_by_id("deleteGameModal")
+        self.test.wait_for(
+            lambda: self.test.assertTrue(
+                game_name in delete_confirmation.text,
+                "the name of the game should be part of the confirmation message",
+            )
+        )
+
+        if cancel:
+            # Click the cancel button
+            delete_confirmation.find_element_by_css_selector(
+                'button[data-dismiss="modal"]'
+            ).click()
+
+            # Check that the modal is hidden now
+            self.test.wait_for(
+                lambda: self.test.assertFalse(delete_confirmation.is_displayed())
+            )
+
+            # Check that no games were deleted
+            self.test.assertEqual(self.get_number_of_games(), num_games_before)
+
+        else:  # Confirm deletion
+            # Click the confirmation button
+            delete_confirmation.find_element_by_css_selector(".confirm-delete").click()
+
+            # Check that the modal is hidden now
+            self.test.wait_for(
+                lambda: self.test.assertFalse(delete_confirmation.is_displayed())
+            )
+
+            # Check that one booking was deleted
+            self.test.wait_for(
+                lambda: self.test.assertEqual(
+                    self.get_number_of_games(), num_games_before - 1
+                )
+            )
+
+            # Check that the correct booking was deleted
+            with self.test.assertRaises(StaleElementReferenceException):
+                game_card.click()

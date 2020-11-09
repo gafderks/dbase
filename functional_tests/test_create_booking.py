@@ -113,5 +113,9 @@ class SimpleUserBookingTest(FunctionalTest):
         #  he cancels the confirmation
         game_view_page.delete_booking(games[0].bookings.first().pk, cancel=True)
 
-        # Bob deletes a booking from the second game instead.
+        # Bob deletes a booking from the second game instead
         game_view_page.delete_booking(games[1].bookings.first().pk, cancel=False)
+
+        # Then Bob deletes an entire game (along with its bookings)
+        game_view_page.delete_game(games[2].pk, cancel=True)
+        game_view_page.delete_game(games[2].pk, cancel=False)
