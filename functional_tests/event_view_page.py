@@ -25,9 +25,11 @@ class EventViewPage(object):
         hover_click = (
             ActionChains(self.test.browser)
             .move_to_element(element_hover)
+            .click()
             .move_to_element(element_click)
+            .click()
         )
-        hover_click.click().perform()
+        hover_click.perform()
 
     def get_newest_booking_id(self, context=None):
         if context is None:
