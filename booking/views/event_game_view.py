@@ -11,7 +11,11 @@ class EventGameView(EventView):
     def dispatch(self, request, *args, **kwargs):
         """ Redirect to the list view if all groups are requested """
         group_slug = kwargs.get("group_slug", None)
-        if group_slug is None and request.user.group is None:
+        if (
+            group_slug is None
+            and request.user.is_authenticated
+            and request.user.group is None
+        ):
             # If the user is not in a group and did not supply a group, show all groups
             group_slug = "all"
         if group_slug == "all":
