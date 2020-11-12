@@ -99,6 +99,19 @@ class SimpleUserBookingTest(FunctionalTest):
             ehbo_doos, first_game, 4, "beschuiten (rol)", "Besch"
         )
 
+        # Then from the list view page, Bob tries to edit the booking once again
+        game_view_page.switch_to_list_view()
+        list_view_page = ListViewPage(self)
+        list_view_page.edit_booking(
+            ehbo_doos,
+            8,
+            "EHBO doos",
+            first_game_day,
+            PartOfDay.MORNING,
+            "Hike and seek",
+            partial_material_text="doos",
+        )
+
     def test_can_delete_booking(self):
         self.browser.set_window_size(1024, 782)
         # Bob is a logged in user
@@ -125,3 +138,9 @@ class SimpleUserBookingTest(FunctionalTest):
         # Then Bob deletes an entire game (along with its bookings)
         game_view_page.delete_game(games[2].pk, cancel=True)
         game_view_page.delete_game(games[2].pk, cancel=False)
+
+        # Then Bob tries to delete a booking from the list view page
+        game_view_page.switch_to_list_view()
+        list_view_page = ListViewPage(self)
+        list_view_page.delete_booking(games[3].bookings.first().pk, cancel=True)
+        list_view_page.delete_booking(games[3].bookings.first().pk, cancel=False)

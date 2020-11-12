@@ -27,7 +27,6 @@ class EventViewPage(object):
         hover_click = (
             ActionChains(self.test.browser)
             .move_to_element(element_hover)
-            .click()
             .move_to_element(element_click)
             .click()
         )
@@ -86,17 +85,31 @@ class EventViewPage(object):
         material_text_elem = booking.find_element_by_css_selector(".booking-name")
         material_text_elem.click()
 
-    def edit_booking(
-        self, booking_id, game_id, amount, material_text, partial_material_text=None
+    def edit_booking(self, *args, **kwargs):
+        raise NotImplementedError(
+            "You need to call edit_booking on a ListViewPage or a GameViewPage"
+        )
+
+    def _edit_booking(
+        self, booking_id, amount, material_text, partial_material_text=None
     ):
         self.test.check_if_typeahead_loaded()
         # Find the booking on the page
         booking = self.test.browser.find_element_by_css_selector(
             f'.booking[data-id="{booking_id}"]'
         )
-        booking_name = booking.find_element_by_css_selector(".booking-name").text
 
         num_bookings_before = self.get_number_of_bookings()
+
+        # If the booking is a duplicate, we need to expand it first
+        booking_classes = booking.get_attribute("class").split()
+        if "booking-duplicate" in booking_classes and "d-none" in booking_classes:
+            # Due to bug cannot click tr, must click td: https://sqa.stackexchange.com/a/34328
+            booking.find_element_by_xpath(
+                "./preceding-sibling::tr[contains(@class, 'booking-duplicate-handler')]/td[1]"
+            ).click()
+
+        booking_name = booking.find_element_by_css_selector(".booking-name").text
 
         # Press the edit button
         self.hover_then_click(
@@ -135,8 +148,6 @@ class EventViewPage(object):
 
         # Add the material booking
         amount_input.send_keys(Keys.ENTER)
-
-        self.verify_booking_attributes(booking_id, game_id, amount, material_text)
 
         # Check if there is no more booking with the old details
         self.test.wait_for(

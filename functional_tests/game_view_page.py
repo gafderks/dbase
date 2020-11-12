@@ -170,6 +170,12 @@ class GameViewPage(EventViewPage):
 
         return booking_id
 
+    def edit_booking(
+        self, booking_id, game_id, amount, material_text, partial_material_text=None
+    ):
+        super()._edit_booking(booking_id, amount, material_text, partial_material_text)
+        self.verify_booking_attributes(booking_id, game_id, amount, material_text)
+
     def edit_game(self, game_id, current_day, daypart_code, name, location=""):
         # Find the game on the page
         game_card = self.test.browser.find_element_by_id(f"game{game_id}")
@@ -211,7 +217,11 @@ class GameViewPage(EventViewPage):
         return game_id
 
     def switch_to_list_view(self):
-        self.test.browser.find_element_by_class_name("button-listview").click()
+        self.test.wait_for(
+            lambda: self.test.browser.find_element_by_class_name(
+                "button-listview"
+            ).click()
+        )
         # Wait for the page to switch, after switching the page should have a game view
         #  button to switch back.
         self.test.wait_for(
