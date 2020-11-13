@@ -1,3 +1,4 @@
+import $ from 'jquery';
 import Booking from './booking.js';
 import BookingContainer from './booking-container.js';
 
@@ -75,8 +76,7 @@ export default class Game extends BookingContainer {
     this._$elem.find('.delete-game').click(e => {
       const $modal = $('#deleteGameModal');
       const gameName = this._$elem.find('.game-name').text();
-      const confirmationTemplate = $modal.find('.modal-body').data('template');
-      $modal.find('.modal-body').html(confirmationTemplate.replace('${name}', gameName));
+      $modal.find('.game-name').text($.trim(gameName));
       $modal.find('.confirm-delete').off().click(() => this.update(e.currentTarget));
     });
   }

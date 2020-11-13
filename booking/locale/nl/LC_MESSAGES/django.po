@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-21 19:38+0200\n"
-"PO-Revision-Date: 2020-10-09 22:56+0200\n"
+"POT-Creation-Date: 2020-11-07 00:26+0100\n"
+"PO-Revision-Date: 2020-11-07 00:27+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: nl\n"
@@ -18,27 +18,27 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 2.4.1\n"
 
-#: .\booking\admin.py:41 .\booking\admin.py:138
+#: .\booking\admin.py:41 .\booking\admin.py:139
 msgid "Number of materials"
 msgstr "Aantal materialen"
 
-#: .\booking\admin.py:95
+#: .\booking\admin.py:96
 msgid "Image"
 msgstr "Afbeelding"
 
-#: .\booking\admin.py:103 .\booking\templates\booking\event\event.html:45
+#: .\booking\admin.py:104 .\booking\templates\booking\event\event.html:43
 msgid "Booking status"
 msgstr "Reserveringsstatus"
 
-#: .\booking\admin.py:158
+#: .\booking\admin.py:159
 msgid "Included categories"
 msgstr "Inbegrepen categorieën"
 
-#: .\booking\admin.py:159
+#: .\booking\admin.py:160
 msgid "Excluded categories"
 msgstr "Uitgesloten categorieën"
 
-#: .\booking\api\event.py:24 .\booking\templates\booking\event\event.html:92
+#: .\booking\api\event.py:24 .\booking\templates\booking\event\event.html:90
 msgid "Material bookings"
 msgstr "Materiaalaanvragen"
 
@@ -92,7 +92,7 @@ msgstr "Spel"
 msgid "Game location"
 msgstr "Spellocatie"
 
-#: .\booking\api\event.py:48 .\booking\templates\booking\event\event.html:104
+#: .\booking\api\event.py:48 .\booking\templates\booking\event\event.html:102
 msgid "Group"
 msgstr "Groep"
 
@@ -123,15 +123,15 @@ msgstr "Ja"
 msgid "No"
 msgstr "Nee"
 
-#: .\booking\api\material.py:24
+#: .\booking\api\material.py:25
 msgid "Attachments"
 msgstr "Bijlagen"
 
-#: .\booking\api\material.py:30
+#: .\booking\api\material.py:31
 msgid "Maximum stock"
 msgstr "Maximale voorraad"
 
-#: .\booking\api\material.py:37
+#: .\booking\api\material.py:38
 msgid "Search terms"
 msgstr "Zoektermen"
 
@@ -243,8 +243,8 @@ msgid "Add"
 msgstr "Toevoegen"
 
 #: .\booking\forms.py:152 .\booking\forms.py:281
-#: .\booking\templates\booking\partials\delete-booking-modal.html:15
-#: .\booking\templates\booking\partials\delete-game-modal.html:15
+#: .\booking\templates\booking\partials\delete-booking-modal.html:16
+#: .\booking\templates\booking\partials\delete-game-modal.html:16
 msgid "Cancel"
 msgstr "Annuleren"
 
@@ -659,54 +659,54 @@ msgstr "Aanvragen voor %(group)s"
 msgid "All bookings"
 msgstr "Alle aanvragen"
 
-#: .\booking\templates\booking\event\event.html:50
+#: .\booking\templates\booking\event\event.html:48
 msgid "You may edit"
 msgstr "Je mag bewerken"
 
-#: .\booking\templates\booking\event\event.html:52
+#: .\booking\templates\booking\event\event.html:50
 msgid "You cannot edit"
 msgstr "Je kan niet bewerken"
 
-#: .\booking\templates\booking\event\event.html:61
-#: .\booking\templates\booking\event\event.html:62
+#: .\booking\templates\booking\event\event.html:59
+#: .\booking\templates\booking\event\event.html:60
 msgid "Event period"
 msgstr "Evenementsperiode"
 
-#: .\booking\templates\booking\event\event.html:68
+#: .\booking\templates\booking\event\event.html:66
 msgid "Start booking period"
 msgstr "Startdatum reserveringsperiode"
 
-#: .\booking\templates\booking\event\event.html:75
+#: .\booking\templates\booking\event\event.html:73
 msgid "Booking deadline"
 msgstr "Reserveringsdeadline"
 
-#: .\booking\templates\booking\event\event.html:81
+#: .\booking\templates\booking\event\event.html:79
 msgid "Privileged booking deadline"
 msgstr "MB Reserveringsdeadline"
 
-#: .\booking\templates\booking\event\event.html:96
+#: .\booking\templates\booking\event\event.html:94
 msgid "Export options"
 msgstr "Exporteer opties"
 
-#: .\booking\templates\booking\event\event.html:97
+#: .\booking\templates\booking\event\event.html:95
 msgid "Print"
 msgstr "Printen"
 
-#: .\booking\templates\booking\event\event.html:98
+#: .\booking\templates\booking\event\event.html:96
 msgid "Export to Excel"
 msgstr "Exporteren naar Excel"
 
-#: .\booking\templates\booking\event\event.html:100
+#: .\booking\templates\booking\event\event.html:98
 msgid "Display options"
 msgstr "Weergaveopties"
 
-#: .\booking\templates\booking\event\event.html:112
+#: .\booking\templates\booking\event\event.html:110
 #: .\booking\templates\booking\event\game-view.html:58
 #: .\booking\templates\booking\event\list-view.html:62
 msgid "All"
 msgstr "Alle"
 
-#: .\booking\templates\booking\event\event.html:136
+#: .\booking\templates\booking\event\event.html:134
 msgid "Scroll to top"
 msgstr "Naar boven scrollen"
 
@@ -786,26 +786,27 @@ msgstr "Materiaalsynoniem toevoegen"
 msgid "Are you sure?"
 msgstr "Weet je het zeker?"
 
-#: .\booking\templates\booking\partials\delete-booking-modal.html:11
-#, python-brace-format
-msgid "Do you really want to delete the booking <strong>${name}</strong>?"
+#: .\booking\templates\booking\partials\delete-booking-modal.html:12
+msgid ""
+"Do you really want to delete the booking <strong class='booking-name'></"
+"strong>?"
 msgstr ""
-"Weet je zeker dat je de aanvraag <strong>${name}</strong> wilt verwijderen?"
+"Weet je zeker dat je de aanvraag <strong class='booking-name'></strong> wilt "
+"verwijderen?"
 
-#: .\booking\templates\booking\partials\delete-booking-modal.html:14
+#: .\booking\templates\booking\partials\delete-booking-modal.html:15
 msgid "Remove booking"
 msgstr "Aanvraag verwijderen"
 
-#: .\booking\templates\booking\partials\delete-game-modal.html:11
-#, python-brace-format
+#: .\booking\templates\booking\partials\delete-game-modal.html:12
 msgid ""
-"Do you really want to delete the game <strong>${name}</strong> along with "
-"all its bookings?"
+"Do you really want to delete the game <strong class='game-name'></strong> "
+"along with all its bookings?"
 msgstr ""
-"Weet je zeker dat je het spel <strong>${name}</strong> en al zijn aanvragen "
-"wilt verwijderen?"
+"Weet je zeker dat je het spel <strong class='game-name'></strong> en al zijn "
+"aanvragen wilt verwijderen?"
 
-#: .\booking\templates\booking\partials\delete-game-modal.html:14
+#: .\booking\templates\booking\partials\delete-game-modal.html:15
 msgid "Remove game"
 msgstr "Spel verwijderen"
 

@@ -1,3 +1,4 @@
+from selenium.common.exceptions import StaleElementReferenceException
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.select import Select
 
@@ -133,9 +134,7 @@ class GameViewPage(EventViewPage):
             material_input.send_keys(partial_material_text)
         else:
             material_input.send_keys(material_text)
-        self.test.browser.find_element_by_id(
-            f"id_game_booking_material_{game_id}"
-        ).send_keys(Keys.ENTER)
+        material_input.send_keys(Keys.ENTER)
 
         # As he types, he gets suggestions for materials
         self.test.wait_for(
@@ -170,6 +169,12 @@ class GameViewPage(EventViewPage):
         self.verify_booking_attributes(booking_id, game_id, amount, material_text)
 
         return booking_id
+
+    def edit_booking(
+        self, booking_id, game_id, amount, material_text, partial_material_text=None
+    ):
+        super()._edit_booking(booking_id, amount, material_text, partial_material_text)
+        self.verify_booking_attributes(booking_id, game_id, amount, material_text)
 
     def edit_game(self, game_id, current_day, daypart_code, name, location=""):
         # Find the game on the page
@@ -212,9 +217,75 @@ class GameViewPage(EventViewPage):
         return game_id
 
     def switch_to_list_view(self):
-        self.test.browser.find_element_by_class_name("button-listview").click()
+        self.test.wait_for(
+            lambda: self.test.browser.find_element_by_class_name(
+                "button-listview"
+            ).click()
+        )
         # Wait for the page to switch, after switching the page should have a game view
         #  button to switch back.
         self.test.wait_for(
             lambda: self.test.browser.find_element_by_class_name("button-gameview")
         )
+
+    def delete_game(self, game_id, cancel=False):
+        # Find the game on the page
+        game_card = self.test.browser.find_element_by_id(f"game{game_id}")
+        game_name = game_card.find_element_by_css_selector(".game-name").text
+
+        num_games_before = self.get_number_of_games()
+
+        # Press the delete button
+        self.hover_then_click(
+            game_card.find_element_by_css_selector(".game-header"),
+            game_card.find_element_by_css_selector(".delete-game"),
+        )
+
+        # Verify the delete confirmation
+        delete_confirmation = self.test.browser.find_element_by_id("deleteGameModal")
+        self.test.wait_for(
+            lambda: self.test.assertTrue(
+                game_name in delete_confirmation.text,
+                "the name of the game should be part of the confirmation message",
+            )
+        )
+
+        if cancel:
+            # Click the cancel button
+            self.test.wait_for(
+                lambda: delete_confirmation.find_element_by_css_selector(
+                    'button[data-dismiss="modal"]'
+                ).click()
+            )
+
+            # Check that the modal is hidden now
+            self.test.wait_for(
+                lambda: self.test.assertFalse(delete_confirmation.is_displayed())
+            )
+
+            # Check that no games were deleted
+            self.test.assertEqual(self.get_number_of_games(), num_games_before)
+
+        else:  # Confirm deletion
+            # Click the confirmation button
+            self.test.wait_for(
+                lambda: delete_confirmation.find_element_by_css_selector(
+                    ".confirm-delete"
+                ).click()
+            )
+
+            # Check that the modal is hidden now
+            self.test.wait_for(
+                lambda: self.test.assertFalse(delete_confirmation.is_displayed())
+            )
+
+            # Check that one booking was deleted
+            self.test.wait_for(
+                lambda: self.test.assertEqual(
+                    self.get_number_of_games(), num_games_before - 1
+                )
+            )
+
+            # Check that the correct booking was deleted
+            with self.test.assertRaises(StaleElementReferenceException):
+                game_card.click()

@@ -1,3 +1,5 @@
+import random
+
 import factory
 from factory import fuzzy
 
@@ -29,3 +31,11 @@ class GameFactory(factory.django.DjangoModelFactory):
                 "date_end": self.event.event_end,
             }
         )
+
+
+class PopulatedGameFactory(GameFactory):
+    bookings = factory.RelatedFactoryList(
+        "booking.tests.factories.BookingFactory",
+        factory_related_name="game",
+        size=lambda: random.randint(1, 5),
+    )

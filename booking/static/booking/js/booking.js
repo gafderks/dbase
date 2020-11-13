@@ -105,9 +105,8 @@ export default class Booking {
     // Booking delete button
     this._$elem.find('.delete-booking').click(e => {
       const $modal = $('#deleteBookingModal');
-      const bookingName = this._$elem.find('.booking-material').find('label').text();
-      const confirmationTemplate = $modal.find('.modal-body').data('template');
-      $modal.find('.modal-body').html(confirmationTemplate.replace('${name}', bookingName));
+      const bookingName = this._$elem.find('.booking-name').text();
+      $modal.find('.booking-name').text($.trim(bookingName));
       $modal.find('.confirm-delete').off().click(() => {
         this.update(e.currentTarget);
       });

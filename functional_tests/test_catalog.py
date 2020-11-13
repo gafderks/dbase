@@ -263,8 +263,7 @@ class CatalogMaterialTest(FunctionalTest):
         for _ in range(len(material.name)):
             search_input.send_keys(Keys.BACK_SPACE)
         search_input.send_keys(str(material.aliases.first()))
-        search_input.send_keys(Keys.ENTER)  # Choose the suggestion
-        search_input.send_keys(Keys.ENTER)  # Submit the form
+        search_input.send_keys(Keys.ENTER)  # Choose the suggestion and submit form
 
         # Bob sees the details for the typed material
         self.wait_for(
