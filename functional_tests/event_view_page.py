@@ -30,7 +30,7 @@ class EventViewPage(object):
             .move_to_element(element_click)
             .click()
         )
-        hover_click.perform()
+        self.test.wait_for(lambda: hover_click.perform())
 
     def get_newest_booking_id(self, context=None):
         if context is None:
