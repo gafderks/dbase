@@ -11,4 +11,12 @@ $('#catalogModal').on('show.bs.modal', function(event) {
   $.get(catalogUrl, function(data) {
     $modal.find('.modal-body').html($(data));
   });
+}).on('hide.bs.modal', function() {
+  // remove the material card from the modal and show the loading spinner again
+  const $modal = $(this);
+  $modal.find('.modal-body').html(`<div class="d-flex justify-content-center">
+      <div class="spinner-grow text-secondary m-5" role="status">
+        <span class="sr-only">${$modal.data('loading')}</span>
+      </div>
+    </div>`);
 });
