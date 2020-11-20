@@ -77,7 +77,7 @@ class CatalogViewPage(object):
             )
         )
 
-        print(catalog_elem.get_atrribute("outerHTML"))
+        print(catalog_elem.get_attribute("outerHTML"))
 
         # Test if material text is correct
         self.test.wait_for(
