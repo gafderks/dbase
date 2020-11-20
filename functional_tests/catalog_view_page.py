@@ -70,8 +70,9 @@ class CatalogViewPage(object):
 
         # Wait for the loading spinner to be gone/done
         self.test.wait_for(
-            lambda: self.test.assertTrue(
-                len(catalog_elem.find_elements_by_css_selector(".spinner-grow")) == 0,
+            lambda: self.test.assertEqual(
+                len(catalog_elem.find_elements_by_css_selector(".spinner-grow")),
+                0,
                 msg="catalog is still loading",
             )
         )
