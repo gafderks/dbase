@@ -65,8 +65,17 @@ class CatalogViewPage(object):
         """
         :param catalog_elem: selenium element
         :param Material material:
-        :return:
+        :return: None
         """
+
+        # Wait for the loading spinner to be gone/done
+        self.test.wait_for(
+            lambda: self.test.assertTrue(
+                len(catalog_elem.find_elements_by_css_selector(".spinner-grow")) == 0,
+                msg="catalog is still loading",
+            )
+        )
+
         # Test if material text is correct
         self.test.wait_for(
             lambda: self.test.assertEqual(
