@@ -77,13 +77,13 @@ class CatalogViewPage(object):
             )
         )
 
-        print(catalog_elem.get_attribute("outerHTML"))
+        print(catalog_elem.find_element_by_class_name("card-title").text)
 
         # Test if material text is correct
         self.test.wait_for(
             lambda: self.test.assertEqual(
                 material.name.lower(),
-                catalog_elem.find_element_by_css_selector(".card-title").text.lower(),
+                catalog_elem.find_element_by_class_name("card-title").text.lower(),
                 "the material name does not match",
             )
         )
