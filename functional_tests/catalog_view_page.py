@@ -78,9 +78,9 @@ class CatalogViewPage(object):
         )
 
         print(
-            catalog_elem.find_element_by_class_name("card-title").get_attribute(
-                "innerText"
-            )
+            catalog_elem.find_element_by_class_name("card-title")
+            .get_attribute("innerText")
+            .strip()
         )
 
         # Test if material text is correct
@@ -89,6 +89,7 @@ class CatalogViewPage(object):
                 material.name.lower(),
                 catalog_elem.find_element_by_class_name("card-title")
                 .get_attribute("innerText")
+                .strip()
                 .lower(),
                 "the material name does not match",
             )
