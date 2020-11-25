@@ -88,3 +88,6 @@ def get_sentinel_user(group=None):
     return get_user_model().objects.get_or_create(
         group=group, email=f"deleted_user@{group}", first_name=_("Deleted user")
     )[0]
+
+
+get_sentinel_user.alters_data = True
