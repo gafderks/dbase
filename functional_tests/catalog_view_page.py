@@ -77,8 +77,6 @@ class CatalogViewPage(object):
             )
         )
 
-        print(catalog_elem.find_element_by_class_name("card-title").text)
-
         # Test if material text is correct
         self.test.wait_for(
             lambda: self.test.assertEqual(
