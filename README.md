@@ -67,8 +67,8 @@ Roadmap
 ##### Could have 
 - [ ] Suggested material bookings. If you book 'Rambler' it suggests electricity cords.
 - [ ] Enable simultaneous editing of bookings and games
-- [ ] Info button next to bookings for opening material info modal.
-    - [ ] For MB: include shortcut for altering material (e.g. category, GM)
+- [X] Info button next to bookings for opening material info modal.
+    - [X] For MB: include shortcut for altering material (e.g. category, GM)
 - [ ] Contributors file
 - [X] Camera app for quickly adding photos of materials
 - [ ] Import games from other events
