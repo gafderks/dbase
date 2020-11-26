@@ -65,13 +65,23 @@ class CatalogViewPage(object):
         """
         :param catalog_elem: selenium element
         :param Material material:
-        :return:
+        :return: None
         """
+
+        # Wait for the loading spinner to be gone/done
+        self.test.wait_for(
+            lambda: self.test.assertEqual(
+                len(catalog_elem.find_elements_by_css_selector(".spinner-grow")),
+                0,
+                msg="catalog is still loading",
+            )
+        )
+
         # Test if material text is correct
         self.test.wait_for(
             lambda: self.test.assertEqual(
                 material.name.lower(),
-                catalog_elem.find_element_by_css_selector(".card-title").text.lower(),
+                catalog_elem.find_element_by_class_name("card-title").text.lower(),
                 "the material name does not match",
             )
         )
