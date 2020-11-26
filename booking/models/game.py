@@ -108,6 +108,8 @@ class Game(RulesModel):
             self.save()
             replacement.save()
 
+    swap.alters_data = True
+
     def up(self):
         """
         Move Game up one position.
@@ -117,6 +119,8 @@ class Game(RulesModel):
         if previous:
             self.swap(previous)
 
+    up.alters_data = True
+
     def down(self):
         """
         Move Game down one position.
@@ -125,6 +129,8 @@ class Game(RulesModel):
         _next = self.next
         if _next:
             self.swap(_next)
+
+    down.alters_data = True
 
     @property
     def form(self):
