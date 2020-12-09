@@ -3,14 +3,14 @@
 {% load rules %}
 {% has_perm 'booking.book_on_game' user game as can_book_on_game %}
 {% has_perm 'booking.change_game' user game as can_edit_game %}
-<div class="card game mb-3 fix-anchor" id="game{{ game.pk }}" data-id="{{ game.pk }}" data-order="{{ game.order }}" data-part-of-day-code="{{ game.part_of_day }}" data-day="{{ game.day.isoformat }}">
+<div class="card game mb-3" id="game{{ game.pk }}" data-id="{{ game.pk }}" data-order="{{ game.order }}" data-part-of-day-code="{{ game.part_of_day }}" data-day="{{ game.day.isoformat }}">
   <div class="card-header">
     {% if game %}
       {% crispy game.form %}
     {% else %}
       <form></form>
     {% endif %}
-    <div class="game-header fix-anchor row">
+    <div class="game-header row">
       <div class="game-name card-name col-auto py-2">{{ game.name }}</div>
       <div class="game-location col py-2 text-right text-secondary">
         {% if game.location %}

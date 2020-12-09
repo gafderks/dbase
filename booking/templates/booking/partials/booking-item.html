@@ -3,7 +3,7 @@
 {% load roles %}
 {% load rules %}
 {% has_perm 'booking.change_booking' user booking as can_edit_booking %}
-<tr class="booking d-flex flex-wrap fix-anchor" data-id="{{ booking.pk }}" data-material-name="{{ booking.material.name }}" data-material-id="{{ booking.material.id }}" data-amount="{{ booking.amount }}" data-game-id="{{ booking.game.pk }}" data-stock="{{ booking.material.stock }}">
+<tr class="booking d-flex flex-wrap" data-id="{{ booking.pk }}" data-material-name="{{ booking.material.name }}" data-material-id="{{ booking.material.id }}" data-amount="{{ booking.amount }}" data-game-id="{{ booking.game.pk }}" data-stock="{{ booking.material.stock }}">
   <td class="booking-form col-12">
     {% if booking %}
       {% if include_game %}
