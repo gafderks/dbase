@@ -23,8 +23,9 @@ html {
     background: none 0% 0% / auto repeat scroll padding-box padding-box rgb(255, 255, 255);
 }
 
-.fix-anchor {
-    scroll-margin-top: 75px;
+// Adjust the scroll margin of all elements in booking-card body for sticky day navigation
+.booking-card > .card-body * {
+  scroll-margin-top: 75px; // height of day nav is 65px
 }
 
 ul.list-horizontal {

@@ -11,9 +11,9 @@
     <div class="day row" data-date="{{ day.isoformat }}">
       {% include "booking/partials/day-nav.html" with day=day parts_of_day=parts_of_day games=games|get_item:day %}
       <div class="col-lg-9">
-        <h4 id="day{{ day.isoformat }}" class="fix-anchor">{{ day|date:"l"|capfirst }} {{ day }}</h4>
+        <h4 id="day{{ day.isoformat }}">{{ day|date:"l"|capfirst }} {{ day }}</h4>
         {% for code, trans in parts_of_day %}
-          <div id="{{ day.isoformat }}{{ code }}" class="part-of-day fix-anchor" data-date="{{ day.isoformat }}" data-part-of-day="{{ code }}">
+          <div id="{{ day.isoformat }}{{ code }}" class="part-of-day" data-date="{{ day.isoformat }}" data-part-of-day="{{ code }}">
           <h5>{{ trans }}</h5>
           {# Todo display part of day form #}
           {% for game in games|get_item:day|get_item:code %}
@@ -23,7 +23,7 @@
         {% endfor %}
         {% has_perm 'booking.add_group_game' user current_group as can_add_game %}
         {% if can_add_game  %}
-          <div id="{{ day.isoformat }}new" class="card editor new-game fix-anchor d-print-none">
+          <div id="{{ day.isoformat }}new" class="card editor new-game d-print-none">
             <div class="card-header">
               <h6 class="text-secondary">{% trans "Add new game" %}</h6>
               {% with new_game_form=game_forms|get_item:day %}

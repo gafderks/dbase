@@ -107,7 +107,7 @@ export default class List extends BookingContainer {
       const stock = duplicates_set[0].stock;
       const stock_placeholder = stock ? `${gettext('Stock')}: ${stock}` : '';
       const stock_text = stock ? `<i class="fas fa-store-alt"></i> ${stock}` : '';
-      const duplicate_bar = $('<tr>').addClass('booking booking-duplicate-handler d-flex flex-wrap fix-anchor')
+      const duplicate_bar = $('<tr>').addClass('booking booking-duplicate-handler d-flex flex-wrap')
         .append(
           $('<td>').addClass('booking-duplicate-dir col-auto pl-md-3 pl-sm-2 d-flex align-items-center')
             .html('<i class="far fa-folder fa-fw"></i><i class="far fa-folder-open fa-fw"></i>'),
