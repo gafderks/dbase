@@ -271,3 +271,46 @@ class CatalogMaterialTest(FunctionalTest):
                 self.browser.find_element_by_id("catalogModal"), material
             )
         )
+
+    def test_navigation_search_material_and_material_alias_from_catalog(self):
+        self.browser.set_window_size(1024, 768)
+        material = MaterialFactory()
+
+        # Bob is a logged in user
+        bob = UserFactory()
+        self.create_pre_authenticated_session(bob)
+
+        # Bob opens the catalog page
+        self.browser.get(self.live_server_url + reverse("catalog:catalog"))
+
+        catalog_view_page = CatalogViewPage(self)
+
+        self.check_if_typeahead_loaded()
+
+        # Bob clicks the search bar and enters the name of the material
+        search_input = self.browser.find_element_by_id("navSearch")
+        search_input.send_keys(material.name)
+        search_input.send_keys(Keys.ENTER)
+
+        # Bob sees the details for the typed material
+        catalog_view_page = CatalogViewPage(self)
+        catalog_view_page.verify_material_attributes(
+            self.browser.find_element_by_id("catalogModal"), material
+        )
+
+        # Bob closes the modal by pressing escape
+        ActionChains(self.browser).send_keys(Keys.ESCAPE).perform()
+
+        # Bob clicks the search bar and enters the alias of the material
+        search_input = self.browser.find_element_by_id("navSearch")
+        for _ in range(len(material.name)):
+            search_input.send_keys(Keys.BACK_SPACE)
+        search_input.send_keys(str(material.aliases.first()))
+        search_input.send_keys(Keys.ENTER)  # Choose the suggestion and submit form
+
+        # Bob sees the details for the typed material
+        self.wait_for(
+            lambda: catalog_view_page.verify_material_attributes(
+                self.browser.find_element_by_id("catalogModal"), material
+            )
+        )
