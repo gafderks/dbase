@@ -7,10 +7,11 @@ https://docs.djangoproject.com/en/dev/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/dev/ref/settings/
 """
-
+import logging
 from pathlib import Path
 
 import environ
+from sorl.thumbnail.log import ThumbnailLogHandler
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
@@ -225,3 +226,9 @@ TEST_RUNNER = "tests.runner.CustomTestSuitRunner"
 
 SHOP_SKU_OFFSET = env("SHOP_SKU_OFFSET")
 SHOP_PRODUCT_URL_FORMAT = env("SHOP_PRODUCT_URL_FORMAT")
+
+# Setup logging for Sorl thumbnails
+# according to https://sorl-thumbnail.readthedocs.io/en/latest/logging.html
+handler = ThumbnailLogHandler()
+handler.setLevel(logging.ERROR)
+logging.getLogger("sorl.thumbnail").addHandler(handler)
