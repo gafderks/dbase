@@ -11,7 +11,6 @@ import logging
 from pathlib import Path
 
 import environ
-from sorl.thumbnail.log import ThumbnailLogHandler
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
@@ -229,6 +228,8 @@ SHOP_PRODUCT_URL_FORMAT = env("SHOP_PRODUCT_URL_FORMAT")
 
 # Setup logging for Sorl thumbnails
 # according to https://sorl-thumbnail.readthedocs.io/en/latest/logging.html
+from sorl.thumbnail.log import ThumbnailLogHandler  # Needs to have SECRET_KEY set
+
 handler = ThumbnailLogHandler()
 handler.setLevel(logging.ERROR)
 logging.getLogger("sorl.thumbnail").addHandler(handler)
