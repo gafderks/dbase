@@ -11,7 +11,7 @@
     "@rollup/plugin-inject": "^4.0.2",
     "@rollup/plugin-node-resolve": "^10.0.0",
     "@rollup/stream": "^1.1.0",
-    "autoprefixer": "^10.0.2",
+    "autoprefixer": "^10.0.4",
     "bloodhound-js": "^1.2.3",
     "bootstrap": "^4.5.3",
     "bootstrap4-toggle": "^3.6.1",
