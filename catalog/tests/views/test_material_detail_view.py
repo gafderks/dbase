@@ -4,7 +4,7 @@ from django.conf import settings
 from django.test import TestCase, override_settings
 from django.urls import reverse
 
-from booking.tests.factories import MaterialFactory, CategoryFactory
+from booking.tests.factories import MaterialFactory, CategoryFactory, EventFactory
 from tests.utils import english
 from users.tests.factories import UserFactory
 
