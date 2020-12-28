@@ -71,3 +71,10 @@ class MaterialDetailViewTest(TestCase):
         self.assertNotContains(
             response, reverse("admin:booking_material_change", args=[material.pk])
         )
+
+    def test_events_in_context(self):
+        material = MaterialFactory()
+        event = EventFactory()
+        self.client.force_login(UserFactory())
+        response = self.client.get(material.get_absolute_url())
+        self.assertEqual(list(response.context["events"]), [event])
