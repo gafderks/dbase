@@ -99,10 +99,10 @@
         },
         "django-money": {
             "hashes": [
-                "sha256:7cd0bb9724a18eb24193b57ebe60e82247bf975ea10b58094be88ef1809b2ea9",
-                "sha256:8d62347d668a3d9bded1b6b2165d1132681e35e5a3377dc333f177bf0bd3ed4d"
+                "sha256:2317d92e53f6488cd2518ccdcaebec4ed50c2b3999a79290d1150f5fcbf1370b",
+                "sha256:96ac36144defc8886d616ea8e4559d0c12b57a4007ccc5e054e686d3d6710b80"
             ],
-            "version": "==1.2.1"
+            "version": "==1.2.2"
         },
         "env-tools": {
             "hashes": [
