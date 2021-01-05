@@ -35,7 +35,7 @@
     "popper.js": "^1.16.1",
     "postcss": "^8.2.1",
     "postcss-import": "^13.0.0",
-    "rollup": "^2.34.2",
+    "rollup": "^2.35.1",
     "rollup-plugin-babel": "^4.4.0",
     "vinyl-buffer": "^1.0.1",
     "vinyl-source-stream": "^2.0.0"
