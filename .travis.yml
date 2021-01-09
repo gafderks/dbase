@@ -3,7 +3,8 @@ python:
   - "3.6"
   - "3.7"
   - "3.8"
-node_js: "12"
+node_js:
+  - "12"
 env:
   global:
     - DATABASE_URL="sqlite:///db.sqlite3"
