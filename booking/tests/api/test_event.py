@@ -19,6 +19,6 @@ class EventExcelViewTest(TestCase):
             )
         )
         self.assertEqual(
-            response.content_type,
+            response["content-type"],
             "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
         )

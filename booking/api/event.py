@@ -71,8 +71,8 @@ class EventExcelView(EventListView):
 
         for day, part_of_days in context["list_views"].items():
             for part_of_day, filters in part_of_days.items():
-                for filter in filters:
-                    for booking in filter.bookings:
+                for filter, bookings in filters:
+                    for booking in bookings:
                         # Skip the header row
                         row_num += 1
 
