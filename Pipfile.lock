@@ -225,10 +225,10 @@
         },
         "py-moneyed": {
             "hashes": [
-                "sha256:c6691b914a5e4b5b2335cf113620479a52cc82988c0e143435a7c5c7d60cd4ad",
-                "sha256:ec73795171919d537880a33c44d07fcdf0a5225e8368684fe02f0e75a6404742"
+                "sha256:101aba2e888a4367d5fd411f14c8cda7457ca29f40e64c78c518668d45fd185c",
+                "sha256:803dbf9bac5844ddb21532912f36c44022b4f873faca9fda17e93eb15c567b4d"
             ],
-            "version": "==0.8.0"
+            "version": "==1.0"
         },
         "python-dateutil": {
             "hashes": [
