@@ -60,6 +60,8 @@ INSTALLED_APPS = [
     "ckeditor",
     "django_filters",
     "rules.apps.AutodiscoverRulesConfig",
+    "mptt",
+    "django_mptt_admin",
 ]
 
 MIDDLEWARE = [

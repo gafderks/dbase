@@ -30,6 +30,8 @@ rules = "*"
 Django = "*"
 Pillow = "*"
 factory-boy = "*"
+django-mptt = "*"
+django-mptt-admin = "*"
 
 [pipenv]
 allow_prereleases = true
