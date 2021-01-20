@@ -9,6 +9,7 @@ from adminsortable.admin import (
     SortableStackedInline,
 )
 from django_mptt_admin.admin import DjangoMpttAdmin
+from mptt.admin import TreeRelatedFieldListFilter
 from rules.contrib.admin import ObjectPermissionsModelAdmin
 from sorl.thumbnail import get_thumbnail
 from sorl.thumbnail.admin import AdminInlineImageMixin
@@ -59,7 +60,7 @@ class MaterialAliasInline(admin.StackedInline):
 class MaterialAdmin(NonSortableParentAdmin):
     list_display = ("name", "thumbnail", "location", "stock")
     list_filter = [
-        "categories",
+        ("categories", TreeRelatedFieldListFilter),
         "location",
         "gm",
         "lendable",
