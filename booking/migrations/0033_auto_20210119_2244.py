@@ -4,11 +4,11 @@ import django.db.models.functions.text
 import mptt.fields
 from django.db import migrations, models
 
-from booking.models import Category
 
-
-def rebuild_tree():
-    Category.objects.rebuild()
+def rebuild_tree(apps, schema_editor):
+    Category = apps.get_model("booking", "Category")
+    db_alias = schema_editor.connections.alias
+    Category.objects.using(db_alias).rebuild()
 
 
 class Migration(migrations.Migration):
@@ -62,5 +62,5 @@ class Migration(migrations.Migration):
             field=models.PositiveIntegerField(db_index=True, default=0, editable=False),
             preserve_default=False,
         ),
-        migrations.RunPython(rebuild_tree),
+        migrations.RunPython(rebuild_tree, RunPython.noop),
     ]
