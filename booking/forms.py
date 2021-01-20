@@ -1,14 +1,17 @@
-from django import forms
-from django.urls import reverse
-from django.utils.translation import gettext_lazy as _
-from django.utils.translation import gettext as __
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit, Layout, Field, Div, Reset
+from django import forms
+from django.urls import reverse
+from django.utils.translation import gettext as __
+from django.utils.translation import gettext_lazy as _
+from mptt.forms import TreeNodeMultipleChoiceField
 
 from booking.models import Material, Category, Event, MaterialAlias, Game, Booking
 
 
 class MaterialForm(forms.ModelForm):
+    categories = TreeNodeMultipleChoiceField(queryset=Category.objects.all())
+
     class Meta:
         model = Material
         fields = "__all__"
