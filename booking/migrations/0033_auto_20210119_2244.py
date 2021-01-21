@@ -7,7 +7,7 @@ from django.db import migrations, models
 
 def rebuild_tree(apps, schema_editor):
     Category = apps.get_model("booking", "Category")
-    db_alias = schema_editor.connections.alias
+    db_alias = schema_editor.connection.alias
     Category.objects.using(db_alias).rebuild()
 
 
