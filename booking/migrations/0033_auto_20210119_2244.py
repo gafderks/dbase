@@ -2,13 +2,13 @@
 
 import django.db.models.functions.text
 import mptt.fields
-from django.db import migrations, models
+from django.db import migrations, models, transaction
 
 
 def rebuild_tree(apps, schema_editor):
     Category = apps.get_model("booking", "Category")
-    db_alias = schema_editor.connection.alias
-    Category.objects.using(db_alias).rebuild()
+    with transaction.atomic():
+        Category.objects.rebuild()
 
 
 class Migration(migrations.Migration):
