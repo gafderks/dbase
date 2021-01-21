@@ -3,12 +3,18 @@
 import django.db.models.functions.text
 import mptt.fields
 from django.db import migrations, models, transaction
+from mptt import managers, register
 
 
 def rebuild_tree(apps, schema_editor):
     Category = apps.get_model("booking", "Category")
+
+    manager = managers.TreeManager()
+    manager.model = Category
+    register(Category)
+    manager.contribute_to_class(Category, "objects")
     with transaction.atomic():
-        Category.objects.rebuild()
+        manager.rebuild()
 
 
 class Migration(migrations.Migration):
