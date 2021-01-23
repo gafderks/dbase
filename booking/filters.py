@@ -1,14 +1,15 @@
 import copy
 
-from django.contrib import admin
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Div, Field, Submit, HTML
+from django.contrib import admin
 from django.db.models import Count
 from django.forms import NullBooleanSelect, NullBooleanField
 from django.forms.fields import CallableChoiceIterator
-from django_filters import BooleanFilter, ChoiceFilter, FilterSet, ModelChoiceFilter
-from django.utils.translation import gettext_lazy as _
 from django.utils.translation import gettext as __
+from django.utils.translation import gettext_lazy as _
+from django_filters import BooleanFilter, ChoiceFilter, FilterSet, ModelChoiceFilter
+from mptt.forms import TreeNodeChoiceField
 
 from booking.models import Category, Booking, Material
 
@@ -68,7 +69,7 @@ class CustomBooleanFilter(BooleanFilter):
             ("true", _("Yes")),
             ("false", _("No")),
         ),
-        **kwargs
+        **kwargs,
     ):
         super().__init__(*args, choices=choices, **kwargs)
 
@@ -242,8 +243,21 @@ class HasMaterialImageListFilter(admin.SimpleListFilter):
             return queryset.filter(image_count=0)
 
 
+class TreeNodeChoiceFilter(ModelChoiceFilter):
+    """ Idea from https://github.com/carltongibson/django-filter/issues/123#issuecomment-675502695 """
+
+    field_class = TreeNodeChoiceField
+
+    def filter(self, qs, value):
+        if value != self.null_value:
+            return self.get_method(qs)(
+                **{f"{self.field_name}__in": value.get_descendants(include_self=True)}
+            )
+        return qs.distinct() if self.distinct else qs
+
+
 class MaterialCategoryFilter(FilterSet):
-    categories = ModelChoiceFilter(
+    categories = TreeNodeChoiceFilter(
         field_name="categories",
         queryset=Category.objects.all(),
         label=_("Category"),
