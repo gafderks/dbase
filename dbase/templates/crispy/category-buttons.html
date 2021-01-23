@@ -1,5 +1,7 @@
 {% load crispy_forms_field %}
 {% load i18n %}
+{% load mptt_tags %}
+{% load string_multiply %}
 
 {% if field.is_hidden %}
     {{ field }}
@@ -10,9 +12,30 @@
           {{ field.label|safe }}{% if field.field.required %}<span class="asteriskField">*</span>{% endif %}
       </label>
     {% endif %}
-    {% for choice in field.field.queryset %}
-    <button type="submit" class="btn {% if field.value == choice.pk|slugify %}btn-secondary{% else %}btn-outline-secondary{% endif %} m-1" name="categories" value="{% if field.value != choice.pk|slugify %}{{ choice.pk }}{% endif %}">{{ choice }}</button>
-    {% endfor %}
+    {% recursetree field.field.queryset %}
+      {% if node.is_root_node %}
+        <div class="btn-group m-1">
+          <button type="submit" class="btn {% if field.value == node.pk|slugify %}btn-secondary{% else %}btn-outline-secondary{% endif %}" name="categories" value="{% if field.value != node.pk|slugify %}{{ node.pk }}{% endif %}">
+              {{ node }}
+          </button>
+          {% if not node.is_leaf_node %}
+            <button type="button" class="btn {% if field.value == node.pk|slugify %}btn-secondary{% else %}btn-outline-secondary{% endif %} dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <span class="sr-only">Toggle Dropdown</span>
+            </button>
+            <div class="dropdown-menu">
+              {{ children }}
+            </div>
+          {% endif %}
+        </div>
+      {% else %}
+        {% with dash_count=node.level|add:"-1" %}
+          <a class="dropdown-item {% if field.value == node.pk|slugify %}active{% endif %}" href="?categories={{ node.pk }}">
+            {{ "—"|multiply:dash_count }} {{ node }}
+          </a>
+        {% endwith %}
+        {{ children }}
+      {% endif %}
+    {% endrecursetree %}
     {% if field.field.null_label %}
       <button type="submit" class="btn {% if field.value == field.field.null_value %}btn-secondary{% else %}btn-outline-secondary{% endif %} m-1" name="categories" value="{% if field.value != field.field.null_value %}{{ field.field.null_value }}{% endif %}">{{ field.field.null_label }}</button>
     {% endif %}
