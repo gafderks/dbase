@@ -16,6 +16,11 @@ def get_page_context(page_no, num_pages):
 
 
 class MaterialListViewTest(TestCase):
+    def assertContainsMaterialOnce(self, response, material):
+        # material name is in image alt attribute and in the title
+        material_name_occurrence_per_item = 2
+        self.assertContains(response, str(material), material_name_occurrence_per_item)
+
     def test_get_pages(self):
         self.assertEqual(
             get_pages(get_page_context(10, 30), max_pages=8),
@@ -64,7 +69,7 @@ class MaterialListViewTest(TestCase):
         response = self.client.get(reverse("catalog:catalog"))
         self.assertTemplateUsed(response, "catalog/material_list.html")
         for material in materials:
-            self.assertContains(response, str(material))
+            self.assertContainsMaterialOnce(response, material)
 
     def test_materials_filter_category(self):
         category = CategoryFactory()
@@ -77,7 +82,7 @@ class MaterialListViewTest(TestCase):
         response = self.client.get(category.get_absolute_url())
         self.assertTemplateUsed(response, "catalog/material_list.html")
         for material in materials_in_category:
-            self.assertContains(response, str(material))
+            self.assertContainsMaterialOnce(response, material)
         for material in materials_other_category:
             self.assertNotContains(response, str(material))
         # Check that the category filter buttons are in the response
@@ -95,3 +100,42 @@ class MaterialListViewTest(TestCase):
         self.assertContains(
             response, "&rarr;", msg_prefix="the material description does not match"
         )
+
+    def test_catalog_descendant_categories_included(self):
+        parent_category = CategoryFactory()
+        materials_parent_category = MaterialFactory.create_batch(
+            5, categories=[parent_category]
+        )
+        child_category = CategoryFactory(parent=parent_category)
+        materials_child_category = MaterialFactory.create_batch(
+            5, categories=[child_category]
+        )
+        grandchild_category = CategoryFactory(parent=child_category)
+        materials_grandchild_category = MaterialFactory.create_batch(
+            5, categories=[grandchild_category]
+        )
+        self.client.force_login(UserFactory())
+
+        response = self.client.get(parent_category.get_absolute_url())
+        self.assertTemplateUsed(response, "catalog/material_list.html")
+        for material in [
+            *materials_parent_category,
+            *materials_child_category,
+            *materials_grandchild_category,
+        ]:
+            self.assertContainsMaterialOnce(response, material)
+
+        response = self.client.get(child_category.get_absolute_url())
+        for material in [
+            *materials_child_category,
+            *materials_grandchild_category,
+        ]:
+            self.assertContainsMaterialOnce(response, material)
+        for material in materials_parent_category:
+            self.assertNotContains(response, str(material))
+
+        response = self.client.get(grandchild_category.get_absolute_url())
+        for material in materials_grandchild_category:
+            self.assertContainsMaterialOnce(response, material)
+        for material in [*materials_parent_category, *materials_child_category]:
+            self.assertNotContains(response, str(material))
