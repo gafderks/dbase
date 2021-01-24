@@ -249,7 +249,7 @@ class TreeNodeChoiceFilter(ModelChoiceFilter):
     field_class = TreeNodeChoiceField
 
     def filter(self, qs, value):
-        if value != self.null_value:
+        if value != self.null_value and value is not None:
             return self.get_method(qs)(
                 **{f"{self.field_name}__in": value.get_descendants(include_self=True)}
             )
