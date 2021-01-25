@@ -66,12 +66,28 @@ class ListViewFilter(SortableMixin):
     )
 
     included_categories = TreeManyToManyField(
-        Category, verbose_name=_("included categories"), related_name="+", blank=True
+        Category,
+        verbose_name=_("included categories"),
+        related_name="+",
+        blank=True,
+        help_text=_(
+            "Materials from these categories and their subcategories will be part of the list."
+        ),
     )
     excluded_categories = TreeManyToManyField(
-        Category, verbose_name=_("excluded categories"), related_name="+", blank=True
+        Category,
+        verbose_name=_("excluded categories"),
+        related_name="+",
+        blank=True,
+        help_text=_(
+            "Materials from these categories and their subcategories will <strong>not</strong> be part of the list."
+        ),
     )
-    gm = models.BooleanField(null=True, verbose_name=_("GM"))
+    gm = models.BooleanField(
+        null=True,
+        verbose_name=_("GM"),
+        help_text=_("Setting <em>Unknown</em> disables the condition."),
+    )
 
     class Meta:
         verbose_name = _("list view filter")

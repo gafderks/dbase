@@ -13,7 +13,6 @@ from booking.models import (
     MaterialAlias,
     Game,
     Booking,
-    ListViewFilter,
 )
 
 
@@ -35,16 +34,6 @@ class MaterialForm(forms.ModelForm):
                 _("There exists already a material alias with the given name.")
             )
         return cleaned_data
-
-
-class ListViewFilterForm(forms.ModelForm):
-    categories_qs = Category.objects.all()
-    included_categories = TreeNodeMultipleChoiceField(queryset=categories_qs)
-    excluded_categories = TreeNodeMultipleChoiceField(queryset=categories_qs)
-
-    class Meta:
-        model = ListViewFilter
-        fields = "__all__"
 
 
 class MaterialAliasForm(forms.ModelForm):

@@ -14,7 +14,7 @@ from rules.contrib.admin import ObjectPermissionsModelAdmin
 from sorl.thumbnail import get_thumbnail
 from sorl.thumbnail.admin import AdminInlineImageMixin
 
-from booking.forms import EventForm, MaterialForm, MaterialAliasForm, ListViewFilterForm
+from booking.forms import EventForm, MaterialForm, MaterialAliasForm
 from booking.models import ListViewFilter
 from .filters import HasMaterialImageListFilter
 from .models import (
@@ -170,4 +170,16 @@ class ListViewFilterAdmin(SortableAdmin):
         "get_excluded_categories",
         "gm",
     )
-    form = ListViewFilterForm
+
+    fieldsets = (
+        (None, {"fields": ("name", "description", "enabled")}),
+        (
+            _("Filters"),
+            {
+                "fields": ("included_categories", "excluded_categories", "gm"),
+                "description": _(
+                    "Specify the conditions for the filter. Materials need to match each of the configured conditions to be included in the list."
+                ),
+            },
+        ),
+    )
