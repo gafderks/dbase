@@ -4,6 +4,7 @@ from django.db import models
 from django.db.models.functions import Lower
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
+from mptt.fields import TreeManyToManyField
 
 from booking.models import Category, Location, RateClass
 
@@ -18,7 +19,7 @@ class Material(models.Model):
             "Additional information about the material. Displayed in the shop."
         ),
     )
-    categories = models.ManyToManyField(Category, related_name="materials")
+    categories = TreeManyToManyField(Category, related_name="materials")
     gm = models.BooleanField(
         verbose_name=_("GM"), help_text=_("Is GM needed for this material?")
     )

@@ -2,6 +2,7 @@ from adminsortable.models import SortableMixin
 from django.db import models
 from django.db.models import Q
 from django.utils.translation import gettext_lazy as _
+from mptt.models import TreeManyToManyField
 
 from booking.models import Category
 
@@ -52,10 +53,10 @@ class ListViewFilter(SortableMixin):
         default=0, editable=False, db_index=True, verbose_name=_("Filter order")
     )
 
-    included_categories = models.ManyToManyField(
+    included_categories = TreeManyToManyField(
         Category, verbose_name=_("included categories"), related_name="+", blank=True
     )
-    excluded_categories = models.ManyToManyField(
+    excluded_categories = TreeManyToManyField(
         Category, verbose_name=_("excluded categories"), related_name="+", blank=True
     )
     gm = models.BooleanField(null=True, verbose_name=_("GM"))
