@@ -7,6 +7,18 @@ from mptt.models import TreeManyToManyField
 from booking.models import Category
 
 
+def get_all_subcategories(categories):
+    """
+    Returns the categories as well as their subcategories.
+    :param ManyRelatedManager categories: categories to get the descendants of.
+    :return list[Category]: list of categories
+    """
+    all_subcategories = list()
+    for category in categories.all():
+        all_subcategories.extend(category.get_descendants(include_self=True))
+    return all_subcategories
+
+
 class ListViewFilter(SortableMixin):
     """
     Filter for bookings.
@@ -83,9 +95,13 @@ class ListViewFilter(SortableMixin):
         if self.gm is not None:
             filters &= Q(material__gm=self.gm)
         if self.included_categories.exists():
-            filters &= Q(material__categories__in=self.included_categories.all())
+            filters &= Q(
+                material__categories__in=get_all_subcategories(self.included_categories)
+            )
         if self.excluded_categories.exists():
-            filters &= ~Q(material__categories__in=self.excluded_categories.all())
+            filters &= ~Q(
+                material__categories__in=get_all_subcategories(self.excluded_categories)
+            )
         in_set = bookings.filter(filters).distinct()
         out_set = bookings.filter(~filters).distinct()
         return in_set, out_set
