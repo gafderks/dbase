@@ -188,3 +188,57 @@ class ListViewFilterModelTest(TestCase):
         # Check that all lists are sorted
         for lv, bookings in lists:
             check_sorted_bookings(self, bookings)
+
+    def test_include_category_and_descendants(self):
+        parent = CategoryFactory()
+        child = CategoryFactory(parent=parent)
+        categories = [parent, child, *CategoryFactory.create_batch(3)]
+        _ = create_bookings_with_set_of_categories(categories, n=20)
+        bookings_qs = Booking.objects.all()
+        included_categories = [parent, child]
+        _filter = ListViewFilterFactory(included_categories=[parent])
+        in_set, out_set = _filter.filter_bookings(bookings_qs)
+        self.assertEqual(
+            in_set.count() + out_set.count(), 20, "not all bookings are part of output"
+        )
+        for booking in in_set:
+            # The bookings in the in_set should have at least one category in common
+            #  with included_categories
+            self.assertGreaterEqual(
+                len(set(booking.material.categories.all()) & set(included_categories)),
+                1,
+            )
+        for booking in out_set:
+            # The bookings in the in_set should have no category in common with
+            #  included_categories
+            self.assertEqual(
+                len(set(booking.material.categories.all()) & set(included_categories)),
+                0,
+            )
+
+    def test_exclude_category_and_descendants(self):
+        parent = CategoryFactory()
+        child = CategoryFactory(parent=parent)
+        categories = [parent, child, *CategoryFactory.create_batch(3)]
+        _ = create_bookings_with_set_of_categories(categories, n=20)
+        bookings_qs = Booking.objects.all()
+        excluded_categories = [parent, child]
+        _filter = ListViewFilterFactory(excluded_categories=[parent])
+        in_set, out_set = _filter.filter_bookings(bookings_qs)
+        self.assertEqual(
+            in_set.count() + out_set.count(), 20, "not all bookings are part of output"
+        )
+        for booking in in_set:
+            # The bookings in the in_set should have no category in common
+            #  with included_categories
+            self.assertEqual(
+                len(set(booking.material.categories.all()) & set(excluded_categories)),
+                0,
+            )
+        for booking in out_set:
+            # The bookings in the in_set should have at least one category in common
+            #  with included_categories
+            self.assertGreaterEqual(
+                len(set(booking.material.categories.all()) & set(excluded_categories)),
+                1,
+            )

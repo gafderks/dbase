@@ -29,7 +29,9 @@ django-filter = "*"
 rules = "*"
 Django = "*"
 Pillow = "*"
-factory-boy = "*"
+factory-boy = "==3.1.0"
+django-mptt = "*"
+django-mptt-admin = "*"
 
 [pipenv]
 allow_prereleases = true

@@ -8,6 +8,8 @@ from adminsortable.admin import (
     NonSortableParentAdmin,
     SortableStackedInline,
 )
+from django_mptt_admin.admin import DjangoMpttAdmin
+from mptt.admin import TreeRelatedFieldListFilter
 from rules.contrib.admin import ObjectPermissionsModelAdmin
 from sorl.thumbnail import get_thumbnail
 from sorl.thumbnail.admin import AdminInlineImageMixin
@@ -30,7 +32,7 @@ ADMIN_THUMBS_SIZE = "60x60"
 
 
 @admin.register(Category)
-class CategoryAdmin(admin.ModelAdmin):
+class CategoryAdmin(DjangoMpttAdmin):
     def get_queryset(self, request):
         qs = super(CategoryAdmin, self).get_queryset(request)
         return qs.annotate(material_count=Count("materials"))
@@ -58,7 +60,7 @@ class MaterialAliasInline(admin.StackedInline):
 class MaterialAdmin(NonSortableParentAdmin):
     list_display = ("name", "thumbnail", "location", "stock")
     list_filter = [
-        "categories",
+        ("categories", TreeRelatedFieldListFilter),
         "location",
         "gm",
         "lendable",
@@ -167,4 +169,17 @@ class ListViewFilterAdmin(SortableAdmin):
         "get_included_categories",
         "get_excluded_categories",
         "gm",
+    )
+
+    fieldsets = (
+        (None, {"fields": ("name", "description", "enabled")}),
+        (
+            _("Filters"),
+            {
+                "fields": ("included_categories", "excluded_categories", "gm"),
+                "description": _(
+                    "Specify the conditions for the filter. Materials need to match each of the configured conditions to be included in the list."
+                ),
+            },
+        ),
     )

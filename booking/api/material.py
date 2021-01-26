@@ -63,8 +63,16 @@ def format_woocommerce(request, materials):
                 "regular_price": mat.rate_class.rate.amount
                 if mat.rate_class is not None
                 else 0.00,
-                "tax:product_cat": "|".join(
-                    [str(category) for category in mat.categories.all()]
+                "tax:product_cat": "|".join(  # join multiple categories
+                    [
+                        " > ".join(  # add hierarchical categories
+                            [
+                                str(cat)
+                                for cat in category.get_ancestors(include_self=True)
+                            ]
+                        )
+                        for category in mat.categories.all()
+                    ]
                 ),
                 # @see https://www.webtoffee.com/woocommerce-import-products-with-images/
                 "images": "|".join(

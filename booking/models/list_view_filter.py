@@ -2,8 +2,10 @@ from adminsortable.models import SortableMixin
 from django.db import models
 from django.db.models import Q
 from django.utils.translation import gettext_lazy as _
+from mptt.models import TreeManyToManyField
 
 from booking.models import Category
+from booking.models.category import get_all_subcategories
 
 
 class ListViewFilter(SortableMixin):
@@ -52,13 +54,29 @@ class ListViewFilter(SortableMixin):
         default=0, editable=False, db_index=True, verbose_name=_("Filter order")
     )
 
-    included_categories = models.ManyToManyField(
-        Category, verbose_name=_("included categories"), related_name="+", blank=True
+    included_categories = TreeManyToManyField(
+        Category,
+        verbose_name=_("included categories"),
+        related_name="+",
+        blank=True,
+        help_text=_(
+            "Materials from these categories and their subcategories will be part of the list."
+        ),
     )
-    excluded_categories = models.ManyToManyField(
-        Category, verbose_name=_("excluded categories"), related_name="+", blank=True
+    excluded_categories = TreeManyToManyField(
+        Category,
+        verbose_name=_("excluded categories"),
+        related_name="+",
+        blank=True,
+        help_text=_(
+            "Materials from these categories and their subcategories will <strong>not</strong> be part of the list."
+        ),
     )
-    gm = models.BooleanField(null=True, verbose_name=_("GM"))
+    gm = models.BooleanField(
+        null=True,
+        verbose_name=_("GM"),
+        help_text=_("Setting <em>Unknown</em> disables the condition."),
+    )
 
     class Meta:
         verbose_name = _("list view filter")
@@ -82,9 +100,13 @@ class ListViewFilter(SortableMixin):
         if self.gm is not None:
             filters &= Q(material__gm=self.gm)
         if self.included_categories.exists():
-            filters &= Q(material__categories__in=self.included_categories.all())
+            filters &= Q(
+                material__categories__in=get_all_subcategories(self.included_categories)
+            )
         if self.excluded_categories.exists():
-            filters &= ~Q(material__categories__in=self.excluded_categories.all())
+            filters &= ~Q(
+                material__categories__in=get_all_subcategories(self.excluded_categories)
+            )
         in_set = bookings.filter(filters).distinct()
         out_set = bookings.filter(~filters).distinct()
         return in_set, out_set

@@ -7,7 +7,7 @@ from bs4 import BeautifulSoup
 from django.test import TestCase, override_settings
 
 from booking.models import Material
-from booking.tests.factories import MaterialFactory
+from booking.tests.factories import MaterialFactory, CategoryFactory
 
 
 @override_settings(SHOP_SKU_OFFSET=2000)
@@ -110,6 +110,34 @@ class WooCommerceFormatTest(TestCase):
                 self.assertEqual(row["meta:stock_unit"], material.stock_unit)
             else:
                 self.assertEqual(row["meta:stock_unit"], "")
+
+    def test_category_tree_hierarchy(self):
+        parent = CategoryFactory(name="parent")
+        child = CategoryFactory(name="child", parent=parent)
+        grandchild = CategoryFactory(name="grandchild", parent=child)
+        _ = MaterialFactory(categories=[grandchild])
+
+        response = self.client.get("/booking/api/material?format=woocommerce")
+        content = response.content.decode("utf-8")
+
+        csv_reader = csv.DictReader(io.StringIO(content))
+        category_csv = next(csv_reader)["tax:product_cat"]
+        self.assertEqual(category_csv, "parent > child > grandchild")
+
+    def test_category_tree_multiple(self):
+        parent = CategoryFactory(name="parent")
+        child = CategoryFactory(name="child", parent=parent)
+        _ = MaterialFactory(categories=[child, parent])
+
+        response = self.client.get("/booking/api/material?format=woocommerce")
+        content = response.content.decode("utf-8")
+
+        csv_reader = csv.DictReader(io.StringIO(content))
+        category_csv = next(csv_reader)["tax:product_cat"]
+        self.assertTrue(
+            category_csv == "parent > child|parent"
+            or category_csv == "parent|parent > child"
+        )
 
 
 class JSONFormatTest(TestCase):

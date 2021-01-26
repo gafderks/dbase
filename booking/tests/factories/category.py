@@ -11,3 +11,4 @@ class CategoryFactory(factory.django.DjangoModelFactory):
         lambda n: factory.Faker("company").generate({"locale": None}) + f" {n}"
     )
     description = factory.Faker("paragraph")
+    parent = None

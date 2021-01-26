@@ -8,6 +8,10 @@
     <ul class="list-inline category-list mt-n3 mb-1">
       {% for category in object.categories.all %}
         <li class="list-inline-item">
+          {% for ancestor in category.get_ancestors %}
+            <a href="{{ ancestor.get_absolute_url }}">{{ ancestor }}</a>
+            &raquo;
+          {% endfor %}
           <a href="{{ category.get_absolute_url }}">
             {{ category }}
           </a>
