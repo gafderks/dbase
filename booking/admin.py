@@ -1,5 +1,14 @@
 from django.contrib import admin
-from django.db.models import Count
+from django.contrib.admin.widgets import FilteredSelectMultiple
+from django.db.models import Count, Q
+from django.forms import (
+    forms,
+    ModelMultipleChoiceField,
+    CheckboxSelectMultiple,
+    ModelForm,
+    SelectMultiple,
+    ModelChoiceField,
+)
 from django.utils.html import format_html
 from django.utils.translation import gettext_lazy as _
 
@@ -144,10 +153,36 @@ class LocationAdmin(admin.ModelAdmin):
     search_fields = ["name"]
 
 
+class RateClassForm(ModelForm):
+
+    materials = ModelMultipleChoiceField(
+        queryset=Material.objects.all(),
+        widget=FilteredSelectMultiple(_("Materials"), False),
+    )
+
+    class Meta:
+        model = RateClass
+        fields = ("name", "description", "rate", "materials")
+
+
 @admin.register(RateClass)
 class RateClassAdmin(admin.ModelAdmin):
     list_display = ("name", "description", "rate")
     search_fields = ["name"]
+    form = RateClassForm
+
+    def get_form(self, request, obj=None, **kwargs):
+        RateClassForm.base_fields["materials"].queryset = (
+            Material.objects.filter(Q(rate_class=None) | Q(rate_class=obj))
+            if obj
+            else Material.objects.filter(rate_class=None)
+        )
+        RateClassForm.base_fields["materials"].initial = (
+            [o.pk for o in obj.materials.all()] if obj else []
+        )
+        return RateClassForm
+
+    # fields = ["materials"]
 
 
 @admin.register(ListViewFilter)
