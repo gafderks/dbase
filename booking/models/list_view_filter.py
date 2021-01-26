@@ -5,18 +5,7 @@ from django.utils.translation import gettext_lazy as _
 from mptt.models import TreeManyToManyField
 
 from booking.models import Category
-
-
-def get_all_subcategories(categories):
-    """
-    Returns the categories as well as their subcategories.
-    :param ManyRelatedManager categories: categories to get the descendants of.
-    :return list[Category]: list of categories
-    """
-    all_subcategories = list()
-    for category in categories.all():
-        all_subcategories.extend(category.get_descendants(include_self=True))
-    return all_subcategories
+from booking.models.category import get_all_subcategories
 
 
 class ListViewFilter(SortableMixin):
