@@ -1,6 +1,7 @@
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit, Layout, Field, Div, Reset
 from django import forms
+from django.contrib.admin.widgets import FilteredSelectMultiple
 from django.urls import reverse
 from django.utils.translation import gettext as __
 from django.utils.translation import gettext_lazy as _
@@ -13,6 +14,7 @@ from booking.models import (
     MaterialAlias,
     Game,
     Booking,
+    RateClass,
 )
 
 
@@ -320,3 +322,26 @@ class BookingForm(forms.ModelForm):
             )
 
         return cleaned_data
+
+
+class RateClassForm(forms.ModelForm):
+    materials = forms.ModelMultipleChoiceField(
+        queryset=Material.objects.all(),
+        widget=FilteredSelectMultiple(verbose_name=_("materials"), is_stacked=False),
+    )
+    materials.label = _("Materials")
+    materials.help_text = _(
+        "Hold down “Control”, or “Command” on a Mac, to select more than one. "
+        "A material can be in only one rate class, the materials you add to this"
+        " rate class, will be removed from other rate classes."
+    )
+
+    class Meta:
+        model = RateClass
+        fields = ("name", "description", "rate")
+
+    def __init__(self, *args, **kwargs):
+        super(RateClassForm, self).__init__(*args, **kwargs)
+        if self.instance:
+            # fill initial related values
+            self.fields["materials"].initial = self.instance.materials.all()
