@@ -328,6 +328,7 @@ class RateClassForm(forms.ModelForm):
     materials = forms.ModelMultipleChoiceField(
         queryset=Material.objects.all(),
         widget=FilteredSelectMultiple(verbose_name=_("materials"), is_stacked=False),
+        required=False,
     )
     materials.label = _("Materials")
     materials.help_text = _(
