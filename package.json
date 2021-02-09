@@ -15,7 +15,7 @@
     "@rollup/stream": "^2.0.0",
     "autoprefixer": "^10.2.1",
     "bloodhound-js": "^1.2.3",
-    "bootstrap": "^4.5.3",
+    "bootstrap": "^4.6.0",
     "bootstrap4-toggle": "^3.6.1",
     "browser-sync": "^2.26.14",
     "ckeditor-youtube-plugin": "^2.1.15",
