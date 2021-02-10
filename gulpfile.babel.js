@@ -14,11 +14,10 @@ import alias from '@rollup/plugin-alias';
 import merge from 'merge-stream';
 // sass
 import postcss from 'gulp-postcss';
-import sass from 'gulp-sass';
+import sass from 'gulp-dart-sass';
 import cssnano from 'cssnano';
 import autoprefixer from 'autoprefixer';
 import atImport from 'postcss-import';
-import tildeImporter from 'node-sass-tilde-importer';
 import pixrem from 'pixrem';
 // other
 import imagemin from 'gulp-imagemin';
@@ -111,7 +110,7 @@ function styles() {
     return gulp.src(config.src)
       .pipe(sourcemaps.init())
       .pipe(sass({
-        includePaths: ['node_modules'], importer: tildeImporter
+        includePaths: ['node_modules']
       }).on('error', sass.logError))
       .pipe(postcss(processors))
       .pipe(rename({suffix: '.min'}))
