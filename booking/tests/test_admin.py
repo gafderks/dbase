@@ -43,7 +43,7 @@ class RateClassAdminTest(TestCase):
             obj=rate_class, form=my_form, change=None, request=None
         )
 
-    def test_add_material(self):
+    def test_edit_rate_class_add_material(self):
         rate_class = RateClassFactory()
         material = MaterialFactory(rate_class=None)
         # Add the material to the rate class through the form
@@ -52,7 +52,7 @@ class RateClassAdminTest(TestCase):
         material.refresh_from_db()
         self.assertEqual(material.rate_class, rate_class)
 
-    def test_reassign_material(self):
+    def test_edit_rate_class_reassign_material(self):
         # Create a rate class and material
         rate_class = RateClassFactory()
         material = MaterialFactory()
@@ -68,7 +68,7 @@ class RateClassAdminTest(TestCase):
         old_rate_class.refresh_from_db()
         self.assertFalse(material in old_rate_class.materials.all())
 
-    def test_remove_material(self):
+    def test_edit_rate_class_remove_material(self):
         rate_class = RateClassFactory()
         materials = MaterialFactory.create_batch(5, rate_class=rate_class)
         # Only keep the first 4 materials associated to the rate class
@@ -80,3 +80,21 @@ class RateClassAdminTest(TestCase):
             self.assertEqual(material.rate_class, rate_class)
         # Verify that the 5th is no longer associated
         self.assertEqual(materials[4].rate_class, None)
+
+    def test_create_rate_class_without_materials(self):
+        rate_class = RateClassFactory.build()  # do not save to DB
+        self.assertFalse(RateClass.objects.all())  # verify that it is not in DB
+        self.run_form(rate_class, [])
+        # Verify that the rate class has been saved
+        self.assertEqual(list(RateClass.objects.all()), [rate_class])
+
+    def test_create_rate_class_with_materials(self):
+        rate_class = RateClassFactory.build()  # do not save to DB
+        self.assertFalse(RateClass.objects.all())  # verify that it is not in DB
+        materials = MaterialFactory.create_batch(3, rate_class=None)
+        self.run_form(rate_class, materials)
+        # Verify that the rate class has been saved
+        self.assertEqual(list(RateClass.objects.all()), [rate_class])
+        # Verify that all materials were associated
+        for material in materials:
+            self.assertEqual(material.rate_class, rate_class)
