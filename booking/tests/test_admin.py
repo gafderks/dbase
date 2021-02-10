@@ -58,7 +58,7 @@ class RateClassAdminTest(TestCase):
         material = MaterialFactory()
         old_rate_class = material.rate_class
         # Add the material to the rate class through the form
-        self.run_form(rate_class, [material.pk])
+        self.run_form(rate_class, [material])
         material.refresh_from_db()
         # Verify that the rate class for the material was updated
         self.assertEqual(material.rate_class, rate_class)
@@ -95,6 +95,8 @@ class RateClassAdminTest(TestCase):
         self.run_form(rate_class, materials)
         # Verify that the rate class has been saved
         self.assertEqual(list(RateClass.objects.all()), [rate_class])
+        for material in materials:
+            material.refresh_from_db()
         # Verify that all materials were associated
         for material in materials:
             self.assertEqual(material.rate_class, rate_class)
