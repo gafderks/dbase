@@ -4,7 +4,7 @@ from django.urls import reverse
 
 from booking.admin import RateClassAdmin
 from booking.forms import RateClassForm
-from booking.models import RateClass, Material
+from booking.models import RateClass
 from booking.tests.factories import RateClassFactory, MaterialFactory
 from tests.utils import english
 from users.tests.factories import SuperUserFactory
@@ -22,28 +22,18 @@ class MaterialAdminTest(TestCase):
         self.assertContains(response, reverse("camera:index"))
 
 
-def get_form_data_for_rate_class(rate_class):
-    return {
-        "name": rate_class.name,
-        "rate_0": rate_class.rate.amount,
-        "rate_1": rate_class.rate.currency,
-    }
-
-
 class RateClassAdminTest(TestCase):
     def setUp(self):
         self.site = AdminSite()
 
-    def test_add_material(self):
+    def run_form(self, rate_class, materials):
         rate_class_admin = RateClassAdmin(RateClass, self.site)
-        # Create a rate class and material
-        rate_class = RateClassFactory()
-        mat = MaterialFactory(rate_class=None)
-        # Add the material to the rate class through the form
         my_form = RateClassForm(
             {
-                **get_form_data_for_rate_class(rate_class),
-                "materials": [mat.pk],
+                "name": rate_class.name,
+                "rate_0": rate_class.rate.amount,
+                "rate_1": rate_class.rate.currency,
+                "materials": [material.pk for material in materials],
             },
             instance=rate_class,
         )
@@ -52,32 +42,41 @@ class RateClassAdminTest(TestCase):
         rate_class_admin.save_model(
             obj=rate_class, form=my_form, change=None, request=None
         )
-        mat.refresh_from_db()
-        self.assertEqual(mat.rate_class, rate_class)
+
+    def test_add_material(self):
+        rate_class = RateClassFactory()
+        material = MaterialFactory(rate_class=None)
+        # Add the material to the rate class through the form
+        self.run_form(rate_class, [material])
+        # Verify that the material is now associated to the rate class
+        material.refresh_from_db()
+        self.assertEqual(material.rate_class, rate_class)
 
     def test_reassign_material(self):
-        rate_class_admin = RateClassAdmin(RateClass, self.site)
         # Create a rate class and material
         rate_class = RateClassFactory()
-        mat = MaterialFactory()
-        old_rate_class = mat.rate_class
+        material = MaterialFactory()
+        old_rate_class = material.rate_class
         # Add the material to the rate class through the form
-        my_form = RateClassForm(
-            {
-                **get_form_data_for_rate_class(rate_class),
-                "materials": [mat.pk],
-            },
-            instance=rate_class,
-        )
-        self.assertTrue(my_form.is_valid(), my_form.errors.as_data())
-        # Save the model from the form
-        rate_class_admin.save_model(
-            obj=rate_class, form=my_form, change=None, request=None
-        )
-        mat.refresh_from_db()
-        self.assertEqual(mat.rate_class, rate_class)
-        self.assertTrue(mat in rate_class.materials.all())
+        self.run_form(rate_class, [material.pk])
+        material.refresh_from_db()
+        # Verify that the rate class for the material was updated
+        self.assertEqual(material.rate_class, rate_class)
+        # Verify that the reverse relation holds as well
+        self.assertTrue(material in rate_class.materials.all())
+        # Verify that the material is no longer associated to the old rate class
         old_rate_class.refresh_from_db()
-        self.assertFalse(mat in old_rate_class.materials.all())
+        self.assertFalse(material in old_rate_class.materials.all())
 
-    # TODO Test remove material
+    def test_remove_material(self):
+        rate_class = RateClassFactory()
+        materials = MaterialFactory.create_batch(5, rate_class=rate_class)
+        # Only keep the first 4 materials associated to the rate class
+        self.run_form(rate_class, materials[:4])
+        for material in materials:
+            material.refresh_from_db()
+        # Verify that the first 4 materials are still associated
+        for material in materials[:4]:
+            self.assertEqual(material.rate_class, rate_class)
+        # Verify that the 5th is no longer associated
+        self.assertEqual(materials[4].rate_class, None)
