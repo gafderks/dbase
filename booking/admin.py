@@ -1,20 +1,19 @@
-from django.contrib import admin
-from django.db.models import Count
-from django.utils.html import format_html
-from django.utils.translation import gettext_lazy as _
-
 from adminsortable.admin import (
     SortableAdmin,
     NonSortableParentAdmin,
     SortableStackedInline,
 )
+from django.contrib import admin
+from django.db.models import Count
+from django.utils.html import format_html
+from django.utils.translation import gettext_lazy as _
 from django_mptt_admin.admin import DjangoMpttAdmin
 from mptt.admin import TreeRelatedFieldListFilter
 from rules.contrib.admin import ObjectPermissionsModelAdmin
 from sorl.thumbnail import get_thumbnail
 from sorl.thumbnail.admin import AdminInlineImageMixin
 
-from booking.forms import EventForm, MaterialForm, MaterialAliasForm
+from booking.forms import EventForm, MaterialForm, MaterialAliasForm, RateClassForm
 from booking.models import ListViewFilter
 from .filters import HasMaterialImageListFilter
 from .models import (
@@ -148,6 +147,21 @@ class LocationAdmin(admin.ModelAdmin):
 class RateClassAdmin(admin.ModelAdmin):
     list_display = ("name", "description", "rate")
     search_fields = ["name"]
+    form = RateClassForm
+
+    def save_model(self, request, obj, form, change):
+        original_materials = obj.materials.all()
+        new_materials = form.cleaned_data["materials"]
+        # Remove all materials that were in the original set except for those that are
+        #  also in the new set
+        remove_qs = original_materials.exclude(pk__in=new_materials.values("pk"))
+        # Add the materials that were not in the original set
+        add_qs = new_materials.exclude(pk__in=original_materials.values("pk"))
+        obj.save()
+        for material in remove_qs:
+            obj.materials.remove(material)
+        for material in add_qs:
+            obj.materials.add(material)
 
 
 @admin.register(ListViewFilter)
