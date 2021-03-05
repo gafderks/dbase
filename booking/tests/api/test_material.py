@@ -84,14 +84,15 @@ class WooCommerceFormatTest(TestCase):
             material = Material.objects.get(pk=int(row["sku"]) - 2000)
             self.assertEqual(row["post_title"], material.name)
             self.assertEqual(row["post_name"], material.name)
-            self.assertEqual(row["post_status"], "publish")
             if material.lendable:
                 self.assertEqual(row["tax:product_visibility"], "visible")
+                self.assertEqual(row["post_status"], "publish")
             else:
                 self.assertEqual(
                     row["tax:product_visibility"],
                     "exclude-from-catalog|exclude-from-search",
                 )
+                self.assertEqual(row["post_status"], "private")
             if material.stock_value is not None:
                 self.assertAlmostEqual(float(row["stock"]), material.stock_value)
             else:
