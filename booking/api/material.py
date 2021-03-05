@@ -54,7 +54,7 @@ def format_woocommerce(request, materials):
                 "tax:product_type": "simple",
                 "post_title": mat.name,
                 "post_name": mat.name,
-                "post_status": "publish",
+                "post_status": "publish" if mat.lendable else "private",
                 "tax:product_visibility": "visible"
                 if mat.lendable
                 else "exclude-from-catalog|exclude-from-search",
