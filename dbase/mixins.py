@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.views.generic.base import ContextMixin
 
 from dbase.user_alert_exception import UserAlertException
+from users.group_permission_error import GroupPermissionError
 
 
 class UserAlertMixin(ContextMixin):
@@ -12,3 +13,10 @@ class UserAlertMixin(ContextMixin):
             return super().dispatch(request, *args, **kwargs)
         except UserAlertException as e:
             return render(request, "jeugdraad/alert.html", {"message": str(e)})
+        except GroupPermissionError as e:
+            return render(
+                request,
+                "jeugdraad/alert.html",
+                {"message": str(e)},
+                status=403,  # Forbidden
+            )
