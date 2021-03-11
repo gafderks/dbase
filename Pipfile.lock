@@ -142,10 +142,10 @@
         },
         "faker": {
             "hashes": [
-                "sha256:97fb6748031569a65265d38d85370b3c3970f4333b40430d52a60b37dea97877",
-                "sha256:ee86c3140e1d1651b76a7aab637c7da068660f33937143e7063c663f4cec45ab"
+                "sha256:0a68a539b236a614157581a135c82a27024a66dc96b9a491883fe583ae3689f9",
+                "sha256:38bd2ff0afb7d9956fed477a2cd1007a7012b401a9ffd3de5fb909d739880582"
             ],
-            "version": "==6.5.2"
+            "version": "==6.6.0"
         },
         "jdcal": {
             "hashes": [
@@ -446,10 +446,10 @@
         },
         "faker": {
             "hashes": [
-                "sha256:97fb6748031569a65265d38d85370b3c3970f4333b40430d52a60b37dea97877",
-                "sha256:ee86c3140e1d1651b76a7aab637c7da068660f33937143e7063c663f4cec45ab"
+                "sha256:0a68a539b236a614157581a135c82a27024a66dc96b9a491883fe583ae3689f9",
+                "sha256:38bd2ff0afb7d9956fed477a2cd1007a7012b401a9ffd3de5fb909d739880582"
             ],
-            "version": "==6.5.2"
+            "version": "==6.6.0"
         },
         "mypy-extensions": {
             "hashes": [
