@@ -7,8 +7,9 @@ class RateClassFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = RateClass
 
-    name = factory.Sequence(
-        lambda n: factory.Faker("company").generate({"locale": None}) + f" {n}"
-    )
+    class Params:
+        name_base = factory.Faker("company")
+
+    name = factory.LazyAttributeSequence(lambda o, n: f"{o.name_base} {n}")
     description = factory.Faker("paragraph")
     rate = factory.Faker("pydecimal", positive=True, right_digits=2, max_value=10 ** 4)
