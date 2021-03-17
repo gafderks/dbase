@@ -20,17 +20,11 @@ class GameFactory(factory.django.DjangoModelFactory):
     )
     location = factory.Faker("sentence")
     group = factory.LazyAttribute(lambda g: g.creator.group)
-
-    @factory.lazy_attribute
-    def day(self):
-        # TODO this still throws an error sometimes
-        return factory.Faker("date_between_dates").generate(
-            {
-                "locale": None,
-                "date_start": self.event.event_start,
-                "date_end": self.event.event_end,
-            }
-        )
+    day = factory.Faker(
+        "date_between_dates",
+        date_start=factory.SelfAttribute("..event.event_start"),
+        date_end=factory.SelfAttribute("..event.event_end"),
+    )
 
 
 class PopulatedGameFactory(GameFactory):

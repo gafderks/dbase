@@ -29,7 +29,7 @@ django-filter = "*"
 rules = "*"
 Django = "*"
 Pillow = "*"
-factory-boy = "==3.1.0"
+factory-boy = "*"
 django-mptt = "*"
 django-mptt-admin = "*"
 

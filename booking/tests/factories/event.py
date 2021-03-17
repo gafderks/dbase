@@ -11,9 +11,10 @@ class EventFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = Event
 
-    name = factory.Sequence(
-        lambda n: factory.Faker("company").generate({"locale": None}) + f" {n}"
-    )
+    class Params:
+        name_base = factory.Faker("company")
+
+    name = factory.LazyAttributeSequence(lambda o, n: f"{o.name_base} {n}")
     slug = factory.LazyAttribute(lambda o: slugify(o.name))
     booking_start = factory.Faker("past_datetime", tzinfo=timezone.utc)
     privileged_booking_end = factory.Faker("future_datetime", tzinfo=timezone.utc)

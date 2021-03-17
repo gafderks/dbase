@@ -7,6 +7,7 @@ class LocationFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = Location
 
-    name = factory.Sequence(
-        lambda n: factory.Faker("company").generate({"locale": None}) + f" {n}"
-    )
+    class Params:
+        name_base = factory.Faker("company")
+
+    name = factory.LazyAttributeSequence(lambda o, n: f"{o.name_base} {n}")

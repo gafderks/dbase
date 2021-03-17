@@ -9,9 +9,10 @@ class UserFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = get_user_model()
 
-    email = factory.Sequence(
-        lambda n: str(n) + factory.Faker("safe_email").generate({"locale": None})
-    )
+    class Params:
+        email_base = factory.Faker("safe_email")
+
+    email = factory.LazyAttributeSequence(lambda o, n: f"{n}{o.email_base}")
     first_name = factory.Faker("first_name")
     last_name = factory.Faker("last_name")
     group = factory.SubFactory(GroupFactory)
