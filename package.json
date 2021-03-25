@@ -30,7 +30,7 @@
     "gulp-rename": "^2.0.0",
     "gulp-sourcemaps": "^3.0.0",
     "gulp-uglify": "^3.0.2",
-    "jquery": "^3.5.1",
+    "jquery": "^3.6.0",
     "merge-stream": "^2.0.0",
     "pixrem": "^5.0.0",
     "popper.js": "^1.16.1",
