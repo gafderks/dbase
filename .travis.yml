@@ -4,8 +4,6 @@ python:
   - "3.7"
   - "3.8"
   - "3.9"
-node_js:
-  - "14"
 env:
   global:
     - DATABASE_URL="sqlite:///db.sqlite3"
@@ -16,6 +14,7 @@ services:
 addons:
   firefox: latest
 before_install:
+  - nvm install --lts
   - wget https://github.com/mozilla/geckodriver/releases/download/v0.26.0/geckodriver-v0.26.0-linux64.tar.gz
   - mkdir geckodriver
   - tar -xzf geckodriver-v0.26.0-linux64.tar.gz -C geckodriver
