@@ -235,3 +235,5 @@ from sorl.thumbnail.log import ThumbnailLogHandler  # Needs to have SECRET_KEY s
 handler = ThumbnailLogHandler()
 handler.setLevel(logging.ERROR)
 logging.getLogger("sorl.thumbnail").addHandler(handler)
+
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
