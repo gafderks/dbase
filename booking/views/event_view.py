@@ -64,7 +64,7 @@ class EventView(LoginRequiredMixin, BookingPageMixin, TemplateView):
         return {filter_prefix + "group": requested_group}
 
     def get_context_data(self, **kwargs):
-        """ Retrieves the requested event and the requested group """
+        """Retrieves the requested event and the requested group"""
         context = super().get_context_data(**kwargs)
         context.update(
             {

@@ -9,7 +9,7 @@ class EventGameView(EventView):
     template_name = "booking/event/game-view.html"
 
     def dispatch(self, request, *args, **kwargs):
-        """ Redirect to the list view if all groups are requested """
+        """Redirect to the list view if all groups are requested"""
         group_slug = kwargs.get("group_slug", None)
         if (
             group_slug is None
