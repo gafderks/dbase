@@ -4,7 +4,7 @@ from users.models import Group
 
 
 class NavigationMixin(UserAlertMixin):
-    """ Adds a base context that is needed for the navigation and controls """
+    """Adds a base context that is needed for the navigation and controls"""
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -22,7 +22,7 @@ class NavigationMixin(UserAlertMixin):
 
 
 class BookingPageMixin(NavigationMixin):
-    """ Adds a base context that is needed for the booking controls """
+    """Adds a base context that is needed for the booking controls"""
 
     extra_context = {
         "groups": Group.objects.filter(type=Group.GroupType.GROUP),

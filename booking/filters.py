@@ -244,7 +244,7 @@ class HasMaterialImageListFilter(admin.SimpleListFilter):
 
 
 class TreeNodeChoiceFilter(ModelChoiceFilter):
-    """ Idea from https://github.com/carltongibson/django-filter/issues/123#issuecomment-675502695 """
+    """Idea from https://github.com/carltongibson/django-filter/issues/123#issuecomment-675502695"""
 
     field_class = TreeNodeChoiceField
 
