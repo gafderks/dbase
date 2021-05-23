@@ -101,11 +101,10 @@
         },
         "django-money": {
             "hashes": [
-                "sha256:3b8fc751c8ae27cf877b8f3770ade1b63af97ee49a32ac08a6a1bc6d8d59f089",
-                "sha256:a363ce16a23e403befdafa9895b2f538a10f9d390b160f12140094a6dfd55246"
+                "sha256:0251e8f81882fd93f2358a204350cb60e76e9d357fa5640a054979f55a721784",
+                "sha256:6cef2c364660a77182d4a97e0873dab5acb74e024beba5690c8c1b3c3a085d7c"
             ],
-            "index": "pypi",
-            "version": "==1.3.1"
+            "version": "==2.0"
         },
         "django-mptt": {
             "hashes": [
