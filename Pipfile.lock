@@ -63,11 +63,10 @@
         },
         "django-ckeditor": {
             "hashes": [
-                "sha256:29fd1a333cb9741ac2c3fd4e427a5c00115ed33a2389716a09af7656022dcdde",
-                "sha256:cc2d377f1bdcd4ca1540caeebe85f7e2cd006198d57328ef6c718d3eaa5a0846"
+                "sha256:346b26b9d60dc8a88524d0eaaf406f4e91a4b3c22d208ae87aa032bf500b251c",
+                "sha256:f0d108f67a81a04e26d8de11255fe314f51026eaf8eb0534a807512ae3c21620"
             ],
-            "index": "pypi",
-            "version": "==6.0.0"
+            "version": "==6.1.0"
         },
         "django-crispy-forms": {
             "hashes": [
