@@ -156,10 +156,10 @@
         },
         "faker": {
             "hashes": [
-                "sha256:30189045769cb26f91ed218140469fd0b42520b2ea22ff2958ed81071a3ed839",
-                "sha256:a724ca2325f4af659929052fbbb613caaec237a93fcdc1cbc7aa860e61e3c18f"
+                "sha256:0129599c0d35e79471d116460b1c51d8c183980f28e14517228be4601cf87192",
+                "sha256:7be0d9309bde6624e1a6062d0dc37859f95ca883fa047a11db8e5e305b1446a1"
             ],
-            "version": "==8.7.0"
+            "version": "==8.8.0"
         },
         "mysqlclient": {
             "hashes": [
@@ -470,10 +470,10 @@
         },
         "faker": {
             "hashes": [
-                "sha256:30189045769cb26f91ed218140469fd0b42520b2ea22ff2958ed81071a3ed839",
-                "sha256:a724ca2325f4af659929052fbbb613caaec237a93fcdc1cbc7aa860e61e3c18f"
+                "sha256:0129599c0d35e79471d116460b1c51d8c183980f28e14517228be4601cf87192",
+                "sha256:7be0d9309bde6624e1a6062d0dc37859f95ca883fa047a11db8e5e305b1446a1"
             ],
-            "version": "==8.7.0"
+            "version": "==8.8.0"
         },
         "mypy-extensions": {
             "hashes": [
