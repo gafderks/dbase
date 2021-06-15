@@ -15,6 +15,13 @@ $(window).on('activate.bs.scrollspy', (e, obj) => {
     $('.card-header-pills a').removeClass('active');
     $(`.card-header-pills a[href="#day${activeDay}"]`).addClass('active');
   }
+  const activeCard = $(obj.relatedTarget).attr('id');
+  if (activeCard !== undefined) {
+    const link = $(`.day-nav a[href="#${activeCard}"]`)[0];
+    window.setTimeout(() => {
+      link.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+    }, 300);
+  }
 });
 
 $(function () {
