@@ -62,12 +62,12 @@ ul.list-horizontal {
     }
 
   .day-nav .sticky-top > .nav {
-    max-height: calc(100vh - 5rem - 40px); // 5rem = top of sticky nav, 40px = height of day
-    overflow-y: auto;
-    overflow-x: hidden;
-    margin: 0 -1rem;
-    padding: 0 1rem;
     flex-wrap: nowrap;
+    margin: 0 -1rem;
+    max-height: calc(100vh - 5rem - 40px); // 5rem = top of sticky nav, 40px = height of day
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding: 0 1rem;
   }
 
     .booking {
