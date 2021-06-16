@@ -13,7 +13,11 @@ $(window).on('activate.bs.scrollspy', (e, obj) => {
   const activeDay = $(obj.relatedTarget).data('day');
   if (activeDay !== undefined) {
     $('.card-header-pills a').removeClass('active');
-    $(`.card-header-pills a[href="#day${activeDay}"]`).addClass('active');
+    const dayPill = $(`.card-header-pills a[href="#day${activeDay}"]`);
+    dayPill.addClass('active');
+    window.setTimeout(() => {
+      dayPill[0].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+    }, 300);
   }
   const activeCard = $(obj.relatedTarget).attr('id');
   if (activeCard !== undefined) {
