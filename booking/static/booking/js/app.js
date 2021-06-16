@@ -12,6 +12,7 @@ $('.day').each((i, elem) => {
 $(window).on('activate.bs.scrollspy', (e, obj) => {
   const activeDay = $(obj.relatedTarget).data('day');
   if (activeDay !== undefined) {
+    // keep the top day active even if the related target is a game
     $('.card-header-pills a').removeClass('active');
     const dayPill = $(`.card-header-pills a[href="#day${activeDay}"]`);
     dayPill.addClass('active');
