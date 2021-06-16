@@ -22,6 +22,7 @@ $(window).on('activate.bs.scrollspy', (e, obj) => {
   }
   const activeCard = $(obj.relatedTarget).attr('id');
   if (activeCard !== undefined) {
+    // scroll the active nav link into view
     const link = $(`.day-nav a[href="#${activeCard}"]`)[0];
     window.setTimeout(() => {
       link.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
