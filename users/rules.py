@@ -22,6 +22,6 @@ def view_bookings_from_group(user, group):
     :param Group group: use None for all groups
     :return: bool
     """
-    return user.has_perm("booking.view_other_groups_bookings") | is_own_group(
+    return user.has_perm("booking.view_others_groups_bookings") | is_own_group(
         user, group
     )

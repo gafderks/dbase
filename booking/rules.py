@@ -106,7 +106,7 @@ def view_game(user, game):
     """
     return view_event(user, game.event) & (
         is_game_from_own_group(user, game)
-        | user.has_perm("booking.view_other_groups_bookings")
+        | user.has_perm("booking.view_others_groups_bookings")
     )
 
 
