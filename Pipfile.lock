@@ -112,11 +112,10 @@
         },
         "django-mptt": {
             "hashes": [
-                "sha256:63b421a054bceb7406582e2be876a80b3848a5106765baea1003696348ffd628",
-                "sha256:8ae6c3821127b529bb2f938de27bf0771b1bcbe9dbccdfba33986af78611f13a"
+                "sha256:34ee8fc9462c397bb20bca5e2eeffea8c7b09bfc2302d15e7bb5e62f01f670e8",
+                "sha256:7db354d2b305d039c21722a13969b4023ebff1e834db2c323cd87e6b274a95b3"
             ],
-            "index": "pypi",
-            "version": "==0.12.0"
+            "version": "==0.13.2"
         },
         "django-mptt-admin": {
             "hashes": [
