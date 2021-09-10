@@ -15,18 +15,35 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: ${{ matrix.python-version }}
-      - run: sudo apt-get install xvfb
-      - run: wget https://github.com/mozilla/geckodriver/releases/download/v0.26.0/geckodriver-v0.26.0-linux64.tar.gz
-      - run: mkdir geckodriver
-      - run: tar -xzf geckodriver-v0.26.0-linux64.tar.gz -C geckodriver
-      - run: export PATH=$PATH:$PWD/geckodriver
-      - run: pip install pipenv
-      - run: pipenv install --dev
+          
+      - name: Install Selenium dependencies
+        run: |
+           sudo apt-get install xvfb
+           wget https://github.com/mozilla/geckodriver/releases/download/v0.26.0/geckodriver-v0.26.0-linux64.tar.gz
+           mkdir geckodriver
+           tar -xzf geckodriver-v0.26.0-linux64.tar.gz -C geckodriver
+           export PATH=$PATH:$PWD/geckodriver
+          
+      - name: Install pipenv
+        run: |
+          python -m pip install --upgrade pipenv wheel
+      - id: cache-pipenv
+        uses: actions/cache@v1
+        with:
+          path: ~/.local/share/virtualenvs
+          key: ${{ runner.os }}-pipenv-${{ hashFiles('**/Pipfile.lock') }}
+
+      - name: Install dependencies
+        if: steps.cache-pipenv.outputs.cache-hit != 'true'
+        run: |
+          pipenv install --deploy --dev
+      
       - run: npm install gulp-cli
       - run: npm install
-      - run: python manage.py migrate
-      - run: python manage.py collectstatic --noinput
-      - run: python manage.py compilemessages
+      - run: pipenv python manage.py migrate
+      - run: pipenv python manage.py collectstatic --noinput
+      - run: pipenv python manage.py compilemessages
       - run: curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
       - run: chmod +x ./cc-test-reporter
       - run: ./cc-test-reporter before-build
+      - run: pipenv coverage run manage.py test -v 2
