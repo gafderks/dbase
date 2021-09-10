@@ -15,9 +15,18 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: ${{ matrix.python-version }}
-      - run: npm install
       - run: sudo apt-get install xvfb
       - run: wget https://github.com/mozilla/geckodriver/releases/download/v0.26.0/geckodriver-v0.26.0-linux64.tar.gz
       - run: mkdir geckodriver
       - run: tar -xzf geckodriver-v0.26.0-linux64.tar.gz -C geckodriver
       - run: export PATH=$PATH:$PWD/geckodriver
+      - run: pip install pipenv
+      - run: pipenv install --dev
+      - run: npm install -g gulp-cli
+      - run: npm install
+      - run: python manage.py migrate
+      - run: python manage.py collectstatic --noinput
+      - run: python manage.py compilemessages
+      - run: curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+      - run: chmod +x ./cc-test-reporter
+      - run: ./cc-test-reporter before-build
