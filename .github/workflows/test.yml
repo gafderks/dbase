@@ -15,4 +15,9 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: ${{ matrix.python-version }}
-      - 
+      - run: npm install
+      - run: sudo apt-get install xvfb
+      - run: wget https://github.com/mozilla/geckodriver/releases/download/v0.26.0/geckodriver-v0.26.0-linux64.tar.gz
+      - run: mkdir geckodriver
+      - run: tar -xzf geckodriver-v0.26.0-linux64.tar.gz -C geckodriver
+      - run: export PATH=$PATH:$PWD/geckodriver
