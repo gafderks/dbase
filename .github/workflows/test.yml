@@ -40,10 +40,10 @@ jobs:
       
       - run: npm install gulp-cli
       - run: npm install
-      - run: pipenv python manage.py migrate
-      - run: pipenv python manage.py collectstatic --noinput
-      - run: pipenv python manage.py compilemessages
+      - run: pipenv run python manage.py migrate
+      - run: pipenv run python manage.py collectstatic --noinput
+      - run: pipenv run python manage.py compilemessages
       - run: curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
       - run: chmod +x ./cc-test-reporter
       - run: ./cc-test-reporter before-build
-      - run: pipenv coverage run manage.py test -v 2
+      - run: pipenv run coverage run manage.py test -v 2
