@@ -22,7 +22,7 @@ jobs:
       - run: export PATH=$PATH:$PWD/geckodriver
       - run: pip install pipenv
       - run: pipenv install --dev
-      - run: npm install -g gulp-cli
+      - run: npm install gulp-cli
       - run: npm install
       - run: python manage.py migrate
       - run: python manage.py collectstatic --noinput
