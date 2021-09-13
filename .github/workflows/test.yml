@@ -71,7 +71,7 @@ jobs:
       - name: Run tests
         run: | 
           pipenv run coverage run manage.py test -v 2
-          coverage xml
+          pipenv run coverage xml
       - name: CodeClimate
         uses: paambaati/codeclimate-action@v2.7.5
         env:
