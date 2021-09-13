@@ -48,18 +48,23 @@ jobs:
         if: steps.cache-pipenv.outputs.cache-hit != 'true'
         run: |
           pipenv install --deploy --dev
+          npm install gulp-cli
+          npm install
       
-      - run: npm install gulp-cli
-      - run: npm install
-      - run: pipenv run python manage.py migrate
-      - run: pipenv run python manage.py collectstatic --noinput
-      - run: pipenv run python manage.py compilemessages
-      - run: curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-      - run: chmod +x ./cc-test-reporter
-      - run: ./cc-test-reporter before-build
-      - run: pipenv run coverage run manage.py test -v 2
-      - run: coverage xml
-      - name: Test & publish code coverage
+      - name: Prepare application
+        run: | 
+          pipenv run python manage.py migrate
+          pipenv run python manage.py collectstatic --noinput
+          pipenv run python manage.py compilemessages
+#       - run: curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+#       - run: chmod +x ./cc-test-reporter
+#       - run: ./cc-test-reporter before-build
+      
+      - name: Run tests
+        run: | 
+          pipenv run coverage run manage.py test -v 2
+          coverage xml
+      - name: CodeClimate
         uses: paambaati/codeclimate-action@v2.7.5
         env:
           CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
