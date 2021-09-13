@@ -58,3 +58,15 @@ jobs:
       - run: chmod +x ./cc-test-reporter
       - run: ./cc-test-reporter before-build
       - run: pipenv run coverage run manage.py test -v 2
+      - run: coverage xml
+      - name: Test & publish code coverage
+        uses: paambaati/codeclimate-action@v2.7.5
+        env:
+          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+      - name: Codecov
+        # You may pin to the exact commit or the version.
+        # uses: codecov/codecov-action@f32b3a3741e1053eb607407145bc9619351dc93b
+        uses: codecov/codecov-action@v2.1.0
+        with:
+          # Comma-separated list of files to upload
+          files: ./coverage.xml
