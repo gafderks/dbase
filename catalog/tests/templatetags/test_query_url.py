@@ -1,3 +1,4 @@
+from html import unescape
 from urllib.parse import parse_qsl
 
 from django.http import HttpRequest, QueryDict
@@ -20,6 +21,7 @@ class ParamReplaceTest(TestCase):
             "{% load query_url %}" "{% param_replace abc=156 %}"
         )
         rendered_template = template_to_render.render(context)
+        rendered_template = unescape(rendered_template)
         decoded_template = dict(parse_qsl(rendered_template))
         self.assertDictEqual(decoded_template, {"abc": "156"})
 
@@ -29,6 +31,7 @@ class ParamReplaceTest(TestCase):
             "{% load query_url %}" "{% param_replace abc=4 %}"
         )
         rendered_template = template_to_render.render(context)
+        rendered_template = unescape(rendered_template)
         decoded_template = dict(parse_qsl(rendered_template))
         self.assertDictEqual(decoded_template, {"page": "one", "abc": "4"})
 
@@ -38,6 +41,7 @@ class ParamReplaceTest(TestCase):
             "{% load query_url %}" "{% param_replace abc=None %}"
         )
         rendered_template = template_to_render.render(context)
+        rendered_template = unescape(rendered_template)
         decoded_template = dict(parse_qsl(rendered_template))
         self.assertDictEqual(decoded_template, {"page": "one"})
 
@@ -47,5 +51,6 @@ class ParamReplaceTest(TestCase):
             "{% load query_url %}" "{% param_replace abc=False %}"
         )
         rendered_template = template_to_render.render(context)
+        rendered_template = unescape(rendered_template)
         decoded_template = dict(parse_qsl(rendered_template))
         self.assertDictEqual(decoded_template, {"page": "None", "abc": "False"})

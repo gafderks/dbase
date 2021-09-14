@@ -1,0 +1,83 @@
+name: Django CI
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    environment: CI
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.6, 3.7, 3.8, 3.9]
+    env:
+      SECRET_KEY: '${{ secrets.SECRET_KEY }}'
+      DATABASE_URL: 'sqlite:///db.sqlite3'
+      DEBUG: off
+      NODE_ENV: production
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+      
+      - name: Install GNU gettext
+        run: sudo apt-get install gettext
+      
+      - name: Install Firefox
+        uses: browser-actions/setup-firefox@latest
+      
+      - name: Install Selenium dependencies
+        run: |
+           sudo apt-get install xvfb
+           wget https://github.com/mozilla/geckodriver/releases/download/v0.26.0/geckodriver-v0.26.0-linux64.tar.gz
+           mkdir geckodriver
+           tar -xzf geckodriver-v0.26.0-linux64.tar.gz -C geckodriver
+           export PATH=$PATH:$PWD/geckodriver
+          
+      - name: Install pipenv
+        run: |
+          python -m pip install --upgrade pipenv wheel
+      - id: cache-pipenv
+        uses: actions/cache@v1
+        with:
+          path: ~/.local/share/virtualenvs
+          key: ${{ runner.os }}-pipenv-${{ hashFiles('**/Pipfile.lock') }}
+
+      - name: Install python dependencies
+        if: steps.cache-pipenv.outputs.cache-hit != 'true'
+        run: |
+          pipenv install --deploy --dev
+          
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: npm-${{ hashFiles('package-lock.json') }}
+          restore-keys: npm-
+          
+      - name: Install NPM dependencies
+        run: npm ci
+              
+      - name: Prepare application
+        run: | 
+          pipenv run python manage.py migrate
+          pipenv run python manage.py collectstatic --noinput
+          pipenv run python manage.py compilemessages
+      
+      - name: Run tests
+        run: | 
+          pipenv run coverage run manage.py test -v 2
+          pipenv run coverage xml
+          
+      - name: CodeClimate
+        uses: paambaati/codeclimate-action@v2.7.5
+        env:
+          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+      - name: Codecov
+        # You may pin to the exact commit or the version.
+        # uses: codecov/codecov-action@f32b3a3741e1053eb607407145bc9619351dc93b
+        uses: codecov/codecov-action@v2.1.0
+        with:
+          # Comma-separated list of files to upload
+          files: ./coverage.xml

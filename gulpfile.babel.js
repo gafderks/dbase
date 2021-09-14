@@ -24,10 +24,10 @@ import imagemin from 'gulp-imagemin';
 import del from 'del';
 import browserSync from 'browser-sync';
 
-import booking from './booking/static/booking/config.gulp';
-import dbase from './dbase/static/dbase/config.gulp';
-import camera from './camera/static/camera/config.gulp';
-import catalog from './catalog/static/catalog/config.gulp';
+import booking from './booking/static/booking/config.gulp.js';
+import dbase from './dbase/static/dbase/config.gulp.js';
+import camera from './camera/static/camera/config.gulp.js';
+import catalog from './catalog/static/catalog/config.gulp.js';
 
 const configs = [booking, dbase, camera, catalog];
 
