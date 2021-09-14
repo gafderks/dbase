@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: [3.6]
+        python-version: [3.6, 3.7, 3.8, 3.9]
     env:
       SECRET_KEY: '${{ secrets.SECRET_KEY }}'
       DATABASE_URL: 'sqlite:///db.sqlite3'
@@ -64,14 +64,12 @@ jobs:
           pipenv run python manage.py migrate
           pipenv run python manage.py collectstatic --noinput
           pipenv run python manage.py compilemessages
-#       - run: curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-#       - run: chmod +x ./cc-test-reporter
-#       - run: ./cc-test-reporter before-build
       
       - name: Run tests
         run: | 
           pipenv run coverage run manage.py test -v 2
           pipenv run coverage xml
+          
       - name: CodeClimate
         uses: paambaati/codeclimate-action@v2.7.5
         env:
