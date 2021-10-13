@@ -12,7 +12,7 @@
     "@rollup/plugin-alias": "^3.1.5",
     "@rollup/plugin-commonjs": "^20.0.0",
     "@rollup/plugin-inject": "^4.0.2",
-    "@rollup/plugin-node-resolve": "^13.0.4",
+    "@rollup/plugin-node-resolve": "^13.0.5",
     "@rollup/stream": "^2.0.0",
     "autoprefixer": "^10.3.4",
     "bloodhound-js": "^1.2.3",
