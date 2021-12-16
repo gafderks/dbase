@@ -10,7 +10,7 @@ jobs:
       matrix:
         python-version: [3.6, 3.7, 3.8, 3.9]
     env:
-      SECRET_KEY: '${{ secrets.SECRET_KEY }}'
+      SECRET_KEY: "${{ secrets.SECRET_KEY }}"
       DATABASE_URL: 'sqlite:///db.sqlite3'
       DEBUG: off
       NODE_ENV: production
@@ -64,6 +64,8 @@ jobs:
           pipenv run python manage.py migrate
           pipenv run python manage.py collectstatic --noinput
           pipenv run python manage.py compilemessages
+        env:
+          SECRET_KEY: "${{ secrets.SECRET_KEY }}"
       
       - name: Run tests
         run: | 
