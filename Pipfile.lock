@@ -53,11 +53,10 @@
         },
         "django-admin-sortable": {
             "hashes": [
-                "sha256:0dc797675f14c3c38ed51e732c6f9d1bfee4b4167207a26e9ec7697af696bbe2",
-                "sha256:3aa46a31c878b5f56a75e89bfce92632f4950f5c57749b2a95550b2171f73f2a"
+                "sha256:03f0372b176aea71f1e55f8e0967ba0e0a46b050f4d036d97e3b35d83ba83d90",
+                "sha256:3c7a77342a47cdabd272c031769f619c0f69e884f18983763ece92e4bef431ad"
             ],
-            "index": "pypi",
-            "version": "==2.2.4"
+            "version": "==2.3"
         },
         "django-ckeditor": {
             "hashes": [
