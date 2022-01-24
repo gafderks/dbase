@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: [3.6, 3.7, 3.8, 3.9]
+        python-version: [3.7, 3.8, 3.9, 3.10]
     env:
       SECRET_KEY: "${{ secrets.SECRET_KEY }}"
       DATABASE_URL: 'sqlite:///db.sqlite3'
@@ -30,9 +30,9 @@ jobs:
       - name: Install Selenium dependencies
         run: |
            sudo apt-get install xvfb
-           wget https://github.com/mozilla/geckodriver/releases/download/v0.26.0/geckodriver-v0.26.0-linux64.tar.gz
+           wget https://github.com/mozilla/geckodriver/releases/download/v0.30.0/geckodriver-v0.30.0-linux64.tar.gz
            mkdir geckodriver
-           tar -xzf geckodriver-v0.26.0-linux64.tar.gz -C geckodriver
+           tar -xzf geckodriver-v0.30.0-linux64.tar.gz -C geckodriver
            export PATH=$PATH:$PWD/geckodriver
           
       - name: Install pipenv

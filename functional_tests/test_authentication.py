@@ -1,6 +1,7 @@
 from datetime import timedelta
 
 from django.utils import timezone
+from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 
 from booking.models import Event
@@ -80,16 +81,16 @@ class SimpleUserBookingTest(FunctionalTest):
         self.assertIn("/users/login/?next=/", self.browser.current_url)
 
         # He types his credentials and logs into the DBase
-        self.browser.find_element_by_name("username").send_keys(self.user_bob.email)
-        self.browser.find_element_by_name("password").send_keys("sekrit")
-        self.browser.find_element_by_name("password").send_keys(Keys.ENTER)
+        self.browser.find_element(By.NAME, "username").send_keys(self.user_bob.email)
+        self.browser.find_element(By.NAME, "password").send_keys("sekrit")
+        self.browser.find_element(By.NAME, "password").send_keys(Keys.ENTER)
 
         # He is now logged in
         self.wait_to_be_logged_in(self.user_bob.first_name)
 
         # The active event is 'Active event'
         self.assertEqual(
-            self.browser.find_element_by_tag_name("h1").text, "Active event"
+            self.browser.find_element(By.TAG_NAME, "h1").text, "Active event"
         )
 
         # Hidden event is not displayed
@@ -102,5 +103,5 @@ class SimpleUserBookingTest(FunctionalTest):
         # The page shows the group that Bob belongs to his group
         self.assertEqual(
             self.user_bob.group.name,
-            self.browser.find_element_by_id("groupSelector").text,
+            self.browser.find_element(By.ID, "groupSelector").text,
         )

@@ -2,6 +2,7 @@ from unittest.mock import patch
 
 from django.urls import reverse
 from selenium.webdriver import ActionChains
+from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 
 from booking.models import Material
@@ -41,7 +42,7 @@ class CatalogMaterialTest(FunctionalTest):
 
         # Bob checks the details for the material
         catalog_view_page = CatalogViewPage(self)
-        material_card = self.browser.find_element_by_class_name("material-card")
+        material_card = self.browser.find_element(By.CLASS_NAME, "material-card")
         catalog_view_page.verify_material_attributes(material_card, self.material)
 
     def test_can_view_material_details_modal_game_view(self):
@@ -70,8 +71,8 @@ class CatalogMaterialTest(FunctionalTest):
         )
 
         # Bob clicks the category in the modal...
-        game_view_page.get_catalog_modal().find_elements_by_css_selector(
-            ".category-list a"
+        game_view_page.get_catalog_modal().find_elements(
+            By.CSS_SELECTOR, ".category-list a"
         )[0].click()
         # ... to show the material in the catalog
         self.wait_for(
@@ -82,8 +83,8 @@ class CatalogMaterialTest(FunctionalTest):
         )
 
         # Bob clicks the category filter that is active to show all materials
-        self.browser.find_element_by_css_selector(
-            "button[name=categories].btn-secondary"
+        self.browser.find_element(
+            By.CSS_SELECTOR, "button[name=categories].btn-secondary"
         ).click()
 
         # Bob finds beschuiten (rol) on the page as well
@@ -97,7 +98,7 @@ class CatalogMaterialTest(FunctionalTest):
         )
 
         # Bob inspects the properties of the beschuiten (rol)
-        self.browser.find_element_by_css_selector(selector).click()
+        self.browser.find_element(By.CSS_SELECTOR, selector).click()
         catalog_view_page.verify_material_attributes(
             game_view_page.get_catalog_modal(), self.material
         )
@@ -132,8 +133,8 @@ class CatalogMaterialTest(FunctionalTest):
         )
 
         # Bob clicks the category in the modal...
-        list_view_page.get_catalog_modal().find_elements_by_css_selector(
-            ".category-list a"
+        list_view_page.get_catalog_modal().find_elements(
+            By.CSS_SELECTOR, ".category-list a"
         )[0].click()
         # ... to show the material in the catalog
         self.wait_for(
@@ -159,7 +160,9 @@ class CatalogMaterialTest(FunctionalTest):
         )
 
         # Bob switches to the catalog
-        self.browser.find_element_by_css_selector(".nav-link[href='/catalog/']").click()
+        self.browser.find_element(
+            By.CSS_SELECTOR, ".nav-link[href='/catalog/']"
+        ).click()
 
         # Bob sees the catalog masonry
         self.wait_for(
@@ -245,21 +248,21 @@ class CatalogMaterialTest(FunctionalTest):
         self.check_if_typeahead_loaded()
 
         # Bob clicks the search bar and enters the name of the material
-        search_input = self.browser.find_element_by_id("navSearch")
+        search_input = self.browser.find_element(By.ID, "navSearch")
         search_input.send_keys(material.name)
         search_input.send_keys(Keys.ENTER)
 
         # Bob sees the details for the typed material
         catalog_view_page = CatalogViewPage(self)
         catalog_view_page.verify_material_attributes(
-            self.browser.find_element_by_id("catalogModal"), material
+            self.browser.find_element(By.ID, "catalogModal"), material
         )
 
         # Bob closes the modal by pressing escape
         ActionChains(self.browser).send_keys(Keys.ESCAPE).perform()
 
         # Bob clicks the search bar and enters the alias of the material
-        search_input = self.browser.find_element_by_id("navSearch")
+        search_input = self.browser.find_element(By.ID, "navSearch")
         for _ in range(len(material.name)):
             search_input.send_keys(Keys.BACK_SPACE)
         search_input.send_keys(str(material.aliases.first()))
@@ -268,7 +271,7 @@ class CatalogMaterialTest(FunctionalTest):
         # Bob sees the details for the typed material
         self.wait_for(
             lambda: catalog_view_page.verify_material_attributes(
-                self.browser.find_element_by_id("catalogModal"), material
+                self.browser.find_element(By.ID, "catalogModal"), material
             )
         )
 
@@ -288,21 +291,21 @@ class CatalogMaterialTest(FunctionalTest):
         self.check_if_typeahead_loaded()
 
         # Bob clicks the search bar and enters the name of the material
-        search_input = self.browser.find_element_by_id("navSearch")
+        search_input = self.browser.find_element(By.ID, "navSearch")
         search_input.send_keys(material.name)
         search_input.send_keys(Keys.ENTER)
 
         # Bob sees the details for the typed material
         catalog_view_page = CatalogViewPage(self)
         catalog_view_page.verify_material_attributes(
-            self.browser.find_element_by_id("catalogModal"), material
+            self.browser.find_element(By.ID, "catalogModal"), material
         )
 
         # Bob closes the modal by pressing escape
         ActionChains(self.browser).send_keys(Keys.ESCAPE).perform()
 
         # Bob clicks the search bar and enters the alias of the material
-        search_input = self.browser.find_element_by_id("navSearch")
+        search_input = self.browser.find_element(By.ID, "navSearch")
         for _ in range(len(material.name)):
             search_input.send_keys(Keys.BACK_SPACE)
         search_input.send_keys(str(material.aliases.first()))
@@ -311,6 +314,6 @@ class CatalogMaterialTest(FunctionalTest):
         # Bob sees the details for the typed material
         self.wait_for(
             lambda: catalog_view_page.verify_material_attributes(
-                self.browser.find_element_by_id("catalogModal"), material
+                self.browser.find_element(By.ID, "catalogModal"), material
             )
         )

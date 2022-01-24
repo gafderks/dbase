@@ -35,10 +35,10 @@ Installation
    ```
 4. Copy the file `.env.example` to `.env` and fill in the settings.
 5. Activate the virtual environment with `pipenv shell`.
-6. Collect static files using `(dbase) $ django-admin collectstatic`
+6. Collect static files using `(dbase) $ python manage.py collectstatic`
 7. Compile the translation files using `(dbase) $ python manage.py compilemessages`
 8. Load the database configuration with `(dbase) $ python manage.py migrate`
-9. Create a superuser account using `(dbase) $ django-admin createsuperuser`
+9. Create a superuser account using `(dbase) $ python manage.py createsuperuser`
 10. Import materials, categories, filters, roles and groups using 
    `(dbase) $ python manage.py creategroups && python manage.py importfilters && python manage.py importmaterial`
 11. Set up the apache web server by copying the file `deploy/apache.conf` to 
