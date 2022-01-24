@@ -71,6 +71,8 @@ jobs:
         run: | 
           pipenv run coverage run manage.py test -v 2
           pipenv run coverage xml
+        env:
+          SECRET_KEY: "${{ secrets.SECRET_KEY }}"
           
       - name: CodeClimate
         uses: paambaati/codeclimate-action@v2.7.5
