@@ -18,7 +18,6 @@ werkzeug = "*"
 mysqlclient = "*"
 django-crispy-forms = "*"
 django-money = "*"
-django-admin-sortable = "*"
 openpyxl = "*"
 django-environ = "*"
 sorl-thumbnail = "*"
@@ -32,6 +31,7 @@ Pillow = "*"
 factory-boy = "*"
 django-mptt = "*"
 django-mptt-admin = "*"
+django-admin-sortable = {git = "https://github.com/gafderks/django-admin-sortable"}
 
 [pipenv]
 allow_prereleases = true

@@ -7,6 +7,7 @@ from selenium.common.exceptions import (
 )
 import time
 from django.conf import settings
+from selenium.webdriver.common.by import By
 
 from .management.commands.create_session import create_pre_authenticated_session
 
@@ -60,14 +61,14 @@ class FunctionalTest(StaticLiveServerTestCase):
 
     @wait
     def wait_to_be_logged_in(self, user_label):
-        self.browser.find_element_by_css_selector('[href="/users/logout/"]')
-        navbar = self.browser.find_element_by_css_selector(".navbar")
+        self.browser.find_element(By.CSS_SELECTOR, '[href="/users/logout/"]')
+        navbar = self.browser.find_element(By.CSS_SELECTOR, ".navbar")
         self.assertIn(user_label, navbar.get_attribute("innerHTML"))
 
     @wait
     def wait_to_be_logged_out(self, email):
-        self.browser.find_element_by_name("email")
-        navbar = self.browser.find_element_by_css_selector(".navbar")
+        self.browser.find_element(By.NAME, "email")
+        navbar = self.browser.find_element(By.CSS_SELECTOR, ".navbar")
         self.assertNotIn(email, navbar.text)
 
     def assertCSSElementExists(self, css_selector, msg=None, context=None, times=1):
@@ -76,7 +77,7 @@ class FunctionalTest(StaticLiveServerTestCase):
         if not msg:
             msg = f"element {css_selector} was not found"
         self.assertGreaterEqual(
-            len(context.find_elements_by_css_selector(css_selector)), times, msg
+            len(context.find_elements(By.CSS_SELECTOR, css_selector)), times, msg
         )
 
     def create_pre_authenticated_session(self, user):

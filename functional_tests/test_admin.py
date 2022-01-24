@@ -1,4 +1,5 @@
 from django.urls import reverse
+from selenium.webdriver.common.by import By
 
 from functional_tests.base import FunctionalTest
 from users.tests.factories import SuperUserFactory
@@ -23,7 +24,7 @@ class AdminTest(FunctionalTest):
         )
 
         # Bob clicks the button
-        self.browser.find_element_by_css_selector("a[href='/camera/']").click()
+        self.browser.find_element(By.CSS_SELECTOR, "a[href='/camera/']").click()
 
         # Bob sees a video (with his face)
         self.wait_for(lambda: self.assertCSSElementExists("video"))

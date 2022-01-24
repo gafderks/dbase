@@ -1,3 +1,5 @@
+from selenium.webdriver.common.by import By
+
 from functional_tests.base import retry_stale, wait
 
 
@@ -19,7 +21,7 @@ class CatalogViewPage(object):
         )
         # -2 skips the previous button
         return int(
-            self.test.browser.find_elements_by_css_selector(".page-link")[-2].text
+            self.test.browser.find_elements(By.CSS_SELECTOR, ".page-link")[-2].text
         )
 
     def navigate_to_page(self, page_num):
@@ -31,13 +33,13 @@ class CatalogViewPage(object):
                 f"no link to page {page_num} found on the page",
             )
         )
-        self.test.browser.find_element_by_css_selector(anchor_selector).click()
+        self.test.browser.find_element(By.CSS_SELECTOR, anchor_selector).click()
         # wait for the page to be loaded
         self.test.wait_for(
             lambda: self.test.assertEqual(
                 filter_number(
-                    self.test.browser.find_element_by_css_selector(
-                        "[aria-current='page']"
+                    self.test.browser.find_element(
+                        By.CSS_SELECTOR, "[aria-current='page']"
                     ).text
                 ),
                 page_num,
@@ -54,10 +56,10 @@ class CatalogViewPage(object):
                 times=i,
             )
         )
-        return self.test.browser.find_elements_by_css_selector(selector)[i]
+        return self.test.browser.find_elements(By.CSS_SELECTOR, selector)[i]
 
     def get_catalog_item_text(self, catalog_item):
-        return catalog_item.find_element_by_css_selector(".card-title").text
+        return catalog_item.find_element(By.CSS_SELECTOR, ".card-title").text
 
     @wait  # loading the catalog uses AJAX which may take a while
     @retry_stale  # catalog may contain old material
@@ -71,7 +73,7 @@ class CatalogViewPage(object):
         # Wait for the loading spinner to be gone/done
         self.test.wait_for(
             lambda: self.test.assertEqual(
-                len(catalog_elem.find_elements_by_css_selector(".spinner-grow")),
+                len(catalog_elem.find_elements(By.CSS_SELECTOR, ".spinner-grow")),
                 0,
                 msg="catalog is still loading",
             )
@@ -81,15 +83,15 @@ class CatalogViewPage(object):
         self.test.wait_for(
             lambda: self.test.assertEqual(
                 material.name.lower(),
-                catalog_elem.find_element_by_class_name("card-title").text.lower(),
+                catalog_elem.find_element(By.CLASS_NAME, "card-title").text.lower(),
                 "the material name does not match",
             )
         )
 
         # Test if the description is correct
         if material.description:
-            description_elem = catalog_elem.find_element_by_class_name(
-                "material-description"
+            description_elem = catalog_elem.find_element(
+                By.CLASS_NAME, "material-description"
             )
             self.test.wait_for(
                 lambda: self.test.assertTrue(
@@ -100,7 +102,7 @@ class CatalogViewPage(object):
 
         # Test if the stock is correct
         if material.stock_value:
-            stock_elem = catalog_elem.find_element_by_class_name("material-stock")
+            stock_elem = catalog_elem.find_element(By.CLASS_NAME, "material-stock")
             self.test.wait_for(
                 lambda: self.test.assertTrue(
                     material.stock in stock_elem.text,
@@ -110,7 +112,7 @@ class CatalogViewPage(object):
 
         # Test if the aliases are correct
         if material.aliases.count() > 0:
-            alias_elem = catalog_elem.find_element_by_class_name("material-aliases")
+            alias_elem = catalog_elem.find_element(By.CLASS_NAME, "material-aliases")
             for alias in material.aliases.all():
                 self.test.wait_for(
                     lambda: self.test.assertTrue(
@@ -120,8 +122,8 @@ class CatalogViewPage(object):
 
         # Test if the attachments are correct
         if material.attachments.count() > 0:
-            attachments_elem = catalog_elem.find_element_by_class_name(
-                "material-attachments"
+            attachments_elem = catalog_elem.find_element(
+                By.CLASS_NAME, "material-attachments"
             )
             for attachment in material.attachments.all():
                 self.test.wait_for(
@@ -140,7 +142,9 @@ class CatalogViewPage(object):
 
         # Test if the location is correct
         if material.location:
-            location_elem = catalog_elem.find_element_by_class_name("material-location")
+            location_elem = catalog_elem.find_element(
+                By.CLASS_NAME, "material-location"
+            )
             self.test.wait_for(
                 lambda: self.test.assertTrue(
                     material.location.name in location_elem.text,
