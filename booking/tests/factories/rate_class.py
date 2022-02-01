@@ -12,4 +12,4 @@ class RateClassFactory(factory.django.DjangoModelFactory):
 
     name = factory.LazyAttributeSequence(lambda o, n: f"{o.name_base} {n}")
     description = factory.Faker("paragraph")
-    rate = factory.Faker("pydecimal", positive=True, right_digits=2, max_value=10 ** 4)
+    rate = factory.Faker("pydecimal", positive=True, right_digits=2, max_value=10**4)
