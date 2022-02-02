@@ -2,7 +2,6 @@ from ckeditor.fields import RichTextField
 from django.conf import settings
 from django.db import models
 from django.db.models.functions import Lower
-from django.template.defaultfilters import floatformat
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from mptt.fields import TreeManyToManyField
@@ -78,7 +77,8 @@ class Material(models.Model):
         """
         parts = []
         if self.stock_value:
-            parts.append(floatformat(self.stock_value, -2))
+            value = "{:.2f}".format(self.stock_value).rstrip("0").rstrip(".")
+            parts.append(value)
         if self.stock_unit:
             parts.append(self.stock_unit)
         return " ".join(parts).strip()
