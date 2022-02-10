@@ -327,11 +327,10 @@
         },
         "sorl-thumbnail": {
             "hashes": [
-                "sha256:c56cd651feab3bdc415d5301600198e2e70c08234dad48b8f6cfa4746cc102c7",
-                "sha256:fbe6dfd66a1aceb7e0203895ff5622775e50266f8d8cfd841fe1500bd3e19018"
+                "sha256:7788b460d90896f1f8f2f1e5ad21bcf9dec744c35ce71654d1e0c6ef41f90b9c",
+                "sha256:ee2a3c9f0b889e59919383d3781f1317dc9c4927fb44b22fb1437f6fe7054b96"
             ],
-            "index": "pypi",
-            "version": "==12.7.0"
+            "version": "==12.8.0"
         },
         "sqlparse": {
             "hashes": [
