@@ -173,10 +173,10 @@
         },
         "faker": {
             "hashes": [
-                "sha256:4894ce3309c0099e8e6eb1db6e376372e7bcab822334bbdbcd2b1fa4df3d2231",
-                "sha256:56397929f87baf1d40b794dbcc4edbb9a393ad1d02d865c67f871f5921b9ae4a"
+                "sha256:1c0e390ba593f1f7b43dcc9999003ae41e4937b3ef589c822617d1af95484cf0",
+                "sha256:bf6a5cd05e8db7302ac76d27e83262d5270226263eefd4f1a706eb256d8e215c"
             ],
-            "version": "==12.0.0"
+            "version": "==12.3.1"
         },
         "mysqlclient": {
             "hashes": [
@@ -629,10 +629,10 @@
         },
         "faker": {
             "hashes": [
-                "sha256:4894ce3309c0099e8e6eb1db6e376372e7bcab822334bbdbcd2b1fa4df3d2231",
-                "sha256:56397929f87baf1d40b794dbcc4edbb9a393ad1d02d865c67f871f5921b9ae4a"
+                "sha256:1c0e390ba593f1f7b43dcc9999003ae41e4937b3ef589c822617d1af95484cf0",
+                "sha256:bf6a5cd05e8db7302ac76d27e83262d5270226263eefd4f1a706eb256d8e215c"
             ],
-            "version": "==12.0.0"
+            "version": "==12.3.1"
         },
         "h11": {
             "hashes": [
