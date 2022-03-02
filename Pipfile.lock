@@ -304,11 +304,10 @@
         },
         "rules": {
             "hashes": [
-                "sha256:3293ef232d8ed86ec59dd1d993a745168ebee908a1f0ffb332ed0f3065b8ee57",
-                "sha256:b5e7d7b83dfab8895e901406f533325eccd96b2a38cc0362860c9b895aaad32f"
+                "sha256:3cc8b07dd83249d176151d938ef0118ed2ee7116c08daa1807e8b805952f7dc8",
+                "sha256:a11e61fb02f435db8dc3fe8c0aa8b8c1872c6e3a385522309be26b1327331a0e"
             ],
-            "index": "pypi",
-            "version": "==3.1"
+            "version": "==3.2.1"
         },
         "setuptools": {
             "hashes": [
