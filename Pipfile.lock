@@ -704,10 +704,9 @@
         },
         "selenium": {
             "hashes": [
-                "sha256:27e7b64df961d609f3d57237caa0df123abbbe22d038f2ec9e332fb90ec1a939"
+                "sha256:730061f1c6c1abb1f064928d719a9da3168999dbae49c6a9982d852ee8c47423"
             ],
-            "index": "pypi",
-            "version": "==4.1.0"
+            "version": "==4.1.4"
         },
         "six": {
             "hashes": [
