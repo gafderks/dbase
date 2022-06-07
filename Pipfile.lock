@@ -312,10 +312,10 @@
         },
         "setuptools": {
             "hashes": [
-                "sha256:4f783948909b28124388eef286572e9e69c228b6866d44ac7475bd82e94b6503",
-                "sha256:5d7a302d3c3ae24d3bbaaecf5c4544056b2dd44b3e6690014dc096d64f12d672"
+                "sha256:d1746e7fd520e83bbe210d02fff1aa1a425ad671c7a9da7d246ec2401a087198",
+                "sha256:e7d11f3db616cda0751372244c2ba798e8e56a28e096ec4529010b803485f3fe"
             ],
-            "version": "==60.8.0"
+            "version": "==62.3.3"
         },
         "six": {
             "hashes": [
