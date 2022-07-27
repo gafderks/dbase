@@ -807,12 +807,8 @@
             "version": "==1.26.8"
         },
         "werkzeug": {
-            "hashes": [
-                "sha256:63d3dc1cf60e7b7e35e97fa9861f7397283b75d765afcaefd993d6046899de8f",
-                "sha256:aa2bb6fc8dee8d6c504c0ac1e7f5f7dc5810a9903e793b6f715a9f015bdadb9a"
-            ],
-            "index": "pypi",
-            "version": "==2.0.2"
+            "hashes": [],
+            "version": "==2.2.1"
         },
         "wsproto": {
             "hashes": [
