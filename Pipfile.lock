@@ -703,11 +703,8 @@
             "version": "==2.8.2"
         },
         "selenium": {
-            "hashes": [
-                "sha256:27e7b64df961d609f3d57237caa0df123abbbe22d038f2ec9e332fb90ec1a939"
-            ],
-            "index": "pypi",
-            "version": "==4.1.0"
+            "hashes": [],
+            "version": "==4.4.0"
         },
         "six": {
             "hashes": [
