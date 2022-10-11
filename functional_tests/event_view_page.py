@@ -84,6 +84,7 @@ class EventViewPage(object):
             By.CSS_SELECTOR, f'tr.booking[data-id="{booking_id}"]'
         )
         material_text_elem = booking.find_element(By.CSS_SELECTOR, ".booking-name")
+        self.test.scroll_to(material_text_elem)
         material_text_elem.click()
 
     def edit_booking(self, *args, **kwargs):
