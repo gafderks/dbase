@@ -84,6 +84,8 @@ class EventViewPage(object):
             By.CSS_SELECTOR, f'tr.booking[data-id="{booking_id}"]'
         )
         material_text_elem = booking.find_element(By.CSS_SELECTOR, ".booking-name")
+        self.test.scroll_to(material_text_elem)
+        time.sleep(0.5)
         material_text_elem.click()
 
     def edit_booking(self, *args, **kwargs):
@@ -106,10 +108,13 @@ class EventViewPage(object):
         booking_classes = booking.get_attribute("class").split()
         if "booking-duplicate" in booking_classes and "d-none" in booking_classes:
             # Due to bug cannot click tr, must click td: https://sqa.stackexchange.com/a/34328
-            booking.find_element(
+            duplicate_elem = booking.find_element(
                 By.XPATH,
                 "./preceding-sibling::tr[contains(@class, 'booking-duplicate-handler')]/td[1]",
-            ).click()
+            )
+            self.test.scroll_to(duplicate_elem)
+            time.sleep(0.5)
+            duplicate_elem.click()
 
         booking_name = booking.find_element(By.CSS_SELECTOR, ".booking-name").text
 
