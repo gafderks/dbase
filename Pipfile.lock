@@ -356,12 +356,8 @@
             "version": "==3.0.1"
         },
         "tzdata": {
-            "hashes": [
-                "sha256:3eee491e22ebfe1e5cfcc97a4137cd70f092ce59144d81f8924a844de05ba8f5",
-                "sha256:68dbe41afd01b867894bbdfd54fa03f468cfa4f0086bfb4adcd8de8f24f3ee21"
-            ],
-            "markers": "sys_platform == 'win32'",
-            "version": "==2021.5"
+            "hashes": [],
+            "version": "==2022.6"
         }
     },
     "develop": {
@@ -788,12 +784,8 @@
             "version": "==4.0.1"
         },
         "tzdata": {
-            "hashes": [
-                "sha256:3eee491e22ebfe1e5cfcc97a4137cd70f092ce59144d81f8924a844de05ba8f5",
-                "sha256:68dbe41afd01b867894bbdfd54fa03f468cfa4f0086bfb4adcd8de8f24f3ee21"
-            ],
-            "markers": "sys_platform == 'win32'",
-            "version": "==2021.5"
+            "hashes": [],
+            "version": "==2022.6"
         },
         "urllib3": {
             "extras": [
