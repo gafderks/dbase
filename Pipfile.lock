@@ -273,11 +273,8 @@
             "version": "==5.9.0"
         },
         "py-moneyed": {
-            "hashes": [
-                "sha256:c6131c7b7c1f8503552afe44d15c343ea50282d1d9e6fa8b3f1bd2affc1dae1e",
-                "sha256:d745a52819604f42b3666f9b2504b71c27c1645d6d5027d95ec5ed1f28ca86e3"
-            ],
-            "version": "==1.2"
+            "hashes": [],
+            "version": "==3.0"
         },
         "python-dateutil": {
             "hashes": [
