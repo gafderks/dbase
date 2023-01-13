@@ -33,6 +33,7 @@ factory-boy = "*"
 django-mptt = "*"
 django-mptt-admin = "*"
 django-admin-sortable = {git = "https://github.com/gafderks/django-admin-sortable"}
+pymemcache = "*"
 
 [pipenv]
 allow_prereleases = true
