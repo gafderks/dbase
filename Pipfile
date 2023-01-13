@@ -13,6 +13,7 @@ typing-extensions = "*"
 beautifulsoup4 = "*"
 coverage = "*"
 werkzeug = "*"
+faker = "*"
 
 [packages]
 mysqlclient = "*"
