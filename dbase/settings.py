@@ -18,6 +18,7 @@ BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 env = environ.Env(
     # set casting, default value
     DEBUG=(bool, False),
+    CI=(bool, False),
     DEBUG_TOOLBAR=(bool, False),
     ALLOWED_HOSTS=(list, ["127.0.0.1", "localhost"]),
     DATA_UPLOAD_MAX_MEMORY_SIZE=(int, 10485760),  # For uploading HD images
@@ -154,11 +155,11 @@ USE_TZ = True
 
 CACHES = {
     "default": {
-        "BACKEND": "django.core.cache.backends.memcached.MemcachedCache",
+        "BACKEND": "django.core.cache.backends.memcached.PyMemcacheCache",
         "LOCATION": env("MEMCACHE_LOCATIONS"),
     }
 }
-if DEBUG:
+if DEBUG or env("CI"):
     CACHES = {
         "default": {
             "BACKEND": "django.core.cache.backends.dummy.DummyCache",
