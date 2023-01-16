@@ -348,12 +348,8 @@
             "version": "==3.3"
         },
         "setuptools": {
-            "hashes": [
-                "sha256:4d3c92fac8f1118bb77a22181355e29c239cabfe2b9effdaa665c66b711136d7",
-                "sha256:8ab4f1dbf2b4a65f7eec5ad0c620e84c34111a68d3349833494b9088212214dd"
-            ],
-            "markers": "python_version >= '3.7'",
-            "version": "==65.7.0"
+            "hashes": [],
+            "version": "==66.0.0"
         },
         "six": {
             "hashes": [
