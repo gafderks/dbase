@@ -348,7 +348,7 @@ class RateClassForm(forms.ModelForm):
                 # fill initial related values
                 self.fields["materials"].initial = self.instance.materials.all()
             except ValueError:
-                # The above fails if the instance is not saved in the DB, 
+                # The above fails if the instance is not saved in the DB,
                 # because then the m2m materials are inaccessible. Actually,
                 # this only occurs in test cases.
                 self.fields["materials"].initial = []

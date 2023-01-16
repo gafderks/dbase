@@ -150,7 +150,7 @@ class RateClassAdmin(admin.ModelAdmin):
     form = RateClassForm
 
     def save_model(self, request, obj, form, change):
-        obj.save() # save so the material m2m can be used
+        obj.save()  # save so the material m2m can be used
         original_materials = obj.materials.all()
         new_materials = form.cleaned_data["materials"]
         # Remove all materials that were in the original set except for those that are
