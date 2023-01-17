@@ -176,12 +176,8 @@
             "version": "==3.2.1"
         },
         "faker": {
-            "hashes": [
-                "sha256:5420467fad3fa582094057754e5e81326cb1f51ab822bf9df96c077cfb35ae49",
-                "sha256:dcffdca8ec9a715982bcd5f53ee688dc4784cd112f9910f8f7183773eb3ec276"
-            ],
-            "markers": "python_version >= '3.7'",
-            "version": "==16.4.0"
+            "hashes": [],
+            "version": "==16.5.0"
         },
         "mysqlclient": {
             "hashes": [
@@ -668,12 +664,8 @@
             "version": "==3.2.1"
         },
         "faker": {
-            "hashes": [
-                "sha256:5420467fad3fa582094057754e5e81326cb1f51ab822bf9df96c077cfb35ae49",
-                "sha256:dcffdca8ec9a715982bcd5f53ee688dc4784cd112f9910f8f7183773eb3ec276"
-            ],
-            "markers": "python_version >= '3.7'",
-            "version": "==16.4.0"
+            "hashes": [],
+            "version": "==16.5.0"
         },
         "h11": {
             "hashes": [
