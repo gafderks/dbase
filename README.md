@@ -4,9 +4,6 @@ DBASE
 =====
 ![Build Status](https://github.com/gafderks/dbase/actions/workflows/test.yml/badge.svg)
 [![Codacy branch grade](https://img.shields.io/codacy/grade/a1fbb314106646d8bcb8eb52563c7725/master?logo=codacy)](https://www.codacy.com/manual/gafderks/dbase)
-[![Total alerts](https://img.shields.io/lgtm/alerts/g/gafderks/dbase.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/gafderks/dbase/alerts/)
-[![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/gafderks/dbase.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/gafderks/dbase/context:javascript)
-[![Language grade: Python](https://img.shields.io/lgtm/grade/python/g/gafderks/dbase.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/gafderks/dbase/context:python)
 [![Code Climate maintainability](https://img.shields.io/codeclimate/maintainability/gafderks/dbase?logo=code%20climate)](https://codeclimate.com/github/gafderks/dbase/maintainability)
 [![Test Coverage](https://img.shields.io/codeclimate/coverage/gafderks/dbase)](https://codeclimate.com/github/gafderks/dbase/test_coverage)
 [![Updates](https://pyup.io/repos/github/gafderks/dbase/shield.svg)](https://pyup.io/repos/github/gafderks/dbase/)
