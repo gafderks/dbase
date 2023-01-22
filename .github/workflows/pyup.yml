@@ -10,7 +10,16 @@ jobs:
   safety:
     runs-on: ubuntu-latest
     steps:
-      - uses: pyupio/safety@2.3.2
+      - uses: actions/checkout@v3
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v4.5.0
         with:
-          api-key: ${{secrets.SAFETY_API_KEY}}
-          scan: 'file'
+          python-version: '3.10'
+      - name: Install pipenv
+        run: python -m pip install --upgrade pipenv wheel
+      - name: Install application Python dependencies
+        run: pipenv install --deploy --dev
+      - name: Install Safety
+        run: pipenv install Safety
+      - name: Run Safety check
+        run: pipenv run safety check --key ${{ secrets.SAFETY_API_KEY }} 
