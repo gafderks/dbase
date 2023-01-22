@@ -5,9 +5,9 @@ from django.urls import reverse
 from booking.admin import RateClassAdmin
 from booking.forms import RateClassForm
 from booking.models import RateClass
-from booking.tests.factories import RateClassFactory, MaterialFactory
+from booking.tests.factories import RateClassFactory, MaterialFactory, CategoryFactory
 from tests.utils import english
-from users.tests.factories import SuperUserFactory
+from users.tests.factories import SuperUserFactory, UserFactory, RoleFactory
 
 
 class MaterialAdminTest(TestCase):
@@ -100,3 +100,14 @@ class RateClassAdminTest(TestCase):
         # Verify that all materials were associated
         for material in materials:
             self.assertEqual(material.rate_class, rate_class)
+
+
+class CategoryAdminTest(TestCase):
+    def test_view_category(self):
+        category = CategoryFactory()
+        role = RoleFactory.create(permissions=["view_category", "view_admin"])
+        user = UserFactory.create(groups=[role])
+        self.client.force_login(user)
+        response = self.client.get(reverse("admin:booking_category_changelist"))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, category.name)
