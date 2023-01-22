@@ -54,8 +54,8 @@ class Booking(RulesModel):
         verbose_name = _("booking")
         verbose_name_plural = _("bookings")
         permissions = [
-            ("change_other_groups_bookings", "Can change bookings of other groups"),
-            ("view_others_groups_bookings", "Can view bookings of other groups"),
+            ("change_other_groups_bookings", _("Can change bookings of other groups")),
+            ("view_others_groups_bookings", _("Can view bookings of other groups")),
         ]
         default_permissions = []  # Removed default permissions as we don't check them
         rules_permissions = {"change": rules.change_booking}

@@ -18,9 +18,13 @@ class UserFactory(factory.django.DjangoModelFactory):
     group = factory.SubFactory(GroupFactory)
 
     # Role
-    groups = factory.RelatedFactoryList(
-        "users.tests.factories.RoleFactory", size=1, factory_related_name="user"
-    )
+    @factory.post_generation
+    def groups(self, create, extracted, **kwargs):
+        if not create or not extracted:
+            # Simple build, do nothing.
+            return
+
+        self.groups.add(*extracted)
 
     @factory.post_generation
     def password(self, create, extracted, **kwargs):

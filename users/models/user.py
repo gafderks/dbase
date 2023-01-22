@@ -70,12 +70,17 @@ class User(AbstractUser):
 
     objects = UserManager()
 
+    class Meta:
+        permissions = [
+            ("view_admin", _("Can open the site admin page")),
+        ]
+
     def __str__(self):
         return self.email
 
     @property
     def is_staff(self):
-        return self.is_superuser or self.groups.filter(name="MB").exists()
+        return self.has_perm("users.view_admin")
 
 
 def get_sentinel_user(group=None):
