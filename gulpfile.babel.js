@@ -2,7 +2,7 @@ import gulp from 'gulp';
 // js
 import rollupStream from '@rollup/stream';
 import babel from 'rollup-plugin-babel';
-import uglify from 'gulp-uglify';
+import terser from 'gulp-terser';
 import rename from 'gulp-rename';
 import sourcemaps from 'gulp-sourcemaps';
 import source from 'vinyl-source-stream';
@@ -21,7 +21,7 @@ import atImport from 'postcss-import';
 import pixrem from 'pixrem';
 // other
 import imagemin from 'gulp-imagemin';
-import del from 'del';
+import {deleteAsync as del} from 'del';
 import browserSync from 'browser-sync';
 
 import booking from './booking/static/booking/config.gulp.js';
@@ -88,7 +88,7 @@ function scripts() {
       .pipe(buffer())
       .pipe(sourcemaps.init({loadMaps: true}))
       .pipe(gulp.dest(config.dest)) // save .js
-      .pipe(uglify({ output: {comments: 'some'} }))
+      .pipe(terser())
       .pipe(rename({suffix: '.min'}))
       .pipe(sourcemaps.write('.'))
       .pipe(gulp.dest(config.dest)); // save .min.js
