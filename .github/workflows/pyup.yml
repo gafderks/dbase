@@ -10,8 +10,7 @@ jobs:
   safety:
     runs-on: ubuntu-latest
     steps:
-      - uses: pyupio/safety@2.3.5
+      - uses: pyupio/safety@2.3.2
         with:
           api-key: ${{secrets.SAFETY_API_KEY}}
           scan: 'file'
-          requirements: '../Pipfile.lock'
