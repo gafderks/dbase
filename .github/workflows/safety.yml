@@ -1,0 +1,30 @@
+# This workflow will run PyUp security scans on all dependencies that are installed into the environment.
+
+name: PyUp Security Scan
+
+on:
+  push: # Run on every push to any branch
+  pull_request: # Run on new pull requests
+
+jobs:
+  safety:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v4.5.0
+        with:
+          python-version: '3.10'
+      - name: Install pipenv
+        run: python -m pip install --upgrade pipenv wheel
+      - name: Install Safety
+        run: pipenv install Safety
+      - name: Cache
+        uses: actions/cache@v3.2.3
+        with:
+          path: ~/.local/share/virtualenvs
+          key: safety
+      - name: Install application Python dependencies
+        run: pipenv install --deploy --dev
+      - name: Run Safety check
+        run: pipenv run safety check --key ${{ secrets.SAFETY_API_KEY }} 
