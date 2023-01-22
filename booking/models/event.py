@@ -76,9 +76,9 @@ class Event(RulesModel):
             "-event_end",
         ]  # first visible events sorted by event_end
         permissions = [
-            ("view_hidden_events", "Can view hidden events"),
-            ("book_on_privileged_events", "Can book on privileged events"),
-            ("book_on_locked_events", "Can book on locked events"),
+            ("view_hidden_events", _("Can view hidden events")),
+            ("book_on_privileged_events", _("Can book on privileged events")),
+            ("book_on_locked_events", _("Can book on locked events")),
         ]
         rules_permissions = {
             "view": rules.view_event,

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-09 22:37+0100\n"
-"PO-Revision-Date: 2021-02-09 22:41+0100\n"
+"POT-Creation-Date: 2023-01-22 16:56+0100\n"
+"PO-Revision-Date: 2023-01-22 16:58+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: nl\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.4.2\n"
+"X-Generator: Poedit 3.2.2\n"
 
 #: .\booking\admin.py:42 .\booking\admin.py:140
 msgid "Number of materials"
@@ -30,19 +30,19 @@ msgstr "Afbeelding"
 msgid "Booking status"
 msgstr "Reserveringsstatus"
 
-#: .\booking\admin.py:175
+#: .\booking\admin.py:176
 msgid "Included categories"
 msgstr "Inbegrepen categorieën"
 
-#: .\booking\admin.py:176
+#: .\booking\admin.py:177
 msgid "Excluded categories"
 msgstr "Uitgesloten categorieën"
 
-#: .\booking\admin.py:191
+#: .\booking\admin.py:192
 msgid "Filters"
 msgstr "Filters"
 
-#: .\booking\admin.py:195
+#: .\booking\admin.py:196
 msgid ""
 "Specify the conditions for the filter. Materials need to match each of the "
 "configured conditions to be included in the list."
@@ -292,11 +292,11 @@ msgstr "Je moet een materiaal kiezen of een aangepast materiaal kiezen."
 msgid "materials"
 msgstr "materialen"
 
-#: .\booking\forms.py:332
+#: .\booking\forms.py:333
 msgid "Materials"
 msgstr "Materialen"
 
-#: .\booking\forms.py:334
+#: .\booking\forms.py:335
 msgid ""
 "Hold down “Control”, or “Command” on a Mac, to select more than one. A "
 "material can be in only one rate class, the materials you add to this rate "
@@ -345,6 +345,14 @@ msgstr "aantal"
 #: .\booking\models\booking.py:55
 msgid "bookings"
 msgstr "aanvragen"
+
+#: .\booking\models\booking.py:57
+msgid "Can change bookings of other groups"
+msgstr "Kan aanvragen van andere groepen aanpassen"
+
+#: .\booking\models\booking.py:58
+msgid "Can view bookings of other groups"
+msgstr "Kan aanvragen van andere groepen bekijken"
 
 #: .\booking\models\booking.py:69
 msgid "Unspecified material"
@@ -445,6 +453,18 @@ msgstr "evenement"
 #: .\booking\models\event.py:72
 msgid "events"
 msgstr "evenementen"
+
+#: .\booking\models\event.py:79
+msgid "Can view hidden events"
+msgstr "Kan verborgen evenementen bekijken"
+
+#: .\booking\models\event.py:80
+msgid "Can book on privileged events"
+msgstr "Kan reserveringen indienen voor bevoorrechte evenementen"
+
+#: .\booking\models\event.py:81
+msgid "Can book on locked events"
+msgstr "Kan reserveringen indienen voor gesloten evenementen"
 
 #: .\booking\models\event.py:105
 msgid "Hidden"
@@ -623,8 +643,8 @@ msgid ""
 "Alias for the material, e.g. aliases for \"stormbaan\" are \"Kelly\" and "
 "\"Rambler\"."
 msgstr ""
-"Synoniem voor het materiaal, bijv. synoniemen voor \"stormbaan\" zijn \"Kelly"
-"\" en \"Rambler\"."
+"Synoniem voor het materiaal, bijv. synoniemen voor \"stormbaan\" zijn "
+"\"Kelly\" en \"Rambler\"."
 
 #: .\booking\models\material_alias.py:25
 msgid "material alias"
