@@ -14,4 +14,4 @@ jobs:
         with:
           api-key: ${{secrets.SAFETY_API_KEY}}
           scan: 'file'
-          requirements: 'Pipfile.lock'
+          requirements: '../Pipfile.lock'
