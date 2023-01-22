@@ -18,6 +18,9 @@ jobs:
       NODE_ENV: production
     steps:
       - uses: actions/checkout@v2
+      - name: Fallback SECRET_KEY
+        if: ${{ github.actor == 'dependabot[bot]' }}
+        run: echo "SECRET_KEY=fallbacktc5*3ih&7ru&4&#!l7uyu5ufvwtplg+bw5t9(%-ra_qb&%x*rp" >> $GITHUB_ENV
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v2
         with:
