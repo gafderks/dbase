@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-21 19:39+0200\n"
-"PO-Revision-Date: 2020-10-21 19:40+0200\n"
+"POT-Creation-Date: 2023-01-22 16:54+0100\n"
+"PO-Revision-Date: 2023-01-22 16:55+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: nl\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.4.1\n"
+"X-Generator: Poedit 3.2.2\n"
 
 #: .\users\admin.py:19 .\users\models\role.py:12 .\users\models\user.py:58
 msgid "roles"
@@ -51,7 +51,7 @@ msgstr "toegewezen aan"
 msgid "users"
 msgstr "gebruikers"
 
-#: .\users\forms.py:31
+#: .\users\forms.py:39
 msgid "Login"
 msgstr "Inloggen"
 
@@ -103,7 +103,11 @@ msgstr ""
 "De rollen van deze gebruiker. Een gebruiker krijgt de rechten die toegekend "
 "zijn aan elk van zijn rollen."
 
-#: .\users\models\user.py:89
+#: .\users\models\user.py:75
+msgid "Can open the site admin page"
+msgstr "Kan het sitebeheer openen"
+
+#: .\users\models\user.py:94
 msgid "Deleted user"
 msgstr "Verwijderde gebruiker"
 
