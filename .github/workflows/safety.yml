@@ -23,6 +23,7 @@ jobs:
         uses: actions/cache@v3.2.3
         with:
           path: ~/.local/share/virtualenvs
+          key: safety
       - name: Install application Python dependencies
         run: pipenv install --deploy --dev
       - name: Run Safety check
