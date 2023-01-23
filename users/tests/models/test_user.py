@@ -1,8 +1,6 @@
 from django.test import TestCase
 from django.urls import reverse
 from users.tests.factories import UserFactory, RoleFactory
-from django.contrib.auth.models import Permission
-from users.models import Role
 
 
 class UserModelTest(TestCase):
