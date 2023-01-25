@@ -84,7 +84,7 @@ class MaterialAdmin(NonSortableParentAdmin):
         "lendable",
         "location",
         "rate_class",
-        ("stock_value", "stock_unit"),
+        ("stock_value", "lendable_stock_value", "stock_unit"),
     )
     form = MaterialForm
     inlines = [MaterialImageInline, MaterialAliasInline, MaterialAttachmentInline]
