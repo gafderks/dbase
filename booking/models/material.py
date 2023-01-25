@@ -9,6 +9,13 @@ from mptt.fields import TreeManyToManyField
 from booking.models import Category, Location, RateClass
 
 
+def format_stock_value(val: float) -> str:
+    """
+    Removes trailing zeroes and after that any trailing dot.
+    """
+    return "{:.2f}".format(val).rstrip("0").rstrip(".")
+
+
 class Material(models.Model):
     name = models.CharField(verbose_name=_("name"), max_length=150, unique=True)
     description = RichTextField(
@@ -19,7 +26,9 @@ class Material(models.Model):
             "Additional information about the material. Displayed in the shop."
         ),
     )
-    categories = TreeManyToManyField(Category, related_name="materials")
+    categories = TreeManyToManyField(
+        Category, related_name="materials", verbose_name=_("categories")
+    )
     gm = models.BooleanField(
         verbose_name=_("GM"), help_text=_("Is GM needed for this material?")
     )
@@ -52,6 +61,12 @@ class Material(models.Model):
         blank=True,
         help_text=_("How many exemplars are there of this material?"),
     )
+    lendable_stock_value = models.FloatField(
+        verbose_name=_("lendable stock value"),
+        null=True,
+        blank=True,
+        help_text=_("How many exemplars of this materials are lendable?"),
+    )
     stock_unit = models.CharField(
         verbose_name=_("stock unit"),
         max_length=150,
@@ -73,17 +88,31 @@ class Material(models.Model):
     def stock(self):
         """
         Returns a human readable representation of the stock
-        :return:
         """
         parts = []
-        if self.stock_value:
-            value = "{:.2f}".format(self.stock_value).rstrip("0").rstrip(".")
-            parts.append(value)
-        if self.stock_unit:
+        if self.stock_value is not None:
+            parts.append(format_stock_value(self.stock_value))
+        if len(parts) and self.stock_unit:
             parts.append(self.stock_unit)
         return " ".join(parts).strip()
 
     stock.fget.short_description = _("stock")
+
+    @property
+    def lendable_stock(self):
+        """
+        Returns a human readable representation of the lendable stock
+        """
+        parts = []
+        if self.lendable_stock_value is not None:
+            parts.append(format_stock_value(self.lendable_stock_value))
+        elif self.stock_value:
+            parts.append(format_stock_value(self.stock_value))
+        if len(parts) and self.stock_unit:
+            parts.append(self.stock_unit)
+        return " ".join(parts).strip()
+
+    lendable_stock.fget.short_description = _("lendable stock")
 
     @property
     def sku(self):
