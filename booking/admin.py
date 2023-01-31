@@ -32,16 +32,6 @@ ADMIN_THUMBS_SIZE = "60x60"
 
 @admin.register(Category)
 class CategoryAdmin(DjangoMpttAdmin):
-    def changelist_view(self, request, extra_context=None):
-        if not self.has_change_permission(request, None):
-            # Fallback to grid view if user has no category change permission
-            return super(CategoryAdmin, self).grid_view(
-                request, extra_context=extra_context
-            )
-        return super(CategoryAdmin, self).changelist_view(
-            request, extra_context=extra_context
-        )
-
     def get_queryset(self, request):
         qs = super(CategoryAdmin, self).get_queryset(request)
         return qs.annotate(material_count=Count("materials"))
