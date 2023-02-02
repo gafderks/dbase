@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "dbeae7b1e83b670f435a7cc2604be3fb693cbb3db1084c4a56c6fafa58e389c6"
+            "sha256": "96a0cbc93e7a7c7697fa7489e90a690b0f6e5c3d3f1f81bc5f82d3f48096dd16"
         },
         "pipfile-spec": 6,
         "requires": {},
@@ -145,12 +145,12 @@
         },
         "django-mptt-admin": {
             "hashes": [
-                "sha256:4405d49374c049efcb5f1411783c62b9ee0c5990f95a3122af7ce4665cfc43a1",
-                "sha256:d1cbb3171a558c007f4eb0503a40e8315cc45872413866a7df51cb33bc65c7ec",
-                "sha256:f8693bdfa74d655cb28222b03af524925cedf191eee1cb5b52998c31cad0859a"
+                "sha256:2d332ab4398dc5eeded3001ed7f2ff64f54cf482a3366019d9e669941010b4e8",
+                "sha256:53778154384984d5c79dc2e67594b5c81d66669cbc1bfa01167ce84b04b62065",
+                "sha256:86d78fbc26b990f39e67bd87501b2b3e2da3fd1e2bb0eb66069eda365076b69b"
             ],
             "index": "pypi",
-            "version": "==2.3.0"
+            "version": "==2.4.1"
         },
         "env-tools": {
             "hashes": [
@@ -432,7 +432,7 @@
                 "sha256:29e95c7f6778868dbd49170f98f8818f78f3dc5e0e37c0b1f474e3561b240836",
                 "sha256:c9227bfc2f01993c03f68db37d1d15c9690188323c067c641f1a35ca58185f99"
             ],
-            "markers": "python_full_version >= '3.6.0'",
+            "markers": "python_version >= '3.6'",
             "version": "==22.2.0"
         },
         "backports.zoneinfo": {
@@ -501,7 +501,7 @@
                 "sha256:35824b4c3a97115964b408844d64aa14db1cc518f6562e8d7261699d1350a9e3",
                 "sha256:4ad3232f5e926d6718ec31cfc1fcadfde020920e278684144551c91769c7bc18"
             ],
-            "markers": "python_full_version >= '3.6.0'",
+            "markers": "python_version >= '3.6'",
             "version": "==2022.12.7"
         },
         "cffi": {
@@ -865,7 +865,7 @@
                 "sha256:3b2503d3c7084a42b1ebd08116e5f81aadfaea95863628c80a3b774a11b7c759",
                 "sha256:fc53893b3da2c33de295667a0e19f078c14bf86544af307354de5fcf12a3f30d"
             ],
-            "markers": "python_full_version >= '3.6.0'",
+            "markers": "python_version >= '3.6'",
             "version": "==2.3.2.post1"
         },
         "sqlparse": {

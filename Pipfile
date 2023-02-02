@@ -17,7 +17,7 @@ faker = "*"
 
 [packages]
 mysqlclient = "*"
-django-crispy-forms = "*"
+django-crispy-forms = "==1.14.0"
 django-money = "*"
 openpyxl = "*"
 django-environ = "*"
@@ -31,7 +31,7 @@ Django = "*"
 Pillow = "*"
 factory-boy = "*"
 django-mptt = "*"
-django-mptt-admin = "==2.3.0"
+django-mptt-admin = "*"
 django-admin-sortable = {git = "https://github.com/gafderks/django-admin-sortable"}
 pymemcache = "*"
 
