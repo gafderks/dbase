@@ -6,7 +6,6 @@ from booking.models import Material
 
 
 class MaterialDetailView(LoginRequiredMixin, NavigationMixin, DetailView):
-
     template_name = "catalog/material_detail.html"
     model = Material
     queryset = model.objects.select_related("location").prefetch_related(

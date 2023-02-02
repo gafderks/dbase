@@ -24,7 +24,6 @@ class Command(BaseCommand):
 
     @staticmethod
     def import_categories_and_materials():
-
         ################################################################################
         # Import categories
         ################################################################################

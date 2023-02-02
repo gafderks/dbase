@@ -35,7 +35,6 @@ def get_pages(context, max_pages=8):
 
 
 class MaterialListView(LoginRequiredMixin, NavigationMixin, ListView):
-
     template_name = "catalog/material_list.html"
     model = Material
     paginate_by = 30

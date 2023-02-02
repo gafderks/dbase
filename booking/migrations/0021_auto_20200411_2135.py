@@ -5,7 +5,6 @@ import sorl.thumbnail.fields
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("booking", "0020_auto_20200325_2144"),
     ]

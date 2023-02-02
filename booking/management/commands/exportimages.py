@@ -32,7 +32,6 @@ class Command(BaseCommand):
                 )
 
     def handle(self, *args, **options):
-
         with TemporaryDirectory() as export_dir:
             self.stdout.write("Exporting images...")
             self.export_images(export_dir)
