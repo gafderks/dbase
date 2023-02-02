@@ -10,7 +10,6 @@ from booking.models import Material, MaterialImage
 
 
 class CameraView(PermissionRequiredMixin, TemplateView):
-
     permission_required = "booking.change_material"
     template_name = "camera/camera.html"
 
@@ -28,7 +27,6 @@ class CameraView(PermissionRequiredMixin, TemplateView):
 
 
 class UploadImageView(PermissionRequiredMixin, View):
-
     permission_required = "booking.change_material"
 
     def post(self, request):
@@ -44,5 +42,4 @@ class UploadImageView(PermissionRequiredMixin, View):
 
 
 class ListView(CameraView):
-
     template_name = "camera/list.html"

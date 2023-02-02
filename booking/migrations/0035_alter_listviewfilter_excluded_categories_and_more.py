@@ -6,7 +6,6 @@ import mptt.fields
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("booking", "0034_auto_20210414_2135"),
     ]

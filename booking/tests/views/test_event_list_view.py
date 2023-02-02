@@ -8,7 +8,6 @@ from users.tests.factories import UserFactory
 
 
 class EventListViewTest(TestCase):
-
     ####################################################################################
     # Tests for EventListView.get_context_data
     ####################################################################################
