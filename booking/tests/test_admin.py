@@ -110,4 +110,5 @@ class CategoryAdminTest(TestCase):
         self.client.force_login(user)
         response = self.client.get(reverse("admin:booking_category_changelist"))
         self.assertEqual(response.status_code, 200)
+        response = self.client.get(reverse("admin:booking_category_tree_json"))
         self.assertContains(response, category.name)
