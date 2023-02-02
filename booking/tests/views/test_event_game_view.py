@@ -8,7 +8,6 @@ from users.tests.factories import UserFactory, GroupFactory
 
 
 class EventGameViewTest(TestCase):
-
     ####################################################################################
     # Tests for EventGameView.dispatch
     ####################################################################################

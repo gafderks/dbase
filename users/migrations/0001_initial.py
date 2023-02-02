@@ -7,7 +7,6 @@ import users.models
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [("auth", "0001_initial")]

@@ -5,7 +5,6 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("users", "0001_initial"),
         ("booking", "0005_auto_20200104_1625"),

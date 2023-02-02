@@ -18,7 +18,6 @@ def rebuild_tree(apps, schema_editor):
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("booking", "0032_auto_20200924_2308"),
     ]

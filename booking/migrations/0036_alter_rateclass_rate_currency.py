@@ -5,7 +5,6 @@ import djmoney.models.fields
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("booking", "0035_alter_listviewfilter_excluded_categories_and_more"),
     ]

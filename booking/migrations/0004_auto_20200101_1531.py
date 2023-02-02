@@ -7,7 +7,6 @@ import djmoney.models.validators
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("booking", "0003_auto_20191231_1456"),
     ]
