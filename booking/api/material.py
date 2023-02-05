@@ -27,11 +27,11 @@ def format_woocommerce(request, materials):
                 f"<h2>{attachments_header}</h2>"
                 f'<ul class="attachments">{"".join(list)}</ul>'
             )
-        if material.stock != "":
+        if material.lendable_stock != "":
             stock_header = _("Maximum stock")
             content += (
                 f'<p class="max-stock"><span>{stock_header}:</span>'
-                f" {material.stock}</p>"
+                f" {material.lendable_stock}</p>"
             )
         if material.aliases.exists():
             aliases = [alias.name for alias in material.aliases.all()]
@@ -58,7 +58,9 @@ def format_woocommerce(request, materials):
                 "tax:product_visibility": "visible"
                 if mat.lendable
                 else "exclude-from-catalog|exclude-from-search",
-                "stock": mat.stock_value,  # Stock
+                "stock": mat.lendable_stock_value
+                if mat.lendable_stock_value is not None
+                else mat.stock_value,  # Stock
                 "post_content": post_content(mat),
                 "regular_price": mat.rate_class.rate.amount
                 if mat.rate_class is not None
