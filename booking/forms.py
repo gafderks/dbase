@@ -5,6 +5,7 @@ from django.contrib.admin.widgets import FilteredSelectMultiple
 from django.urls import reverse
 from django.utils.translation import gettext as __
 from django.utils.translation import gettext_lazy as _
+from booking.models.material import format_stock_value
 from mptt.forms import TreeNodeMultipleChoiceField
 
 from booking.models import (
@@ -24,6 +25,18 @@ class MaterialForm(forms.ModelForm):
     class Meta:
         model = Material
         fields = "__all__"
+
+    def __init__(self, *args, **kwargs):
+        super(MaterialForm, self).__init__(*args, **kwargs)
+        formatted_stock_value = (
+            format_stock_value(self.instance.stock_value)
+            if self.instance.stock_value is not None
+            else None
+        )
+        self.initial["stock_value"] = formatted_stock_value
+        self.fields["lendable_stock_value"].widget.attrs["placeholder"] = (
+            formatted_stock_value or ""
+        )
 
     def clean(self):
         cleaned_data = super().clean()
