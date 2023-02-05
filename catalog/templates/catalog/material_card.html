@@ -73,8 +73,27 @@
       <li class="list-group-item material-location"><span>{% translate "Location" %}</span> {{ object.location.name }}
       </li>
     {% endif %}
-    {% if object.stock_value %}
-      <li class="list-group-item material-stock"><span>{% translate "Maximum stock" %}</span> {{ object.stock }}</li>
+    {% if object.stock_value is not None or object.lendable_stock_value is not None %}
+      <li class="list-group-item material-stock">
+        <span>{% translate "Maximum stock" %}</span> 
+        {% if object.stock_value is not None %}
+          {{ object.stock }}
+        {% endif %}
+        {% if object.lendable_stock_value is not None and object.stock_value is not None %}
+          {% blocktranslate with amount=object.lendable_stock count counter=object.lendable_stock_value  %}
+          (of which {{ amount }} is lendable)
+          {% plural %}
+          (of which {{ amount }} are lendable)
+          {% endblocktranslate %}
+        {% endif %}
+        {% if object.lendable_stock_value is not None and object.stock_value is None %}
+          {% blocktranslate with amount=object.lendable_stock count counter=object.lendable_stock_value  %}
+          {{ amount }} is lendable
+          {% plural %}
+          {{ amount }} are lendable
+          {% endblocktranslate %}
+        {% endif %}
+      </li>
     {% endif %}
     {% if object.aliases.all %}
       <li class="list-group-item material-aliases"><span>{% translate "Aliases" %}</span> {{ object.aliases.all|join:", " }}</li>
