@@ -15,7 +15,8 @@ class MaterialFactory(factory.django.DjangoModelFactory):
 
     gm = factory.Faker("pybool")
     location = factory.SubFactory("booking.tests.factories.LocationFactory")
-    stock_value = factory.Faker("pyfloat")
+    stock_value = factory.Faker("pyfloat", min_value=0)
+    lendable_stock_value = factory.Faker("pyfloat", min_value=0, max_value=stock_value)
     stock_unit = factory.Faker("word")
 
     @factory.post_generation

@@ -58,11 +58,15 @@ class WooCommerceFormatTest(TestCase):
                 f"http://testserver{material_attachment.attachment.url}",
                 attachment_urls,
             )
-        if material.stock != "":
-            self.assertIn(material.stock, field)
+        if material.lendable_stock != "":
+            self.assertIn(material.lendable_stock, field)
 
     def test_csv_format(self):
-        materials = MaterialFactory.create_batch(10)
+        materials = [
+            *MaterialFactory.create_batch(10),
+            MaterialFactory.create(lendable_stock_value=5, stock_value=4, stock_unit="pieces"),
+            MaterialFactory.create(lendable_stock_value=None, stock_value=2, stock_unit="pieces"),
+        ]
         response = self.client.get("/booking/api/material?format=woocommerce")
         self.assertEqual(
             response.get("Content-Disposition"), 'attachment; filename="materials.csv"'
@@ -93,7 +97,9 @@ class WooCommerceFormatTest(TestCase):
                     "exclude-from-catalog|exclude-from-search",
                 )
                 self.assertEqual(row["post_status"], "private")
-            if material.stock_value is not None:
+            if material.lendable_stock_value is not None:
+                self.assertAlmostEqual(float(row["stock"]), material.lendable_stock_value)
+            elif material.stock_value is not None:
                 self.assertAlmostEqual(float(row["stock"]), material.stock_value)
             else:
                 self.assertEqual(row["stock"], "")
