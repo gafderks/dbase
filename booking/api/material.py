@@ -9,7 +9,6 @@ from sorl.thumbnail import get_thumbnail
 
 
 def format_woocommerce(request, materials):
-
     response = HttpResponse(content_type="text/csv")
     response["Content-Disposition"] = 'attachment; filename="materials.csv"'
 
