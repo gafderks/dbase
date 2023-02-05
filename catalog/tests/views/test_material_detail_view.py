@@ -30,8 +30,13 @@ class MaterialDetailViewTest(TestCase):
             self.assertContains(response, "GM")
         if material.stock_value is not None:
             self.assertContains(response, material.stock)
-            if material.lendable_stock_value is not None and material.lendable_stock_value != 1:
-                self.assertContains(response, f"(of which {material.lendable_stock} are lendable)")
+            if (
+                material.lendable_stock_value is not None
+                and material.lendable_stock_value != 1
+            ):
+                self.assertContains(
+                    response, f"(of which {material.lendable_stock} are lendable)"
+                )
         elif material.lendable_stock_value is not None:
             self.assertContains(response, material.lendable_stock)
         for category in material.categories.all():

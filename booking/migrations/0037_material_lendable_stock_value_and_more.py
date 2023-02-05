@@ -5,7 +5,6 @@ import mptt.fields
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("booking", "0036_alter_rateclass_rate_currency"),
     ]

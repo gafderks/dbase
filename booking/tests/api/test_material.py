@@ -64,8 +64,12 @@ class WooCommerceFormatTest(TestCase):
     def test_csv_format(self):
         materials = [
             *MaterialFactory.create_batch(10),
-            MaterialFactory.create(lendable_stock_value=5, stock_value=4, stock_unit="pieces"),
-            MaterialFactory.create(lendable_stock_value=None, stock_value=2, stock_unit="pieces"),
+            MaterialFactory.create(
+                lendable_stock_value=5, stock_value=4, stock_unit="pieces"
+            ),
+            MaterialFactory.create(
+                lendable_stock_value=None, stock_value=2, stock_unit="pieces"
+            ),
         ]
         response = self.client.get("/booking/api/material?format=woocommerce")
         self.assertEqual(
@@ -98,7 +102,9 @@ class WooCommerceFormatTest(TestCase):
                 )
                 self.assertEqual(row["post_status"], "private")
             if material.lendable_stock_value is not None:
-                self.assertAlmostEqual(float(row["stock"]), material.lendable_stock_value)
+                self.assertAlmostEqual(
+                    float(row["stock"]), material.lendable_stock_value
+                )
             elif material.stock_value is not None:
                 self.assertAlmostEqual(float(row["stock"]), material.stock_value)
             else:
