@@ -57,3 +57,36 @@ class MaterialFormTest(TestCase):
             form.errors["lendable_stock_value"],
             ["Lendable stock value must not be negative."],
         )
+
+    @english
+    def test_lendable_stock_not_smaller_than_stock(self):
+        form = MaterialForm(data={"stock_value": 2, "lendable_stock_value": 3})
+        self.assertEquals(
+            form.errors["lendable_stock_value"],
+            ["Lendable stock value must not be more than stock value."],
+        )
+
+    @english
+    def test_disable_lendable_if_lendable_stock_is_set_to_zero(self):
+        material = MaterialFactory.create(lendable=True, categories=[CategoryFactory()])
+        form = MaterialForm(
+            data={**model_to_dict(material), "lendable_stock_value": 0},
+            instance=material,
+        )
+        form.save()
+        self.assertFalse(material.lendable)
+
+    @english
+    def test_enable_lendable_if_lendable_stock_is_set(self):
+        material = MaterialFactory.create(
+            lendable=False,
+            lendable_stock_value=None,
+            stock_value=2,
+            categories=[CategoryFactory()],
+        )
+        form = MaterialForm(
+            data={**model_to_dict(material), "lendable_stock_value": 1},
+            instance=material,
+        )
+        form.save()
+        self.assertTrue(material.lendable)

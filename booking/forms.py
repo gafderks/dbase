@@ -58,6 +58,37 @@ class MaterialForm(forms.ModelForm):
             raise forms.ValidationError(_("Lendable stock value must not be negative."))
         return lendable_stock_value
 
+    def clean(self):
+        cleaned_data = super().clean()
+
+        stock_value = cleaned_data.get("stock_value")
+        lendable_stock_value = cleaned_data.get("lendable_stock_value")
+        if (
+            lendable_stock_value is not None
+            and stock_value is not None
+            and lendable_stock_value > stock_value
+        ):
+            self.add_error(
+                "lendable_stock_value",
+                forms.ValidationError(
+                    _("Lendable stock value must not be more than stock value.")
+                ),
+            )
+
+        if lendable_stock_value == 0:
+            # Disable lending if the stock value is set to zero
+            cleaned_data["lendable"] = False
+
+        if (
+            self.initial.get("lendable_stock_value") is None
+            and lendable_stock_value is not None
+            and lendable_stock_value > 0
+        ):
+            # Enable lending if the stock value is changed to greater than zero
+            cleaned_data["lendable"] = True
+
+        return cleaned_data
+
 
 class MaterialAliasForm(forms.ModelForm):
     class Meta:
