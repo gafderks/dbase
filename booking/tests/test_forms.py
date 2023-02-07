@@ -1,8 +1,9 @@
 from django.test import TestCase
 from django.urls import reverse
+from tests.utils import english
 
 from booking.forms import MaterialForm
-from booking.tests.factories import MaterialFactory
+from booking.tests.factories import MaterialFactory, MaterialAliasFactory
 from users.tests.factories import SuperUserFactory
 
 
@@ -15,4 +16,13 @@ class MaterialFormTest(TestCase):
         )
         self.assertContains(response, f'value="30"')  # for stock_value
         self.assertContains(response, f'placeholder="30"')  # for lendable_stock_value
-        print(response.content)
+
+    @english
+    def test_cannot_create_material_with_alias_name(self):
+        MaterialAliasFactory.create(name="Inflatable")
+        material = MaterialFactory.build()
+        form = MaterialForm(data={"name": "Inflatable"}, instance=material)
+        self.assertEquals(
+            form.errors["name"],
+            ["There exists already a material alias with the given name."],
+        )

@@ -38,17 +38,13 @@ class MaterialForm(forms.ModelForm):
             formatted_stock_value or ""
         )
 
-    def clean(self):
-        cleaned_data = super().clean()
-
-        name = cleaned_data.get("name")
-
-        alias = MaterialAlias.objects.filter(name__iexact=name)
-        if alias:
+    def clean_name(self):
+        name = self.cleaned_data.get("name")
+        if MaterialAlias.objects.filter(name__iexact=name):
             raise forms.ValidationError(
                 _("There exists already a material alias with the given name.")
             )
-        return cleaned_data
+        return name
 
 
 class MaterialAliasForm(forms.ModelForm):
