@@ -28,4 +28,4 @@ jobs:
       - name: Install application Python dependencies
         run: pipenv install --deploy --dev
       - name: Run Safety check
-        run: pipenv run safety check --key ${{ secrets.SAFETY_API_KEY }} 
+        run: pipenv run safety check

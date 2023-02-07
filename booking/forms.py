@@ -5,6 +5,7 @@ from django.contrib.admin.widgets import FilteredSelectMultiple
 from django.urls import reverse
 from django.utils.translation import gettext as __
 from django.utils.translation import gettext_lazy as _
+from booking.models.material import format_stock_value
 from mptt.forms import TreeNodeMultipleChoiceField
 
 from booking.models import (
@@ -25,16 +26,67 @@ class MaterialForm(forms.ModelForm):
         model = Material
         fields = "__all__"
 
-    def clean(self):
-        cleaned_data = super().clean()
+    def __init__(self, *args, **kwargs):
+        super(MaterialForm, self).__init__(*args, **kwargs)
+        formatted_stock_value = (
+            format_stock_value(self.instance.stock_value)
+            if self.instance.stock_value is not None
+            else None
+        )
+        self.initial["stock_value"] = formatted_stock_value
+        self.fields["lendable_stock_value"].widget.attrs["placeholder"] = (
+            formatted_stock_value or ""
+        )
 
-        name = cleaned_data.get("name")
-
-        alias = MaterialAlias.objects.filter(name__iexact=name)
-        if alias:
+    def clean_name(self):
+        name = self.cleaned_data.get("name")
+        if MaterialAlias.objects.filter(name__iexact=name):
             raise forms.ValidationError(
                 _("There exists already a material alias with the given name.")
             )
+        return name
+
+    def clean_stock_value(self):
+        stock_value = self.cleaned_data.get("stock_value")
+        if stock_value is not None and stock_value < 0:
+            raise forms.ValidationError(_("Stock value must not be negative."))
+        return stock_value
+
+    def clean_lendable_stock_value(self):
+        lendable_stock_value = self.cleaned_data.get("lendable_stock_value")
+        if lendable_stock_value is not None and lendable_stock_value < 0:
+            raise forms.ValidationError(_("Lendable stock value must not be negative."))
+        return lendable_stock_value
+
+    def clean(self):
+        cleaned_data = super().clean()
+
+        stock_value = cleaned_data.get("stock_value")
+        lendable_stock_value = cleaned_data.get("lendable_stock_value")
+        if (
+            lendable_stock_value is not None
+            and stock_value is not None
+            and lendable_stock_value > stock_value
+        ):
+            self.add_error(
+                "lendable_stock_value",
+                forms.ValidationError(
+                    _("Lendable stock value must not be more than stock value.")
+                ),
+            )
+
+        if lendable_stock_value == 0:
+            # Disable lending if the stock value is set to zero
+            cleaned_data["lendable"] = False
+
+        if (
+            self.initial.get("lendable_stock_value") is None
+            and lendable_stock_value is not None
+            and lendable_stock_value > 0
+        ):
+            # Enable lending if the stock value is changed to greater than zero
+            cleaned_data["lendable"] = True
+
         return cleaned_data
 
 
@@ -43,17 +95,13 @@ class MaterialAliasForm(forms.ModelForm):
         model = MaterialAlias
         fields = "__all__"
 
-    def clean(self):
-        cleaned_data = super().clean()
-
-        name = cleaned_data.get("name")
-
-        material = Material.objects.filter(name__iexact=name)
-        if material:
+    def clean_name(self):
+        name = self.cleaned_data.get("name")
+        if Material.objects.filter(name__iexact=name):
             raise forms.ValidationError(
                 _("There exists already a material with the given name.")
             )
-        return cleaned_data
+        return name
 
 
 class CategoryForm(forms.ModelForm):
@@ -85,20 +133,29 @@ class EventForm(forms.ModelForm):
         event_end = cleaned_data.get("event_end")
 
         if booking_end and booking_start and booking_end < booking_start:
-            raise forms.ValidationError(
-                _("Booking end cannot be earlier than booking start.")
+            self.add_error(
+                "booking_end",
+                forms.ValidationError(
+                    _("Booking end cannot be earlier than booking start.")
+                ),
             )
         if (
             privileged_booking_end
             and booking_end
             and privileged_booking_end < booking_end
         ):
-            raise forms.ValidationError(
-                _("Privileged booking end cannot be earlier than booking end.")
+            self.add_error(
+                "privileged_booking_end",
+                forms.ValidationError(
+                    _("Privileged booking end cannot be earlier than booking end.")
+                ),
             )
         if event_end and event_start and event_end < event_start:
-            raise forms.ValidationError(
-                _("Event end cannot be earlier than event start.")
+            self.add_error(
+                "event_end",
+                forms.ValidationError(
+                    _("Event end cannot be earlier than event start.")
+                ),
             )
         return cleaned_data
 
@@ -186,13 +243,17 @@ class GameForm(forms.ModelForm):
         event = cleaned_data.get("event")
 
         if day < event.event_start:
-            raise forms.ValidationError(
-                _("Day of game cannot be earlier than event start.")
+            self.add_error(
+                "day",
+                forms.ValidationError(
+                    _("Day of game cannot be earlier than event start.")
+                ),
             )
 
         if day > event.event_end:
-            raise forms.ValidationError(
-                _("Day of game cannot be later than event end.")
+            self.add_error(
+                "day",
+                forms.ValidationError(_("Day of game cannot be later than event end.")),
             )
 
         return cleaned_data
