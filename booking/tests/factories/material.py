@@ -9,6 +9,7 @@ class MaterialFactory(factory.django.DjangoModelFactory):
 
     class Params:
         name_base = factory.Faker("company")
+        lendable_base = factory.Faker("pyfloat", min_value=0)
 
     name = factory.LazyAttributeSequence(lambda o, n: f"{o.name_base} {n}")
     description = factory.Faker("paragraph")
@@ -16,7 +17,9 @@ class MaterialFactory(factory.django.DjangoModelFactory):
     gm = factory.Faker("pybool")
     location = factory.SubFactory("booking.tests.factories.LocationFactory")
     stock_value = factory.Faker("pyfloat", min_value=0)
-    lendable_stock_value = factory.Faker("pyfloat", min_value=0, max_value=stock_value)
+    lendable_stock_value = factory.LazyAttribute(
+        lambda o: min(o.lendable_base, o.stock_value)
+    )
     stock_unit = factory.Faker("word")
 
     @factory.post_generation
