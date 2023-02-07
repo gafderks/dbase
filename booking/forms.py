@@ -95,17 +95,13 @@ class MaterialAliasForm(forms.ModelForm):
         model = MaterialAlias
         fields = "__all__"
 
-    def clean(self):
-        cleaned_data = super().clean()
-
-        name = cleaned_data.get("name")
-
-        material = Material.objects.filter(name__iexact=name)
-        if material:
+    def clean_name(self):
+        name = self.cleaned_data.get("name")
+        if Material.objects.filter(name__iexact=name):
             raise forms.ValidationError(
                 _("There exists already a material with the given name.")
             )
-        return cleaned_data
+        return name
 
 
 class CategoryForm(forms.ModelForm):
@@ -137,20 +133,29 @@ class EventForm(forms.ModelForm):
         event_end = cleaned_data.get("event_end")
 
         if booking_end and booking_start and booking_end < booking_start:
-            raise forms.ValidationError(
-                _("Booking end cannot be earlier than booking start.")
+            self.add_error(
+                "booking_end",
+                forms.ValidationError(
+                    _("Booking end cannot be earlier than booking start.")
+                ),
             )
         if (
             privileged_booking_end
             and booking_end
             and privileged_booking_end < booking_end
         ):
-            raise forms.ValidationError(
-                _("Privileged booking end cannot be earlier than booking end.")
+            self.add_error(
+                "privileged_booking_end",
+                forms.ValidationError(
+                    _("Privileged booking end cannot be earlier than booking end.")
+                ),
             )
         if event_end and event_start and event_end < event_start:
-            raise forms.ValidationError(
-                _("Event end cannot be earlier than event start.")
+            self.add_error(
+                "event_end",
+                forms.ValidationError(
+                    _("Event end cannot be earlier than event start.")
+                ),
             )
         return cleaned_data
 
@@ -238,13 +243,17 @@ class GameForm(forms.ModelForm):
         event = cleaned_data.get("event")
 
         if day < event.event_start:
-            raise forms.ValidationError(
-                _("Day of game cannot be earlier than event start.")
+            self.add_error(
+                "day",
+                forms.ValidationError(
+                    _("Day of game cannot be earlier than event start.")
+                ),
             )
 
         if day > event.event_end:
-            raise forms.ValidationError(
-                _("Day of game cannot be later than event end.")
+            self.add_error(
+                "day",
+                forms.ValidationError(_("Day of game cannot be later than event end.")),
             )
 
         return cleaned_data

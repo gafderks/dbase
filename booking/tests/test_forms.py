@@ -2,12 +2,15 @@ from django.test import TestCase
 from django.urls import reverse
 from tests.utils import english
 
-from booking.forms import MaterialForm
+from datetime import date, timedelta
+
+from booking.forms import MaterialForm, MaterialAliasForm, EventForm, GameForm
 from django.forms.models import model_to_dict
 from booking.tests.factories import (
     MaterialFactory,
     MaterialAliasFactory,
     CategoryFactory,
+    EventFactory,
 )
 from users.tests.factories import SuperUserFactory
 
@@ -90,3 +93,81 @@ class MaterialFormTest(TestCase):
         )
         form.save()
         self.assertTrue(material.lendable)
+
+
+class MaterialAliasFormTest(TestCase):
+    @english
+    def test_cannot_create_alias_with_material_name(self):
+        MaterialFactory.create(name="Bogo")
+        form = MaterialAliasForm(data={"name": "Bogo"})
+        self.assertFalse(form.is_valid())
+        self.assertEquals(
+            form.errors["name"],
+            ["There exists already a material with the given name."],
+        )
+
+
+class EventFormTest(TestCase):
+    @english
+    def test_cannot_create_negative_booking_period(self):
+        form = EventForm(
+            data={
+                "booking_end": date.today() - timedelta(days=1),
+                "booking_start": date.today(),
+            }
+        )
+        self.assertEquals(
+            form.errors["booking_end"],
+            ["Booking end cannot be earlier than booking start."],
+        )
+
+    @english
+    def test_cannot_create_privileged_end_before_booking_end(self):
+        form = EventForm(
+            data={
+                "privileged_booking_end": date.today() - timedelta(days=1),
+                "booking_end": date.today(),
+            }
+        )
+        self.assertEquals(
+            form.errors["privileged_booking_end"],
+            ["Privileged booking end cannot be earlier than booking end."],
+        )
+
+    @english
+    def test_cannot_create_negative_event_period(self):
+        form = EventForm(
+            data={
+                "event_end": date.today() - timedelta(days=1),
+                "event_start": date.today(),
+            }
+        )
+        self.assertEquals(
+            form.errors["event_end"],
+            ["Event end cannot be earlier than event start."],
+        )
+
+
+class GameFormTest(TestCase):
+    @english
+    def test_cannot_create_game_before_event_start(self):
+        form = GameForm(
+            data={
+                "day": date.today() - timedelta(days=1),
+                "event": EventFactory(event_start=date.today()),
+            }
+        )
+        self.assertIn(
+            "Day of game cannot be earlier than event start.",
+            form.errors["day"],
+        )
+
+    @english
+    def test_cannot_create_game_after_event_end(self):
+        form = GameForm(
+            data={
+                "day": date.today(),
+                "event": EventFactory(event_end=date.today() - timedelta(days=1)),
+            }
+        )
+        self.assertIn("Day of game cannot be later than event end.", form.errors["day"])
