@@ -4,19 +4,24 @@ from tests.utils import english
 
 from booking.forms import MaterialForm
 from django.forms.models import model_to_dict
-from booking.tests.factories import MaterialFactory, MaterialAliasFactory, CategoryFactory
+from booking.tests.factories import (
+    MaterialFactory,
+    MaterialAliasFactory,
+    CategoryFactory,
+)
 from users.tests.factories import SuperUserFactory
 
 
 class MaterialFormTest(TestCase):
-
     def test_can_add_material(self):
         category = CategoryFactory.create()
         material = MaterialFactory.create(categories=[category])
-        form = MaterialForm(data={
-            **model_to_dict(material),
-            'name': 'Unique name',
-            })
+        form = MaterialForm(
+            data={
+                **model_to_dict(material),
+                "name": "Unique name",
+            }
+        )
         self.assertTrue(form.is_valid())
 
     def test_stock_value_placeholder(self):
@@ -41,9 +46,14 @@ class MaterialFormTest(TestCase):
     @english
     def test_non_negative_stock_value(self):
         form = MaterialForm(data={"stock_value": -4})
-        self.assertEquals(form.errors["stock_value"], ["Stock value must not be negative."])
+        self.assertEquals(
+            form.errors["stock_value"], ["Stock value must not be negative."]
+        )
 
     @english
     def test_non_negative_lendable_stock_value(self):
         form = MaterialForm(data={"lendable_stock_value": -4})
-        self.assertEquals(form.errors["lendable_stock_value"], ["Lendable stock value must not be negative."])
+        self.assertEquals(
+            form.errors["lendable_stock_value"],
+            ["Lendable stock value must not be negative."],
+        )
