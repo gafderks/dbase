@@ -76,7 +76,7 @@ jobs:
           pipenv run coverage xml
           
       - name: CodeClimate
-        uses: paambaati/codeclimate-action@v2.7.5
+        uses: paambaati/codeclimate-action@v3.2.0
         if: ${{ github.actor != 'dependabot[bot]' }}
         env:
           CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
