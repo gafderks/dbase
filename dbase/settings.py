@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "crispy_forms",
+    "crispy_bootstrap5",
     "djmoney",
     "camera.apps.CameraConfig",
     "adminsortable",
@@ -188,7 +189,8 @@ MEDIA_ROOT = BASE_DIR / "media"
 # Keep GIF and PNG images that are uploaded as the same format when thumbnailed
 THUMBNAIL_PRESERVE_FORMAT = True
 
-CRISPY_TEMPLATE_PACK = "bootstrap4"
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 LOGIN_REDIRECT_URL = LOGOUT_REDIRECT_URL = "index"
 LOGIN_URL = "users:login"
