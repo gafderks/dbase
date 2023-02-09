@@ -21,7 +21,7 @@ jobs:
       - name: Install Safety
         run: pipenv install Safety
       - name: Cache
-        uses: actions/cache@v3.2.3
+        uses: actions/cache@v3.2.4
         with:
           path: ~/.local/share/virtualenvs
           key: safety
