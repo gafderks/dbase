@@ -17,7 +17,7 @@ faker = "*"
 
 [packages]
 mysqlclient = "*"
-django-crispy-forms = "==1.14.0"
+django-crispy-forms = "*"
 django-money = "*"
 openpyxl = "*"
 django-environ = "*"
@@ -34,6 +34,7 @@ django-mptt = "*"
 django-mptt-admin = "*"
 django-admin-sortable = {git = "https://github.com/gafderks/django-admin-sortable"}
 pymemcache = "*"
+crispy-bootstrap5 = "*"
 
 [pipenv]
 allow_prereleases = true
