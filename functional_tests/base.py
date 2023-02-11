@@ -1,5 +1,5 @@
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
-from django.test import override_settings, import tag
+from django.test import override_settings, tag
 from selenium import webdriver
 from selenium.common.exceptions import (
     WebDriverException,
