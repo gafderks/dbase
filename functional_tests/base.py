@@ -1,5 +1,5 @@
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
-from django.test import override_settings
+from django.test import override_settings, import tag
 from selenium import webdriver
 from selenium.common.exceptions import (
     WebDriverException,
@@ -42,6 +42,7 @@ def retry_stale(fn):
     STATICFILES_STORAGE="django.contrib.staticfiles.storage.StaticFilesStorage",
     DEBUG=True,
 )
+@tag('functional')
 class FunctionalTest(StaticLiveServerTestCase):
     def setUp(self):
         options = webdriver.FirefoxOptions()
