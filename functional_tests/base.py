@@ -42,7 +42,7 @@ def retry_stale(fn):
     STATICFILES_STORAGE="django.contrib.staticfiles.storage.StaticFilesStorage",
     DEBUG=True,
 )
-@tag('functional')
+@tag("functional")
 class FunctionalTest(StaticLiveServerTestCase):
     def setUp(self):
         options = webdriver.FirefoxOptions()
