@@ -70,20 +70,30 @@ jobs:
           pipenv run python manage.py collectstatic --noinput
           pipenv run python manage.py compilemessages
       
-      - name: Run tests
+      
+      - name: Run unit tests
         run: | 
-          pipenv run coverage run manage.py test -v 2
+          pipenv run coverage run manage.py test --exclude-tag=functional -v 2
           pipenv run coverage xml
+      - name: Codecov functional tests
+        uses: codecov/codecov-action@v3.1.1
+        with:
+          files: ./coverage.xml
+          flags: unit
+      
+      - name: Run functional tests
+        run: | 
+          pipenv run coverage run manage.py test --tag=functional -v 2
+          pipenv run coverage xml
+      - name: Codecov functional tests
+        uses: codecov/codecov-action@v3.1.1
+        with:
+          files: ./coverage.xml
+          flags: functional
           
       - name: CodeClimate
         uses: paambaati/codeclimate-action@v3.2.0
         if: ${{ github.actor != 'dependabot[bot]' }}
         env:
           CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
-      - name: Codecov
-        # You may pin to the exact commit or the version.
-        # uses: codecov/codecov-action@f32b3a3741e1053eb607407145bc9619351dc93b
-        uses: codecov/codecov-action@v3.1.1
-        with:
-          # Comma-separated list of files to upload
-          files: ./coverage.xml
+
