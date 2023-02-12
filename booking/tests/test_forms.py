@@ -43,7 +43,9 @@ class MaterialFormTest(TestCase):
             reverse("admin:booking_material_change", args=(material.id,))
         )
         self.assertContains(response, f'value="30"')  # for stock_value
-        self.assertNotContains(response, f'placeholder="30"')  # for lendable_stock_value
+        self.assertNotContains(
+            response, f'placeholder="30"'
+        )  # for lendable_stock_value
 
     @english
     def test_cannot_create_material_with_alias_name(self):
