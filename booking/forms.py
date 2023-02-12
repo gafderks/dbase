@@ -34,9 +34,10 @@ class MaterialForm(forms.ModelForm):
             else None
         )
         self.initial["stock_value"] = formatted_stock_value
-        self.fields["lendable_stock_value"].widget.attrs["placeholder"] = (
-            formatted_stock_value or ""
-        )
+        if self.instance.lendable:
+            self.fields["lendable_stock_value"].widget.attrs["placeholder"] = (
+                formatted_stock_value or ""
+            )
 
     def clean_name(self):
         name = self.cleaned_data.get("name")

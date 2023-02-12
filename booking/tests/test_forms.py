@@ -28,13 +28,24 @@ class MaterialFormTest(TestCase):
         self.assertTrue(form.is_valid())
 
     def test_stock_value_placeholder(self):
-        material = MaterialFactory.create(stock_value=30.0000)
+        material = MaterialFactory.create(stock_value=30.0000, lendable=True)
         self.client.force_login(SuperUserFactory())
         response = self.client.get(
             reverse("admin:booking_material_change", args=(material.id,))
         )
         self.assertContains(response, f'value="30"')  # for stock_value
         self.assertContains(response, f'placeholder="30"')  # for lendable_stock_value
+
+    def test_stock_value_no_placeholder_not_lendable(self):
+        material = MaterialFactory.create(stock_value=30.0000, lendable=False)
+        self.client.force_login(SuperUserFactory())
+        response = self.client.get(
+            reverse("admin:booking_material_change", args=(material.id,))
+        )
+        self.assertContains(response, f'value="30"')  # for stock_value
+        self.assertNotContains(
+            response, f'placeholder="30"'
+        )  # for lendable_stock_value
 
     @english
     def test_cannot_create_material_with_alias_name(self):
