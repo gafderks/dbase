@@ -47,11 +47,11 @@
         },
         "django": {
             "hashes": [
-                "sha256:3a29fc014f46fd6a552296fd1cfc77f616c4120b68cc117eee4a8237aa163f7a",
-                "sha256:e913e60991a0c2a5f099a80ea1e2ec90b1636e6deb60bad16b89086819b48d4b"
+                "sha256:33e3b3b80924dae3e6d4b5e697eaee724d5a35c1a430df44b1d72c802657992f",
+                "sha256:9bf13063a882a9b0f7028c4cdc32ea36fe104491cd7720859117990933f9c589"
             ],
             "index": "pypi",
-            "version": "==4.2a1"
+            "version": "==4.2b1"
         },
         "django-admin-sortable": {
             "git": "https://github.com/gafderks/django-admin-sortable",
@@ -512,11 +512,11 @@
         },
         "django": {
             "hashes": [
-                "sha256:3a29fc014f46fd6a552296fd1cfc77f616c4120b68cc117eee4a8237aa163f7a",
-                "sha256:e913e60991a0c2a5f099a80ea1e2ec90b1636e6deb60bad16b89086819b48d4b"
+                "sha256:33e3b3b80924dae3e6d4b5e697eaee724d5a35c1a430df44b1d72c802657992f",
+                "sha256:9bf13063a882a9b0f7028c4cdc32ea36fe104491cd7720859117990933f9c589"
             ],
             "index": "pypi",
-            "version": "==4.2a1"
+            "version": "==4.2b1"
         },
         "django-debug-toolbar": {
             "hashes": [
