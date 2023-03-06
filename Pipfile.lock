@@ -155,11 +155,11 @@
         },
         "faker": {
             "hashes": [
-                "sha256:d43b2c5af9157f2ef04b09b2d01d3092607f094b2328e5f6a2ee1d7ba760db64",
-                "sha256:facf66ed0faa2088da2ec90f770d3df01af7fd15dc4924eca6da4cd45ed09eb2"
+                "sha256:51f37ff9df710159d6d736d0ba1c75e063430a8c806b91334d7794305b5a6114",
+                "sha256:5aaa16fa9cfde7d117eef70b6b293a705021e57158f3fa6b44ed1b70202d2065"
             ],
             "markers": "python_version >= '3.7'",
-            "version": "==17.5.0"
+            "version": "==17.6.0"
         },
         "mysqlclient": {
             "hashes": [
@@ -327,11 +327,11 @@
         },
         "setuptools": {
             "hashes": [
-                "sha256:e5fd0a713141a4a105412233c63dc4e17ba0090c8e8334594ac790ec97792330",
-                "sha256:f106dee1b506dee5102cc3f3e9e68137bbad6d47b616be7991714b0c62204251"
+                "sha256:15136a251127da2d2e77ac7a1bc231eb504654f7e3346d93613a13f2e2787535",
+                "sha256:1c39d42bda4cb89f7fdcad52b6762e3c309ec8f8715b27c684176b7d71283242"
             ],
             "markers": "python_version >= '3.7'",
-            "version": "==67.4.0"
+            "version": "==67.5.1"
         },
         "six": {
             "hashes": [
@@ -395,7 +395,7 @@
                 "sha256:29e95c7f6778868dbd49170f98f8818f78f3dc5e0e37c0b1f474e3561b240836",
                 "sha256:c9227bfc2f01993c03f68db37d1d15c9690188323c067c641f1a35ca58185f99"
             ],
-            "markers": "python_full_version >= '3.6.0'",
+            "markers": "python_version >= '3.6'",
             "version": "==22.2.0"
         },
         "beautifulsoup4": {
@@ -442,7 +442,7 @@
                 "sha256:35824b4c3a97115964b408844d64aa14db1cc518f6562e8d7261699d1350a9e3",
                 "sha256:4ad3232f5e926d6718ec31cfc1fcadfde020920e278684144551c91769c7bc18"
             ],
-            "markers": "python_full_version >= '3.6.0'",
+            "markers": "python_version >= '3.6'",
             "version": "==2022.12.7"
         },
         "click": {
@@ -544,11 +544,11 @@
         },
         "faker": {
             "hashes": [
-                "sha256:d43b2c5af9157f2ef04b09b2d01d3092607f094b2328e5f6a2ee1d7ba760db64",
-                "sha256:facf66ed0faa2088da2ec90f770d3df01af7fd15dc4924eca6da4cd45ed09eb2"
+                "sha256:51f37ff9df710159d6d736d0ba1c75e063430a8c806b91334d7794305b5a6114",
+                "sha256:5aaa16fa9cfde7d117eef70b6b293a705021e57158f3fa6b44ed1b70202d2065"
             ],
             "markers": "python_version >= '3.7'",
-            "version": "==17.5.0"
+            "version": "==17.6.0"
         },
         "h11": {
             "hashes": [
@@ -656,11 +656,11 @@
         },
         "platformdirs": {
             "hashes": [
-                "sha256:8a1228abb1ef82d788f74139988b137e78692984ec7b08eaa6c65f1723af28f9",
-                "sha256:b1d5eb14f221506f50d6604a561f4c5786d9e80355219694a1b244bcd96f4567"
+                "sha256:13b08a53ed71021350c9e300d4ea8668438fb0046ab3937ac9a29913a1a1350a",
+                "sha256:accc3665857288317f32c7bebb5a8e482ba717b474f3fc1d18ca7f9214be0cef"
             ],
             "markers": "python_version >= '3.7'",
-            "version": "==3.0.0"
+            "version": "==3.1.0"
         },
         "pysocks": {
             "hashes": [
