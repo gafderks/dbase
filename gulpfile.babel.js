@@ -20,8 +20,8 @@ import autoprefixer from 'autoprefixer';
 import atImport from 'postcss-import';
 import pixrem from 'pixrem';
 // other
-import imagemin from 'gulp-imagemin';
-import {deleteAsync as del} from 'del';
+// import imagemin from 'gulp-imagemin';
+import { deleteAsync as del } from 'del';
 import browserSync from 'browser-sync';
 
 import booking from './booking/static/booking/config.gulp.js';
@@ -125,7 +125,7 @@ function styles() {
 function images() {
   const tasks = extract_tasks_from_configs('images').map(config => {
     return gulp.src(config.src)
-      .pipe(imagemin())
+      // .pipe(imagemin())
       .pipe(gulp.dest(config.dest));
   });
 

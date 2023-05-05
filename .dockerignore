@@ -1,0 +1,11 @@
+.github/
+.idea/
+.vscode/
+**/__pycache__/
+build/
+**/node_modules
+static/
+media/
+functional_tests/
+*.mo
+.git/
