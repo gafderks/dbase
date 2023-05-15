@@ -123,12 +123,12 @@
         },
         "django-mptt-admin": {
             "hashes": [
-                "sha256:2d332ab4398dc5eeded3001ed7f2ff64f54cf482a3366019d9e669941010b4e8",
-                "sha256:53778154384984d5c79dc2e67594b5c81d66669cbc1bfa01167ce84b04b62065",
-                "sha256:86d78fbc26b990f39e67bd87501b2b3e2da3fd1e2bb0eb66069eda365076b69b"
+                "sha256:8dd95191ec22d50b3255617366a56072acfef137730866f5a26518e97797c85f",
+                "sha256:a1c405295370d00e778f48f7a0c51ca1c2cd4ef2b7be536d194c734ceacff243",
+                "sha256:b2f777ce1bccf1bef1e8a2530937a58fa5947294993425ca193a473f8571c882"
             ],
             "index": "pypi",
-            "version": "==2.4.1"
+            "version": "==2.5.0"
         },
         "env-tools": {
             "hashes": [
@@ -155,11 +155,11 @@
         },
         "faker": {
             "hashes": [
-                "sha256:6385386ba8d5aa255bec72f5392c2b795fcec8bebf975a9953488948d54bce35",
-                "sha256:ef61bbf266d30819e83bab4a6c74a0f5979ce4d19d4c9305719dd26cb7d8d51c"
+                "sha256:38dbc3b80e655d7301e190426ab30f04b6b7f6ca4764c5dd02772ffde0fa6dcd",
+                "sha256:f02c6d3fdb5bc781f80b440cf2bdec336ed47ecfb8d620b20c3d4188ed051831"
             ],
             "markers": "python_version >= '3.7'",
-            "version": "==18.6.2"
+            "version": "==18.7.0"
         },
         "mysqlclient": {
             "hashes": [
@@ -552,11 +552,11 @@
         },
         "faker": {
             "hashes": [
-                "sha256:6385386ba8d5aa255bec72f5392c2b795fcec8bebf975a9953488948d54bce35",
-                "sha256:ef61bbf266d30819e83bab4a6c74a0f5979ce4d19d4c9305719dd26cb7d8d51c"
+                "sha256:38dbc3b80e655d7301e190426ab30f04b6b7f6ca4764c5dd02772ffde0fa6dcd",
+                "sha256:f02c6d3fdb5bc781f80b440cf2bdec336ed47ecfb8d620b20c3d4188ed051831"
             ],
             "markers": "python_version >= '3.7'",
-            "version": "==18.6.2"
+            "version": "==18.7.0"
         },
         "h11": {
             "hashes": [
@@ -664,11 +664,11 @@
         },
         "platformdirs": {
             "hashes": [
-                "sha256:47692bc24c1958e8b0f13dd727307cff1db103fca36399f457da8e05f222fdc4",
-                "sha256:7954a68d0ba23558d753f73437c55f89027cf8f5108c19844d4b82e5af396335"
+                "sha256:412dae91f52a6f84830f39a8078cecd0e866cb72294a5c66808e74d5e88d251f",
+                "sha256:e2378146f1964972c03c085bb5662ae80b2b8c06226c54b2ff4aa9483e8a13a5"
             ],
             "markers": "python_version >= '3.7'",
-            "version": "==3.5.0"
+            "version": "==3.5.1"
         },
         "pysocks": {
             "hashes": [
