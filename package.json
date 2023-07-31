@@ -43,7 +43,7 @@
     "vinyl-source-stream": "^2.0.0"
   },
   "devDependencies": {
-    "eslint": "^8.36.0"
+    "eslint": "^8.46.0"
   },
   "browserslist": "> 0.5%, last 2 versions, Firefox ESR, not dead"
 }
