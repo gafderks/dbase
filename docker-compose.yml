@@ -1,0 +1,47 @@
+version: "3.1"
+
+volumes:
+  postgresql_data:
+  static_volume:
+
+
+services:
+  nginx:
+    image: nginx:1.25.3
+    ports:
+      - 80:80
+    volumes:
+      - ./config/nginx.conf:/etc/nginx/nginx.conf:ro
+      - static_volume:/opt/services/dbase/static:ro
+    depends_on:
+      - web
+    networks:
+      - backend_network
+  database:
+    image: postgres:15.2
+    container_name: dbase_postgress
+    volumes:
+      - postgresql_data:/var/lib/postgresql/data
+    restart: always
+    env_file:
+      - docker.env
+    networks:
+      - backend_network
+  web:
+    build:
+      context: .
+    container_name: dbase
+    depends_on:
+      - database
+    env_file:
+      - docker.env
+    ports:
+      - 8000:8000
+    volumes:
+      - static_volume:/app/static
+    networks:
+      - backend_network
+
+networks:
+  backend_network:
+    driver: bridge

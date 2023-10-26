@@ -4,15 +4,19 @@ RUN mkdir -p /app
 WORKDIR /app
 
 RUN apt-get update
-RUN apt-get -y install gettext git curl
+RUN apt-get -y install gettext curl ca-certificates gnupg git
 
-RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - &&\
-apt-get install -y nodejs
+# Install Node.js
+RUN mkdir -p /etc/apt/keyrings
+RUN curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg
+RUN NODE_MAJOR=20; echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_$NODE_MAJOR.x nodistro main" | tee /etc/apt/sources.list.d/nodesource.list
+RUN apt-get update && apt-get install nodejs -y
 
 RUN npm install -g gulp-cli
 
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
+ENV DOCKER_BUILD 1
 
 RUN pip install --upgrade pipenv wheel
 COPY ./Pipfile .
@@ -23,11 +27,12 @@ COPY ./package-lock.json .
 COPY ./package.json .
 
 RUN npm ci
+RUN npx update-browserslist-db@latest
 
 COPY . .
 
-RUN pipenv run ./manage.py compilemessages
-RUN pipenv run ./manage.py collectstatic --noinput
+RUN pipenv run django-admin compilemessages
+RUN SECRET_KEY=dummy pipenv run ./manage.py collectstatic --noinput
 
 FROM python:3.11-slim as runtime
 
@@ -47,6 +52,8 @@ WORKDIR /app
 # RUN adduser -D appuser
 # WORKDIR /home/appuser
 # USER appuser
+
+# TODO: DELETE NPM stuff?
 
 EXPOSE 8000
 

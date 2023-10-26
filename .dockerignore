@@ -9,3 +9,6 @@ media/
 functional_tests/
 *.mo
 .git/
+.env
+config/
+docker-compose.yml

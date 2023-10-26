@@ -33,6 +33,7 @@ django-mptt-admin = "*"
 django-admin-sortable = {git = "https://github.com/gafderks/django-admin-sortable"}
 pymemcache = "*"
 gunicorn = "*"
+psycopg = {extras = ["binary", "pool"], version = "*"}
 
 [pipenv]
 allow_prereleases = true
