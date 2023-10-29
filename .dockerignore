@@ -7,8 +7,10 @@ build/
 static/
 media/
 functional_tests/
-*.mo
+**/*.mo
+**/*.pyc
 .git/
 .env
 config/
 docker-compose.yml
+*.sqlite3
