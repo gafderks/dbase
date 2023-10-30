@@ -15,6 +15,13 @@ DBASE
 __Manager for material booking.__
 
 
+Docker management
+-----------------
+
+1. Build the services using `docker-compose up --build`
+2. After every update run migrations `docker-compose run web python manage.py migrate`
+3. Add a super user using `docker-compose run web python manage.py createsuperuser`
+
 
 Installation
 -------------
