@@ -51,24 +51,29 @@ ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 ENV PIPENV_VENV_IN_PROJECT=1 
 
+ENV APP_HOME=/app
+
 # Create and switch to a new user
 RUN groupadd -g 999 appuser && \
     useradd -r -u 999 -g appuser appuser
 
-RUN mkdir /app & chown appuser:appuser /app
-WORKDIR /app
+RUN mkdir ${APP_HOME}
+RUN mkdir ${APP_HOME}/media
+WORKDIR ${APP_HOME}
 
 COPY --chown=appuser:appuser ./entrypoint.sh .
 RUN sed -i 's/\r$//g'  ./entrypoint.sh && \
     chmod +x ./entrypoint.sh
 
-COPY --chown=appuser:appuser --from=base /app/static ./static
-COPY --chown=appuser:appuser --from=base /app/.venv ./.venv
-COPY --chown=appuser:appuser . .
+COPY --from=base ${APP_HOME}/static ./static
+COPY --from=base ${APP_HOME}/.venv ./.venv
+COPY . .
+
+RUN chown -R appuser:appuser ${APP_HOME}
 
 USER 999
 
-ENV PATH="/app/.venv/bin:$PATH"
+ENV PATH="/${APP_HOME}/.venv/bin:$PATH"
 
 RUN django-admin compilemessages
 
