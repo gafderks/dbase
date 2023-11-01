@@ -41,7 +41,7 @@ RUN SECRET_KEY=dummy pipenv run ./manage.py collectstatic --noinput
 ## RUNTIME ##
 #############
 
-FROM python:3.11-slim as runtime
+FROM python:3.11-slim@sha256:f89d4d260b6a5caa6aa8e0e14b162deb76862890c91779c31f762b22e72a6cef as runtime
 
 RUN apt-get update && apt-get install -y --no-install-recommends gettext
 
@@ -58,18 +58,17 @@ RUN groupadd -g 999 appuser && \
     useradd -r -u 999 -g appuser appuser
 
 RUN mkdir ${APP_HOME}
-RUN mkdir ${APP_HOME}/media
+RUN mkdir ${APP_HOME}/media && \
+    chown appuser:appuser ${APP_HOME}/media
 WORKDIR ${APP_HOME}
 
 COPY --chown=appuser:appuser ./entrypoint.sh .
 RUN sed -i 's/\r$//g'  ./entrypoint.sh && \
     chmod +x ./entrypoint.sh
 
-COPY --from=base ${APP_HOME}/static ./static
-COPY --from=base ${APP_HOME}/.venv ./.venv
-COPY . .
-
-RUN chown -R appuser:appuser ${APP_HOME}
+COPY --from=base --chown=appuser:appuser ${APP_HOME}/static ./static
+COPY --from=base --chown=appuser:appuser ${APP_HOME}/.venv ./.venv
+COPY --chown=appuser:appuser . .
 
 USER 999
 
