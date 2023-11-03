@@ -32,7 +32,7 @@ class EventViewTest(TestCase):
         user_without_group = UserFactory(group=None)
         self.client.force_login(user_without_group)
         response = self.client.get(event.get_absolute_url(), follow=True)
-        self.assertTemplateUsed(response, "jeugdraad/alert.html")
+        self.assertTemplateUsed(response, "theme/alert.html")
         self.assertEqual(
             response.context["message"],
             "You are not assigned to a group. Please contact a board member to resolve "
@@ -138,7 +138,7 @@ class EventViewTest(TestCase):
         event = EventFactory(visible=False)
         self.client.force_login(UserFactory())
         response = self.client.get(event.get_absolute_url())
-        self.assertTemplateUsed(response, "jeugdraad/alert.html")
+        self.assertTemplateUsed(response, "theme/alert.html")
         self.assertEqual(
             response.context["message"], "You are not allowed to view this event"
         )

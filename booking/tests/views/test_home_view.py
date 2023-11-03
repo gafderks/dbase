@@ -29,7 +29,7 @@ class HomeViewTest(TestCase):
         # There is no event
         self.client.force_login(UserFactory())
         response = self.client.get("/")
-        self.assertTemplateUsed(response, "jeugdraad/alert.html")
+        self.assertTemplateUsed(response, "theme/alert.html")
         self.assertEqual(response.context["message"], "There are no open events.")
 
     @english
@@ -37,7 +37,7 @@ class HomeViewTest(TestCase):
         hidden_event = EventFactory(visible=False)
         self.client.force_login(UserFactory())
         response = self.client.get("/")
-        self.assertTemplateUsed(response, "jeugdraad/alert.html")
+        self.assertTemplateUsed(response, "theme/alert.html")
         self.assertEqual(response.context["message"], "There are no open events.")
 
     @patch("rules.permissions.ObjectPermissionBackend.has_perm")

@@ -43,6 +43,7 @@ ALLOWED_HOSTS = env("ALLOWED_HOSTS")
 # Application definition
 
 INSTALLED_APPS = [
+    "dbase",
     "django_gulp",
     "booking.apps.BookingConfig",
     "catalog.apps.CatalogConfig",
@@ -87,7 +88,6 @@ ROOT_URLCONF = "dbase.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [BASE_DIR / "dbase/templates"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
