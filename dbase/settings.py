@@ -182,7 +182,7 @@ STATICFILES_FINDERS = (
     "django.contrib.staticfiles.finders.FileSystemFinder",
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
 )
-STATICFILES_DIRS = (BASE_DIR / "build", BASE_DIR / "dbase" / "static")
+STATICFILES_DIRS = (BASE_DIR / "build",)
 STATICFILES_STORAGE = "django.contrib.staticfiles.storage.ManifestStaticFilesStorage"
 
 MEDIA_URL = "/media/"
