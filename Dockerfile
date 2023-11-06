@@ -3,8 +3,10 @@
 #############
 FROM python:3.11-slim as base
 
-RUN mkdir -p /app
-WORKDIR /app
+ENV APP_HOME=/app
+
+RUN mkdir -p ${APP_HOME}
+WORKDIR ${APP_HOME}
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
@@ -37,6 +39,15 @@ COPY . .
 
 RUN SECRET_KEY=dummy pipenv run ./manage.py collectstatic --noinput
 
+###########
+## NGINX ##
+###########
+
+FROM nginx:1.25.3@sha256:add4792d930c25dd2abf2ef9ea79de578097a1c175a16ab25814332fe33622de as nginx
+
+RUN mkdir -p /opt/services/dbase/static
+COPY --from=base /app/static /opt/services/dbase/static
+
 #############
 ## RUNTIME ##
 #############
@@ -66,7 +77,7 @@ COPY --chown=appuser:appuser ./entrypoint.sh .
 RUN sed -i 's/\r$//g'  ./entrypoint.sh && \
     chmod +x ./entrypoint.sh
 
-COPY --from=base --chown=appuser:appuser ${APP_HOME}/static ./static
+COPY --from=nginx --chown=appuser:appuser /opt/services/dbase/static/staticfiles.json ./static/staticfiles.json
 COPY --from=base --chown=appuser:appuser ${APP_HOME}/.venv ./.venv
 COPY --chown=appuser:appuser . .
 
