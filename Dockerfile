@@ -2,6 +2,7 @@
 ## BUILDER ##
 #############
 FROM python:3.11-slim as base
+LABEL maintainer="Geert Derks <geertderks12@gmail.com>"
 
 ENV APP_HOME=/app
 
@@ -44,6 +45,7 @@ RUN SECRET_KEY=dummy pipenv run ./manage.py collectstatic --noinput
 ###########
 
 FROM nginx:1.25.3@sha256:add4792d930c25dd2abf2ef9ea79de578097a1c175a16ab25814332fe33622de as nginx
+LABEL maintainer="Geert Derks <geertderks12@gmail.com>"
 
 RUN mkdir -p /opt/services/dbase/static
 COPY --from=base /app/static /opt/services/dbase/static
@@ -53,6 +55,7 @@ COPY --from=base /app/static /opt/services/dbase/static
 #############
 
 FROM python:3.11-slim@sha256:f89d4d260b6a5caa6aa8e0e14b162deb76862890c91779c31f762b22e72a6cef as runtime
+LABEL maintainer="Geert Derks <geertderks12@gmail.com>"
 
 RUN apt-get update && apt-get install -y --no-install-recommends gettext
 
