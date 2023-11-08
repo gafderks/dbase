@@ -14,3 +14,4 @@ functional_tests/
 config/
 docker-compose.yml
 *.sqlite3
+Dockerfile
