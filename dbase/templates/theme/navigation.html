@@ -7,8 +7,10 @@
   <nav class="navbar navbar-expand-sm navbar-light bg-light mb-4">
     <div class="container">
       <a class="navbar-brand" href="{% url 'index' %}" data-toggle="tooltip" data-placement="bottom" title="{% translate "Open homepage" %}">
-        <img src="{% static "dbase/img/logo_66x60.png" %}" width="33" height="30" class="d-inline-block align-top" alt="{% translate "Open homepage" %}">
+        {% block navbar_brand %}
+          <img src="{% static "djr_theme/img/logo_66x60.png" %}" width="33" height="30" class="d-inline-block align-top" alt="{% translate "Open homepage" %}">
           {% translate "DBase" %}
+        {% endblock %}
       </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainNavigation"
               aria-controls="mainNavigation" aria-expanded="false" aria-label="{% translate 'Toggle navigation' %}">

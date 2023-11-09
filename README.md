@@ -1,4 +1,4 @@
-<img src="https://github.com/gafderks/dbase/raw/master/dbase/static/dbase/img/logo_121x110.png" alt="drawing" width="121px" style="display: block; margin-left: auto; margin-right: auto"/>
+<img src="https://github.com/gafderks/dbase/raw/master/dbase/static/djr_theme/img/logo_121x110.png" alt="drawing" width="121px" style="display: block; margin-left: auto; margin-right: auto"/>
 
 DBASE
 =====

@@ -6,14 +6,17 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="author" content="Geert Derks">
-  <link rel="apple-touch-icon" sizes="180x180" href="{% static 'dbase/icons/apple-touch-icon.png' %}">
-  <link rel="icon" type="image/png" sizes="32x32" href="{% static 'dbase/icons/favicon-32x32.png' %}">
-  <link rel="icon" type="image/png" sizes="16x16" href="{% static 'dbase/icons/favicon-16x16.png' %}">
-  <link rel="manifest" href="{% static 'dbase/icons/site.webmanifest' %}">
+  {% block icons %}
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'djr_theme/icons/apple-touch-icon.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'djr_theme/icons/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'djr_theme/icons/favicon-16x16.png' %}">
+    <link rel="manifest" href="{% static 'djr_theme/icons/site.webmanifest' %}">
+  {% endblock %}
   <title>{% block window_title %}{% trans "Material Database" %}{% endblock %}</title>
 
+  <link rel="stylesheet" href="{% static 'dbase/css/app.min.css' %}">
   {% block styles %}
-    <link rel="stylesheet" href="{% static 'dbase/css/app.min.css' %}">
+    <link rel="stylesheet" href="{% static 'djr_theme/css/theme.css' %}">
   {% endblock %}
 </head>
 <body class="{% block body_class %}{% endblock %}" {% block body_attrs %}{% endblock %}>

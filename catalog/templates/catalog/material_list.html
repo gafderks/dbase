@@ -58,9 +58,11 @@
 {% endblock %}
 
 {% block scripts %}
+  {{ block.super}}
   <script src="{% static "catalog/js/app.min.js" %}" type="text/javascript"></script>
 {% endblock %}
 
 {% block styles %}
+  {{ block.super }}
   <link href="{% static "catalog/css/app.min.css" %}" rel="stylesheet">
 {% endblock %}
