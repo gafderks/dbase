@@ -1,6 +1,7 @@
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from django.test import override_settings, tag
 from selenium import webdriver
+from selenium.webdriver.firefox.options import Options
 from selenium.common.exceptions import (
     WebDriverException,
     StaleElementReferenceException,
@@ -45,8 +46,8 @@ def retry_stale(fn):
 @tag("functional")
 class FunctionalTest(StaticLiveServerTestCase):
     def setUp(self):
-        options = webdriver.FirefoxOptions()
-        options.headless = True
+        options = Options()
+        options.add_argument("-headless")
         self.browser = webdriver.Firefox(options=options)
 
     def tearDown(self):
