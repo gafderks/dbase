@@ -232,28 +232,28 @@ SHOP_SKU_OFFSET = env("SHOP_SKU_OFFSET")
 SHOP_PRODUCT_URL_FORMAT = env("SHOP_PRODUCT_URL_FORMAT")
 
 LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'formatters': {
-        'default': {
-            'format': '[DJANGO] %(levelname)s %(asctime)s %(module)s '
-                      '%(name)s.%(funcName)s:%(lineno)s: %(message)s'
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "default": {
+            "format": "[DJANGO] %(levelname)s %(asctime)s %(module)s "
+            "%(name)s.%(funcName)s:%(lineno)s: %(message)s"
         },
     },
-    'handlers': {
-        'console': {
-            'level': 'DEBUG',
-            'class': 'logging.StreamHandler',
-            'formatter': 'default'
+    "handlers": {
+        "console": {
+            "level": "DEBUG",
+            "class": "logging.StreamHandler",
+            "formatter": "default",
         }
     },
-    'loggers': {
-        '': {
-            'handlers': ['console'],
-            'level': 'DEBUG',
-            'propagate': True,
+    "loggers": {
+        "": {
+            "handlers": ["console"],
+            "level": "DEBUG",
+            "propagate": True,
         }
-    }
+    },
 }
 
 # Setup logging for Sorl thumbnails
