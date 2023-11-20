@@ -47,6 +47,8 @@ RUN SECRET_KEY=dummy pipenv run ./manage.py collectstatic --noinput
 FROM nginx:1.25.3@sha256:add4792d930c25dd2abf2ef9ea79de578097a1c175a16ab25814332fe33622de as nginx
 LABEL maintainer="Geert Derks <geertderks12@gmail.com>"
 
+COPY ./config/nginx.conf /etc/nginx/nginx.conf
+
 RUN mkdir -p /opt/services/dbase/static
 COPY --from=base /app/static /opt/services/dbase/static
 
