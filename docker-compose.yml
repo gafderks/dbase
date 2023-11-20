@@ -1,8 +1,8 @@
 version: "3.1"
 
 volumes:
-  postgresql_data:
-  media_volume:
+  postgresql-data:
+  media-data:
 
 
 services:
@@ -15,20 +15,20 @@ services:
     labels:
       kompose.service.type: LoadBalancer
     volumes:
-      - media_volume:/opt/services/dbase/media:ro
+      - media-data:/opt/services/dbase/media:ro
     depends_on:
       - web
     networks:
-      - backend_network
+      - backend-network
   database:
     image: postgres:15.2
     volumes:
-      - postgresql_data:/var/lib/postgresql/data
+      - postgresql-data:/var/lib/postgresql/data
     restart: always
     env_file:
       - docker.env
     networks:
-      - backend_network
+      - backend-network
   web:
     build:
       context: .
@@ -42,16 +42,16 @@ services:
     expose:
       - 8000
     volumes:
-      - media_volume:/app/media
+      - media-data:/app/media
     networks:
-      - backend_network
+      - backend-network
   memcached:
     image: memcached:1.6
     expose:
       - 11211
     networks:
-      - backend_network
+      - backend-network
 
 networks:
-  backend_network:
+  backend-network:
     driver: bridge
