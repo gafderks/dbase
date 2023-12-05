@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: dbase-ingress
+  namespace: dbase
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-issuer"
+spec:
+  ingressClassName: "nginx"
+  rules:
+  - host: dbase.example.com
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: nginx-tcp
+            port:
+              number: 80
+  tls:
+  - hosts:
+    - dbase.example.com
+    secretName: dbase-example-com-tls

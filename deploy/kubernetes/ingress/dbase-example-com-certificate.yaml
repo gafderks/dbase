@@ -1,0 +1,14 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: dbase-example-com
+  namespace: ingress-nginx
+  namespace: dbase
+spec:
+  secretName: dbase-example-com-tls
+  issuerRef:
+    name: letsencrypt-issuer
+    kind: ClusterIssuer
+  commonName: dbase.example.com
+  dnsNames:
+  - dbase.example.com
