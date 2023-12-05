@@ -1,0 +1,34 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: dbase-configmap
+  namespace: dbase
+data:
+  # Email addresses that receive error notifications if debug is off
+  # Must be structured like name:email and separated by commas
+  ADMINS: John:example@example.com,Jane:other@example.com
+  # Hostname, separate with commas
+  ALLOWED_HOSTS: dbase.example.com
+  # Trusted CSRF origins, separate with commas
+  CSRF_TRUSTED_ORIGINS: https://dbase.example.com
+  # Postgress database credentials
+  POSTGRES_DB: dbase
+  POSTGRES_PASSWORD: the_postgres_password
+  POSTGRES_USER: the_postgres_user
+  # URL for database connection, use same settings as above
+  DATABASE_URL: postgres://the_postgres_user:the_postgres_password@database/dbase
+  # Maximum file upload size in MiB, default 10MiB
+  DATA_UPLOAD_MAX_MEMORY_SIZE: "10485760"
+  # Debugging mode: Make sure that it is off on production as it leaks secrets and passwords
+  DEBUG: "off"
+  # Whether to load the django debug toolbar, requires DEBUG==on
+  DEBUG_TOOLBAR: "off"
+  # SMTP settings for sending emails
+  EMAIL_URL: smtp://user@:password@localhost:25
+  # Locations for thumbnails Memcache, separate with commas
+  MEMCACHE_LOCATIONS: memcached:11211
+  # Use to generate: python -c 'from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())'
+  SECRET_KEY: [fill in secret key]
+  # Email that error messages to admin originate from.
+  # Use the domain of the server here, otherwise messages may block.
+  SERVER_EMAIL: system@example.com

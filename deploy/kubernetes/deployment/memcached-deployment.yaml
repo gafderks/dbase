@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    io.kompose.service: memcached
+  name: memcached
+  namespace: dbase
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: memcached
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.network/dbase-backend-network: "true"
+        io.kompose.service: memcached
+    spec:
+      containers:
+        - image: memcached:1.6
+          name: memcached
+          ports:
+            - containerPort: 11211
+              protocol: TCP
+          resources: {}
+      restartPolicy: Always
+status: {}

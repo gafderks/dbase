@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    io.kompose.service: web
+  name: web
+  namespace: dbase
+spec:
+  ports:
+    - name: "8000"
+      port: 8000
+      targetPort: 8000
+  selector:
+    io.kompose.service: web
+status:
+  loadBalancer: {}
