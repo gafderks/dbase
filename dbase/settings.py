@@ -27,6 +27,7 @@ env = environ.Env(
     ADMINS=(list, []),
     SHOP_SKU_OFFSET=(int, 2000),
     SHOP_PRODUCT_URL_FORMAT=(str, None),
+    CSRF_TRUSTED_ORIGINS=(list, []),
 )
 environ.Env.read_env(env_file=str(BASE_DIR / ".env"))
 
@@ -38,6 +39,7 @@ DEBUG = env("DEBUG")
 DEBUG_TOOLBAR = env("DEBUG_TOOLBAR")
 
 ALLOWED_HOSTS = env("ALLOWED_HOSTS")
+CSRF_TRUSTED_ORIGINS = env("CSRF_TRUSTED_ORIGINS")
 
 
 # Application definition
