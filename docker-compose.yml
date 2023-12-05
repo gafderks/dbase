@@ -26,7 +26,7 @@ services:
       - postgresql-data:/var/lib/postgresql/data
     restart: always
     env_file:
-      - docker.env
+      - .env
     networks:
       - backend-network
   web:
@@ -38,7 +38,7 @@ services:
       - database
       - memcached
     env_file:
-      - docker.env
+      - .env
     expose:
       - 8000
     volumes:
