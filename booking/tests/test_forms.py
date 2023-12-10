@@ -54,7 +54,7 @@ class MaterialFormTest(TestCase):
         self.assertFalse(form.is_valid())
         self.assertEqual(
             form.errors["name"],
-            ["There exists already a material alias with the given name."]
+            ["There exists already a material alias with the given name."],
         )
 
     @english
@@ -62,7 +62,7 @@ class MaterialFormTest(TestCase):
         form = MaterialForm(data={"stock_value": -4})
         self.assertEqual(
             form.errors["stock_value"],
-            ["Stock value must not be negative."]
+            ["Stock value must not be negative."],
         )
 
     @english
@@ -70,7 +70,7 @@ class MaterialFormTest(TestCase):
         form = MaterialForm(data={"lendable_stock_value": -4})
         self.assertEqual(
             form.errors["lendable_stock_value"],
-            ["Lendable stock value must not be negative."]
+            ["Lendable stock value must not be negative."],
         )
 
     @english
@@ -78,7 +78,7 @@ class MaterialFormTest(TestCase):
         form = MaterialForm(data={"stock_value": 2, "lendable_stock_value": 3})
         self.assertEqual(
             form.errors["lendable_stock_value"],
-            ["Lendable stock value must not be more than stock value."]
+            ["Lendable stock value must not be more than stock value."],
         )
 
     @english
@@ -115,7 +115,7 @@ class MaterialAliasFormTest(TestCase):
         self.assertFalse(form.is_valid())
         self.assertEqual(
             form.errors["name"],
-            ["There exists already a material with the given name."]
+            ["There exists already a material with the given name."],
         )
 
 
@@ -130,7 +130,7 @@ class EventFormTest(TestCase):
         )
         self.assertEqual(
             form.errors["booking_end"],
-            ["Booking end cannot be earlier than booking start."]
+            ["Booking end cannot be earlier than booking start."],
         )
 
     @english
@@ -143,7 +143,7 @@ class EventFormTest(TestCase):
         )
         self.assertEqual(
             form.errors["privileged_booking_end"],
-            ["Privileged booking end cannot be earlier than booking end."]
+            ["Privileged booking end cannot be earlier than booking end."],
         )
 
     @english
@@ -156,7 +156,7 @@ class EventFormTest(TestCase):
         )
         self.assertEqual(
             form.errors["event_end"],
-            ["Event end cannot be earlier than event start."]
+            ["Event end cannot be earlier than event start."],
         )
 
 

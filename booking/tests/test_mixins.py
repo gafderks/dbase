@@ -75,5 +75,5 @@ class TestBookingPageMixin(TestCase):
             self.assertIn(
                 key,
                 context,
-                f"{key} should be part of context through super class NavigationMixin"
+                f"{key} should be part of context through super class NavigationMixin",
             )
