@@ -1,6 +1,4 @@
-from datetime import timedelta
-
-from datetime import timezone
+from datetime import timedelta, datetime
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 
@@ -12,7 +10,7 @@ from .base import FunctionalTest
 
 def create_events():
     def now_plus(days_delta):
-        return timezone.now() + timedelta(days=days_delta)
+        return datetime.now() + timedelta(days=days_delta)
 
     Event(
         name="Active event",

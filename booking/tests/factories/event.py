@@ -1,7 +1,6 @@
-from datetime import timedelta
+from datetime import timedelta, timezone
 
 import factory
-from datetime import timezone
 from django.utils.text import slugify
 
 from booking.models import Event
