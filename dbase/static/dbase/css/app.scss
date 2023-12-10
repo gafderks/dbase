@@ -10,13 +10,6 @@
 @import 'footer';
 
 
-body.clouds {
-    background-image: url("/static/dbase/img/clouds.png");
-    background-repeat: repeat-x;
-    background-position: left top;
-    background-size: cover;
-}
-
 /* Used in login page */
 .frosted {
   background-color: rgba(255, 255, 255, .65);
@@ -29,4 +22,5 @@ body.clouds {
   padding: 15px;
   margin: auto;
 }
+
 /* End used in login page */

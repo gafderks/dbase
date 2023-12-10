@@ -3,8 +3,10 @@ name = "pypi"
 url = "https://pypi.org/simple"
 verify_ssl = true
 
+[requires]
+python_version = "3.12"
+
 [dev-packages]
-django-extensions = "*"
 django-debug-toolbar = "*"
 black = "*"
 selenium = "*"
@@ -16,7 +18,7 @@ werkzeug = "*"
 faker = "*"
 
 [packages]
-mysqlclient = "*"
+django-extensions = "*"
 django-crispy-forms = "==1.14.0"
 django-money = "*"
 openpyxl = "*"
@@ -29,11 +31,12 @@ django-filter = "*"
 rules = "*"
 Django = "*"
 Pillow = "*"
-factory-boy = "*"
 django-mptt = "*"
 django-mptt-admin = "*"
 django-admin-sortable = {git = "https://github.com/gafderks/django-admin-sortable"}
 pymemcache = "*"
+gunicorn = "*"
+psycopg = {extras = ["binary", "pool"], version = "*"}
 
 [pipenv]
 allow_prereleases = true

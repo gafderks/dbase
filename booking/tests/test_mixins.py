@@ -56,9 +56,9 @@ class TestBookingPageMixin(TestCase):
         context = self.DummyView(request=request).get_context_data()
 
         for group in groups:
-            self.assertTrue(group in context["groups"])
+            self.assertIn(group, context["groups"])
         for commission in commissions:
-            self.assertTrue(commission in context["commissions"])
+            self.assertIn(commission, context["commissions"])
 
         self.assertEqual(
             context["parts_of_day"],
@@ -72,7 +72,8 @@ class TestBookingPageMixin(TestCase):
         )
 
         for key in ["events", "current_event", "typeahead_thumbprint"]:
-            self.assertTrue(
-                key in context,
+            self.assertIn(
+                key,
+                context,
                 f"{key} should be part of context through super class NavigationMixin",
             )

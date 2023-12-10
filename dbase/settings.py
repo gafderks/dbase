@@ -19,6 +19,7 @@ env = environ.Env(
     # set casting, default value
     DEBUG=(bool, False),
     CI=(bool, False),
+    DOCKER_BUILD=(bool, False),
     DEBUG_TOOLBAR=(bool, False),
     ALLOWED_HOSTS=(list, ["127.0.0.1", "localhost"]),
     DATA_UPLOAD_MAX_MEMORY_SIZE=(int, 10485760),  # For uploading HD images
@@ -26,6 +27,7 @@ env = environ.Env(
     ADMINS=(list, []),
     SHOP_SKU_OFFSET=(int, 2000),
     SHOP_PRODUCT_URL_FORMAT=(str, None),
+    CSRF_TRUSTED_ORIGINS=(list, []),
 )
 environ.Env.read_env(env_file=str(BASE_DIR / ".env"))
 
@@ -37,11 +39,13 @@ DEBUG = env("DEBUG")
 DEBUG_TOOLBAR = env("DEBUG_TOOLBAR")
 
 ALLOWED_HOSTS = env("ALLOWED_HOSTS")
+CSRF_TRUSTED_ORIGINS = env("CSRF_TRUSTED_ORIGINS")
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    "dbase",
     "django_gulp",
     "booking.apps.BookingConfig",
     "catalog.apps.CatalogConfig",
@@ -86,7 +90,6 @@ ROOT_URLCONF = "dbase.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [BASE_DIR / "dbase/templates"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -106,14 +109,15 @@ WSGI_APPLICATION = "dbase.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/dev/ref/settings/#databases
 
-DATABASES = {
-    "default": {
-        **env.db(),
-        "TEST": {
-            "NAME": BASE_DIR / "db.sqlite3.test",
+if not env("DOCKER_BUILD"):
+    DATABASES = {
+        "default": {
+            **env.db(),
+            "TEST": {
+                "NAME": BASE_DIR / "db.sqlite3.test",
+            },
         },
-    },
-}
+    }
 
 
 # Password validation
@@ -180,7 +184,7 @@ STATICFILES_FINDERS = (
     "django.contrib.staticfiles.finders.FileSystemFinder",
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
 )
-STATICFILES_DIRS = (BASE_DIR / "build", BASE_DIR / "dbase" / "static")
+STATICFILES_DIRS = (BASE_DIR / "build",)
 STATICFILES_STORAGE = "django.contrib.staticfiles.storage.ManifestStaticFilesStorage"
 
 MEDIA_URL = "/media/"
@@ -228,6 +232,31 @@ TEST_RUNNER = "tests.runner.CustomTestSuitRunner"
 
 SHOP_SKU_OFFSET = env("SHOP_SKU_OFFSET")
 SHOP_PRODUCT_URL_FORMAT = env("SHOP_PRODUCT_URL_FORMAT")
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "default": {
+            "format": "[DJANGO] %(levelname)s %(asctime)s %(module)s "
+            "%(name)s.%(funcName)s:%(lineno)s: %(message)s"
+        },
+    },
+    "handlers": {
+        "console": {
+            "level": "DEBUG",
+            "class": "logging.StreamHandler",
+            "formatter": "default",
+        }
+    },
+    "loggers": {
+        "": {
+            "handlers": ["console"],
+            "level": "DEBUG",
+            "propagate": True,
+        }
+    },
+}
 
 # Setup logging for Sorl thumbnails
 # according to https://sorl-thumbnail.readthedocs.io/en/latest/logging.html

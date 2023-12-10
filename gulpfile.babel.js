@@ -20,8 +20,8 @@ import autoprefixer from 'autoprefixer';
 import atImport from 'postcss-import';
 import pixrem from 'pixrem';
 // other
-import imagemin from 'gulp-imagemin';
-import {deleteAsync as del} from 'del';
+// import imagemin from 'gulp-imagemin';
+import { deleteAsync as del } from 'del';
 import browserSync from 'browser-sync';
 
 import booking from './booking/static/booking/config.gulp.js';
@@ -51,7 +51,7 @@ function reload(done) {
 }
 
 // Flatten an array with potential subarrays
-const flatten = (arr) =>  arr.reduce((flat, next) => flat.concat(next), []);
+const flatten = (arr) => arr.reduce((flat, next) => flat.concat(next), []);
 
 function extract_tasks_from_configs(task_type) {
   // Get the configs that have a task with the specified type and return the tasks therefore
@@ -86,10 +86,10 @@ function scripts() {
       ],
     }).pipe(source(config.entry, config.srcDir))
       .pipe(buffer())
-      .pipe(sourcemaps.init({loadMaps: true}))
+      .pipe(sourcemaps.init({ loadMaps: true }))
       .pipe(gulp.dest(config.dest)) // save .js
       .pipe(terser())
-      .pipe(rename({suffix: '.min'}))
+      .pipe(rename({ suffix: '.min' }))
       .pipe(sourcemaps.write('.'))
       .pipe(gulp.dest(config.dest)); // save .min.js
   });
@@ -113,7 +113,7 @@ function styles() {
         includePaths: ['node_modules']
       }).on('error', sass.logError))
       .pipe(postcss(processors))
-      .pipe(rename({suffix: '.min'}))
+      .pipe(rename({ suffix: '.min' }))
       .pipe(sourcemaps.write('.'))
       .pipe(gulp.dest(config.dest))
       .pipe(server.stream());
@@ -125,11 +125,11 @@ function styles() {
 function images() {
   const tasks = extract_tasks_from_configs('images').map(config => {
     return gulp.src(config.src)
-      .pipe(imagemin())
+      // .pipe(imagemin())
       .pipe(gulp.dest(config.dest));
   });
 
-  return merge(tasks);
+  return merge([gulp.src('.', { allowEmpty: true }), ...tasks]);
 }
 
 function staticFiles() {
@@ -167,5 +167,5 @@ const build = gulp.parallel(scripts, styles, images, staticFiles);
 
 const dev = gulp.series(serve, watch);
 
-export {scripts, styles, images, staticFiles, clean, build, dev};
+export { scripts, styles, images, staticFiles, clean, build, dev };
 export default build;

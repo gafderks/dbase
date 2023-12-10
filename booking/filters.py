@@ -5,7 +5,7 @@ from crispy_forms.layout import Layout, Div, Field, Submit, HTML
 from django.contrib import admin
 from django.db.models import Count
 from django.forms import NullBooleanSelect, NullBooleanField
-from django.forms.fields import CallableChoiceIterator
+from django.utils.choices import CallableChoiceIterator
 from django.utils.translation import gettext as __
 from django.utils.translation import gettext_lazy as _
 from django_filters import BooleanFilter, ChoiceFilter, FilterSet, ModelChoiceFilter

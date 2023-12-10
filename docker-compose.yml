@@ -1,0 +1,57 @@
+version: "3.1"
+
+volumes:
+  postgresql-data:
+  media-data:
+
+
+services:
+  nginx:
+    build:
+      context: .
+      target: nginx
+    ports:
+      - 80:80
+    labels:
+      kompose.service.type: LoadBalancer
+    volumes:
+      - media-data:/opt/services/dbase/media:ro
+    depends_on:
+      - web
+    networks:
+      - backend-network
+  database:
+    image: postgres:15.2
+    volumes:
+      - postgresql-data:/var/lib/postgresql/data
+    restart: always
+    env_file:
+      - .env
+    networks:
+      - backend-network
+  web:
+    build:
+      context: .
+      target: runtime
+    command: gunicorn --bind 0.0.0.0:8000 --timeout 120 --workers 2 dbase.wsgi
+    depends_on:
+      - database
+      - memcached
+    env_file:
+      - .env
+    expose:
+      - 8000
+    volumes:
+      - media-data:/app/media
+    networks:
+      - backend-network
+  memcached:
+    image: memcached:1.6
+    expose:
+      - 11211
+    networks:
+      - backend-network
+
+networks:
+  backend-network:
+    driver: bridge

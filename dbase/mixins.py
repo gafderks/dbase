@@ -12,11 +12,11 @@ class UserAlertMixin(ContextMixin):
         try:
             return super().dispatch(request, *args, **kwargs)
         except UserAlertException as e:
-            return render(request, "jeugdraad/alert.html", {"message": str(e)})
+            return render(request, "theme/alert.html", {"message": str(e)})
         except GroupPermissionError as e:
             return render(
                 request,
-                "jeugdraad/alert.html",
+                "theme/alert.html",
                 {"message": str(e)},
                 status=403,  # Forbidden
             )

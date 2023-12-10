@@ -1,21 +1,23 @@
-{% extends "jeugdraad/blank.html" %}
+{% extends "theme/blank.html" %}
 {% load static %}
 {% load i18n %}
 {% load crispy_forms_tags %}
 
-{% block body_class %}clouds{% endblock %}
+{% block body_class %}base{% endblock %}
 
 {% block layout %}
   <main class="frosted p-5 shadow m-sm-auto d-flex align-items-center col-md-6 col-sm-8 col-xl-4">
     <div class="signin-container">
       <div class="text-center mb-4">
-        <img class="mb-4" src="{% static "dbase/img/logo_121x110.png" %}" alt="" width="121" height="110">
-        <h1 class="h3 mb-3 font-weight-normal">DBase</h1>
-        <p>{% trans "Login to enter the DBase." %}</p>
+        {% block login_header %}
+          <img class="mb-4" src="{% static "djr_theme/img/logo_121x110.png" %}" alt="" width="121" height="110">
+          <h1 class="h3 mb-3 font-weight-normal">DBase</h1>
+          <p>{% trans "Login to enter the DBase." %}</p>
+        {% endblock %}
       </div>
         {% crispy form %}
       <p class="mt-5 mb-0 text-muted text-center">&copy; 2019-{% now "Y" %}</p>
     </div>
   </main>
-    {% include "jeugdraad/footer.html" %}
+    {% include "theme/footer.html" %}
 {% endblock %}

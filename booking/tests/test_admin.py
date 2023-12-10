@@ -63,10 +63,10 @@ class RateClassAdminTest(TestCase):
         # Verify that the rate class for the material was updated
         self.assertEqual(material.rate_class, rate_class)
         # Verify that the reverse relation holds as well
-        self.assertTrue(material in rate_class.materials.all())
+        self.assertIn(material, rate_class.materials.all())
         # Verify that the material is no longer associated to the old rate class
         old_rate_class.refresh_from_db()
-        self.assertFalse(material in old_rate_class.materials.all())
+        self.assertNotIn(material, old_rate_class.materials.all())
 
     def test_edit_rate_class_remove_material(self):
         rate_class = RateClassFactory()

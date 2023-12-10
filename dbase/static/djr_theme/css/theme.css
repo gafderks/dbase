@@ -1,0 +1,16 @@
+body.base {
+  background-image: url("/static/djr_theme/img/clouds.png");
+  background-repeat: repeat-x;
+  background-position: left top;
+  background-size: cover;
+}
+
+@media (min-width: 992px) {
+  footer {
+    background-image: url("/static/djr_theme/img/footer.png");
+    background-size: 300px;
+    background-repeat: no-repeat;
+    background-position: bottom center;
+    padding-top: 200px;
+  }
+}

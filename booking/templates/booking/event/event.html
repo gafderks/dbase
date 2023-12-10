@@ -1,4 +1,4 @@
-{% extends "jeugdraad/base.html" %}
+{% extends "theme/base.html" %}
 {% load i18n %}
 {% load rules %}
 {% load dictionary %}
@@ -142,9 +142,11 @@
 {% endblock %}
 
 {% block scripts %}
+  {{ block.super }}
   <script src="{% static "booking/js/app.min.js" %}" type="text/javascript"></script>
 {% endblock %}
 
 {% block styles %}
+  {{ block.super}}  
   <link href="{% static "booking/css/app.min.css" %}" rel="stylesheet">
 {% endblock %}

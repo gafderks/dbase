@@ -1,4 +1,4 @@
-<img src="https://github.com/gafderks/dbase/raw/master/dbase/static/dbase/img/logo_121x110.png" alt="drawing" width="121px" style="display: block; margin-left: auto; margin-right: auto"/>
+<img src="https://github.com/gafderks/dbase/raw/master/dbase/static/djr_theme/img/logo_121x110.png" alt="drawing" width="121px" style="display: block; margin-left: auto; margin-right: auto"/>
 
 DBASE
 =====
@@ -14,6 +14,13 @@ DBASE
 
 __Manager for material booking.__
 
+
+Docker management
+-----------------
+
+1. Build the services using `docker-compose up --build`
+2. After every update run migrations `docker-compose run web python manage.py migrate`
+3. Add a super user using `docker-compose run web python manage.py createsuperuser`
 
 
 Installation
