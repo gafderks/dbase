@@ -52,32 +52,33 @@ class MaterialFormTest(TestCase):
         MaterialAliasFactory.create(name="Inflatable")
         form = MaterialForm(data={"name": "Inflatable"})
         self.assertFalse(form.is_valid())
-        self.assertEquals(
+        self.assertEqual(
             form.errors["name"],
-            ["There exists already a material alias with the given name."],
+            ["There exists already a material alias with the given name."]
         )
 
     @english
     def test_non_negative_stock_value(self):
         form = MaterialForm(data={"stock_value": -4})
-        self.assertEquals(
-            form.errors["stock_value"], ["Stock value must not be negative."]
+        self.assertEqual(
+            form.errors["stock_value"],
+            ["Stock value must not be negative."]
         )
 
     @english
     def test_non_negative_lendable_stock_value(self):
         form = MaterialForm(data={"lendable_stock_value": -4})
-        self.assertEquals(
+        self.assertEqual(
             form.errors["lendable_stock_value"],
-            ["Lendable stock value must not be negative."],
+            ["Lendable stock value must not be negative."]
         )
 
     @english
     def test_lendable_stock_not_smaller_than_stock(self):
         form = MaterialForm(data={"stock_value": 2, "lendable_stock_value": 3})
-        self.assertEquals(
+        self.assertEqual(
             form.errors["lendable_stock_value"],
-            ["Lendable stock value must not be more than stock value."],
+            ["Lendable stock value must not be more than stock value."]
         )
 
     @english
@@ -112,9 +113,9 @@ class MaterialAliasFormTest(TestCase):
         MaterialFactory.create(name="Bogo")
         form = MaterialAliasForm(data={"name": "Bogo"})
         self.assertFalse(form.is_valid())
-        self.assertEquals(
+        self.assertEqual(
             form.errors["name"],
-            ["There exists already a material with the given name."],
+            ["There exists already a material with the given name."]
         )
 
 
@@ -127,9 +128,9 @@ class EventFormTest(TestCase):
                 "booking_start": date.today(),
             }
         )
-        self.assertEquals(
+        self.assertEqual(
             form.errors["booking_end"],
-            ["Booking end cannot be earlier than booking start."],
+            ["Booking end cannot be earlier than booking start."]
         )
 
     @english
@@ -140,9 +141,9 @@ class EventFormTest(TestCase):
                 "booking_end": date.today(),
             }
         )
-        self.assertEquals(
+        self.assertEqual(
             form.errors["privileged_booking_end"],
-            ["Privileged booking end cannot be earlier than booking end."],
+            ["Privileged booking end cannot be earlier than booking end."]
         )
 
     @english
@@ -153,9 +154,9 @@ class EventFormTest(TestCase):
                 "event_start": date.today(),
             }
         )
-        self.assertEquals(
+        self.assertEqual(
             form.errors["event_end"],
-            ["Event end cannot be earlier than event start."],
+            ["Event end cannot be earlier than event start."]
         )
 
 
