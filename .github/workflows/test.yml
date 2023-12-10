@@ -92,7 +92,7 @@ jobs:
           flags: functional
           
       - name: CodeClimate
-        uses: paambaati/codeclimate-action@v4.0.0
+        uses: paambaati/codeclimate-action@v5.0.0
         if: ${{ github.actor != 'dependabot[bot]' }}
         env:
           CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
