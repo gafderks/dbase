@@ -12,6 +12,12 @@ services:
       target: nginx
     ports:
       - 80:80
+    healthcheck:
+      test: [ "CMD", "curl", "--fail", "http://localhost:80/" ]
+      interval: 1m30s
+      timeout: 30s
+      retries: 5
+      start_period: 30s
     labels:
       kompose.service.type: LoadBalancer
     volumes:
@@ -29,11 +35,23 @@ services:
       - .env
     networks:
       - backend-network
+    shm_size: 256mb
+    healthcheck:
+      test: [ "CMD", "pg_isready" ]
+      interval: 1m30s
+    expose:
+      - 5432
   web:
     build:
       context: .
       target: runtime
     command: gunicorn --bind 0.0.0.0:8000 --timeout 120 --workers 2 dbase.wsgi
+    healthcheck:
+      test: [ "CMD", "curl", "--fail", "http://localhost:8000" ]
+      interval: 1m30s
+      timeout: 30s
+      retries: 5
+      start_period: 30s
     depends_on:
       - database
       - memcached

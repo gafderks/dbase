@@ -25,8 +25,16 @@ spec:
             - configMapRef:
                 name: dbase-configmap
           image: postgres:15.2
+          livenessProbe:
+            exec:
+              command:
+                - pg_isready
+            periodSeconds: 90
           name: database
           resources: {}
+          ports:
+            - containerPort: 5432
+              protocol: TCP
           volumeMounts:
             - mountPath: /var/lib/postgresql/data
               name: postgresql-data

@@ -22,6 +22,16 @@ spec:
     spec:
       containers:
         - image: gafderkspersonal/dbase-nginx:latest
+          livenessProbe:
+            exec:
+              command:
+                - curl
+                - --fail
+                - http://localhost:80/
+            failureThreshold: 5
+            initialDelaySeconds: 30
+            periodSeconds: 90
+            timeoutSeconds: 30
           name: nginx
           ports:
             - containerPort: 80
