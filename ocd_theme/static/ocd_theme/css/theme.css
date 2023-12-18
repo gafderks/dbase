@@ -1,0 +1,12 @@
+body {
+  --opacity: 0.5;
+  background: linear-gradient(rgba(255, 255, 255, var(--opacity)),
+      rgba(255, 255, 255, var(--opacity))),
+    url("/static/ocd_theme/img/background.png");
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+.footer .text-muted {
+  color: black !important;
+}

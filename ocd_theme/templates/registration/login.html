@@ -1,0 +1,9 @@
+{% extends "registration/login.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block login_header %}
+<img class="mb-4" src="{% static "ocd_theme/img/logo_200x49.png" %}" alt="" width="200" height="49">
+<h1 class="h3 mb-3 font-weight-normal">DBase</h1>
+<p>{% trans "Login to enter the DBase." %}</p>
+{% endblock %}

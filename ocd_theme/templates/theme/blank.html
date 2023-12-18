@@ -1,0 +1,16 @@
+{% extends "theme/blank.html" %}
+
+{% load i18n %}
+{% load static %}
+
+{% block icons %}
+  <link rel="apple-touch-icon" sizes="180x180" href="{% static 'ocd_theme/icons/apple-touch-icon.png' %}">
+  <link rel="icon" type="image/png" sizes="32x32" href="{% static 'ocd_theme/icons/favicon-32x32.png' %}">
+  <link rel="icon" type="image/png" sizes="16x16" href="{% static 'ocd_theme/icons/favicon-16x16.png' %}">
+  <link rel="manifest" href="{% static 'ocd_theme/icons/site.webmanifest' %}">
+{% endblock %}
+
+{% block styles %}
+  <link rel="stylesheet" href="{% static 'ocd_theme/css/theme.css' %}">
+{% endblock %}
+
