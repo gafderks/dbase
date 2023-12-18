@@ -16,15 +16,11 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+          cache: 'pipenv'
       - name: Install pipenv
         run: python -m pip install --upgrade pipenv wheel
       - name: Install Safety
         run: pipenv install Safety
-      - name: Cache
-        uses: actions/cache@v3.3.2
-        with:
-          path: ~/.local/share/virtualenvs
-          key: safety
       - name: Install application Python dependencies
         run: pipenv install --deploy --dev
       - name: Run Safety check
