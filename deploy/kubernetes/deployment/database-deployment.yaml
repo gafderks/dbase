@@ -25,6 +25,11 @@ spec:
             - configMapRef:
                 name: dbase-configmap
           image: postgres:15.2
+          livenessProbe:
+            exec:
+              command:
+                - pg_isready
+            periodSeconds: 90
           name: database
           resources: {}
           volumeMounts:

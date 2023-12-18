@@ -34,6 +34,16 @@ spec:
             - configMapRef:
                 name: dbase-configmap
           image: gafderkspersonal/dbase-web:latest
+          livenessProbe:
+            exec:
+              command:
+                - curl
+                - --fail
+                - http://localhost:8000
+            failureThreshold: 5
+            initialDelaySeconds: 30
+            periodSeconds: 90
+            timeoutSeconds: 30
           name: web
           ports:
             - containerPort: 8000
