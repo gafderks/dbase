@@ -56,7 +56,7 @@ COPY --from=base /app/static /opt/services/dbase/static
 ## RUNTIME ##
 #############
 
-FROM python:3.12-slim@sha256:8e216a21d8df597118b46f3fff477ed1c5c11be81531b6da87790a17851b7f1c as runtime
+FROM python:3.12-slim@sha256:41487afa4d11d89b3ec37fdfb652ceb2f2db0c19b2259a24b052e5805bc22197 as runtime
 LABEL maintainer="Geert Derks <geertderks12@gmail.com>"
 
 RUN apt-get update && apt-get install -y --no-install-recommends gettext curl
