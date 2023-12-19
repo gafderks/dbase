@@ -31,7 +31,11 @@ spec:
                 - pg_isready
             periodSeconds: 90
           name: database
-          resources: {}
+          resources:
+            limits:
+              memory: "52428800"
+            requests:
+              memory: "31457280"
           ports:
             - containerPort: 5432
               protocol: TCP

@@ -1,4 +1,4 @@
-version: "3.1"
+version: "3.8"
 
 volumes:
   postgresql-data:
@@ -26,6 +26,12 @@ services:
       - web
     networks:
       - backend-network
+    deploy:
+      resources:
+        limits:
+          memory: 50M
+        reservations:
+          memory: 30MB
   database:
     image: postgres:15.2
     volumes:
@@ -41,6 +47,12 @@ services:
       interval: 1m30s
     expose:
       - 5432
+    deploy:
+      resources:
+        limits:
+          memory: 50M
+        reservations:
+          memory: 30MB
   web:
     build:
       context: .
@@ -63,12 +75,24 @@ services:
       - media-data:/app/media
     networks:
       - backend-network
+    deploy:
+      resources:
+        limits:
+          memory: 500M
+        reservations:
+          memory: 250M
   memcached:
     image: memcached:1.6
     expose:
       - 11211
     networks:
       - backend-network
+    deploy:
+      resources:
+        limits:
+          memory: 300M
+        reservations:
+          memory: 100M
 
 networks:
   backend-network:
