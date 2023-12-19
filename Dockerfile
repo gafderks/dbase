@@ -38,7 +38,7 @@ RUN npm ci && \
 
 COPY . .
 
-RUN SECRET_KEY=dummy pipenv run ./manage.py collectstatic --noinput
+RUN SECRET_KEY=dummy pipenv run python ./manage.py collectstatic --noinput
 
 ###########
 ## NGINX ##
