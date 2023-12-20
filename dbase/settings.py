@@ -68,7 +68,7 @@ INSTALLED_APPS = [
     "django_mptt_admin",
 ]
 if DEBUG or env("DOCKER_BUILD"):
-    INSTALLED_APPS += "django_gulp"
+    INSTALLED_APPS += ["django_gulp"]
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
