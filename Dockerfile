@@ -78,7 +78,8 @@ ENV APP_HOME=/app
 RUN groupadd -g 999 appuser && \
     useradd -r -u 999 -g appuser appuser
 
-RUN mkdir ${APP_HOME}
+RUN mkdir ${APP_HOME} && \
+    chown appuser:appuser ${APP_HOME}
 RUN mkdir ${APP_HOME}/media && \
     chown appuser:appuser ${APP_HOME}/media
 WORKDIR ${APP_HOME}
