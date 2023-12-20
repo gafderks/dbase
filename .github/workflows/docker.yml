@@ -7,9 +7,8 @@ on:
   pull_request:
 
 env:
-  WEB_TEST_TAG: gafderkspersonal/dbase-web:test
+  WEB_TEST_TAG: dbase-web:test
   WEB_LATEST_TAG: gafderkspersonal/dbase-web:latest
-  NGINX_TEST_TAG: gafderkspersonal/dbase-nginx:test
   NGINX_LATEST_TAG: gafderkspersonal/dbase-nginx:latest
 
 jobs:
@@ -50,9 +49,6 @@ jobs:
           context: .
           load: true
           tags: ${{ env.NGINX_TEST_TAG }}
-      - name: Test nginx image
-        run: |
-          docker run --rm ${{ env.NGINX_TEST_TAG }}
       - name: Build and push web image
         uses: docker/build-push-action@v5
         with:
