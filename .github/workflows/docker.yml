@@ -1,4 +1,4 @@
-name: Build and export Docker images
+name: Docker build and export
 
 on:
   push:
@@ -28,37 +28,37 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - name: Web Build and export to Docker
+      - name: Build web image
         uses: docker/build-push-action@v5
         with:
           target: runtime
           context: .
           load: true
           tags: ${{ env.WEB_TEST_TAG }}
-      - name: Test web container
+      - name: Test web image
         run: |
           docker run \
             -e SECRET_KEY="${{ secrets.SECRET_KEY }}" -e DATABASE_URL="sqlite:///db.sqlite3" \
             --rm ${{ env.WEB_TEST_TAG }} \
             python manage.py test --exclude-tag=functional -v 2
-      - name: Nginx Build and export to Docker
+      - name: Build nginx image
         uses: docker/build-push-action@v5
         with:
-          target: runtime
+          target: nginx
           context: .
           load: true
           tags: ${{ env.NGINX_TEST_TAG }}
-      - name: Test nginx container
+      - name: Test nginx image
         run: |
           docker run --rm ${{ env.NGINX_TEST_TAG }}
-      - name: Build and push web container
+      - name: Build and push web image
         uses: docker/build-push-action@v5
         with:
           context: .
           push: true
           target: runtime
           tags: ${{ env.WEB_LATEST_TAG }}
-      - name: Build and push nginx container
+      - name: Build and push nginx image
         uses: docker/build-push-action@v5
         with:
           context: .
