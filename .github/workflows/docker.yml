@@ -37,7 +37,7 @@ jobs:
           tags: ${{ env.WEB_TEST_TAG }}
       - name: Test web container
         run: |
-          docker run --rm ${{ env.WEB_TEST_TAG }} python manage.py test --exclude-tag=functional -v 2
+          docker run -e SECRET_KEY=${{ secrets.SECRET_KEY }} --rm ${{ env.WEB_TEST_TAG }} python manage.py test --exclude-tag=functional -v 2
       - name: Nginx Build and export to Docker
         uses: docker/build-push-action@v5
         with:
