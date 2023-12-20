@@ -38,7 +38,7 @@ jobs:
       - name: Test web container
         run: |
           docker run \
-            -e SECRET_KEY="${{ secrets.SECRET_KEY }}" -e DATABASE_URL="sqlite:///db.sqlite3" \ 
+            -e SECRET_KEY="${{ secrets.SECRET_KEY }}" -e DATABASE_URL="sqlite:///db.sqlite3" \
             --rm ${{ env.WEB_TEST_TAG }} \
             python manage.py test --exclude-tag=functional -v 2
       - name: Nginx Build and export to Docker
