@@ -46,7 +46,6 @@ CSRF_TRUSTED_ORIGINS = env("CSRF_TRUSTED_ORIGINS")
 
 INSTALLED_APPS = [
     "dbase",
-    "django_gulp",
     "booking.apps.BookingConfig",
     "catalog.apps.CatalogConfig",
     "users.apps.UsersConfig",
@@ -68,6 +67,8 @@ INSTALLED_APPS = [
     "mptt",
     "django_mptt_admin",
 ]
+if DEBUG or env("DOCKER_BUILD"):
+    INSTALLED_APPS += "django_gulp"
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",

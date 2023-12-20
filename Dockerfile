@@ -27,21 +27,23 @@ RUN npm install -g gulp-cli@2.3.0
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 ENV DOCKER_BUILD 1
+ENV NODE_ENV production
 
 RUN pip install --upgrade --no-cache-dir pipenv==2023.10.24 wheel==0.41.2
 COPY ./Pipfile .
 COPY ./Pipfile.lock .
-RUN PIPENV_VENV_IN_PROJECT=1 pipenv install --deploy
+RUN PIPENV_VENV_IN_PROJECT=1 pipenv install --deploy --dev
 
 COPY ./package-lock.json .
 COPY ./package.json .
 
-RUN npm ci && \
+RUN npm ci --omit=dev && \
     npx update-browserslist-db@latest
 
 COPY . .
 
-RUN SECRET_KEY=dummy pipenv run python ./manage.py collectstatic --noinput
+RUN SECRET_KEY=dummy pipenv run python ./manage.py collectstatic --noinput \
+    && PIPENV_VENV_IN_PROJECT=1 pipenv uninstall --all-dev
 
 ###########
 ## NGINX ##
