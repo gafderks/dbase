@@ -1,4 +1,4 @@
-name: ci
+name: Build and export Docker images
 
 on:
   push:
@@ -13,7 +13,7 @@ env:
   NGINX_LATEST_TAG: gafderkspersonal/dbase-nginx:latest
 
 jobs:
-  docker:
+  build:
     environment: CI
     runs-on: ubuntu-latest
     steps:
