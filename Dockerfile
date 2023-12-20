@@ -94,6 +94,15 @@ RUN django-admin compilemessages
 
 ENTRYPOINT [ "./entrypoint.sh" ]
 
-# Migrate (separate command, do not want to run this simultaneously if started multiple times.)
+#############
+## TESTING ##
+#############
 
-# TODO: https://snyk.io/blog/best-practices-containerizing-python-docker/#:~:text=5.%20Handle%20unhealthy%20states%20of%20your%20containerized%20Python%20application
+FROM base as base-test
+
+RUN PIPENV_VENV_IN_PROJECT=1 pipenv install --deploy --dev
+
+FROM runtime as web-test
+
+COPY --from=base-test --chown=appuser:appuser ${APP_HOME}/.venv ./.venv
+
