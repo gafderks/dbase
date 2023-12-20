@@ -94,7 +94,7 @@ COPY --chown=appuser:appuser . .
 
 USER 999
 
-ENV PATH="/${APP_HOME}/.venv/bin:$PATH"
+ENV PATH="${APP_HOME}/.venv/bin:$PATH"
 
 RUN django-admin compilemessages
 
