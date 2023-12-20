@@ -56,6 +56,7 @@ jobs:
           push: true
           target: runtime
           tags: ${{ env.WEB_LATEST_TAG }}
+        if: github.ref == 'refs/heads/master' && github.event_name != 'pull_request'
       - name: Build and push nginx image
         uses: docker/build-push-action@v5
         with:
@@ -63,3 +64,4 @@ jobs:
           push: true
           target: nginx
           tags: ${{ env.NGINX_LATEST_TAG }}
+        if: github.ref == 'refs/heads/master' && github.event_name != 'pull_request'
