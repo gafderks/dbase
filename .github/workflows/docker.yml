@@ -7,9 +7,10 @@ on:
   pull_request:
 
 env:
-  WEB_TEST_TAG: dbase-web:test
-  WEB_LATEST_TAG: gafderkspersonal/dbase-web:latest
-  NGINX_LATEST_TAG: gafderkspersonal/dbase-nginx:latest
+  WEB_TEST_IMAGE: dbase-web:test
+  WEB_IMAGE: gafderkspersonal/dbase-web
+  NGINX_TEST_IMAGE: dbase-nginx:test
+  NGINX_IMAGE: gafderkspersonal/dbase-nginx
 
 jobs:
   build:
@@ -27,20 +28,25 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Set short git commit SHA
+        id: vars
+        run: echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
+      - name: Output git commit SHA
+        run: echo ${{ steps.vars.outputs.sha_short }}
       - name: Build web test image
         uses: docker/build-push-action@v5
         with:
           target: web-test
           context: .
           load: true
-          tags: ${{ env.WEB_TEST_TAG }}
+          tags: ${{ env.WEB_TEST_IMAGE }}
       - name: Test web test image
         run: |
           docker run \
             -e SECRET_KEY="${{ secrets.SECRET_KEY }}" \
             -e DATABASE_URL="sqlite:////app/db.sqlite3" \
             -e DEBUG=on \
-            --rm ${{ env.WEB_TEST_TAG }} \
+            --rm ${{ env.WEB_TEST_IMAGE }} \
             python manage.py test --exclude-tag=functional -v 2
       - name: Build nginx image
         uses: docker/build-push-action@v5
@@ -48,20 +54,20 @@ jobs:
           target: nginx
           context: .
           load: true
-          tags: ${{ env.NGINX_TEST_TAG }}
-      - name: Build and push web image
+          tags: ${{ env.NGINX_TEST_IMAGE }}
+      - name: Publish web image
         uses: docker/build-push-action@v5
         with:
           context: .
           push: true
           target: runtime
-          tags: ${{ env.WEB_LATEST_TAG }}
+          tags: ${{ env.WEB_IMAGE }}:latest,${{ env.WEB_IMAGE }}:${{ steps.vars.outputs.sha_short }}
         if: github.ref == 'refs/heads/master' && github.event_name != 'pull_request'
-      - name: Build and push nginx image
+      - name: Publish nginx image
         uses: docker/build-push-action@v5
         with:
           context: .
           push: true
           target: nginx
-          tags: ${{ env.NGINX_LATEST_TAG }}
+          tags: ${{ env.NGINX_IMAGE }}:latest,${{ env.NGINX_IMAGE }}:${{ steps.vars.outputs.sha_short }}
         if: github.ref == 'refs/heads/master' && github.event_name != 'pull_request'
