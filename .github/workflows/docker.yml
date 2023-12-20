@@ -35,6 +35,12 @@ jobs:
           context: .
           load: true
           tags: ${{ env.WEB_TEST_TAG }}
+      - name: TEMP Test web image booking
+        run: |
+          docker run \
+            -e SECRET_KEY="${{ secrets.SECRET_KEY }}" -e DATABASE_URL="sqlite:///db.sqlite3" \
+            --rm ${{ env.WEB_TEST_TAG }} \
+            python manage.py test booking --exclude-tag=functional -v 2
       - name: Test web image
         run: |
           docker run \
