@@ -9,15 +9,18 @@ ENV APP_HOME=/app
 RUN mkdir -p ${APP_HOME}
 WORKDIR ${APP_HOME}
 
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends \
-    curl ca-certificates gnupg git
+RUN apt-get update && apt-get install -y --no-install-recommends curl ca-certificates gnupg git \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
 # Install Node.js
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 RUN mkdir -p /etc/apt/keyrings && \
     curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg && \
     NODE_MAJOR=20; echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_$NODE_MAJOR.x nodistro main" | tee /etc/apt/sources.list.d/nodesource.list && \
-    apt-get update && apt-get install -y --no-install-recommends nodejs
+    apt-get update && apt-get install -y --no-install-recommends nodejs \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
 RUN npm install -g gulp-cli@2.3.0
 
@@ -28,7 +31,7 @@ ENV DOCKER_BUILD 1
 RUN pip install --upgrade --no-cache-dir pipenv==2023.10.24 wheel==0.41.2
 COPY ./Pipfile .
 COPY ./Pipfile.lock .
-RUN PIPENV_VENV_IN_PROJECT=1 pipenv install --deploy --dev
+RUN PIPENV_VENV_IN_PROJECT=1 pipenv install --deploy
 
 COPY ./package-lock.json .
 COPY ./package.json .
@@ -59,7 +62,9 @@ COPY --from=base /app/static /opt/services/dbase/static
 FROM python:3.12-slim@sha256:41487afa4d11d89b3ec37fdfb652ceb2f2db0c19b2259a24b052e5805bc22197 as runtime
 LABEL maintainer="Geert Derks <geertderks12@gmail.com>"
 
-RUN apt-get update && apt-get install -y --no-install-recommends gettext curl
+RUN apt-get update && apt-get install -y --no-install-recommends gettext curl \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
 # Prevent writing pyc files
 ENV PYTHONDONTWRITEBYTECODE 1
