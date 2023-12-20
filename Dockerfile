@@ -28,7 +28,7 @@ ENV DOCKER_BUILD 1
 RUN pip install --upgrade --no-cache-dir pipenv==2023.10.24 wheel==0.41.2
 COPY ./Pipfile .
 COPY ./Pipfile.lock .
-RUN PIPENV_VENV_IN_PROJECT=1 pipenv install --deploy
+RUN PIPENV_VENV_IN_PROJECT=1 pipenv install --deploy --dev
 
 COPY ./package-lock.json .
 COPY ./package.json .
