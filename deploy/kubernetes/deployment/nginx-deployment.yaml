@@ -36,7 +36,11 @@ spec:
           ports:
             - containerPort: 80
               protocol: TCP
-          resources: {}
+          resources:
+            limits:
+              memory: "52428800"
+            requests:
+              memory: "31457280"
           volumeMounts:
             - mountPath: /opt/services/dbase/media
               name: media-volume
