@@ -43,7 +43,7 @@ RUN npm ci --omit=dev && \
 COPY . .
 
 RUN SECRET_KEY=dummy pipenv run python ./manage.py collectstatic --noinput \
-    && PIPENV_VENV_IN_PROJECT=1 pipenv uninstall django-gulp
+    && PIPENV_VENV_IN_PROJECT=1 pipenv uninstall --skip-lock django-gulp
 
 ###########
 ## NGINX ##
@@ -73,6 +73,8 @@ ENV PYTHONDONTWRITEBYTECODE 1
 # Prevent buffering stdout and stderr
 ENV PYTHONUNBUFFERED 1
 ENV PIPENV_VENV_IN_PROJECT=1 
+ENV NO_DJANGO_GULP 1
+ENV DOCKER_BUILD 1
 
 ENV APP_HOME=/app
 
