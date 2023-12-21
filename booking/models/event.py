@@ -21,9 +21,7 @@ class EventManager(models.Manager):
     def editable(user):
         query = Event.objects.viewable(user)
         if not user.has_perm("booking.can_book_on_locked_events"):
-            query = query.filter(
-                locked=False, privileged_booking_end__gt=now()
-            )
+            query = query.filter(locked=False, privileged_booking_end__gt=now())
         if not user.has_perm("booking.can_book_on_privileged_events"):
             query = query.filter(booking_end__gt=now())
         return query
@@ -133,10 +131,7 @@ class Event(RulesModel):
         :return: bool
         """
         return (
-            not self.locked
-            and self.booking_end
-            < now()
-            < self.privileged_booking_end
+            not self.locked and self.booking_end < now() < self.privileged_booking_end
         )
 
     @property
