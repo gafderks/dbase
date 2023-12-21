@@ -1,7 +1,6 @@
-from datetime import datetime
-
 from django.http import HttpResponse
 from django.utils.translation import gettext as _
+from django.utils.timezone import now
 from openpyxl import Workbook
 from openpyxl.styles import Alignment
 from openpyxl.utils import get_column_letter
@@ -27,7 +26,7 @@ class EventExcelView(EventListView):
             if context["current_group"]
             else _("All groups"),
             downloaded=_("downloaded on"),
-            date=datetime.now().strftime("%Y-%m-%d"),
+            date=now().strftime("%Y-%m-%d"),
         )
 
         workbook = Workbook()
