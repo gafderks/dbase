@@ -32,7 +32,7 @@ ENV NODE_ENV production
 RUN pip install --upgrade --no-cache-dir pipenv==2023.10.24 wheel==0.41.2
 COPY ./Pipfile .
 COPY ./Pipfile.lock .
-RUN PIPENV_VENV_IN_PROJECT=1 pipenv install --deploy --dev
+RUN PIPENV_VENV_IN_PROJECT=1 pipenv install --deploy
 
 COPY ./package-lock.json .
 COPY ./package.json .
@@ -43,7 +43,7 @@ RUN npm ci --omit=dev && \
 COPY . .
 
 RUN SECRET_KEY=dummy pipenv run python ./manage.py collectstatic --noinput \
-    && PIPENV_VENV_IN_PROJECT=1 pipenv uninstall --all-dev
+    && PIPENV_VENV_IN_PROJECT=1 pipenv uninstall django-gulp
 
 ###########
 ## NGINX ##
