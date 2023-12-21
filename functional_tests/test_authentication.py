@@ -1,6 +1,7 @@
-from datetime import timedelta, datetime
+from datetime import timedelta
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
+from django.utils.timezone import now
 
 from booking.models import Event
 from tests.utils import english
@@ -10,7 +11,7 @@ from .base import FunctionalTest
 
 def create_events():
     def now_plus(days_delta):
-        return datetime.now() + timedelta(days=days_delta)
+        return now() + timedelta(days=days_delta)
 
     Event(
         name="Active event",

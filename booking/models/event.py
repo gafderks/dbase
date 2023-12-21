@@ -1,8 +1,9 @@
-from datetime import timedelta, datetime, timezone
+from datetime import timedelta
 
 from django.db import models
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
+from django.utils.timezone import now
 from rules.contrib.models import RulesModel
 
 from booking import rules
@@ -20,11 +21,9 @@ class EventManager(models.Manager):
     def editable(user):
         query = Event.objects.viewable(user)
         if not user.has_perm("booking.can_book_on_locked_events"):
-            query = query.filter(
-                locked=False, privileged_booking_end__gt=datetime.now(timezone.utc)
-            )
+            query = query.filter(locked=False, privileged_booking_end__gt=now())
         if not user.has_perm("booking.can_book_on_privileged_events"):
-            query = query.filter(booking_end__gt=datetime.now(timezone.utc))
+            query = query.filter(booking_end__gt=now())
         return query
 
 
@@ -110,16 +109,16 @@ class Event(RulesModel):
 
     @property
     def booking_status(self):
-        now = datetime.now(timezone.utc)
+        _now = now()
         if not self.visible:
             return self.BookingStatus.HIDDEN
         if self.locked:
             return self.BookingStatus.LOCKED
-        if now < self.booking_start:
+        if _now < self.booking_start:
             return self.BookingStatus.NOT_STARTED
-        if now < self.booking_end:
+        if _now < self.booking_end:
             return self.BookingStatus.OPENED
-        if now < self.privileged_booking_end:
+        if _now < self.privileged_booking_end:
             return self.BookingStatus.PRIVILEGED
         return self.BookingStatus.LOCKED
 
@@ -132,10 +131,7 @@ class Event(RulesModel):
         :return: bool
         """
         return (
-            not self.locked
-            and self.booking_end
-            < datetime.now(timezone.utc)
-            < self.privileged_booking_end
+            not self.locked and self.booking_end < now() < self.privileged_booking_end
         )
 
     @property
@@ -145,4 +141,4 @@ class Event(RulesModel):
         True or the privileged booking period has ended.
         :return: bool
         """
-        return self.locked or datetime.now(timezone.utc) > self.privileged_booking_end
+        return self.locked or now() > self.privileged_booking_end

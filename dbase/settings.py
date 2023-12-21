@@ -115,7 +115,7 @@ if not env("DOCKER_BUILD"):
         "default": {
             **env.db(),
             "TEST": {
-                "NAME": BASE_DIR / "db.sqlite3.test",
+                "NAME": BASE_DIR / "db.test.sqlite3",
             },
         },
     }

@@ -48,7 +48,11 @@ spec:
           ports:
             - containerPort: 8000
               protocol: TCP
-          resources: {}
+          resources:
+            limits:
+              memory: "524288e3"
+            requests:
+              memory: "262144e3"
           volumeMounts:
             - mountPath: /app/media
               name: media-volume
