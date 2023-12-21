@@ -38,7 +38,6 @@ COPY ./package-lock.json .
 COPY ./package.json .
 
 RUN npm ci --omit=dev && \
-RUN npm ci && \
     npx update-browserslist-db@latest
 
 COPY . .
