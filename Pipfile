@@ -16,12 +16,12 @@ beautifulsoup4 = "*"
 coverage = "*"
 werkzeug = "*"
 faker = "*"
-django-gulp = "*"
 django-extensions = "*"
 
 [packages]
 django-crispy-forms = "==1.14.0"
 django-money = "*"
+django-gulp = "*"
 openpyxl = "*"
 django-environ = "*"
 sorl-thumbnail = "*"
