@@ -25,6 +25,10 @@ spec:
           ports:
             - containerPort: 11211
               protocol: TCP
-          resources: {}
+          resources:
+            limits:
+              memory: "314572800"
+            requests:
+              memory: "104857600"
       restartPolicy: Always
 status: {}
