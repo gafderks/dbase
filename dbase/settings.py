@@ -67,7 +67,7 @@ INSTALLED_APPS = [
     "mptt",
     "django_mptt_admin",
 ]
-if DEBUG or env("DOCKER_BUILD"):
+if DEBUG or env("DOCKER_BUILD") or env("CI"):
     INSTALLED_APPS += ["django_gulp"]
 
 MIDDLEWARE = [
