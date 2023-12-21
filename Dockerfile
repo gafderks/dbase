@@ -38,12 +38,12 @@ COPY ./package-lock.json .
 COPY ./package.json .
 
 RUN npm ci --omit=dev && \
+RUN npm ci && \
     npx update-browserslist-db@latest
 
 COPY . .
 
-RUN SECRET_KEY=dummy pipenv run python ./manage.py collectstatic --noinput \
-    && PIPENV_VENV_IN_PROJECT=1 pipenv uninstall --skip-lock django-gulp
+RUN SECRET_KEY=dummy pipenv run python ./manage.py collectstatic --noinput
 
 ###########
 ## NGINX ##
@@ -73,8 +73,6 @@ ENV PYTHONDONTWRITEBYTECODE 1
 # Prevent buffering stdout and stderr
 ENV PYTHONUNBUFFERED 1
 ENV PIPENV_VENV_IN_PROJECT=1 
-ENV NO_DJANGO_GULP 1
-ENV DOCKER_BUILD 1
 
 ENV APP_HOME=/app
 

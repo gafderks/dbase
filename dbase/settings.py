@@ -20,7 +20,6 @@ env = environ.Env(
     DEBUG=(bool, False),
     CI=(bool, False),
     DOCKER_BUILD=(bool, False),
-    NO_DJANGO_GULP=(bool, False),
     DEBUG_TOOLBAR=(bool, False),
     ALLOWED_HOSTS=(list, ["127.0.0.1", "localhost"]),
     DATA_UPLOAD_MAX_MEMORY_SIZE=(int, 10485760),  # For uploading HD images
@@ -36,7 +35,7 @@ environ.Env.read_env(env_file=str(BASE_DIR / ".env"))
 SECRET_KEY = env("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env("DEBUG") and not env("DOCKER_BUILD") # Debug mode is disabled in the Docker image
+DEBUG = env("DEBUG")
 DEBUG_TOOLBAR = env("DEBUG_TOOLBAR")
 
 ALLOWED_HOSTS = env("ALLOWED_HOSTS")
@@ -47,6 +46,7 @@ CSRF_TRUSTED_ORIGINS = env("CSRF_TRUSTED_ORIGINS")
 
 INSTALLED_APPS = [
     "dbase",
+    "django_gulp",
     "booking.apps.BookingConfig",
     "catalog.apps.CatalogConfig",
     "users.apps.UsersConfig",
@@ -68,8 +68,6 @@ INSTALLED_APPS = [
     "mptt",
     "django_mptt_admin",
 ]
-if not env("NO_DJANGO_GULP"):
-    INSTALLED_APPS += ["django_gulp"]
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
