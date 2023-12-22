@@ -33,11 +33,11 @@ spec:
                 name: dbase-configmap
           image: gafderkspersonal/dbase-web:latest
           livenessProbe:
-            exec:
-              command:
-                - curl
-                - --fail
-                - http://localhost:8000
+            httpGet:
+              port: 8000
+              httpHeaders:
+                - name: Host
+                  value: localhost
             failureThreshold: 5
             initialDelaySeconds: 30
             periodSeconds: 90

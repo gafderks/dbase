@@ -21,11 +21,12 @@ spec:
       containers:
         - image: gafderkspersonal/dbase-nginx:latest
           livenessProbe:
-            exec:
-              command:
-                - curl
-                - --fail
-                - http://localhost:80/
+            httpGet:
+              path: /static/dbase/js/app.js
+              port: 80
+              httpHeaders:
+                - name: Host
+                  value: localhost
             failureThreshold: 5
             initialDelaySeconds: 30
             periodSeconds: 90
