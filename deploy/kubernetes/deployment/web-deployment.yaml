@@ -48,7 +48,7 @@ spec:
               protocol: TCP
           resources:
             limits:
-              memory: "524288e3"
+              memory: "324288e3"
             requests:
               memory: "262144e3"
           volumeMounts:
