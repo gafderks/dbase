@@ -54,6 +54,16 @@ spec:
           volumeMounts:
             - mountPath: /app/media
               name: media-volume
+      initContainers:
+        - name: take-ownership
+          image: alpine:3
+          command:
+            - chown
+            - 999:999
+            - /app/media
+          volumeMounts:
+            - mountPath: /app/media
+              name: media-volume
       restartPolicy: Always
       volumes:
         - name: media-volume
