@@ -25,7 +25,7 @@ spec:
               protocol: TCP
           resources:
             limits:
-              memory: "114572800"
+              memory: 100M
             requests:
-              memory: "104857600"
+              memory: 100M
       restartPolicy: Always
