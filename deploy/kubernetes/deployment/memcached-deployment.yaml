@@ -1,7 +1,6 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  creationTimestamp: null
   labels:
     io.kompose.service: memcached
   name: memcached
@@ -14,7 +13,6 @@ spec:
   strategy: {}
   template:
     metadata:
-      creationTimestamp: null
       labels:
         io.kompose.network/dbase-backend-network: "true"
         io.kompose.service: memcached
@@ -27,8 +25,7 @@ spec:
               protocol: TCP
           resources:
             limits:
-              memory: "314572800"
+              memory: "114572800"
             requests:
               memory: "104857600"
       restartPolicy: Always
-status: {}

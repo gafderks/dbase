@@ -63,7 +63,7 @@ COPY --from=base /app/static /opt/services/dbase/static
 FROM python:3.12-slim@sha256:41487afa4d11d89b3ec37fdfb652ceb2f2db0c19b2259a24b052e5805bc22197 as runtime
 LABEL maintainer="Geert Derks <geertderks12@gmail.com>"
 
-RUN apt-get update && apt-get install -y --no-install-recommends gettext curl \
+RUN apt-get update && apt-get install -y --no-install-recommends gettext \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
@@ -112,4 +112,3 @@ RUN PIPENV_VENV_IN_PROJECT=1 pipenv install --deploy --dev
 FROM runtime as web-test
 
 COPY --from=base-test --chown=appuser:appuser ${APP_HOME}/.venv ./.venv
-

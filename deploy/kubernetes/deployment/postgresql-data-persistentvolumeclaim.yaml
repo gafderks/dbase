@@ -1,7 +1,6 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  creationTimestamp: null
   labels:
     io.kompose.service: postgresql-data
   name: postgresql-data
@@ -12,4 +11,3 @@ spec:
   resources:
     requests:
       storage: 100Mi
-status: {}

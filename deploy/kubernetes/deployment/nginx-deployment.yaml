@@ -1,7 +1,6 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  creationTimestamp: null
   labels:
     io.kompose.service: nginx
   name: nginx
@@ -15,7 +14,6 @@ spec:
     type: Recreate
   template:
     metadata:
-      creationTimestamp: null
       labels:
         io.kompose.network/dbase-backend-network: "true"
         io.kompose.service: nginx
@@ -23,11 +21,12 @@ spec:
       containers:
         - image: gafderkspersonal/dbase-nginx:latest
           livenessProbe:
-            exec:
-              command:
-                - curl
-                - --fail
-                - http://localhost:80/
+            httpGet:
+              path: /static/dbase/js/app.js
+              port: 80
+              httpHeaders:
+                - name: Host
+                  value: localhost
             failureThreshold: 5
             initialDelaySeconds: 30
             periodSeconds: 90
@@ -51,4 +50,3 @@ spec:
           persistentVolumeClaim:
             claimName: media-volume
             readOnly: true
-status: {}
