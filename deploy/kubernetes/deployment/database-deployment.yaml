@@ -48,4 +48,3 @@ spec:
         - name: postgresql-data
           persistentVolumeClaim:
             claimName: postgresql-data
-status: {}

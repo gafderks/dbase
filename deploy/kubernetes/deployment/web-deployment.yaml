@@ -69,4 +69,3 @@ spec:
         - name: media-volume
           persistentVolumeClaim:
             claimName: media-volume
-status: {}

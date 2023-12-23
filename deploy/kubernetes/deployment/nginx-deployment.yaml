@@ -50,4 +50,3 @@ spec:
           persistentVolumeClaim:
             claimName: media-volume
             readOnly: true
-status: {}

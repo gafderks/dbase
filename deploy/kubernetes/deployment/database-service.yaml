@@ -12,5 +12,3 @@ spec:
       targetPort: 5432
   selector:
     io.kompose.service: database
-status:
-  loadBalancer: {}
