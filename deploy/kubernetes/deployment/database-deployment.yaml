@@ -1,7 +1,6 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  creationTimestamp: null
   labels:
     io.kompose.service: database
   name: database
@@ -15,7 +14,6 @@ spec:
     type: Recreate
   template:
     metadata:
-      creationTimestamp: null
       labels:
         io.kompose.network/dbase-backend-network: "true"
         io.kompose.service: database
@@ -50,4 +48,3 @@ spec:
         - name: postgresql-data
           persistentVolumeClaim:
             claimName: postgresql-data
-status: {}

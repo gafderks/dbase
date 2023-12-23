@@ -1,7 +1,6 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  creationTimestamp: null
   labels:
     io.kompose.service: web
   name: web
@@ -15,7 +14,6 @@ spec:
     type: Recreate
   template:
     metadata:
-      creationTimestamp: null
       labels:
         io.kompose.network/dbase-backend-network: "true"
         io.kompose.service: web
@@ -35,11 +33,11 @@ spec:
                 name: dbase-configmap
           image: gafderkspersonal/dbase-web:latest
           livenessProbe:
-            exec:
-              command:
-                - curl
-                - --fail
-                - http://localhost:8000
+            httpGet:
+              port: 8000
+              httpHeaders:
+                - name: Host
+                  value: localhost
             failureThreshold: 5
             initialDelaySeconds: 30
             periodSeconds: 90
@@ -50,9 +48,19 @@ spec:
               protocol: TCP
           resources:
             limits:
-              memory: "524288e3"
+              memory: "324288e3"
             requests:
               memory: "262144e3"
+          volumeMounts:
+            - mountPath: /app/media
+              name: media-volume
+      initContainers:
+        - name: take-ownership
+          image: alpine:3
+          command:
+            - chown
+            - 999:999
+            - /app/media
           volumeMounts:
             - mountPath: /app/media
               name: media-volume
@@ -61,4 +69,3 @@ spec:
         - name: media-volume
           persistentVolumeClaim:
             claimName: media-volume
-status: {}
