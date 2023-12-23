@@ -7,8 +7,8 @@ metadata:
   namespace: dbase
 spec:
   accessModes:
-    - ReadOnlyMany
+    - ReadWriteMany
   resources:
     requests:
-      storage: 100Mi
+      storage: 5Gi
 status: {}
