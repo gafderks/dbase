@@ -3,10 +3,10 @@ name: Docker build and export
 on:
   push:
     branches:
-      - "theme/ocd"
+      - "theme/sld"
   pull_request:
     branches:
-      - "theme/ocd"
+      - "theme/sld"
 
 env:
   WEB_TEST_IMAGE: dbase-web:test
@@ -63,13 +63,13 @@ jobs:
           context: .
           push: true
           target: runtime
-          tags: ${{ env.WEB_IMAGE }}:latest-ocd,${{ env.WEB_IMAGE }}:${{ steps.vars.outputs.sha_short }}-ocd
-        if: github.ref == 'refs/heads/theme/ocd' && github.event_name != 'pull_request'
+          tags: ${{ env.WEB_IMAGE }}:latest-sld,${{ env.WEB_IMAGE }}:${{ steps.vars.outputs.sha_short }}-sld
+        if: github.ref == 'refs/heads/theme/sld' && github.event_name != 'pull_request'
       - name: Publish nginx image
         uses: docker/build-push-action@v5
         with:
           context: .
           push: true
           target: nginx
-          tags: ${{ env.NGINX_IMAGE }}:latest-ocd,${{ env.NGINX_IMAGE }}:${{ steps.vars.outputs.sha_short }}-ocd
-        if: github.ref == 'refs/heads/theme/ocd' && github.event_name != 'pull_request'
+          tags: ${{ env.NGINX_IMAGE }}:latest-sld,${{ env.NGINX_IMAGE }}:${{ steps.vars.outputs.sha_short }}-sld
+        if: github.ref == 'refs/heads/theme/sld' && github.event_name != 'pull_request'
