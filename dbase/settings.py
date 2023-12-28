@@ -45,7 +45,7 @@ CSRF_TRUSTED_ORIGINS = env("CSRF_TRUSTED_ORIGINS")
 # Application definition
 
 INSTALLED_APPS = [
-    "ocd_theme",
+    "sld_theme",
     "dbase",
     "django_gulp",
     "booking.apps.BookingConfig",

@@ -1,0 +1,8 @@
+{% extends "theme/navigation.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block navbar_brand %}
+  <img src="{% static "sld_theme/img/logo_scouting.png" %}" width="30" height="30" class="d-inline-block align-top" alt="{% translate "Open homepage" %}">
+  {% translate "DBase" %}
+{% endblock %}

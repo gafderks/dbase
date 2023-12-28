@@ -1,8 +1,8 @@
 body {
-  --opacity: 0.5;
+  --opacity: 0.6;
   background: linear-gradient(rgba(255, 255, 255, var(--opacity)),
       rgba(255, 255, 255, var(--opacity))),
-    url("/static/ocd_theme/img/background.png");
+    url("/static/sld_theme/img/background.jpg");
   background-size: cover;
   background-attachment: fixed;
 }
