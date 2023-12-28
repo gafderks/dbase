@@ -31,7 +31,7 @@ spec:
           envFrom:
             - configMapRef:
                 name: dbase-configmap
-          image: gafderkspersonal/dbase-web:latest
+          image: gafderkspersonal/dbase-web:906138d-ocd
           livenessProbe:
             httpGet:
               port: 8000
