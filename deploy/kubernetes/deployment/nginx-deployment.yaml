@@ -39,7 +39,7 @@ spec:
             limits:
               memory: 50M
             requests:
-              memory: 30M
+              memory: 10M
           volumeMounts:
             - mountPath: /opt/services/dbase/media
               name: media-volume

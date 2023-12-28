@@ -19,6 +19,8 @@ spec:
     spec:
       containers:
         - image: memcached:1.6
+          args:
+            - -m 64
           name: memcached
           ports:
             - containerPort: 11211
@@ -27,5 +29,5 @@ spec:
             limits:
               memory: 100M
             requests:
-              memory: 100M
+              memory: 70M
       restartPolicy: Always
