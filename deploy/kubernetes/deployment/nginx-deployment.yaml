@@ -19,7 +19,7 @@ spec:
         io.kompose.service: nginx
     spec:
       containers:
-        - image: gafderkspersonal/dbase-nginx:906138d-ocd
+        - image: gafderkspersonal/dbase-nginx:latest
           livenessProbe:
             httpGet:
               path: /static/dbase/js/app.js
