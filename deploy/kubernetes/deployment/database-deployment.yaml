@@ -31,9 +31,9 @@ spec:
           name: database
           resources:
             limits:
-              memory: "52428800"
+              memory: 50M
             requests:
-              memory: "31457280"
+              memory: 30M
           ports:
             - containerPort: 5432
               protocol: TCP

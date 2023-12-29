@@ -48,9 +48,9 @@ spec:
               protocol: TCP
           resources:
             limits:
-              memory: "324288e3"
+              memory: 300M
             requests:
-              memory: "262144e3"
+              memory: 150M
           volumeMounts:
             - mountPath: /app/media
               name: media-volume

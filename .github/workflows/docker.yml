@@ -18,15 +18,21 @@ jobs:
   build:
     environment: CI
     runs-on: ubuntu-latest
+    env:
+      SECRET_KEY: ${{ secrets.SECRET_KEY }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
+      - name: Fallback SECRET_KEY
+        if: github.actor == 'dependabot[bot]'
+        run: echo "SECRET_KEY=fallbacktc5*3ih&7ru&4&#!l7uyu5ufvwtplg+bw5t9(%-ra_qb&%x*rp" >> $GITHUB_ENV
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
       - name: Login to Docker Hub
         uses: docker/login-action@v3
+        if: github.actor != 'dependabot[bot]'
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
@@ -45,7 +51,7 @@ jobs:
       - name: Test web test image
         run: |
           docker run \
-            -e SECRET_KEY="${{ secrets.SECRET_KEY }}" \
+            -e SECRET_KEY="${{ env.SECRET_KEY }}" \
             -e DATABASE_URL="sqlite:////app/db.sqlite3" \
             -e DEBUG=on \
             --rm ${{ env.WEB_TEST_IMAGE }} \
@@ -64,7 +70,7 @@ jobs:
           push: true
           target: runtime
           tags: ${{ env.WEB_IMAGE }}:latest-sld,${{ env.WEB_IMAGE }}:${{ steps.vars.outputs.sha_short }}-sld
-        if: github.ref == 'refs/heads/theme/sld' && github.event_name != 'pull_request'
+        if: github.actor != 'dependabot[bot]' && github.ref == 'refs/heads/theme/sld' && github.event_name != 'pull_request'
       - name: Publish nginx image
         uses: docker/build-push-action@v5
         with:
@@ -72,4 +78,4 @@ jobs:
           push: true
           target: nginx
           tags: ${{ env.NGINX_IMAGE }}:latest-sld,${{ env.NGINX_IMAGE }}:${{ steps.vars.outputs.sha_short }}-sld
-        if: github.ref == 'refs/heads/theme/sld' && github.event_name != 'pull_request'
+        if: github.actor != 'dependabot[bot]' && github.ref == 'refs/heads/theme/sld' && github.event_name != 'pull_request'
