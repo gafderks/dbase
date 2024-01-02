@@ -28,6 +28,7 @@ spec:
               command:
                 - pg_isready
             periodSeconds: 90
+            timeoutSeconds: 5
           name: database
           resources:
             limits:
