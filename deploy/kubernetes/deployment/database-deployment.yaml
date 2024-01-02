@@ -31,9 +31,11 @@ spec:
           name: database
           resources:
             limits:
-              memory: 50M
+              memory: 30M
+              cpu: 50m
             requests:
               memory: 30M
+              cpu: 50m
           ports:
             - containerPort: 5432
               protocol: TCP
