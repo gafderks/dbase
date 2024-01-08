@@ -35,7 +35,7 @@
     "merge-stream": "^2.0.0",
     "pixrem": "^5.0.0",
     "popper.js": "^1.16.1",
-    "postcss": "^8.4.32",
+    "postcss": "^8.4.33",
     "postcss-import": "^15.1.0",
     "rollup": "^2.79.1",
     "rollup-plugin-babel": "^4.4.0",
