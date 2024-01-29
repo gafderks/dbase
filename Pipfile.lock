@@ -673,12 +673,12 @@
         },
         "faker": {
             "hashes": [
-                "sha256:2c2b7a8e55368defd718226bd5b48ef31b2d082c2900ccb4200987e433be500e",
-                "sha256:fab78f435d27fa7bd109b095eea3504477e4149051c903fd63f11ce252e3d9b7"
+                "sha256:4e7bb19c1955bb978bf1d4cb0cf25930e37de0e7dfbc6abd768fd4784d9a9653",
+                "sha256:79cbe3be786789efa05b8c75d7e0ec4efa6ecb786b8fe90eae49c2f8f9cbe31a"
             ],
             "index": "pypi",
             "markers": "python_version >= '3.8'",
-            "version": "==22.2.0"
+            "version": "==22.5.1"
         },
         "h11": {
             "hashes": [
