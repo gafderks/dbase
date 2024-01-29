@@ -17,16 +17,18 @@ class EventExcelView(EventListView):
         response = HttpResponse(
             content_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
         )
-        response[
-            "Content-Disposition"
-        ] = "attachment; filename={bookings} {event} ({group}) - {downloaded} {date}.xlsx".format(
-            bookings=_("Material bookings"),
-            event=context["current_event"].name,
-            group=context["current_group"].name
-            if context["current_group"]
-            else _("All groups"),
-            downloaded=_("downloaded on"),
-            date=now().strftime("%Y-%m-%d"),
+        response["Content-Disposition"] = (
+            "attachment; filename={bookings} {event} ({group}) - {downloaded} {date}.xlsx".format(
+                bookings=_("Material bookings"),
+                event=context["current_event"].name,
+                group=(
+                    context["current_group"].name
+                    if context["current_group"]
+                    else _("All groups")
+                ),
+                downloaded=_("downloaded on"),
+                date=now().strftime("%Y-%m-%d"),
+            )
         )
 
         workbook = Workbook()
@@ -78,9 +80,11 @@ class EventExcelView(EventListView):
                         row = [
                             day,  # 1
                             str(PartOfDay.name_from_code(part_of_day)),  # 2
-                            float(booking.amount)
-                            if booking.amount.isnumeric()
-                            else booking.amount,  # 3
+                            (
+                                float(booking.amount)
+                                if booking.amount.isnumeric()
+                                else booking.amount
+                            ),  # 3
                             str(booking),  # 4
                             str(booking.display_category),  # 5
                             int(
