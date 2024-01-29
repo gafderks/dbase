@@ -13,9 +13,11 @@ class NavigationMixin(UserAlertMixin):
             {
                 "events": viewable_events,
                 "current_event": viewable_events.first(),
-                "typeahead_thumbprint": Material.last_modification().isoformat()
-                if Material.last_modification() is not None
-                else "never",
+                "typeahead_thumbprint": (
+                    Material.last_modification().isoformat()
+                    if Material.last_modification() is not None
+                    else "never"
+                ),
             }
         )
         return context
