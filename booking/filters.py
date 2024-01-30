@@ -144,43 +144,53 @@ class BookingFilter(FilterSet):
                     "gm",
                     template="crispy/floating-labels.html",
                     wrapper_class="col-12 col-md-6 col-lg px-1 mb-lg-0",
-                    title=__("GM") + " (" + __("active") + ")"
-                    if "gm" in self.active_filters
-                    else __("GM"),
+                    title=(
+                        __("GM") + " (" + __("active") + ")"
+                        if "gm" in self.active_filters
+                        else __("GM")
+                    ),
                     css_class="filter-active" if "gm" in self.active_filters else "",
                 ),
                 Field(
                     "workweek",
                     template="crispy/floating-labels.html",
                     wrapper_class="col-12 col-md-6 col-lg px-1 mb-lg-0",
-                    title=__("Workweek") + " (" + __("active") + ")"
-                    if "workweek" in self.active_filters
-                    else __("Workweek"),
-                    css_class="filter-active"
-                    if "workweek" in self.active_filters
-                    else "",
+                    title=(
+                        __("Workweek") + " (" + __("active") + ")"
+                        if "workweek" in self.active_filters
+                        else __("Workweek")
+                    ),
+                    css_class=(
+                        "filter-active" if "workweek" in self.active_filters else ""
+                    ),
                 ),
                 Field(
                     "categories",
                     template="crispy/floating-labels.html",
                     wrapper_class="col-12 col-md-6 col-lg px-1 mb-lg-0",
-                    title=__("Categories") + " (" + __("active") + ")"
-                    if "categories" in self.active_filters
-                    else __("Categories"),
-                    css_class="filter-active"
-                    if "categories" in self.active_filters
-                    else "",
+                    title=(
+                        __("Categories") + " (" + __("active") + ")"
+                        if "categories" in self.active_filters
+                        else __("Categories")
+                    ),
+                    css_class=(
+                        "filter-active" if "categories" in self.active_filters else ""
+                    ),
                 ),
                 Field(
                     "is_custom_material",
                     template="crispy/floating-labels.html",
                     wrapper_class="col-12 col-md-6 col-lg px-1 mb-lg-0",
-                    title=__("Custom material") + " (" + __("active") + ")"
-                    if "is_custom_material" in self.active_filters
-                    else __("Custom material"),
-                    css_class="filter-active"
-                    if "is_custom_material" in self.active_filters
-                    else "",
+                    title=(
+                        __("Custom material") + " (" + __("active") + ")"
+                        if "is_custom_material" in self.active_filters
+                        else __("Custom material")
+                    ),
+                    css_class=(
+                        "filter-active"
+                        if "is_custom_material" in self.active_filters
+                        else ""
+                    ),
                 ),
                 Div(
                     Submit(

@@ -54,16 +54,20 @@ def format_woocommerce(request, materials):
                 "post_title": mat.name,
                 "post_name": mat.name,
                 "post_status": "publish" if mat.lendable else "private",
-                "tax:product_visibility": "visible"
-                if mat.lendable
-                else "exclude-from-catalog|exclude-from-search",
-                "stock": mat.lendable_stock_value
-                if mat.lendable_stock_value is not None
-                else mat.stock_value,  # Stock
+                "tax:product_visibility": (
+                    "visible"
+                    if mat.lendable
+                    else "exclude-from-catalog|exclude-from-search"
+                ),
+                "stock": (
+                    mat.lendable_stock_value
+                    if mat.lendable_stock_value is not None
+                    else mat.stock_value
+                ),  # Stock
                 "post_content": post_content(mat),
-                "regular_price": mat.rate_class.rate.amount
-                if mat.rate_class is not None
-                else 0.00,
+                "regular_price": (
+                    mat.rate_class.rate.amount if mat.rate_class is not None else 0.00
+                ),
                 "tax:product_cat": "|".join(  # join multiple categories
                     [
                         " > ".join(  # add hierarchical categories
