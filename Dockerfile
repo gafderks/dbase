@@ -48,7 +48,7 @@ RUN SECRET_KEY=dummy pipenv run python ./manage.py collectstatic --noinput
 ## NGINX ##
 ###########
 
-FROM nginx:1.25.3@sha256:5f44022eab9198d75939d9eaa5341bc077eca16fa51d4ef32d33f1bd4c8cbe7d as nginx
+FROM nginx:1.25.3@sha256:84c52dfd55c467e12ef85cad6a252c0990564f03c4850799bf41dd738738691f as nginx
 LABEL maintainer="Geert Derks <geertderks12@gmail.com>"
 
 COPY ./config/nginx.conf /etc/nginx/nginx.conf
