@@ -216,16 +216,18 @@ class GameForm(forms.ModelForm):
                     ),
                     css_class="col-auto px-1 mb-lg-0 form-label-group",
                 ),
-                Div(
-                    Reset(
-                        "reset",
-                        _("Cancel"),
-                        css_id=self.auto_id % "reset",
-                    ),
-                    css_class="col-auto px-1 mb-lg-0 form-label-group",
-                )
-                if self.instance.id
-                else None,
+                (
+                    Div(
+                        Reset(
+                            "reset",
+                            _("Cancel"),
+                            css_id=self.auto_id % "reset",
+                        ),
+                        css_class="col-auto px-1 mb-lg-0 form-label-group",
+                    )
+                    if self.instance.id
+                    else None
+                ),
                 "event",
                 "day",
                 "group",
@@ -349,16 +351,18 @@ class BookingForm(forms.ModelForm):
                     ),
                     css_class="col-auto px-1 mb-xl-0 form-label-group",
                 ),
-                Div(
-                    Reset(
-                        "reset",
-                        _("Cancel"),
-                        css_id=self.auto_id % "reset",
-                    ),
-                    css_class="col-auto px-1 mb-xl-0 form-label-group",
-                )
-                if self.instance.id
-                else None,
+                (
+                    Div(
+                        Reset(
+                            "reset",
+                            _("Cancel"),
+                            css_id=self.auto_id % "reset",
+                        ),
+                        css_class="col-auto px-1 mb-xl-0 form-label-group",
+                    )
+                    if self.instance.id
+                    else None
+                ),
                 "game",
                 "custom_material",
                 css_class="row mx-0",
