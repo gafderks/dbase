@@ -48,9 +48,11 @@ spec:
               protocol: TCP
           resources:
             limits:
-              memory: 300M
+              memory: 200M
+              cpu: 100m
             requests:
-              memory: 150M
+              memory: 200M
+              cpu: 100m
           volumeMounts:
             - mountPath: /app/media
               name: media-volume
@@ -64,6 +66,13 @@ spec:
           volumeMounts:
             - mountPath: /app/media
               name: media-volume
+          resources:
+            limits:
+              memory: 5M
+              cpu: 5m
+            requests:
+              memory: 5M
+              cpu: 5m
       restartPolicy: Always
       volumes:
         - name: media-volume
