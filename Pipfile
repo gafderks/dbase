@@ -37,6 +37,7 @@ django-admin-sortable = {git = "https://github.com/gafderks/django-admin-sortabl
 pymemcache = "*"
 gunicorn = "*"
 psycopg = {extras = ["binary", "pool"], version = "*"}
+crispy-bootstrap5 = "*"
 
 [pipenv]
 allow_prereleases = true
