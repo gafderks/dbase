@@ -2,6 +2,7 @@ import copy
 
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Div, Field, Submit, HTML
+from crispy_bootstrap5.bootstrap5 import FloatingField
 from django.contrib import admin
 from django.db.models import Count
 from django.forms import NullBooleanSelect, NullBooleanField
@@ -140,9 +141,8 @@ class BookingFilter(FilterSet):
         helper = FormHelper()
         helper.layout = Layout(
             Div(
-                Field(
+                FloatingField(
                     "gm",
-                    template="crispy/floating-labels.html",
                     wrapper_class="col-12 col-md-6 col-lg px-1 mb-lg-0",
                     title=(
                         __("GM") + " (" + __("active") + ")"
@@ -151,9 +151,8 @@ class BookingFilter(FilterSet):
                     ),
                     css_class="filter-active" if "gm" in self.active_filters else "",
                 ),
-                Field(
+                FloatingField(
                     "workweek",
-                    template="crispy/floating-labels.html",
                     wrapper_class="col-12 col-md-6 col-lg px-1 mb-lg-0",
                     title=(
                         __("Workweek") + " (" + __("active") + ")"
@@ -164,9 +163,8 @@ class BookingFilter(FilterSet):
                         "filter-active" if "workweek" in self.active_filters else ""
                     ),
                 ),
-                Field(
+                FloatingField(
                     "categories",
-                    template="crispy/floating-labels.html",
                     wrapper_class="col-12 col-md-6 col-lg px-1 mb-lg-0",
                     title=(
                         __("Categories") + " (" + __("active") + ")"
@@ -177,9 +175,8 @@ class BookingFilter(FilterSet):
                         "filter-active" if "categories" in self.active_filters else ""
                     ),
                 ),
-                Field(
+                FloatingField(
                     "is_custom_material",
-                    template="crispy/floating-labels.html",
                     wrapper_class="col-12 col-md-6 col-lg px-1 mb-lg-0",
                     title=(
                         __("Custom material") + " (" + __("active") + ")"

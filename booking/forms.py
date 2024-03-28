@@ -1,5 +1,6 @@
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit, Layout, Field, Div, Reset
+from crispy_bootstrap5.bootstrap5 import FloatingField
 from django import forms
 from django.contrib.admin.widgets import FilteredSelectMultiple
 from django.urls import reverse
@@ -192,19 +193,16 @@ class GameForm(forms.ModelForm):
         self.helper.form_class = "game-form " + css_class
         self.helper.layout = Layout(
             Div(
-                Field(
+                FloatingField(
                     "name",
-                    template="crispy/floating-labels.html",
                     wrapper_class="col px-1 mb-lg-0",
                 ),
-                Field(
+                FloatingField(
                     "part_of_day",
-                    template="crispy/floating-labels.html",
                     wrapper_class="col-lg-3 px-1 mb-lg-0",
                 ),
-                Field(
+                FloatingField(
                     "location",
-                    template="crispy/floating-labels.html",
                     wrapper_class="col-lg-3 px-1 mb-lg-0",
                 ),
                 Div(
@@ -321,24 +319,21 @@ class BookingForm(forms.ModelForm):
                     data_addcustomtext=__('Click to request "<em>{}</em>" anyway.'),
                     title=__("Material"),
                 ),
-                Field(
+                FloatingField(
                     "amount",
-                    template="crispy/floating-labels.html",
                     wrapper_class="col-4 col-xl-2 px-1 mb-xl-0",
                     autocomplete="off",
                     title=__("Amount"),
                 ),
-                Field(
+                FloatingField(
                     "workweek",
                     wrapper_class="col-auto px-1 mb-xl-0",
-                    template="crispy/floating-labels.html",
                     data_toggle="toggle",
                     data_on=__("Workweek"),
                     data_off=__("No"),
                 ),
-                Field(
+                FloatingField(
                     "comment",
-                    template="crispy/floating-labels.html",
                     wrapper_class="col px-1 mb-xl-0",
                     title=__("Comment"),
                 ),
