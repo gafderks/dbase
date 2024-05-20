@@ -60,7 +60,7 @@ COPY --from=base /app/static /opt/services/dbase/static
 ## RUNTIME ##
 #############
 
-FROM python:3.12-slim@sha256:2be8daddbb82756f7d1f2c7ece706aadcb284bf6ab6d769ea695cc3ed6016743 as runtime
+FROM python:3.12-slim@sha256:afc139a0a640942491ec481ad8dda10f2c5b753f5c969393b12480155fe15a63 as runtime
 LABEL maintainer="Geert Derks <geertderks12@gmail.com>"
 
 RUN apt-get update && apt-get install -y --no-install-recommends gettext \
