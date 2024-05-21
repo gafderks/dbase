@@ -66,7 +66,7 @@ jobs:
           pipenv run coverage run manage.py test --exclude-tag=functional -v 2
           pipenv run coverage xml
       - name: Codecov functional tests
-        uses: codecov/codecov-action@v4.3.1
+        uses: codecov/codecov-action@v4.4.1
         with:
           files: ./coverage.xml
           flags: unit
@@ -76,7 +76,7 @@ jobs:
           pipenv run coverage run manage.py test --tag=functional -v 2
           pipenv run coverage xml
       - name: Codecov functional tests
-        uses: codecov/codecov-action@v4.3.1
+        uses: codecov/codecov-action@v4.4.1
         with:
           files: ./coverage.xml
           flags: functional
