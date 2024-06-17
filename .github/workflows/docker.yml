@@ -42,7 +42,7 @@ jobs:
       - name: Output git commit SHA
         run: echo ${{ steps.vars.outputs.sha_short }}
       - name: Build web test image
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           target: web-test
           context: .
@@ -57,14 +57,14 @@ jobs:
             --rm ${{ env.WEB_TEST_IMAGE }} \
             python manage.py test --exclude-tag=functional -v 2
       - name: Build nginx image
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           target: nginx
           context: .
           load: true
           tags: ${{ env.NGINX_TEST_IMAGE }}
       - name: Publish web image
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           context: .
           push: true
@@ -72,7 +72,7 @@ jobs:
           tags: ${{ env.WEB_IMAGE }}:latest,${{ env.WEB_IMAGE }}:${{ steps.vars.outputs.sha_short }}
         if: github.actor != 'dependabot[bot]' && github.ref == 'refs/heads/master' && github.event_name != 'pull_request'
       - name: Publish nginx image
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           context: .
           push: true
