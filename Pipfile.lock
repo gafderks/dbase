@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "4bd3747653cd322ad277d6ba65e874481b2773779b05644db54a2240f924a17b"
+            "sha256": "7bdea411887946f5766538da87e9ebc21fe175120a4c3ac8c2086fa869d44fc7"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -49,12 +49,12 @@
         },
         "django": {
             "hashes": [
-                "sha256:8363ac062bb4ef7c3f12d078f6fa5d154031d129a15170a1066412af49d30905",
-                "sha256:ff1b61005004e476e0aeea47c7f79b85864c70124030e95146315396f1e7951f"
+                "sha256:2c3aa00b94ca020498727d6dae2d98b5224b1bf94e96136e811721045d7b61d8",
+                "sha256:8dd7cd10c5e57194ab7970aeb0132153d32294240b5bd1b2ccd200ecc65c0a26"
             ],
             "index": "pypi",
             "markers": "python_version >= '3.10'",
-            "version": "==5.0.6"
+            "version": "==5.1a1"
         },
         "django-admin-sortable": {
             "git": "https://github.com/gafderks/django-admin-sortable",
@@ -71,12 +71,12 @@
         },
         "django-crispy-forms": {
             "hashes": [
-                "sha256:35887b8851a931374dd697207a8f56c57a9c5cb9dbf0b9fa54314da5666cea5b",
-                "sha256:bc4d2037f6de602d39c0bc452ac3029d1f5d65e88458872cc4dbc01c3a400604"
+                "sha256:92cb7b7786fb82646bad739343fd17a99a04b0b736a09e34f3b91f26cbca7e4a",
+                "sha256:a681cffd5af270b3082bda02cf8f81bdb5717ed66d2265e87e3df2f4ccf46277"
             ],
             "index": "pypi",
-            "markers": "python_version >= '3.7'",
-            "version": "==1.14.0"
+            "markers": "python_version >= '3.8'",
+            "version": "==2.2"
         },
         "django-environ": {
             "hashes": [
