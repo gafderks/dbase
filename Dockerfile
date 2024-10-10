@@ -1,7 +1,7 @@
 #############
 ## BUILDER ##
 #############
-FROM python:3.12-slim as base
+FROM python:3.12-slim AS base
 LABEL maintainer="Geert Derks <geertderks12@gmail.com>"
 
 ENV APP_HOME=/app
@@ -24,10 +24,10 @@ RUN mkdir -p /etc/apt/keyrings && \
 
 RUN npm install -g gulp-cli@2.3.0
 
-ENV PYTHONDONTWRITEBYTECODE 1
-ENV PYTHONUNBUFFERED 1
-ENV DOCKER_BUILD 1
-ENV NODE_ENV production
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+ENV DOCKER_BUILD=1
+ENV NODE_ENV=production
 
 RUN pip install --upgrade --no-cache-dir pipenv==2023.10.24 wheel==0.41.2
 COPY ./Pipfile .
@@ -48,7 +48,7 @@ RUN SECRET_KEY=dummy pipenv run python ./manage.py collectstatic --noinput
 ## NGINX ##
 ###########
 
-FROM nginx:1.27.2@sha256:d2eb56950b84efe34f966a2b92efb1a1a2ea53e7e93b94cdf45a27cf3cd47fc0 as nginx
+FROM nginx:1.27.2@sha256:d2eb56950b84efe34f966a2b92efb1a1a2ea53e7e93b94cdf45a27cf3cd47fc0 AS nginx
 LABEL maintainer="Geert Derks <geertderks12@gmail.com>"
 
 COPY ./config/nginx.conf /etc/nginx/nginx.conf
@@ -60,7 +60,7 @@ COPY --from=base /app/static /opt/services/dbase/static
 ## RUNTIME ##
 #############
 
-FROM python:3.12-slim@sha256:af4e85f1cac90dd3771e47292ea7c8a9830abfabbe4faa5c53f158854c2e819d as runtime
+FROM python:3.12-slim@sha256:af4e85f1cac90dd3771e47292ea7c8a9830abfabbe4faa5c53f158854c2e819d AS runtime
 LABEL maintainer="Geert Derks <geertderks12@gmail.com>"
 
 RUN apt-get update && apt-get install -y --no-install-recommends gettext \
@@ -68,9 +68,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends gettext \
     && rm -rf /var/lib/apt/lists/*
 
 # Prevent writing pyc files
-ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONDONTWRITEBYTECODE=1
 # Prevent buffering stdout and stderr
-ENV PYTHONUNBUFFERED 1
+ENV PYTHONUNBUFFERED=1
 ENV PIPENV_VENV_IN_PROJECT=1 
 
 ENV APP_HOME=/app
@@ -105,10 +105,10 @@ ENTRYPOINT [ "./entrypoint.sh" ]
 ## TESTING ##
 #############
 
-FROM base as base-test
+FROM base AS base-test
 
 RUN PIPENV_VENV_IN_PROJECT=1 pipenv install --deploy --dev
 
-FROM runtime as web-test
+FROM runtime AS web-test
 
 COPY --from=base-test --chown=appuser:appuser ${APP_HOME}/.venv ./.venv
