@@ -19,7 +19,7 @@ faker = "*"
 
 [packages]
 django-extensions = "*"
-django-crispy-forms = "==1.14.0"
+django-crispy-forms = "==2.3"
 django-money = "*"
 openpyxl = "*"
 django-environ = "*"
