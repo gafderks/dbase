@@ -111,6 +111,8 @@ WSGI_APPLICATION = "dbase.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/dev/ref/settings/#databases
 
+print(env.db(), flush=True)
+
 if not env("DOCKER_BUILD"):
     DATABASES = {
         "default": {

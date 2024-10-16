@@ -112,7 +112,7 @@ export default class Booking {
       });
     });
     // Tooltip
-    this._$elem.find('[data-toggle="tooltip"]').tooltip();
+    this._$elem.find('[data-toggle="tooltip"]').each((i, obj) => bootstrap.Tooltip(obj));
     // Checkboxes retrieve status
     this._retrieve_checkbox_status();
     // Checkbox indeterminate on double click

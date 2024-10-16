@@ -144,7 +144,7 @@ function staticFiles() {
   return merge(tasks);
 }
 
-function watch() {
+export function watch() {
   // Scripts
   gulp.watch(
     ['**/static/**/*.js'],
