@@ -387,11 +387,11 @@
         },
         "rules": {
             "hashes": [
-                "sha256:c4702c1d60ca43e97d4dfced31e98274c652dea3c461105d8df6186d663e3212",
-                "sha256:e906114d9b3cce73871213c6311b94cb26a5bc2c3b00aa2f13d3633a65447817"
+                "sha256:0f00fc9ee448b3f82e9aff9334ab0c56c76dce4dfa14f1598f57969f1022acc0",
+                "sha256:f01336218f4561bab95f53672d22418b4168baea271423d50d9e8490d64cb27a"
             ],
             "index": "pypi",
-            "version": "==3.4"
+            "version": "==3.5"
         },
         "setuptools": {
             "hashes": [
