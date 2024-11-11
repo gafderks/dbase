@@ -412,12 +412,12 @@
         },
         "sorl-thumbnail": {
             "hashes": [
-                "sha256:733eb2eee392d4a874f88fb3ed6f0572fa9c361b06e0411b83e435ba69c51f52",
-                "sha256:de95a49217fdfeced222fa3ceaa01d312ee2f8aad56ba34d6c70f2dee9a84938"
+                "sha256:191b89c27ecb40b5c2a35549d557d17c4841c6aff439b2e17b938b91eea463b3",
+                "sha256:e3e375013ca3f14bca9f98fe9861153adac3a6ea4af5e9dc3f31cb605df765b5"
             ],
             "index": "pypi",
             "markers": "python_version >= '3.8'",
-            "version": "==12.10.0"
+            "version": "==12.11.0"
         },
         "sqlparse": {
             "hashes": [
