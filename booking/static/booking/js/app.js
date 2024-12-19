@@ -12,8 +12,21 @@ $('.day').each((i, elem) => {
 $(window).on('activate.bs.scrollspy', (e, obj) => {
   const activeDay = $(obj.relatedTarget).data('day');
   if (activeDay !== undefined) {
+    // keep the top day active even if the related target is a game
     $('.card-header-pills a').removeClass('active');
-    $(`.card-header-pills a[href="#day${activeDay}"]`).addClass('active');
+    const dayPill = $(`.card-header-pills a[href="#day${activeDay}"]`);
+    dayPill.addClass('active');
+    window.setTimeout(() => {
+      dayPill[0].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+    }, 300);
+  }
+  const activeCard = $(obj.relatedTarget).attr('id');
+  if (activeCard !== undefined) {
+    // scroll the active nav link into view
+    const link = $(`.day-nav a[href="#${activeCard}"]`)[0];
+    window.setTimeout(() => {
+      link.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+    }, 300);
   }
 });
 
