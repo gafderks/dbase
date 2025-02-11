@@ -1,7 +1,7 @@
 #############
 ## BUILDER ##
 #############
-FROM python:3.12-slim AS base
+FROM python:3.13-slim AS base
 LABEL maintainer="Geert Derks <geertderks12@gmail.com>"
 
 ENV APP_HOME=/app
@@ -60,7 +60,7 @@ COPY --from=base /app/static /opt/services/dbase/static
 ## RUNTIME ##
 #############
 
-FROM python:3.12-slim@sha256:af4e85f1cac90dd3771e47292ea7c8a9830abfabbe4faa5c53f158854c2e819d AS runtime
+FROM python:3.13-slim@sha256:751d8bece269ba9e672b3f2226050e7e6fb3f3da3408b5dcb5d415a054fcb061 AS runtime
 LABEL maintainer="Geert Derks <geertderks12@gmail.com>"
 
 RUN apt-get update && apt-get install -y --no-install-recommends gettext \
